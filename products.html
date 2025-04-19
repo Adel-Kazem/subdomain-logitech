@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logitech - Products</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066CC', // Logitech blue
+                        secondary: '#00B8FC', // Lighter blue accent
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- AlpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl font-bold">
+                <h1 id="logo-text">
+                    <span id="logo-prefix">Logi</span><span id="logo-highlight" class="text-primary">Tech</span>
+                </h1>
+            </a>
+
+            <!-- Navigation - Desktop -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" id="nav-home" class="text-gray-800 hover:text-primary transition font-medium">Home</a>
+                <a href="products.html" id="nav-products" class="text-primary font-medium border-b-2 border-primary">Products</a>
+                <a href="#" id="nav-about" class="text-gray-800 hover:text-primary transition font-medium">About</a>
+                <a href="#" id="nav-support" class="text-gray-800 hover:text-primary transition font-medium">Support</a>
+            </nav>
+
+            <!-- Icons -->
+            <div class="flex items-center space-x-4">
+                <!-- Cart icon -->
+                <a href="cart.html" class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span
+                            x-data
+                            x-show="$store.cart.getTotalItems() > 0"
+                            x-text="$store.cart.getTotalItems()"
+                            class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            </span>
+                </a>
+
+                <!-- Mobile menu button -->
+                <button @click="$store.ui.toggleMenu()" class="md:hidden focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav x-data x-show="$store.ui.isMenuOpen" @click.away="$store.ui.closeMenu()" class="md:hidden py-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" id="nav-mobile-home" class="text-gray-800 hover:text-primary transition">Home</a>
+                <a href="products.html" id="nav-mobile-products" class="text-primary font-medium">Products</a>
+                <a href="#" id="nav-mobile-about" class="text-gray-800 hover:text-primary transition">About</a>
+                <a href="#" id="nav-mobile-support" class="text-gray-800 hover:text-primary transition">Support</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 py-8">
+    <!-- Page Header -->
+    <div id="products-page-header" class="mb-8">
+        <h1 id="products-page-title" class="text-3xl font-bold mb-2">All Products</h1>
+        <p id="products-page-description" class="text-gray-600">Browse our collection of premium Logitech peripherals and accessories</p>
+    </div>
+
+    <!-- Products Catalog Component -->
+    <div x-data="productCatalog({ products: PRODUCTS, categories: CATEGORIES, defaultView: 'grid', defaultSort: 'featured' })" class="relative">
+        <!-- Sidebar and Main Content Layout -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Filters Sidebar -->
+            <div id="product-filters" class="lg:w-1/4">
+                <!-- Mobile Filter Toggle -->
+                <div class="lg:hidden mb-4">
+                    <button id="toggle-filters-button" @click="showFilters = !showFilters" class="w-full flex items-center justify-between bg-white p-4 rounded-lg shadow">
+                        <span class="font-medium">Filters</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" :class="{'transform rotate-180': showFilters}" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Filter Content -->
+                <div id="filter-content" x-data="{ showFilters: true }" :class="{'hidden lg:block': !showFilters}" class="bg-white rounded-lg shadow p-4 mb-6">
+                    <h2 id="filter-title" class="font-bold text-lg mb-4">Filters</h2>
+
+                    <!-- Search Input -->
+                    <div class="mb-6">
+                        <label for="search-products" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                        <div class="relative">
+                            <input
+                                    type="text"
+                                    id="search-products"
+                                    x-model="searchQuery"
+                                    placeholder="Search products..."
+                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                            >
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="mb-6">
+                        <h3 id="category-filter-title" class="font-medium mb-2">Categories</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <button
+                                        @click="selectedCategory = null"
+                                        class="text-left w-full py-1 px-2 rounded transition"
+                                        :class="selectedCategory === null ? 'bg-primary text-white' : 'hover:bg-gray-100'"
+                                >
+                                    All Categories
+                                </button>
+                            </div>
+
+                            <template x-for="category in CATEGORIES.filter(c => c.parent_id === null)" :key="category.id">
+                                <div class="flex items-center">
+                                    <button
+                                            @click="selectedCategory = category.id"
+                                            class="text-left w-full py-1 px-2 rounded transition"
+                                            :class="selectedCategory === category.id ? 'bg-primary text-white' : 'hover:bg-gray-100'"
+                                    >
+                                        <span x-text="category.name"></span>
+                                    </button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Price Range Filter (would be connected to productCatalog component if implemented) -->
+                    <div class="mb-6">
+                        <h3 id="price-filter-title" class="font-medium mb-2">Price Range</h3>
+                        <div class="space-y-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label for="min-price" class="block text-xs text-gray-500">Min</label>
+                                    <input type="number" id="min-price" placeholder="$0" class="w-full p-2 border border-gray-300 rounded">
+                                </div>
+                                <div>
+                                    <label for="max-price" class="block text-xs text-gray-500">Max</label>
+                                    <input type="number" id="max-price" placeholder="$1000" class="w-full p-2 border border-gray-300 rounded">
+                                </div>
+                            </div>
+                            <button id="apply-price-filter" class="w-full bg-gray-100 hover:bg-gray-200 transition py-1 px-2 rounded text-sm">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Clear Filters Button -->
+                    <button
+                            @click="clearFilters()"
+                            id="clear-filters-button"
+                            class="w-full bg-red-50 text-red-600 hover:bg-red-100 transition py-2 px-4 rounded font-medium"
+                    >
+                        Clear All Filters
+                    </button>
+                </div>
+
+                <!-- Need Help Section -->
+                <div id="need-help-section" class="bg-primary bg-opacity-10 rounded-lg p-4">
+                    <h3 id="need-help-title" class="font-bold text-primary mb-2">Need Help Choosing?</h3>
+                    <p id="need-help-text" class="text-gray-700 text-sm mb-3">Our product specialists can help you find the perfect device for your needs.</p>
+                    <button
+                            @click="$store.ui.openWhatsApp('Hello, I need help choosing a product. Can you assist me?')"
+                            id="help-whatsapp-button"
+                            class="w-full bg-green-500 text-white py-2 px-4 rounded flex items-center justify-center hover:bg-green-600 transition"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
+                        Ask via WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Display Area -->
+            <div id="products-display" class="lg:w-3/4">
+                <!-- Controls Bar -->
+                <div id="products-controls" class="bg-white rounded-lg shadow p-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <!-- Sort Options -->
+                    <div class="flex items-center">
+                        <label for="sort-products" class="mr-2 text-gray-700 whitespace-nowrap">Sort by:</label>
+                        <select
+                                id="sort-products"
+                                x-model="sortBy"
+                                class="form-select border border-gray-300 rounded px-3 py-1 focus:ring-primary focus:border-primary"
+                        >
+                            <option value="featured">Featured</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="name">Name</option>
+                            <option value="rating">Rating</option>
+                        </select>
+                    </div>
+
+                    <!-- View Toggle -->
+                    <div class="flex space-x-2">
+                        <button
+                                @click="setView('grid')"
+                                id="grid-view-button"
+                                class="p-2 rounded border"
+                                :class="view === 'grid' ? 'bg-primary text-white border-primary' : 'border-gray-300 text-gray-600 hover:bg-gray-100'"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </button>
+                        <button
+                                @click="setView('list')"
+                                id="list-view-button"
+                                class="p-2 rounded border"
+                                :class="view === 'list' ? 'bg-primary text-white border-primary' : 'border-gray-300 text-gray-600 hover:bg-gray-100'"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid/List Display -->
+                <div id="products-results">
+                    <!-- No Results Message -->
+                    <div x-show="getFilteredProducts().length === 0" id="no-results-message" class="bg-white rounded-lg shadow p-8 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 id="no-results-title" class="text-xl font-bold text-gray-700 mb-2">No Products Found</h3>
+                        <p id="no-results-text" class="text-gray-600 mb-4">Try adjusting your filters or search terms.</p>
+                        <button @click="clearFilters()" id="no-results-clear-button" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                            Clear Filters
+                        </button>
+                    </div>
+
+                    <!-- Grid View -->
+                    <div x-show="view === 'grid' && getFilteredProducts().length > 0" id="products-grid" x-transition class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <template x-for="product in getFilteredProducts()" :key="product.id">
+                            <div class="bg-white rounded-lg shadow overflow-hidden transition transform hover:-translate-y-1 hover:shadow-lg">
+                                <a :href="'product.html?id=' + product.id" class="block relative">
+                                    <img
+                                            :src="product.images[0]"
+                                            :alt="product.name"
+                                            class="w-full h-48 object-cover"
+                                            onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1%20text%20%7B%20fill%3A%23ffffff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%3Bfont-size%3A20pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23cccccc%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22180%22%20y%3D%22215%22%3EProduct%20Image%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+
+                                    <!-- Sale Badge -->
+                                    <div
+                                            x-show="product.isOnSale"
+                                            class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold py-1 px-2 rounded">
+                                        SALE
+                                    </div>
+
+                                    <!-- Featured Badge -->
+                                    <div
+                                            x-show="product.isFeatured && !product.isOnSale"
+                                            class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold py-1 px-2 rounded">
+                                        FEATURED
+                                    </div>
+                                </a>
+
+                                <div class="p-4">
+                                    <a :href="'product.html?id=' + product.id">
+                                        <h3 x-text="product.name" class="font-semibold text-lg mb-1 hover:text-primary transition"></h3>
+                                    </a>
+
+                                    <!-- Brand -->
+                                    <p x-text="product.brand" class="text-sm text-gray-500 mb-2"></p>
+
+                                    <!-- Price Section -->
+                                    <div x-data="utilities()" class="mb-3">
+                                        <span x-text="formatPrice(product.base_price)" class="font-bold text-lg text-gray-900"></span>
+                                    </div>
+
+                                    <!-- Ratings -->
+                                    <div class="flex items-center mb-3">
+                                        <div class="flex text-yellow-400">
+                                            <template x-for="i in Math.floor(product.rating)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                            </template>
+                                            <template x-if="product.rating % 1 >= 0.5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                            </template>
+                                            <template x-for="i in (5 - Math.ceil(product.rating))">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                            </template>
+                                        </div>
+                                        <span x-text="product.reviews_count + ' reviews'" class="text-xs text-gray-500 ml-1"></span>
+                                    </div>
+
+                                    <!-- Stock Status -->
+                                    <p x-show="product.requiresInventoryTracking && !product.hasVariants && product.stock <= product.lowStockThreshold && product.stock > 0" class="text-sm text-orange-600 mb-2">
+                                        Only <span x-text="product.stock"></span> left in stock!
+                                    </p>
+                                    <p x-show="product.requiresInventoryTracking && !product.hasVariants && product.stock === 0" class="text-sm text-red-600 mb-2">
+                                        Out of stock
+                                    </p>
+                                    <p x-show="product.hasVariants && product.totalVariantStock <= product.lowStockThreshold && product.totalVariantStock > 0" class="text-sm text-orange-600 mb-2">
+                                        Low stock
+                                    </p>
+
+                                    <!-- Action Buttons -->
+                                    <div class="flex space-x-2">
+                                        <button
+                                                @click="$store.cart.addItem(product, 1, {}); $store.ui.showCartNotification = true; setTimeout(() => { $store.ui.showCartNotification = false }, 2000)"
+                                                class="flex-1 bg-primary text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                                                :disabled="product.requiresInventoryTracking && !product.hasVariants && product.stock === 0"
+                                                :class="{'opacity-50 cursor-not-allowed': product.requiresInventoryTracking && !product.hasVariants && product.stock === 0}"
+                                        >
+                                            Add to Cart
+                                        </button>
+                                        <button
+                                                @click="$store.ui.openWhatsApp('Hi, I\'m interested in the ' + product.name + '. Can you provide more details?')"
+                                                class="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- List View -->
+                    <div x-show="view === 'list' && getFilteredProducts().length > 0" id="products-list" x-transition class="space-y-6">
+                        <template x-for="product in getFilteredProducts()" :key="product.id">
+                            <div class="bg-white rounded-lg shadow overflow-hidden p-4">
+                                <div class="flex flex-col md:flex-row gap-6">
+                                    <!-- Product Image -->
+                                    <a :href="'product.html?id=' + product.id" class="block md:w-1/4 relative">
+                                        <img
+                                                :src="product.images[0]"
+                                                :alt="product.name"
+                                                class="w-full h-40 md:h-full object-cover rounded"
+                                                onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1%20text%20%7B%20fill%3A%23ffffff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%3Bfont-size%3A20pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23cccccc%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22180%22%20y%3D%22215%22%3EProduct%20Image%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+
+                                        <!-- Sale Badge -->
+                                        <div
+                                                x-show="product.isOnSale"
+                                                class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold py-1 px-2 rounded">
+                                            SALE
+                                        </div>
+
+                                        <!-- Featured Badge -->
+                                        <div
+                                                x-show="product.isFeatured && !product.isOnSale"
+                                                class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold py-1 px-2 rounded">
+                                            FEATURED
+                                        </div>
+                                    </a>
+
+                                    <!-- Product Details -->
+                                    <div class="md:w-2/4">
+                                        <a :href="'product.html?id=' + product.id">
+                                            <h3 x-text="product.name" class="font-semibold text-xl mb-1 hover:text-primary transition"></h3>
+                                        </a>
+
+                                        <!-- Brand -->
+                                        <p x-text="'Brand: ' + product.brand" class="text-sm text-gray-500 mb-2"></p>
+
+                                        <!-- Ratings -->
+                                        <div class="flex items-center mb-3">
+                                            <div class="flex text-yellow-400">
+                                                <template x-for="i in Math.floor(product.rating)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                    </svg>
+                                                </template>
+                                                <template x-if="product.rating % 1 >= 0.5">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                    </svg>
+                                                </template>
+                                                <template x-for="i in (5 - Math.ceil(product.rating))">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                    </svg>
+                                                </template>
+                                            </div>
+                                            <span x-text="product.reviews_count + ' reviews'" class="text-xs text-gray-500 ml-1"></span>
+                                        </div>
+
+                                        <!-- Product description -->
+                                        <p x-text="product.description" class="text-gray-600 mb-3 line-clamp-3"></p>
+
+                                        <!-- Product features -->
+                                        <div class="mb-3">
+                                            <template x-if="typeof product.features === 'object' && product.features !== null">
+                                                <div class="grid grid-cols-2 gap-2">
+                                                    <template x-for="(value, key) in Object.entries(product.features).slice(0, 4)" :key="key">
+                                                        <div class="flex items-start">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500 mr-1 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span x-text="value[0] + ': ' + value[1]" class="text-sm"></span>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <!-- Stock Status -->
+                                        <p x-show="product.requiresInventoryTracking && !product.hasVariants && product.stock <= product.lowStockThreshold && product.stock > 0" class="text-sm text-orange-600 mb-2">
+                                            Only <span x-text="product.stock"></span> left in stock!
+                                        </p>
+                                        <p x-show="product.requiresInventoryTracking && !product.hasVariants && product.stock === 0" class="text-sm text-red-600 mb-2">
+                                            Out of stock
+                                        </p>
+                                        <p x-show="product.hasVariants && product.totalVariantStock <= product.lowStockThreshold && product.totalVariantStock > 0" class="text-sm text-orange-600 mb-2">
+                                            Low stock
+                                        </p>
+                                    </div>
+
+                                    <!-- Price and Actions -->
+                                    <div class="md:w-1/4 flex flex-col justify-between">
+                                        <div x-data="utilities()" class="mb-4">
+                                            <span x-text="formatPrice(product.base_price)" class="font-bold text-2xl text-gray-900 block text-center md:text-right"></span>
+                                            <span x-show="product.free_shipping" class="text-sm text-green-600 block text-center md:text-right">Free Shipping</span>
+                                        </div>
+
+                                        <div class="space-y-2">
+                                            <button
+                                                    @click="$store.cart.addItem(product, 1, {}); $store.ui.showCartNotification = true; setTimeout(() => { $store.ui.showCartNotification = false }, 2000)"
+                                                    class="w-full bg-primary text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                                                    :disabled="product.requiresInventoryTracking && !product.hasVariants && product.stock === 0"
+                                                    :class="{'opacity-50 cursor-not-allowed': product.requiresInventoryTracking && !product.hasVariants && product.stock === 0}"
+                                            >
+                                                Add to Cart
+                                            </button>
+                                            <button
+                                                    @click="$store.ui.openWhatsApp('Hi, I\'m interested in the ' + product.name + '. Can you provide more details?')"
+                                                    class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition flex items-center justify-center"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                                </svg>
+                                                Ask via WhatsApp
+                                            </button>
+                                            <a
+                                                    :href="'product.html?id=' + product.id"
+                                                    class="w-full bg-gray-100 text-gray-800 py-2 px-4 rounded hover:bg-gray-200 transition text-center"
+                                            >
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white mt-12">
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Footer Column 1 -->
+            <div>
+                <h3 id="footer-heading-1" class="text-xl font-bold mb-4">About Logitech</h3>
+                <p id="footer-about-text" class="text-gray-300">
+                    We design products that have an everyday place in people's lives—creating new experiences across music, gaming, video, smart home, and computing.
+                </p>
+            </div>
+
+            <!-- Footer Column 2 -->
+            <div>
+                <h3 id="footer-heading-2" class="text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="index.html" id="footer-link-home" class="hover:text-primary transition">Home</a></li>
+                    <li><a href="products.html" id="footer-link-products" class="hover:text-primary transition">Products</a></li>
+                    <li><a href="cart.html" id="footer-link-cart" class="hover:text-primary transition">Cart</a></li>
+                    <li><a href="#" id="footer-link-about" class="hover:text-primary transition">About Us</a></li>
+                    <li><a href="#" id="footer-link-support" class="hover:text-primary transition">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 3 -->
+            <div>
+                <h3 id="footer-heading-3" class="text-xl font-bold mb-4">Contact Us</h3>
+                <p id="footer-contact-email" class="text-gray-300">Email: support@logitech-store.com</p>
+                <p id="footer-contact-phone" class="text-gray-300">Phone: (555) 123-4567</p>
+                <!-- WhatsApp Contact Button -->
+                <button
+                        @click="$store.ui.openWhatsApp('Hello, I would like more information about your Logitech products.')"
+                        class="flex items-center space-x-2 text-gray-300 hover:text-green-400 mt-2 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    <span>Contact on WhatsApp</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-8 pt-4 border-t border-gray-700 text-center text-gray-300">
+            <p id="footer-copyright">© 2025 Logitech Store. All rights reserved. Website designed with ♥ by DV Team</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to top button -->
+<button @click="$store.ui.scrollToTop()" class="fixed bottom-4 left-4 bg-primary text-white p-2 rounded-full shadow-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
+
+<!-- WhatsApp button -->
+<button @click="$store.ui.openWhatsApp('Hello, I have a question about your Logitech products.')" class="fixed bottom-4 right-4 bg-green-500 text-white p-2 rounded-full shadow-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+</button>
+
+<!-- Cart notification -->
+<div
+        x-data
+        x-show="$store.ui.showCartNotification"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform translate-y-2"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform translate-y-2"
+        class="fixed bottom-20 right-4 bg-green-500 text-white p-4 rounded shadow-lg">
+    Item added to cart!
+</div>
+
+<!-- Cart sidebar toggle -->
+<div x-data="{ showMiniCart: false }" x-show="$store.cart.getTotalItems() > 0" class="fixed right-4 top-1/2 transform -translate-y-1/2">
+    <button @click="showMiniCart = !showMiniCart" class="bg-primary text-white p-2 rounded-l-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <span
+                x-text="$store.cart.getTotalItems()"
+                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+      </span>
+    </button>
+
+    <!-- Mini Cart -->
+    <div
+            x-show="showMiniCart"
+            @click.away="showMiniCart = false"
+            class="absolute right-0 w-64 bg-white rounded shadow-xl p-4">
+        <h4 class="font-bold text-lg mb-2">Your Cart</h4>
+        <template x-for="(item, index) in $store.cart.items" :key="index">
+            <div class="flex items-center gap-2 py-2 border-b">
+                <img :src="item.image" :alt="item.name" class="w-12 h-12 object-cover">
+                <div class="flex-1">
+                    <p class="text-sm font-medium" x-text="item.name"></p>
+                    <p class="text-xs text-gray-500">
+                        Qty: <span x-text="item.quantity"></span>
+                    </p>
+                </div>
+                <p class="text-sm font-medium" x-text="'$' + (item.price * item.quantity).toFixed(2)"></p>
+            </div>
+        </template>
+        <div class="mt-4 flex justify-between items-center">
+            <p class="font-medium">Total:</p>
+            <p class="font-bold" x-text="$store.cart.getFormattedTotal()"></p>
+        </div>
+        <a href="cart.html" class="mt-4 block w-full bg-primary text-white text-center py-2 rounded">
+            View Cart
+        </a>
+    </div>
+</div>
+
+<!-- JavaScript Files -->
+<script src="js/categories.js"></script>
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script src="js/products-page.js"></script>
+</body>
+</html>

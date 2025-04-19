@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logitech - Product Details</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066CC', // Logitech blue
+                        secondary: '#00B8FC', // Lighter blue accent
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- AlpineJS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Hide scrollbar for thumbnail container */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl font-bold">
+                <h1 id="logo-text">
+                    <span id="logo-prefix">Logi</span><span id="logo-highlight" class="text-primary">Tech</span>
+                </h1>
+            </a>
+
+            <!-- Navigation - Desktop -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" id="nav-home" class="text-gray-800 hover:text-primary transition font-medium">Home</a>
+                <a href="products.html" id="nav-products" class="text-gray-800 hover:text-primary transition font-medium">Products</a>
+                <a href="#" id="nav-about" class="text-gray-800 hover:text-primary transition font-medium">About</a>
+                <a href="#" id="nav-support" class="text-gray-800 hover:text-primary transition font-medium">Support</a>
+            </nav>
+
+            <!-- Icons -->
+            <div class="flex items-center space-x-4">
+                <!-- Cart icon -->
+                <a href="cart.html" class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span
+                            x-data
+                            x-show="$store.cart.getTotalItems() > 0"
+                            x-text="$store.cart.getTotalItems()"
+                            class="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            </span>
+                </a>
+
+                <!-- Mobile menu button -->
+                <button @click="$store.ui.toggleMenu()" class="md:hidden focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav x-data x-show="$store.ui.isMenuOpen" @click.away="$store.ui.closeMenu()" class="md:hidden py-4">
+            <div class="flex flex-col space-y-3">
+                <a href="index.html" id="nav-mobile-home" class="text-gray-800 hover:text-primary transition">Home</a>
+                <a href="products.html" id="nav-mobile-products" class="text-gray-800 hover:text-primary transition">Products</a>
+                <a href="#" id="nav-mobile-about" class="text-gray-800 hover:text-primary transition">About</a>
+                <a href="#" id="nav-mobile-support" class="text-gray-800 hover:text-primary transition">Support</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    <div id="breadcrumbs" class="mb-6">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="index.html" class="text-sm text-gray-700 hover:text-primary">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="products.html" class="ml-1 text-sm text-gray-700 hover:text-primary md:ml-2">
+                            Products
+                        </a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span id="product-breadcrumb-name" class="ml-1 text-sm font-medium text-gray-500 md:ml-2">
+                <!-- Populated by JS -->
+              </span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Product Detail Wrapper -->
+    <div id="product-detail-wrapper"
+         x-data="{
+        product: null,
+        loading: true,
+        error: false,
+        init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+            if (productId && !isNaN(productId)) {
+                this.product = PRODUCTS.find(p => p.id === productId);
+                if (this.product) {
+                    this.loading = false;
+                    document.title = `Logitech - ${this.product.name}`;
+                    document.getElementById('product-breadcrumb-name').textContent = this.product.name;
+                } else {
+                    this.loading = false;
+                    this.error = true;
+                }
+            } else {
+                this.loading = false;
+                this.error = true;
+            }
+        }
+    }"
+    >
+
+    <!-- Loading State -->
+        <div x-show="loading" class="py-16 text-center">
+            <svg class="animate-spin h-10 w-10 text-primary mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="mt-4 text-gray-600">Loading product details...</p>
+        </div>
+
+        <!-- Error State -->
+        <div x-show="error" class="py-16 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h1 class="text-2xl font-bold text-gray-800 mb-2">Product Not Found</h1>
+            <p class="text-gray-600 mb-6">Sorry, we couldn't find the product you're looking for.</p>
+            <a href="products.html" class="inline-block bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">
+                Browse All Products
+            </a>
+        </div>
+
+        <!-- Product Details -->
+        <div x-show="!loading && !error">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Left Column - Product Images -->
+                <div class="lg:w-1/2">
+                    <div x-data="productViewer(product)" class="sticky top-8">
+                        <!-- Main image -->
+                        <div class="main-image-container bg-white rounded-lg shadow overflow-hidden mb-4">
+                            <img
+                                    x-ref="mainImage"
+                                    :src="getSelectedImage()"
+                                    :alt="product.name"
+                                    @mouseenter="mouseEnter($event)"
+                                    @mouseleave="mouseLeave()"
+                                    @mousemove="mouseMove($event)"
+                                    @touchstart="touchStart($event)"
+                                    @touchmove="touchMove($event)"
+                                    @touchend="touchEnd()"
+                                    @error="handleImageError($event)"
+                                    :style="imgStyle"
+                                    class="product-main-image w-full h-80 md:h-96 object-contain">
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div
+                                x-show="hasThumbnails()"
+                                class="relative"
+                                x-ref="thumbnailsContainer"
+                                @scroll="checkScrollPosition()">
+                            <button
+                                    @click="scrollThumbnails('left')"
+                                    x-show="!isScrollLeftEnd"
+                                    class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-1 z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <div class="flex overflow-x-auto space-x-2 py-2 px-6 hide-scrollbar">
+                                <template x-for="image in product.images" :key="image">
+                                    <div
+                                            @click="selectImage(image)"
+                                            :class="{'border-primary': selectedImage === image, 'border-transparent': selectedImage !== image}"
+                                            class="flex-shrink-0 w-20 h-20 cursor-pointer border-2 rounded-lg overflow-hidden">
+                                        <img :src="image" :alt="product.name" class="w-full h-full object-cover">
+                                    </div>
+                                </template>
+                            </div>
+                            <button
+                                    @click="scrollThumbnails('right')"
+                                    x-show="!isScrollRightEnd"
+                                    class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full shadow p-1 z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Product Information -->
+                <div class="lg:w-1/2">
+                    <div x-data="productDetail({ product: product })">
+                        <!-- Product Title & Brand -->
+                        <div class="mb-4">
+                            <h1 id="product-title" x-text="product.name" class="text-3xl font-bold text-gray-900 mb-1"></h1>
+                            <p id="product-brand" x-text="'by ' + product.brand" class="text-lg text-gray-600"></p>
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="flex items-center mb-6">
+                            <div class="flex text-yellow-400">
+                                <template x-for="i in Math.floor(product.rating)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                </template>
+                                <template x-if="product.rating % 1 >= 0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                </template>
+                                <template x-for="i in (5 - Math.ceil(product.rating))">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                </template>
+                            </div>
+                            <span x-text="product.rating.toFixed(1)" class="ml-1 text-yellow-600 font-bold"></span>
+                            <span x-text="'(' + product.reviews_count + ' reviews)'" class="ml-1 text-gray-500"></span>
+                        </div>
+
+                        <!-- Price -->
+                        <div id="product-price" x-data="utilities()" class="mb-6">
+                            <span x-text="formatPrice(getVariantPrice())" class="text-3xl font-bold text-gray-900"></span>
+                            <span x-show="product.free_shipping" class="ml-2 text-green-600 text-sm">Free Shipping</span>
+                        </div>
+
+                        <!-- Short Description -->
+                        <p id="product-description" x-text="product.description" class="text-gray-600 mb-6"></p>
+
+                        <!-- Product Status Badges -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                <span x-show="product.isFeatured" class="inline-block bg-yellow-100 text-yellow-800 text-xs font-medium py-1 px-2 rounded">
+                  Featured
+                </span>
+                            <span x-show="product.isOnSale" class="inline-block bg-red-100 text-red-800 text-xs font-medium py-1 px-2 rounded">
+                  On Sale
+                </span>
+                            <span x-show="getVariantStock() <= product.lowStockThreshold && getVariantStock() > 0" class="inline-block bg-orange-100 text-orange-800 text-xs font-medium py-1 px-2 rounded">
+                  Low Stock
+                </span>
+                            <span x-show="getVariantStock() === 0" class="inline-block bg-gray-100 text-gray-800 text-xs font-medium py-1 px-2 rounded">
+                  Out of Stock
+                </span>
+                            <span x-show="product.hasVariants && getVariantStock() > 0" class="inline-block bg-blue-100 text-blue-800 text-xs font-medium py-1 px-2 rounded" x-text="getVariantStock() + ' in stock'">
+                </span>
+                        </div>
+
+                        <!-- SKU & Categories -->
+                        <div class="text-sm text-gray-500 mb-6">
+                            <div class="mb-1">
+                                <span class="font-medium">SKU:</span>
+                                <span x-text="product.sku"></span>
+                            </div>
+                            <div x-show="product.categories && product.categories.length > 0">
+                                <span class="font-medium">Categories:</span>
+                                <template x-for="(categoryId, index) in product.categories" :key="categoryId">
+                    <span>
+                      <a :href="'products.html?category=' + categoryId" class="text-primary hover:underline" x-text="getCategoryName(categoryId)"></a>
+                      <span x-show="index < product.categories.length - 1">, </span>
+                    </span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Variant Options -->
+                        <div x-show="product.hasVariants" class="mb-6">
+                            <div class="space-y-4">
+                                <template x-for="(values, option) in product.options" :key="option">
+                                    <div class="option-selector">
+                                        <label x-text="formatOptionName(option)" class="block text-sm font-medium text-gray-700 mb-2"></label>
+                                        <div class="flex flex-wrap gap-2">
+                                            <template x-for="value in values" :key="value">
+                                                <button
+                                                        @click="selectedOptions[option] = value"
+                                                        :class="getOptionButtonClass(option, value)"
+                                                        class="px-4 py-2 rounded border text-sm font-medium transition"
+                                                        :disabled="!isOptionValueAvailable(option, value)"
+                                                >
+                                                    <span x-text="value"></span>
+                                                </button>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="mb-6">
+                            <label for="quantity" class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+                            <div class="flex w-32">
+                                <button
+                                        @click="decreaseQuantity()"
+                                        :disabled="quantity <= 1 || !isVariantInStock()"
+                                        :class="{'opacity-50 cursor-not-allowed': quantity <= 1 || !isVariantInStock()}"
+                                        class="bg-gray-200 text-gray-600 py-2 px-4 rounded-l hover:bg-gray-300 transition">
+                                    -
+                                </button>
+                                <input
+                                        type="number"
+                                        id="quantity"
+                                        x-model.number="quantity"
+                                        min="1"
+                                        :max="getVariantStock() || 10"
+                                        :disabled="!isVariantInStock()"
+                                        class="w-full text-center border-y outline-none"
+                                />
+                                <button
+                                        @click="increaseQuantity()"
+                                        :disabled="quantity >= getVariantStock() || !isVariantInStock()"
+                                        :class="{'opacity-50 cursor-not-allowed': quantity >= getVariantStock() || !isVariantInStock()}"
+                                        class="bg-gray-200 text-gray-600 py-2 px-4 rounded-r hover:bg-gray-300 transition">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stock Status Message -->
+                        <div class="mb-6">
+                            <p x-show="getVariantStock() <= product.lowStockThreshold && getVariantStock() > 0" class="text-orange-600">
+                                Only <span x-text="getVariantStock()"></span> items left in stock!
+                            </p>
+                            <p x-show="getVariantStock() === 0" class="text-red-600">
+                                This product is currently out of stock.
+                            </p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                            <!-- Add to cart button -->
+                            <button
+                                    @click="addToCart()"
+                                    :disabled="!isVariantInStock()"
+                                    :class="{'opacity-50 cursor-not-allowed': !isVariantInStock()}"
+                                    class="flex-1 bg-primary text-white font-medium py-3 px-6 rounded hover:bg-blue-700 transition flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                Add to Cart
+                            </button>
+
+                            <!-- WhatsApp inquiry button -->
+                            <button
+                                    x-data="whatsappInquiry()"
+                                    @click="inquireAboutProduct()"
+                                    class="flex-1 border-2 border-green-500 text-green-500 font-medium py-3 px-6 rounded hover:bg-green-500 hover:text-white transition flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                </svg>
+                                Ask via WhatsApp
+                            </button>
+                        </div>
+
+                        <!-- Product Features -->
+                        <div x-show="product.features && Object.keys(product.features).length > 0" class="bg-white rounded-lg shadow p-6 mb-6">
+                            <h2 class="text-xl font-bold mb-4">Product Features</h2>
+                            <div x-data="utilities()" class="space-y-3">
+                                <template x-for="(value, key) in product.features" :key="key">
+                                    <div class="flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                        <div>
+                                            <span class="font-medium" x-text="formatFeatureKey(key) + ': '"></span>
+                                            <span x-text="value"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Physical Attributes -->
+                        <div x-show="product.dimensions || product.weight" class="bg-white rounded-lg shadow p-6 mb-6">
+                            <h2 class="text-xl font-bold mb-4">Physical Specifications</h2>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div x-show="product.weight" class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                                    </svg>
+                                    <div>
+                                        <span class="text-sm text-gray-500">Weight:</span>
+                                        <span class="font-medium" x-text="product.weight.value + ' ' + product.weight.unit"></span>
+                                    </div>
+                                </div>
+                                <div x-show="product.dimensions" class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                                    </svg>
+                                    <div>
+                                        <span class="text-sm text-gray-500">Dimensions:</span>
+                                        <span class="font-medium" x-text="product.dimensions.length + ' × ' + product.dimensions.width + ' × ' + product.dimensions.height + ' ' + product.dimensions.unit"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Get category name helper function -->
+                        <script>
+                            function getCategoryName(categoryId) {
+                                const category = CATEGORIES.find(c => c.id === categoryId);
+                                return category ? category.name : 'Unknown Category';
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div x-data="{ relatedProducts: [] }" x-init="
+          if (product.relatedProducts && product.relatedProducts.length > 0) {
+            relatedProducts = PRODUCTS.filter(p => product.relatedProducts.includes(p.id)).slice(0, 4);
+          } else if (product.categories && product.categories.length > 0) {
+            // If no related products specified, show products from same category
+            const sameCategory = PRODUCTS.filter(p =>
+              p.id !== product.id &&
+              p.categories.some(cat => product.categories.includes(cat))
+            ).slice(0, 4);
+            relatedProducts = sameCategory;
+          }
+        " x-show="relatedProducts.length > 0" class="mt-12 pt-8 border-t">
+                <h2 class="text-2xl font-bold mb-6">You Might Also Like</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <template x-for="relatedProduct in relatedProducts" :key="relatedProduct.id">
+                        <div class="bg-white rounded-lg shadow overflow-hidden transition transform hover:-translate-y-1 hover:shadow-lg">
+                            <a :href="'product.html?id=' + relatedProduct.id" class="block">
+                                <img
+                                        :src="relatedProduct.images[0]"
+                                        :alt="relatedProduct.name"
+                                        class="w-full h-48 object-cover"
+                                        onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22600%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1%20text%20%7B%20fill%3A%23ffffff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%3Bfont-size%3A20pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1%22%3E%3Crect%20width%3D%22600%22%20height%3D%22400%22%20fill%3D%22%23cccccc%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22180%22%20y%3D%22215%22%3EProduct%20Image%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E'">
+                            </a>
+                            <div class="p-4">
+                                <a :href="'product.html?id=' + relatedProduct.id">
+                                    <h3 x-text="relatedProduct.name" class="font-semibold text-lg mb-1 hover:text-primary transition"></h3>
+                                </a>
+
+                                <!-- Price -->
+                                <div x-data="utilities()" class="mb-3">
+                                    <span x-text="formatPrice(relatedProduct.base_price)" class="font-bold text-gray-900"></span>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="flex space-x-2">
+                                    <button
+                                            @click="$store.cart.addItem(relatedProduct, 1, {}); $store.ui.showCartNotification = true; setTimeout(() => { $store.ui.showCartNotification = false }, 2000)"
+                                            class="flex-1 bg-primary text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                                            :disabled="relatedProduct.requiresInventoryTracking && !relatedProduct.hasVariants && relatedProduct.stock === 0"
+                                            :class="{'opacity-50 cursor-not-allowed': relatedProduct.requiresInventoryTracking && !relatedProduct.hasVariants && relatedProduct.stock === 0}"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                    <button
+                                            @click="$store.ui.openWhatsApp('Hi, I\'m interested in the ' + relatedProduct.name + '. Can you provide more details?')"
+                                            class="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white mt-12">
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Footer Column 1 -->
+            <div>
+                <h3 id="footer-heading-1" class="text-xl font-bold mb-4">About Logitech</h3>
+                <p id="footer-about-text" class="text-gray-300">
+                    We design products that have an everyday place in people's lives—creating new experiences across music, gaming, video, smart home, and computing.
+                </p>
+            </div>
+
+            <!-- Footer Column 2 -->
+            <div>
+                <h3 id="footer-heading-2" class="text-xl font-bold mb-4">Quick Links</h3>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="index.html" id="footer-link-home" class="hover:text-primary transition">Home</a></li>
+                    <li><a href="products.html" id="footer-link-products" class="hover:text-primary transition">Products</a></li>
+                    <li><a href="cart.html" id="footer-link-cart" class="hover:text-primary transition">Cart</a></li>
+                    <li><a href="#" id="footer-link-about" class="hover:text-primary transition">About Us</a></li>
+                    <li><a href="#" id="footer-link-support" class="hover:text-primary transition">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 3 -->
+            <div>
+                <h3 id="footer-heading-3" class="text-xl font-bold mb-4">Contact Us</h3>
+                <p id="footer-contact-email" class="text-gray-300">Email: support@logitech-store.com</p>
+                <p id="footer-contact-phone" class="text-gray-300">Phone: (555) 123-4567</p>
+                <!-- WhatsApp Contact Button -->
+                <button
+                        @click="$store.ui.openWhatsApp('Hello, I would like more information about your Logitech products.')"
+                        class="flex items-center space-x-2 text-gray-300 hover:text-green-400 mt-2 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    <span>Contact on WhatsApp</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-8 pt-4 border-t border-gray-700 text-center text-gray-300">
+            <p id="footer-copyright">© 2025 Logitech Store. All rights reserved. Website designed with ♥ by DV Team</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to top button -->
+<button @click="$store.ui.scrollToTop()" class="fixed bottom-4 left-4 bg-primary text-white p-2 rounded-full shadow-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
+
+<!-- WhatsApp button -->
+<button @click="$store.ui.openWhatsApp('Hello, I have a question about your Logitech products.')" class="fixed bottom-4 right-4 bg-green-500 text-white p-2 rounded-full shadow-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+</button>
+
+<!-- Cart notification -->
+<div
+        x-data
+        x-show="$store.ui.showCartNotification"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform translate-y-2"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform translate-y-2"
+        class="fixed bottom-20 right-4 bg-green-500 text-white p-4 rounded shadow-lg">
+    Item added to cart!
+</div>
+
+<!-- Cart sidebar toggle -->
+<div x-data="{ showMiniCart: false }" x-show="$store.cart.getTotalItems() > 0" class="fixed right-4 top-1/2 transform -translate-y-1/2">
+    <button @click="showMiniCart = !showMiniCart" class="bg-primary text-white p-2 rounded-l-full shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <span
+                x-text="$store.cart.getTotalItems()"
+                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+      </span>
+    </button>
+
+    <!-- Mini Cart -->
+    <div
+            x-show="showMiniCart"
+            @click.away="showMiniCart = false"
+            class="absolute right-0 w-64 bg-white rounded shadow-xl p-4">
+        <h4 class="font-bold text-lg mb-2">Your Cart</h4>
+        <template x-for="(item, index) in $store.cart.items" :key="index">
+            <div class="flex items-center gap-2 py-2 border-b">
+                <img :src="item.image" :alt="item.name" class="w-12 h-12 object-cover">
+                <div class="flex-1">
+                    <p class="text-sm font-medium" x-text="item.name"></p>
+                    <p class="text-xs text-gray-500">
+                        Qty: <span x-text="item.quantity"></span>
+                    </p>
+                </div>
+                <p class="text-sm font-medium" x-text="'$' + (item.price * item.quantity).toFixed(2)"></p>
+            </div>
+        </template>
+        <div class="mt-4 flex justify-between items-center">
+            <p class="font-medium">Total:</p>
+            <p class="font-bold" x-text="$store.cart.getFormattedTotal()"></p>
+        </div>
+        <a href="cart.html" class="mt-4 block w-full bg-primary text-white text-center py-2 rounded">
+            View Cart
+        </a>
+    </div>
+</div>
+
+<!-- JavaScript Files -->
+<script src="js/categories.js"></script>
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+<script src="js/product-page.js"></script>
+</body>
+</html>
