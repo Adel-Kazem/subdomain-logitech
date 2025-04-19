@@ -81,22 +81,23 @@ document.addEventListener('alpine:init', () => {
      * UI Utilities Store
      * Handles common UI interactions across all pages
      */
+    Alpine.store('ui', {
+        // WhatsApp business phone number
+        whatsAppNumber: '96170608543',
 
-    window.scrollToTopGlobal = function() {
-        console.log('Global scrollToTop called');
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    };
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        },
 
-    window.openWhatsAppGlobal = function(message = 'Hello, I have a question about your products.') {
-        console.log('Global openWhatsApp called');
-        // Use the correct phone number from your cart store
-        const phoneNumber = '96170608543';
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-    };
+        // Enhanced WhatsApp opening function with customizable message
+        openWhatsApp(message = 'Hello, I have a question about your products.') {
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${this.whatsAppNumber}?text=${encodedMessage}`, '_blank');
+        }
+    });
 
     /**
      * Utility functions for formatting
