@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>T-shirt Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="shortcut icon" href="#">
+</head>
+<body class="bg-gray-50 text-gray-800 scroll-smooth">
+
+<!-- SVG Sprite Definitions -->
+<svg style="display:none;">
+    <symbol id="icon-star" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.518 4.674
+        a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.977 2.89
+        a1 1 0 00-.364 1.118l1.518 4.674c.3.921-.755 1.688-1.54 1.118
+        l-3.977-2.89a1 1 0 00-1.175 0l-3.977 2.89c-.784.57-1.838-.197
+        -1.54-1.118l1.518-4.674a1 1 0 00-.364-1.118l-3.977-2.89c-.784
+        -.57-.38-1.81.588-1.81h4.915a1 1 0 00.95-.69L9.049 2.927z"/>
+    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172
+      -1.171a4 4 0 115.656 5.656l-6.828 6.829a.997.997 0 01-1.414 0l-6.828-
+      6.83a4 4 0 010-5.656z"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M12.9 14.32a8 8 0 111.42-1.42l4.28
+        4.3a1 1 0 01-1.42 1.4l-4.28-4.28zM14 8a6 6 0 11-12 0 6 6 0 0112 0z"
+              clip-rule="evenodd"/>
+    </symbol>
+    <!-- Add more SVG symbols as needed -->
+</svg>
+
+<div class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white/70 backdrop-blur shadow sticky top-0 z-10">
+        <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+            <h1 class="flex items-center gap-2 text-2xl font-bold tracking-tight text-teal-700">
+                <svg class="h-7 w-7 text-teal-600" aria-hidden="true"><use href="#icon-shirt"></use></svg>
+                T-shirt Shop
+            </h1>
+            <nav class="flex gap-6 text-gray-600 font-medium">
+                <a href="#products" class="hover:text-teal-600 transition">Products</a>
+                <a href="#about" class="hover:text-teal-600 transition">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        <!-- Hero Section -->
+        <section class="py-20 bg-gradient-to-br from-teal-100/70 to-white" id="about">
+            <div class="max-w-3xl mx-auto text-center px-4">
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-teal-800 mb-4">
+                    Discover the <span class="underline decoration-teal-300">Best T-Shirts</span> for You!
+                </h2>
+                <p class="mb-8 text-lg text-gray-700">
+                    Explore our collection of premium T-shirts designed for comfort and style.<br>
+                    Shop the latest trends and express yourself today!
+                </p>
+                <a href="#products" class="inline-block px-8 py-3 bg-teal-600 text-white font-semibold rounded-full shadow hover:bg-teal-700 transition">Shop Now</a>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="py-16" id="products" x-data="{
+        // Product data
+        products: PRODUCTS,
+        search: '',
+        get filteredProducts() {
+          if (!this.search) return this.products;
+          return this.products.filter(p =>
+            (p.name && p.name.toLowerCase().includes(this.search.toLowerCase())) ||
+            (p.description && p.description.toLowerCase().includes(this.search.toLowerCase()))
+          );
+        }
+      }">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex items-center mb-10 px-4 gap-4">
+                    <svg class="h-6 w-6 text-gray-400" aria-hidden="true"><use href="#icon-search"></use></svg>
+                    <input
+                            x-model="search"
+                            type="text"
+                            placeholder="Search for t-shirts..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500 shadow"
+                    />
+                </div>
+                <div class="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4">
+                    <template x-for="product in filteredProducts" :key="product.id">
+                        <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-5 flex flex-col">
+                            <div class="relative h-52 mb-3 flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
+                                <template x-if="product.image">
+                                    <img :src="product.image" :alt="product.name" class="object-cover h-full w-full rounded-xl"/>
+                                </template>
+                                <template x-if="!product.image">
+                                    <div class="flex flex-col items-center justify-center h-full w-full text-gray-300">
+                                        <svg class="w-16 h-16 mb-2" aria-hidden="true"><use href="#icon-shirt"></use></svg>
+                                        <span class="font-bold">No Image</span>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold text-gray-800 mb-1" x-text="product.name"></h3>
+                                <p class="text-gray-500 mb-2" x-text="product.description || '—'"></p>
+                                <div class="flex items-center gap-2 mb-4">
+                                    <template x-for="i in 5">
+                                        <svg class="h-5 w-5"
+                                             :class="i <= product.rating ? 'text-yellow-400' : 'text-gray-300'"
+                                             aria-hidden="true"
+                                        ><use href="#icon-star"></use></svg>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between mt-auto">
+                                <span class="text-xl font-bold text-teal-700" x-text="`$${product.price?.toFixed(2) ?? 'N/A'}`"></span>
+                                <button class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-full font-semibold shadow transition">Add to cart</button>
+                            </div>
+                        </div>
+                    </template>
+                    <template x-if="filteredProducts.length === 0">
+                        <div class="col-span-full text-center text-gray-500 text-lg">No products found.</div>
+                    </template>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 text-center py-6 mt-16">
+        <div class="flex justify-center items-center gap-2">
+            <span>Website designed with</span>
+            <svg class="h-5 w-5 text-pink-400 inline" aria-hidden="true"><use href="#icon-heart"></use></svg>
+            <span>by <b>RN Team</b></span>
+        </div>
+    </footer>
+</div>
+
+<!-- SVG Shirt Icon (for header & placeholder) -->
+<svg style="display:none;">
+    <symbol id="icon-shirt" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.39 5.07l-5.7-3.43a2.57 2.57 0 0 0-2.38 0l-5.7
+        3.43A2.57 2.57 0 0 0 4 7.17V20a2 2 0 0 0 2 2h2v-7a2 2 0 0 1 2
+        -2h4a2 2 0 0 1 2 2v7h2a2 2 0 0 0 2-2V7.17a2.57 2.57 0 0 0
+        -1.61-2.1z"/>
+    </symbol>
+</svg>
+
+<!-- Demo Product Data -->
+<script src="../productsTheme.js"></script>
+</body>
+</html>

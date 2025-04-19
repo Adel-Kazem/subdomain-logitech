@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOLD TEE | Artisan T-shirt Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --color-primary: #ff3366;
+            --color-secondary: #111111;
+            --color-accent: #ffcc00;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #222;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Syne', sans-serif;
+        }
+
+        .title-highlight {
+            position: relative;
+            display: inline-block;
+        }
+
+        .title-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 0.5em;
+            background-color: var(--color-accent);
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .card-zoom {
+            @apply relative overflow-hidden rounded-xl;
+            height: 400px;
+        }
+
+        .card-zoom-image {
+            @apply absolute w-full h-full transition-all duration-500 ease-in-out transform;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-zoom:hover .card-zoom-image {
+            @apply scale-110;
+        }
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        .img-grid > div:first-child {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--color-primary);
+            width: 0%;
+            transition: width 0.1s;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#ff3366',
+                            50: '#fff1f5',
+                            100: '#ffe4eb',
+                            200: '#ffc9d7',
+                            300: '#ff9db7',
+                            400: '#ff6690',
+                            500: '#ff3366',
+                            600: '#ee1557',
+                            700: '#d00c48',
+                            800: '#ab0e40',
+                            900: '#8e1139',
+                        },
+                        secondary: {
+                            DEFAULT: '#111111',
+                            50: '#f5f5f5',
+                            100: '#e6e6e6',
+                            200: '#cccccc',
+                            300: '#b3b3b3',
+                            400: '#999999',
+                            500: '#808080',
+                            600: '#666666',
+                            700: '#4d4d4d',
+                            800: '#333333',
+                            900: '#111111',
+                        },
+                        accent: {
+                            DEFAULT: '#ffcc00',
+                            50: '#fffbeb',
+                            100: '#fff4c6',
+                            200: '#ffe989',
+                            300: '#ffdb4c',
+                            400: '#ffcc00',
+                            500: '#e6b000',
+                            600: '#cc9900',
+                            700: '#a67c00',
+                            800: '#806000',
+                            900: '#594400',
+                        }
+                    },
+                    fontFamily: {
+                        'syne': ['Syne', 'sans-serif'],
+                        'work': ['Work Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- SVG Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Star Icon (for ratings) -->
+    <symbol id="star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Empty Star Icon -->
+    <symbol id="star-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Up Arrow Icon -->
+    <symbol id="up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </symbol>
+
+    <!-- Heart Icon -->
+    <symbol id="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </symbol>
+
+    <!-- T-shirt Icon -->
+    <symbol id="tshirt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
+    </symbol>
+
+    <!-- Arrow Right -->
+    <symbol id="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </symbol>
+</svg>
+
+<div x-data="shopApp()" x-init="init()">
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white bg-opacity-95 backdrop-blur-lg">
+        <nav class="container mx-auto px-6 py-5">
+            <div class="flex justify-between items-center">
+                <a href="#" class="font-syne text-2xl font-bold tracking-wide">
+                    BOLD<span class="text-primary">TEE</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-10">
+                    <a href="#" class="text-secondary-900 hover:text-primary transition-colors duration-300">Home</a>
+                    <a href="#collection" class="text-secondary-900 hover:text-primary transition-colors duration-300">Collection</a>
+                    <a href="#featured" class="text-secondary-900 hover:text-primary transition-colors duration-300">Featured</a>
+                    <a href="#about" class="text-secondary-900 hover:text-primary transition-colors duration-300">About</a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:block relative">
+                        <input
+                                x-model="searchQuery"
+                                @input="filterProducts()"
+                                type="text"
+                                placeholder="Search..."
+                                class="pl-10 pr-4 py-2 w-40 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                        >
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                            <svg class="h-4 w-4">
+                                <use xlink:href="#search-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="md:hidden focus:outline-none" x-data="{ open: false }" @click="open = !open">
+                        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (hidden by default) -->
+            <div class="md:hidden bg-white absolute left-0 right-0 mt-4 py-4 px-6 shadow-lg rounded-b-lg z-20 hidden">
+                <div class="flex flex-col space-y-4">
+                    <a href="#" class="text-secondary-900 hover:text-primary transition-colors duration-300">Home</a>
+                    <a href="#collection" class="text-secondary-900 hover:text-primary transition-colors duration-300">Collection</a>
+                    <a href="#featured" class="text-secondary-900 hover:text-primary transition-colors duration-300">Featured</a>
+                    <a href="#about" class="text-secondary-900 hover:text-primary transition-colors duration-300">About</a>
+                    <div class="relative pt-2">
+                        <input
+                                type="text"
+                                placeholder="Search..."
+                                class="pl-10 pr-4 py-2 w-full rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        >
+                        <div class="absolute left-3 top-4.5 text-gray-400">
+                            <svg class="h-4 w-4">
+                                <use xlink:href="#search-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-16 lg:py-28 bg-gradient-to-br from-white via-secondary-50 to-primary-50 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <div class="relative mb-6">
+                            <span class="inline-block px-4 py-1 bg-accent rounded-full text-secondary-900 text-xs font-medium tracking-widest uppercase mb-6">
+                                New Collection
+                            </span>
+                    </div>
+                    <h1 class="font-syne text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                        Express <span class="title-highlight">Yourself</span> Through Style
+                    </h1>
+                    <p class="text-lg md:text-xl text-secondary-600 mb-8 max-w-lg">
+                        Our artisan-crafted t-shirts blend premium fabrics with bold design. Each piece tells a story, designed to elevate your wardrobe.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#collection" class="px-8 py-4 bg-primary text-white rounded-xl text-center font-syne font-semibold uppercase tracking-wider hover:bg-primary-600 transition-colors duration-300">
+                            Shop Collection
+                        </a>
+                        <a href="#about" class="px-8 py-4 bg-transparent border-2 border-secondary-900 text-secondary-900 rounded-xl text-center font-syne font-semibold uppercase tracking-wider hover:bg-secondary-900 hover:text-white transition-all duration-300">
+                            Our Story
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-20 -right-20 w-64 h-64 bg-accent rounded-full opacity-20 mix-blend-multiply filter blur-3xl animate-float"></div>
+                        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-primary rounded-full opacity-20 mix-blend-multiply filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
+                        <img
+                                src="https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Premium T-shirt Collection"
+                                class="relative rounded-3xl shadow-2xl w-full"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="bg-primary text-white font-syne font-bold py-5 uppercase tracking-wider overflow-hidden">
+        <div class="marquee">
+            <div class="marquee-content">
+                <span class="mx-6">Express Yourself</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">Artisan Design</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">Premium Quality</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">100% Organic Cotton</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">Express Yourself</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">Artisan Design</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">Premium Quality</span>
+                <span class="mx-6">•</span>
+                <span class="mx-6">100% Organic Cotton</span>
+                <span class="mx-6">•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Showcase -->
+    <section id="featured" class="py-24 container mx-auto px-6">
+        <div class="text-center mb-12">
+                <span class="inline-block px-4 py-1 bg-accent-100 text-secondary-900 rounded-full text-sm font-medium mb-4">
+                    Signature Collection
+                </span>
+            <h2 class="font-syne text-4xl md:text-5xl font-bold mb-6">Curated For <span class="title-highlight">You</span></h2>
+            <p class="text-lg text-secondary-600 max-w-2xl mx-auto">
+                Our latest designs seamlessly blend contemporary trends with timeless aesthetics.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Feature 1 -->
+            <div class="card-zoom group">
+                <div class="card-zoom-image" style="background-image: url('https://images.unsplash.com/photo-1590999659195-e64a988eaf4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-8 flex flex-col justify-end transition-all duration-300">
+                    <h3 class="font-syne text-white text-2xl font-bold mb-2">Urban Spectrum</h3>
+                    <p class="text-white/80 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Bold graphics with urban influences that capture city life energy.</p>
+                    <a href="#" class="inline-block w-max text-white border-b border-white pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Collection
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card-zoom group">
+                <div class="card-zoom-image" style="background-image: url('https://images.unsplash.com/photo-1589902860314-e910697dea15?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-8 flex flex-col justify-end transition-all duration-300">
+                    <h3 class="font-syne text-white text-2xl font-bold mb-2">Minimal Essentials</h3>
+                    <p class="text-white/80 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Clean, refined designs that embody sophisticated simplicity.</p>
+                    <a href="#" class="inline-block w-max text-white border-b border-white pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Collection
+                    </a>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="card-zoom group">
+                <div class="card-zoom-image" style="background-image: url('https://images.unsplash.com/photo-1611813076164-cacb884ac6d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-8 flex flex-col justify-end transition-all duration-300">
+                    <h3 class="font-syne text-white text-2xl font-bold mb-2">Artistic Expression</h3>
+                    <p class="text-white/80 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Collaborations with emerging artists creating wearable masterpieces.</p>
+                    <a href="#" class="inline-block w-max text-white border-b border-white pb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Collection
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-secondary-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-16">
+                        <span class="inline-block px-4 py-1 bg-primary rounded-full text-xs font-medium tracking-widest uppercase mb-6">
+                            Our Story
+                        </span>
+                    <h2 class="font-syne text-4xl md:text-5xl font-bold mb-8">Not Just T-shirts, <span class="text-accent">Art You Wear</span></h2>
+                    <p class="text-white/80 text-lg mb-6">
+                        Founded in 2018, BOLDTEE began with a simple mission: reimagine the humble t-shirt as a canvas for self-expression.
+                    </p>
+                    <p class="text-white/80 text-lg mb-8">
+                        We partner with independent artists, use sustainable materials, and employ ethical manufacturing processes to create t-shirts that tell stories, spark conversations, and last for years.
+                    </p>
+                    <a href="#" class="inline-flex items-center px-6 py-3 bg-accent text-secondary-900 rounded-xl font-syne font-semibold uppercase tracking-wider hover:bg-accent-300 transition-colors duration-300">
+                        Learn More
+                        <svg class="ml-2 h-5 w-5">
+                            <use xlink:href="#arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="img-grid">
+                        <div class="rounded-xl overflow-hidden">
+                            <img
+                                    src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                    alt="T-shirt design process"
+                                    class="w-full h-full object-cover"
+                            >
+                        </div>
+                        <div class="rounded-xl overflow-hidden">
+                            <img
+                                    src="https://images.unsplash.com/photo-1599922538150-ace2e98d3570?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                    alt="Sustainable fabric"
+                                    class="w-full h-full object-cover"
+                            >
+                        </div>
+                        <div class="rounded-xl overflow-hidden">
+                            <img
+                                    src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                    alt="T-shirt production"
+                                    class="w-full h-full object-cover"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section with Search and Products -->
+    <section id="collection" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                    <span class="inline-block px-4 py-1 bg-primary-100 text-primary rounded-full text-sm font-medium mb-4">
+                        Shop Now
+                    </span>
+                <h2 class="font-syne text-4xl md:text-5xl font-bold mb-6">Our <span class="title-highlight">Collection</span></h2>
+                <p class="text-lg text-secondary-600 max-w-2xl mx-auto mb-10">
+                    Browse our full collection of premium t-shirts designed for comfort, style, and self-expression.
+                </p>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="max-w-md mx-auto relative">
+                    <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-secondary-400">
+                            <use xlink:href="#search-icon"></use>
+                        </svg>
+                    </div>
+                    <input
+                            x-model="searchQuery"
+                            @input="filterProducts()"
+                            type="text"
+                            class="w-full pl-12 pr-4 py-4 rounded-xl border border-secondary-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                            placeholder="Search by name or description..."
+                    >
+                </div>
+            </div>
+
+            <!-- No products found message -->
+            <div x-show="filteredProducts.length === 0" class="text-center py-20">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-secondary-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="text-xl font-syne font-bold text-secondary-700 mb-2">No products found</h3>
+                <p class="text-secondary-500 mb-6">Try adjusting your search terms or browse our categories.</p>
+                <button
+                        @click="searchQuery = ''; filterProducts()"
+                        class="px-6 py-3 bg-primary text-white rounded-xl font-syne font-semibold hover:bg-primary-600 transition-colors"
+                >
+                    Show All Products
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div
+                    x-show="filteredProducts.length > 0"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            >
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <!-- Image with fallback -->
+                        <div class="aspect-w-3 aspect-h-4 bg-secondary-100 relative overflow-hidden group">
+                            <img
+                                    x-bind:src="product.image || 'https://via.placeholder.com/400x500?text=BOLDTEE'"
+                                    class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                                    x-bind:alt="product.name"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-secondary-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                                <a href="#" class="inline-block w-full text-center py-3 bg-white text-secondary-900 rounded-lg font-syne font-medium hover:bg-accent transition-colors duration-300">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-6">
+                            <!-- Rating stars -->
+                            <div class="flex items-center mb-2">
+                                <template x-for="i in 5" :key="i">
+                                    <svg class="h-4 w-4" :class="i <= product.rating ? 'text-accent' : 'text-gray-300'">
+                                        <use x-bind:xlink:href="i <= product.rating ? '#star-icon' : '#star-empty'"></use>
+                                    </svg>
+                                </template>
+                            </div>
+
+                            <h3 class="font-syne text-xl font-bold mb-1" x-text="product.name"></h3>
+                            <p class="text-secondary-500 text-sm mb-3 line-clamp-2" x-text="product.description"></p>
+                            <p class="font-syne text-xl font-bold text-primary" x-text="'$' + product.price.toFixed(2)"></p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                    <span class="inline-block px-4 py-1 bg-accent-100 text-secondary-900 rounded-full text-sm font-medium mb-4">
+                        Testimonials
+                    </span>
+                <h2 class="font-syne text-4xl md:text-5xl font-bold mb-8">From Our <span class="title-highlight">Community</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-secondary-50 p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Customer" class="w-14 h-14 rounded-full">
+                        </div>
+                        <div>
+                            <h4 class="font-syne font-bold">Samantha K.</h4>
+                            <div class="flex">
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary-600">
+                        "The quality of these t-shirts is exceptional. I've washed mine countless times and it still looks brand new. Plus, I always get compliments on the design!"
+                    </p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-secondary-50 p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-14 h-14 rounded-full">
+                        </div>
+                        <div>
+                            <h4 class="font-syne font-bold">Mark T.</h4>
+                            <div class="flex">
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary-600">
+                        "As someone who values sustainability, I appreciate BOLDTEE's commitment to ethical production. Their organic cotton tees feel amazing and I can wear them with a clear conscience."
+                    </p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-secondary-50 p-8 rounded-2xl">
+                    <div class="flex items-center mb-4">
+                        <div class="mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="w-14 h-14 rounded-full">
+                        </div>
+                        <div>
+                            <h4 class="font-syne font-bold">Emma R.</h4>
+                            <div class="flex">
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4 text-accent">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary-600">
+                        "The Urban Spectrum collection is absolutely stunning. The designs are unique and the t-shirt fits perfectly. BOLDTEE has become my go-to for statement pieces in my wardrobe."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section class="py-24 bg-primary">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="font-syne text-4xl md:text-5xl font-bold text-white mb-6">Join Our Community</h2>
+                <p class="text-white/80 text-lg mb-8">
+                    Subscribe to get early access to new releases, exclusive offers, and styling inspiration delivered to your inbox.
+                </p>
+
+                <form class="flex flex-col sm:flex-row gap-4">
+                    <input
+                            type="email"
+                            placeholder="Your email address"
+                            class="flex-1 px-6 py-4 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent"
+                            required
+                    >
+                    <button
+                            type="submit"
+                            class="px-8 py-4 bg-accent text-secondary-900 rounded-xl font-syne font-semibold hover:bg-accent-300 transition-colors duration-300"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Go Up Button -->
+    <button
+            @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors z-10"
+            x-show="window.scrollY > 500"
+            x-transition
+            x-cloak
+    >
+        <svg class="h-6 w-6">
+            <use xlink:href="#up-arrow"></use>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <a href="#" class="font-syne text-2xl font-bold tracking-wide mb-6 md:mb-0">
+                    BOLD<span class="text-primary">TEE</span>
+                </a>
+
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">Shop</a>
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">About</a>
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">Contact</a>
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">FAQ</a>
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">Privacy</a>
+                </div>
+
+                <div class="flex space-x-4 mt-6 md:mt-0">
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">
+                        <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">
+                        <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white/70 hover:text-white transition-colors duration-300">
+                        <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
+                <p>Website designed with
+                    <svg class="h-4 w-4 inline-block text-primary animate-pulse">
+                        <use xlink:href="#heart-icon"></use>
+                    </svg>
+                    by RN Team
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function shopApp() {
+        return {
+            // Product data
+            products: PRODUCTS,
+            filteredProducts: [],
+            searchQuery: '',
+
+            // Methods
+            init() {
+                // Initialize filtered products with all products
+                this.filteredProducts = [...this.products];
+
+                // Add scroll event listener for the go up button and progress bar
+                window.addEventListener('scroll', () => {
+                    this.$nextTick(() => {
+                        const scrollButton = this.$el.querySelector('[x-show="window.scrollY > 500"]');
+                        if (scrollButton) {
+                            if (window.scrollY > 500) {
+                                scrollButton._x_doShow();
+                            } else {
+                                scrollButton._x_doHide();
+                            }
+                        }
+
+                        // Update progress bar
+                        const scrollTop = document.documentElement.scrollTop;
+                        const scrollHeight = document.documentElement.scrollHeight;
+                        const clientHeight = document.documentElement.clientHeight;
+                        const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                        document.getElementById('progressBar').style.width = scrollPercentage + '%';
+                    });
+                });
+            },
+
+            filterProducts() {
+                if (!this.searchQuery.trim()) {
+                    this.filteredProducts = [...this.products];
+                } else {
+                    const query = this.searchQuery.toLowerCase().trim();
+                    this.filteredProducts = this.products.filter(product =>
+                        product.name.toLowerCase().includes(query) ||
+                        product.description.toLowerCase().includes(query)
+                    );
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

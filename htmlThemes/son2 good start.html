@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRENDTEE | Premium T-shirt Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <style>
+        [x-cloak] { display: none !important; }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .product-card {
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-primary {
+            @apply px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium transition-all duration-300 transform hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50;
+        }
+
+        .cart-notification {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .badge {
+            @apply absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold h-5 w-5 flex items-center justify-center rounded-full;
+            animation: badge-pop 0.3s ease-out;
+        }
+
+        @keyframes badge-pop {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .hero-gradient {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+<!-- SVG Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Cart Icon -->
+    <symbol id="cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </symbol>
+
+    <!-- Star Icon (for ratings) -->
+    <symbol id="star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Empty Star Icon -->
+    <symbol id="star-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Up Arrow Icon -->
+    <symbol id="up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="16 12 12 8 8 12"></polyline>
+        <line x1="12" y1="16" x2="12" y2="8"></line>
+    </symbol>
+
+    <!-- Heart Icon -->
+    <symbol id="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </symbol>
+
+    <!-- T-shirt Icon -->
+    <symbol id="tshirt-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
+    </symbol>
+</svg>
+
+<div x-data="shopApp()" x-init="init()">
+    <!-- Announcement Banner -->
+    <div class="bg-primary-900 text-white text-center py-2 text-sm">
+        Free shipping on all orders over $50 | Use code: TRENDY20 for 20% off
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-12">
+                    <div class="flex items-center">
+                        <svg class="h-8 w-8 mr-2 text-primary-600">
+                            <use xlink:href="#tshirt-icon"></use>
+                        </svg>
+                        <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-purple-600">TRENDTEE</span>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">Home</a>
+                        <a href="#products" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">Collection</a>
+                        <a href="#" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">About</a>
+                        <a href="#" class="text-gray-700 hover:text-primary-600 font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Cart Icon -->
+                    <button
+                            @click="showCart = true"
+                            class="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                    >
+                        <svg class="h-6 w-6">
+                            <use xlink:href="#cart-icon"></use>
+                        </svg>
+                        <span
+                                x-show="getCartCount() > 0"
+                                x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-0"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                class="badge"
+                                x-text="getCartCount()"
+                                x-cloak
+                        ></span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden" x-data="{ isOpen: false }">
+                        <button @click="isOpen = !isOpen" class="text-gray-700 focus:outline-none">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path x-show="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                <path x-show="isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+
+                        <!-- Mobile Menu -->
+                        <div
+                                x-show="isOpen"
+                                @click.away="isOpen = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 -translate-y-1"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 -translate-y-1"
+                                class="absolute right-0 mt-3 w-48 bg-white rounded-md shadow-lg py-1 z-10"
+                                x-cloak
+                        >
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600">Home</a>
+                            <a href="#products" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600">Collection</a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600">About</a>
+                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-32 relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute h-full w-full bg-primary-600 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');">
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Style That Speaks <span class="text-yellow-300">Volumes</span></h1>
+            <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90">Discover our collection of premium T-shirts designed for comfort, style, and self-expression.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#products" class="bg-white text-primary-600 btn-primary">
+                    Shop Collection
+                </a>
+                <a href="#" class="bg-transparent border-2 border-white text-white btn-primary hover:bg-white hover:text-primary-600">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Why Choose Our T-shirts?</h2>
+                <div class="w-24 h-1 bg-primary-500 mx-auto mt-4 mb-8 rounded-full"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our premium T-shirts are crafted with care to provide exceptional comfort and style.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="text-center p-6 rounded-xl bg-gray-50 transform transition hover:scale-105">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Premium Quality</h3>
+                    <p class="text-gray-600">Made from 100% organic cotton for softness and durability that lasts wash after wash.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="text-center p-6 rounded-xl bg-gray-50 transform transition hover:scale-105">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Global Shipping</h3>
+                    <p class="text-gray-600">We ship worldwide with fast delivery and easy tracking for your convenience.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="text-center p-6 rounded-xl bg-gray-50 transform transition hover:scale-105">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900">Money Back Guarantee</h3>
+                    <p class="text-gray-600">Not satisfied? We offer a 30-day money-back guarantee for all purchases.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="bg-gray-100 py-8">
+        <div class="container mx-auto px-4">
+            <div class="max-w-xl mx-auto relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400">
+                        <use xlink:href="#search-icon"></use>
+                    </svg>
+                </div>
+                <input
+                        x-model="searchQuery"
+                        @input="filterProducts()"
+                        type="text"
+                        class="block w-full pl-12 pr-4 py-4 border-0 rounded-xl shadow-sm text-gray-900 focus:ring-2 focus:ring-primary-500 sm:text-base"
+                        placeholder="Search for t-shirts..."
+                >
+                <div class="absolute inset-y-0 right-0 pr-4 flex items-center" x-show="searchQuery">
+                    <button
+                            @click="searchQuery = ''; filterProducts()"
+                            class="text-gray-400 hover:text-gray-600"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Our Collection</h2>
+                <div class="w-24 h-1 bg-primary-500 mx-auto mt-4 mb-8 rounded-full"></div>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Browse our selection of premium T-shirts designed for style and comfort.</p>
+            </div>
+
+            <!-- No products found message -->
+            <div x-show="filteredProducts.length === 0" class="text-center py-16">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">No products found</h3>
+                <p class="text-gray-500">Try adjusting your search criteria.</p>
+                <button
+                        @click="searchQuery = ''; filterProducts()"
+                        class="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                >
+                    Reset Search
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div
+                    x-show="filteredProducts.length > 0"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10"
+            >
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-md">
+                        <div class="relative h-80 bg-gray-200 overflow-hidden group">
+                            <img
+                                    x-bind:src="product.image || 'https://via.placeholder.com/400x500?text=TRENDTEE'"
+                                    class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                                    x-bind:alt="product.name"
+                            >
+                            <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <button
+                                        @click="quickAddToCart(product)"
+                                        class="bg-white text-primary-600 px-6 py-3 rounded-lg font-medium transform -translate-y-4 group-hover:translate-y-0 transition-all duration-300"
+                                >
+                                    Quick Add
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-2">
+                                <template x-for="i in 5" :key="i">
+                                    <svg class="h-5 w-5" :class="i <= product.rating ? 'text-yellow-400' : 'text-gray-300'">
+                                        <use x-bind:xlink:href="i <= product.rating ? '#star-icon' : '#star-empty'"></use>
+                                    </svg>
+                                </template>
+                            </div>
+                            <h3 class="font-bold text-xl mb-2 truncate" x-text="product.name"></h3>
+                            <p class="text-gray-600 mb-4 line-clamp-2" x-text="product.description"></p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-2xl font-bold text-primary-600" x-text="'$' + product.price.toFixed(2)"></span>
+                                <button
+                                        @click="addToCart(product)"
+                                        class="bg-primary-600 text-white p-3 rounded-full hover:bg-primary-700 transition-colors"
+                                >
+                                    <svg class="h-5 w-5">
+                                        <use xlink:href="#cart-icon"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="bg-gray-100 py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Subscribe to Our Newsletter</h2>
+                <p class="text-lg text-gray-600 mb-8">Get the latest updates on new arrivals, special promotions, and exclusive discounts.</p>
+
+                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input
+                            type="email"
+                            placeholder="Enter your email"
+                            class="flex-1 px-6 py-4 rounded-lg border-0 focus:ring-2 focus:ring-primary-500"
+                            required
+                    >
+                    <button
+                            type="submit"
+                            class="bg-primary-600 text-white px-6 py-4 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Go Up Button -->
+    <button
+            @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="fixed bottom-8 left-8 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-colors z-10"
+            x-show="window.scrollY > 500"
+            x-transition
+            x-cloak
+    >
+        <svg class="h-6 w-6">
+            <use xlink:href="#up-arrow"></use>
+        </svg>
+    </button>
+
+    <!-- Cart Floating Icon (for mobile) -->
+    <div
+            x-show="cart.length > 0 && window.innerWidth < 768"
+            x-transition
+            @click="showCart = true"
+            class="fixed right-8 top-1/2 transform -translate-y-1/2 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 cursor-pointer transition-colors z-10 cart-notification md:hidden"
+    >
+        <div class="relative">
+            <svg class="h-6 w-6">
+                <use xlink:href="#cart-icon"></use>
+            </svg>
+            <span
+                    class="badge"
+                    x-text="getCartCount()"
+            ></span>
+        </div>
+    </div>
+
+    <!-- Add to Cart Notification -->
+    <div
+            x-show="showNotification"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform translate-y-2"
+            @click="showNotification = false"
+            class="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 cursor-pointer"
+            x-cloak
+    >
+        <div class="flex items-center space-x-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Item added to your cart!</span>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div
+            x-show="showCart"
+            @keydown.escape.window="showCart = false"
+            class="fixed inset-0 z-50 overflow-hidden"
+            x-cloak
+    >
+        <div
+                x-show="showCart"
+                x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                @click="showCart = false"
+        ></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex">
+            <div
+                    x-show="showCart"
+                    x-transition:enter="transform transition ease-in-out duration-500"
+                    x-transition:enter-start="translate-x-full"
+                    x-transition:enter-end="translate-x-0"
+                    x-transition:leave="transform transition ease-in-out duration-500"
+                    x-transition:leave-start="translate-x-0"
+                    x-transition:leave-end="translate-x-full"
+                    class="w-screen max-w-md"
+            >
+                <div class="h-full flex flex-col bg-white shadow-xl">
+                    <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
+                        <div class="flex items-start justify-between">
+                            <h2 class="text-xl font-bold text-gray-900">Your Shopping Cart</h2>
+                            <button
+                                    @click="showCart = false"
+                                    class="ml-3 h-7 flex items-center"
+                            >
+                                <svg class="h-6 w-6 text-gray-400 hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mt-8">
+                            <div class="flow-root">
+                                <template x-if="cart.length === 0">
+                                    <div class="text-center py-12">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                        </svg>
+                                        <p class="text-gray-500 text-lg mb-6">Your cart is empty</p>
+                                        <button
+                                                @click="showCart = false"
+                                                class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                                        >
+                                            Continue Shopping
+                                        </button>
+                                    </div>
+                                </template>
+
+                                <ul role="list" class="divide-y divide-gray-200">
+                                    <template x-for="(item, index) in cart" :key="index">
+                                        <li class="py-6 flex">
+                                            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                <img
+                                                        :src="item.image || 'https://via.placeholder.com/400x500?text=TRENDTEE'"
+                                                        :alt="item.name"
+                                                        class="h-full w-full object-cover object-center"
+                                                >
+                                            </div>
+
+                                            <div class="ml-4 flex-1 flex flex-col">
+                                                <div>
+                                                    <div class="flex justify-between text-base font-medium text-gray-900">
+                                                        <h3 class="font-semibold" x-text="item.name"></h3>
+                                                        <p class="ml-4 font-bold text-primary-600" x-text="'$' + (item.price * item.quantity).toFixed(2)"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-1 flex items-end justify-between text-sm">
+                                                    <div class="flex items-center border rounded-lg overflow-hidden">
+                                                        <button
+                                                                @click="item.quantity > 1 ? item.quantity-- : removeFromCart(index)"
+                                                                class="px-3 py-1 bg-gray-100 hover:bg-gray-200 transition-colors"
+                                                        >-</button>
+                                                        <span class="px-4 py-1 font-medium" x-text="item.quantity"></span>
+                                                        <button
+                                                                @click="item.quantity++"
+                                                                class="px-3 py-1 bg-gray-100 hover:bg-gray-200 transition-colors"
+                                                        >+</button>
+                                                    </div>
+
+                                                    <button
+                                                            @click="removeFromCart(index)"
+                                                            class="font-medium text-primary-600 hover:text-primary-800"
+                                                    >
+                                                        Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <template x-if="cart.length > 0">
+                        <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+                            <div class="flex justify-between text-base font-medium text-gray-900 mb-2">
+                                <p>Subtotal</p>
+                                <p class="font-bold text-primary-600" x-text="'$' + getCartTotal().toFixed(2)"></p>
+                            </div>
+                            <p class="mt-0.5 text-sm text-gray-500 mb-6">Shipping and taxes calculated at checkout.</p>
+                            <div class="mt-6">
+                                <a href="#" class="flex justify-center items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors">
+                                    Checkout
+                                </a>
+                            </div>
+                            <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
+                                <p>
+                                    or
+                                    <button
+                                            @click="showCart = false"
+                                            class="text-primary-600 font-medium hover:text-primary-800"
+                                    >
+                                        Continue Shopping<span aria-hidden="true"> &rarr;</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <svg class="h-8 w-8 mr-2 text-primary-500">
+                            <use xlink:href="#tshirt-icon"></use>
+                        </svg>
+                        <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-purple-500">TRENDTEE</span>
+                    </div>
+                    <p class="text-gray-300 mb-6">Premium quality t-shirts for every style and occasion.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 border-b border-gray-800 pb-2">Shop</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">All Products</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Best Sellers</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Featured</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Sale</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 border-b border-gray-800 pb-2">Information</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Shipping Information</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-6 border-b border-gray-800 pb-2">Contact Us</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="text-gray-300">123 T-shirt Street, Fashion City</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span class="text-gray-300">info@trendtee.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <span class="text-gray-300">(123) 456-7890</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 mb-4 md:mb-0">© 2023 TRENDTEE. All rights reserved.</p>
+                    <p class="text-gray-400">
+                        Website designed with
+                        <svg class="h-4 w-4 inline-block text-red-500 animate-pulse">
+                            <use xlink:href="#heart-icon"></use>
+                        </svg>
+                        by RN Team
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function shopApp() {
+        return {
+            // Product data
+            products: PRODUCTS,
+            filteredProducts: [],
+            searchQuery: '',
+            cart: [],
+            showCart: false,
+            showNotification: false,
+
+            // Methods
+            init() {
+                // Initialize filtered products with all products
+                this.filteredProducts = [...this.products];
+
+                // Add scroll event listener for the go up button
+                window.addEventListener('scroll', () => {
+                    this.$nextTick(() => {
+                        this.$el.querySelector('[x-show="window.scrollY > 500"]')?._x_doHide?.();
+                        this.$el.querySelector('[x-show="window.scrollY > 500"]')?._x_doShow?.();
+                    });
+                });
+
+                // Check for cart in localStorage
+                const savedCart = localStorage.getItem('trendteeCart');
+                if (savedCart) {
+                    this.cart = JSON.parse(savedCart);
+                }
+            },
+
+            filterProducts() {
+                if (!this.searchQuery.trim()) {
+                    this.filteredProducts = [...this.products];
+                } else {
+                    const query = this.searchQuery.toLowerCase().trim();
+                    this.filteredProducts = this.products.filter(product =>
+                        product.name.toLowerCase().includes(query) ||
+                        product.description.toLowerCase().includes(query)
+                    );
+                }
+            },
+
+            addToCart(product) {
+                this.addProductToCart(product);
+                this.showAddNotification();
+            },
+
+            quickAddToCart(product) {
+                this.addProductToCart(product);
+                this.showAddNotification();
+            },
+
+            addProductToCart(product) {
+                const existingItem = this.cart.find(item => item.id === product.id);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    this.cart.push({
+                        ...product,
+                        quantity: 1
+                    });
+                }
+
+                // Save cart to localStorage
+                localStorage.setItem('trendteeCart', JSON.stringify(this.cart));
+            },
+
+            showAddNotification() {
+                this.showNotification = true;
+                setTimeout(() => {
+                    this.showNotification = false;
+                }, 3000);
+            },
+
+            removeFromCart(index) {
+                this.cart.splice(index, 1);
+
+                // Save cart to localStorage
+                localStorage.setItem('trendteeCart', JSON.stringify(this.cart));
+
+                // If cart is empty, hide cart modal
+                if (this.cart.length === 0) {
+                    this.showCart = false;
+                }
+            },
+
+            getCartTotal() {
+                return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            },
+
+            getCartCount() {
+                return this.cart.reduce((count, item) => count + item.quantity, 0);
+            }
+        }
+    }
+</script>
+</body>
+</html>

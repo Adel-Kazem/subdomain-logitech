@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gradient-to-br from-blue-50 via-white to-pink-50 min-h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="site-title">RN T-Shirt Shop</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js CDN -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="relative min-h-screen text-gray-800 font-sans selection:bg-blue-100 selection:text-blue-900" x-data="tshirtShop()" x-init="init()">
+
+<!-- ===== SVG SPRITES ===== -->
+<svg style="display:none">
+    <symbol id="icon-star" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 15l-5.878 3.09 1.122-6.545-4.756-4.635 6.573-.955L10 0l2.939 5.955 6.573.955-4.756 4.635 1.122 6.545z"/>
+    </symbol>
+    <symbol id="icon-cart" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM7.334 16h9.665c.958 0 1.792-.684 1.969-1.624l2.012-10A2.001 2.001 0 0 0 19 2H5.21l-.267-1.337A1 1 0 0 0 4 0H0v2h2l3.6 7.59-1.357 2.45A2.004 2.004 0 0 0 4 14a2 2 0 0 0 2 2zm12.346-12l-1.875 9.375A1.001 1.001 0 0 1 16.5 14H7.334l1.25-2.25H15.5a1 1 0 0 0 0-2h-7.16l-.945-1.75 9.468-1.086L19.68 4H7.28l-.832-2h12.232z"/>
+    </symbol>
+    <symbol id="icon-chevron-up" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M5.23 12.21a1 1 0 0 0 1.42 0L10 8.83l3.36 3.38a1 1 0 0 0 1.42-1.42l-4.07-4.07a1 1 0 0 0-1.42 0l-4.07 4.07a1 1 0 0 0 0 1.42z"/>
+    </symbol>
+</svg>
+
+<div class="max-w-6xl mx-auto px-2 sm:px-6 py-10">
+
+    <!-- ===== HEADER / LOGO ===== -->
+    <header id="hero-section" class="flex flex-col items-center mb-12">
+        <h1 id="logo-text" class="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-blue-600 via-pink-500 to-purple-600 bg-clip-text text-transparent mb-2 tracking-tight drop-shadow">
+            <span id="logo-prefix" class="text-white bg-transparent">T</span><span id="logo-highlight" class="bg-transparent">Shirt</span>
+        </h1>
+        <p id="hero-tagline" class="text-lg sm:text-xl text-gray-700 mb-4 text-center">Comfort, Color &amp; Creativity, Every Day.</p>
+    </header>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about-section" class="mb-12">
+        <div class="flex flex-col md:flex-row items-center bg-white bg-opacity-80 rounded-xl shadow-lg md:space-x-8 px-4 py-8">
+            <div class="flex-1">
+                <h2 id="about-heading" class="text-3xl font-bold mb-2 text-gray-900">Why Choose RN Team T-Shirts?</h2>
+                <p id="about-paragraph-1" class="mb-3 text-gray-700">
+                    Crafted from premium cotton blends, our T-shirts offer unbeatable comfort, vibrant colors, and designs that last wash after wash.
+                </p>
+                <p id="about-paragraph-2" class="mb-5 text-gray-600">
+                    Perfect for casual days, cozy nights, or standing out in a crowd — express yourself with a shirt that fits your lifestyle.
+                </p>
+            </div>
+            <img id="about-img" src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=700&q=80"
+                 alt="T-shirt sample display"
+                 class="flex-1 w-full max-w-xs md:max-w-sm rounded-lg shadow-lg border border-blue-100 transition hover:scale-105 duration-300">
+        </div>
+    </section>
+
+    <!-- ===== PRODUCT SECTION ===== -->
+    <section id="products-section" class="mb-14">
+        <h2 id="products-heading" class="text-3xl font-bold mb-5 text-center text-gray-900">Shop the Collection</h2>
+        <!-- ENHANCED SEARCH BAR -->
+        <div class="flex justify-center mb-8">
+            <div class="relative w-full max-w-xs">
+                <input id="product-search"
+                       type="text"
+                       x-model="search"
+                       @input.debounce.250ms="filterProducts"
+                       class="peer h-12 w-full border border-gray-300 rounded-xl px-4 pt-5 pb-1 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none bg-white bg-opacity-80"
+                       placeholder=" "
+                       autocomplete="off"
+                >
+                <label for="product-search"
+                       class="absolute left-4 top-3 text-gray-400 text-xs transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:-top-1 peer-focus:text-xs peer-focus:text-blue-500 bg-white bg-opacity-80 px-1 rounded">
+                    Search T-shirts...
+                </label>
+                <button
+                        @click="search=''; filterProducts()"
+                        class="absolute right-2 top-2.5 text-gray-400 hover:text-red-500 rounded p-1 focus:outline-none focus:ring-2 focus:ring-red-200"
+                        aria-label="Clear search">&times;</button>
+            </div>
+        </div>
+        <!-- PRODUCT GRID -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 xl:gap-10" id="products-grid">
+            <template x-for="product in filteredProducts" :key="product.id">
+                <div class="bg-white bg-opacity-90 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow p-6 flex flex-col items-center group relative overflow-hidden ring-1 ring-blue-100 hover:ring-blue-300 duration-200">
+                    <div class="w-full flex justify-center mb-4">
+                        <img :src="product.image ? product.image : defaultImage"
+                             alt="" class="h-40 w-40 object-cover rounded-xl border border-gray-100 transform group-hover:scale-105 transition duration-200">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-900 text-center"
+                        x-text="product.name"></h3>
+                    <p class="text-gray-600 text-sm mb-3 text-center min-h-12"
+                       x-text="product.description"></p>
+                    <div class="flex items-center mb-3 space-x-0.5">
+                        <template x-for="i in 5">
+                            <svg class="w-5 h-5 text-yellow-400" :class="{'opacity-25': i > product.rating}" aria-hidden="true">
+                                <use href="#icon-star"></use>
+                            </svg>
+                        </template>
+                    </div>
+                    <div class="flex items-center justify-between w-full mt-auto">
+                        <span class="text-xl font-bold text-blue-600 drop-shadow-sm" x-text="'$' + product.price.toFixed(2)"></span>
+                        <button
+                                @click="addToCart(product)"
+                                class="ml-2 bg-gradient-to-tr from-blue-500 via-pink-400 to-purple-500 text-white font-semibold px-5 py-2 rounded-xl shadow group-hover:bg-gradient-to-r transition-all transform group-hover:scale-105 ring-2 ring-transparent group-hover:ring-pink-200"
+                        >
+                            <span class="inline-flex items-center space-x-2">
+                                <svg class="w-5 h-5 inline align-middle"><use href="#icon-cart"></use></svg>
+                                <span>Add to Cart</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact-section" class="mb-14">
+        <div class="max-w-2xl mx-auto p-7 rounded-2xl bg-white bg-opacity-80 shadow-md flex flex-col items-center">
+            <h2 id="contact-heading" class="text-2xl font-bold mb-2 text-center text-gray-900">Questions or Feedback?</h2>
+            <p id="contact-paragraph-1" class="mb-2 text-gray-700">We love to hear from you — send us a message and we'll respond quickly!</p>
+            <p id="contact-paragraph-2" class="mb-2 text-gray-600">Email: <a id="contact-email-link" href="mailto:info@rnteam.com" class="text-blue-700 hover:underline">info@rnteam.com</a></p>
+            <img id="contact-img"
+                 src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80"
+                 alt="Contact illustration"
+                 class="rounded-lg w-full max-w-xs mt-3 border border-blue-50 shadow-sm hover:shadow-lg transition">
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="footer-section" class="mt-20 border-t pt-6 text-center">
+        <p id="footer-credit" class="text-gray-500 text-base">Website designed with
+            <span id="footer-heart" class="text-pink-500 animate-pulse mx-1">♥</span> by
+            <span id="footer-team" class="font-semibold text-blue-800">RN Team</span>
+        </p>
+    </footer>
+</div>
+
+<!-- ===== FLOATING BUTTONS & CART ===== -->
+
+<!-- Go Up Button -->
+<button
+        @click="scrollToTop"
+        class="fixed z-50 bottom-5 left-5 bg-gradient-to-tr from-blue-500 via-pink-400 to-purple-500 text-white rounded-full shadow-lg p-4 focus:outline-none transition-all hover:scale-110 hover:shadow-2xl ring-2 ring-white"
+        aria-label="Go to top"
+        style="box-shadow: 0 3px 16px 0 rgba(80,80,200,0.15)">
+    <svg class="w-7 h-7"><use href="#icon-chevron-up"></use></svg>
+</button>
+
+<!-- Floating Cart Icon (middle right) -->
+<div
+        x-show="cart.length"
+        @click="showCart=true"
+        class="fixed z-50 top-1/2 right-3 -translate-y-1/2 bg-gradient-to-r from-blue-600 via-pink-400 to-purple-600 text-white rounded-full shadow-2xl p-5 cursor-pointer transition-all duration-200 flex items-center border-4 border-white hover:scale-110"
+        :class="cart.length ? 'animate-pulse' : ''"
+        x-transition
+        style="min-width: 66px; box-shadow: 0 6px 24px 0 rgba(90,60,200,0.20)">
+    <svg class="w-8 h-8 drop-shadow-lg"><use href="#icon-cart"></use></svg>
+    <span class="ml-2 font-bold text-lg select-none" x-text="cart.length"></span>
+</div>
+
+<!-- Cart Modal -->
+<div
+        x-show="showCart"
+        @click.self="showCart=false"
+        class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-2"
+        x-transition>
+    <div class="bg-white rounded-2xl w-full max-w-md p-7 shadow-2xl border border-pink-100">
+        <div class="flex justify-between items-center mb-4">
+            <h3 id="cart-modal-heading" class="text-2xl font-bold text-blue-800">Your Cart</h3>
+            <button @click="showCart=false" class="text-gray-400 hover:text-red-400 text-2xl font-extrabold leading-none">&times;</button>
+        </div>
+        <template x-if="cart.length === 0">
+            <p class="text-gray-500 text-center py-8">Your cart is empty.</p>
+        </template>
+        <template x-if="cart.length > 0">
+            <div>
+                <ul>
+                    <template x-for="item in cart" :key="item.id">
+                        <li class="flex items-center justify-between py-2 border-b last:border-0">
+                            <span x-text="item.name"></span>
+                            <span class="font-bold text-blue-600" x-text="'$' + item.price.toFixed(2)"></span>
+                            <button @click="removeFromCart(item.id)" class="text-red-400 hover:underline text-xs">Remove</button>
+                        </li>
+                    </template>
+                </ul>
+                <div class="flex justify-between items-center mt-6">
+                    <span class="font-semibold">Total:</span>
+                    <span class="font-bold text-pink-600" x-text="'$' + cart.reduce((sum, p) => sum + p.price, 0).toFixed(2)"></span>
+                </div>
+                <button class="w-full mt-7 bg-gradient-to-r from-blue-500 to-pink-400 text-white font-semibold py-2 rounded-lg shadow hover:from-blue-600 hover:to-pink-500 transition-all">Checkout</button>
+            </div>
+        </template>
+    </div>
+</div>
+
+<!-- ===== PRODUCTS DATA SOURCE ===== -->
+<script src="productsTheme.js"></script>
+
+<!-- ===== ALPINE.JS INIT & LOGIC ===== -->
+<script>
+    function tshirtShop() {
+        return {
+            defaultImage: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80',
+            products: PRODUCTS,
+            filteredProducts: [],
+            search: '',
+            cart: [],
+            showCart: false,
+            init() {
+                this.filterProducts();
+            },
+            filterProducts() {
+                let q = this.search.trim().toLowerCase();
+                this.filteredProducts = !q ? this.products :
+                    this.products.filter(p =>
+                        (p.name && p.name.toLowerCase().includes(q)) ||
+                        (p.description && p.description.toLowerCase().includes(q))
+                    );
+            },
+            addToCart(product) {
+                if (!this.cart.some(i => i.id === product.id)) {
+                    this.cart.push({...product});
+                }
+                this.showCart = true;
+            },
+            removeFromCart(id) {
+                this.cart = this.cart.filter(i => i.id !== id);
+            },
+            scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+    }
+</script>
+</body>
+</html>

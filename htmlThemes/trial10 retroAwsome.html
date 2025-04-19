@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y2KOOL | Retro Tees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['VT323', 'monospace'],
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        bubbly: ['Rubik Bubbles', 'cursive']
+                    },
+                    colors: {
+                        cyber: {
+                            pink: '#FF00FF',
+                            blue: '#00FFFF',
+                            purple: '#9D00FF',
+                            yellow: '#FFF500',
+                            green: '#00FF9F',
+                        },
+                        retro: {
+                            dark: '#1E0B36',
+                            mid: '#563282',
+                            light: '#A06CD5',
+                        }
+                    },
+                    boxShadow: {
+                        'neon': '0 0 5px rgba(255,0,255,0.5), 0 0 10px rgba(255,0,255,0.3)',
+                        'neon-blue': '0 0 5px rgba(0,255,255,0.5), 0 0 10px rgba(0,255,255,0.3)',
+                        'neon-purple': '0 0 5px rgba(157,0,255,0.5), 0 0 10px rgba(157,0,255,0.3)',
+                    },
+                },
+            },
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="products.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;700&family=Rubik+Bubbles&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #1E0B36;
+            background-image:
+                    radial-gradient(circle at 20% 20%, rgba(157, 0, 255, 0.1), transparent 25%),
+                    radial-gradient(circle at 80% 60%, rgba(255, 0, 255, 0.1), transparent 25%);
+        }
+
+        /* CRT effect */
+        .crt::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Y2K Gradient backgrounds */
+        .y2k-gradient {
+            background: linear-gradient(135deg, #FF00FF, #00FFFF, #9D00FF);
+        }
+
+        .y2k-gradient-alt {
+            background: linear-gradient(135deg, #00FFFF, #FFF500, #FF00FF);
+        }
+
+        .y2k-gradient-text {
+            background: linear-gradient(to right, #FF00FF, #00FFFF, #9D00FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Chrome effect */
+        .chrome-text {
+            background: linear-gradient(180deg, white 20%, #AAA 45%, white 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 1px 0px rgba(255,255,255,0.5), 0px -1px 0px rgba(0,0,0,0.3);
+        }
+
+        /* Grid pattern */
+        .grid-bg {
+            background-image:
+                    linear-gradient(rgba(157, 0, 255, 0.3) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(157, 0, 255, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+
+        /* Glitch effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch:hover::before, .glitch:hover::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch:hover::before {
+            animation: glitch-anim-1 0.4s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            color: #00FFFF;
+            transform: translate(-2px, 0);
+        }
+
+        .glitch:hover::after {
+            animation: glitch-anim-2 0.4s infinite;
+            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+            color: #FF00FF;
+            transform: translate(2px, 0);
+        }
+
+        @keyframes glitch-anim-1 {
+            0%, 100% { opacity: 1; transform: translate(-2px, 0); }
+            50% { opacity: 0.8; transform: translate(-5px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0%, 100% { opacity: 1; transform: translate(2px, 0); }
+            50% { opacity: 0.8; transform: translate(5px, 0); }
+        }
+
+        /* Blink animation */
+        .blink {
+            animation: blink 1s steps(2, start) infinite;
+        }
+
+        @keyframes blink {
+            to { visibility: hidden; }
+        }
+
+        /* Pixel border */
+        .pixel-border {
+            border-style: solid;
+            border-width: 4px;
+            border-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0H1V1H0V0ZM2 0H3V1H2V0ZM1 1H2V2H1V1ZM3 1H4V2H3V1ZM0 2H1V3H0V2ZM2 2H3V3H2V2ZM1 3H2V4H1V3ZM3 3H4V4H3V3Z' fill='%239D00FF'/%3E%3C/svg%3E")
+            4 / 1 / 0 stretch;
+        }
+
+        /* Dial-up modem dots animation */
+        .dialup-loading {
+            display: flex;
+            gap: 0.3rem;
+            animation: pulse 2s infinite;
+        }
+
+        .dialup-loading > div {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #FF00FF;
+            border-radius: 50%;
+            animation: dots 1.5s infinite;
+        }
+
+        .dialup-loading > div:nth-child(2) {
+            animation-delay: 0.2s;
+            background-color: #00FFFF;
+        }
+
+        .dialup-loading > div:nth-child(3) {
+            animation-delay: 0.4s;
+            background-color: #9D00FF;
+        }
+
+        @keyframes dots {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Y2K Tooltip */
+        .y2k-tooltip {
+            position: relative;
+        }
+
+        .y2k-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem;
+            background: #FF00FF;
+            color: white;
+            border: 2px solid white;
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .y2k-tooltip:hover::after {
+            opacity: 1;
+        }
+
+        /* Frosted glass effect */
+        .frosted-glass {
+            background: rgba(200, 200, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: linear-gradient(90deg, #1E0B36, #240D45);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #FF00FF, #9D00FF);
+            border: 2px solid #1E0B36;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #00FFFF, #9D00FF);
+        }
+
+        /* Hologram effect */
+        .hologram {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hologram::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                    to bottom,
+                    transparent,
+                    rgba(0, 255, 255, 0.1) 45%,
+                    rgba(0, 255, 255, 0.2) 50%,
+                    rgba(0, 255, 255, 0.1) 55%,
+                    transparent 100%
+            );
+            transform: rotate(30deg);
+            animation: hologram 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes hologram {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+    </style>
+</head>
+<body class="font-sans text-white crt" x-data="{
+    menuOpen: false,
+    searchActive: false,
+    searchQuery: '',
+    activeCategory: 'all',
+
+    // Product data
+    products: PRODUCTS,
+
+    // Methods
+    filteredProducts() {
+        let filtered = this.products;
+        if (this.searchQuery.trim()) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query)
+            );
+        }
+
+        if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(product => product.category === this.activeCategory);
+        }
+
+        return filtered;
+    }
+}">
+
+<!-- Header -->
+<header id="header-section" class="sticky top-0 z-50 py-4 frosted-glass">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="flex justify-between items-center">
+            <a href="#" id="brand-link" class="flex items-center">
+                <h1 id="logo-text" class="text-4xl font-display chrome-text glitch" data-text="Y2KOOL">
+                    Y2KOOL<span class="text-cyber-pink text-2xl blink">_</span>
+                </h1>
+            </a>
+
+            <nav id="main-navigation" class="hidden md:flex items-center space-x-8">
+                <a href="#home" id="nav-home" class="text-white hover:text-cyber-pink transition-colors uppercase text-sm tracking-wider font-bold pixel-border py-1 px-3">Home</a>
+                <a href="#shop" id="nav-shop" class="text-white hover:text-cyber-blue transition-colors uppercase text-sm tracking-wider font-bold pixel-border py-1 px-3">Shop</a>
+                <a href="#lookbook" id="nav-lookbook" class="text-white hover:text-cyber-yellow transition-colors uppercase text-sm tracking-wider font-bold pixel-border py-1 px-3">Lookbook</a>
+                <a href="#about" id="nav-about" class="text-white hover:text-cyber-green transition-colors uppercase text-sm tracking-wider font-bold pixel-border py-1 px-3">About</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <!-- Search Button -->
+                <button
+                        @click="searchActive = !searchActive"
+                        class="p-2 y2k-tooltip"
+                        data-tooltip="SEARCH"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyber-blue hover:text-cyber-pink transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+
+                <!-- Cart Button -->
+                <a
+                        href="#"
+                        class="p-2 y2k-tooltip"
+                        data-tooltip="CART"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyber-pink hover:text-cyber-blue transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                </a>
+
+                <!-- Mobile Menu Toggle -->
+                <button
+                        @click="menuOpen = !menuOpen"
+                        class="p-2 text-cyber-yellow hover:text-cyber-pink transition-colors md:hidden"
+                >
+                    <svg x-show="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg x-show="menuOpen" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div
+                x-show="searchActive"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 translate-y-1"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 translate-y-1"
+                class="mt-4"
+                x-cloak
+        >
+            <div class="relative">
+                <input
+                        type="text"
+                        x-model="searchQuery"
+                        placeholder="SEARCH FOR RETRO TEES..."
+                        class="w-full py-3 px-4 bg-retro-dark border-2 border-cyber-pink rounded-lg focus:outline-none focus:border-cyber-blue font-display text-lg shadow-neon"
+                >
+                <button
+                        @click="searchActive = false"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-cyber-pink hover:text-cyber-blue transition-colors"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+                x-show="menuOpen"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-4"
+                class="md:hidden mt-4 y2k-gradient p-0.5 rounded-lg"
+                x-cloak
+        >
+            <nav class="flex flex-col bg-retro-dark rounded-lg">
+                <a href="#home" class="py-3 px-6 hover:bg-retro-mid transition-colors text-center uppercase font-bold tracking-wider" @click="menuOpen = false">Home</a>
+                <a href="#shop" class="py-3 px-6 hover:bg-retro-mid transition-colors text-center uppercase font-bold tracking-wider" @click="menuOpen = false">Shop</a>
+                <a href="#lookbook" class="py-3 px-6 hover:bg-retro-mid transition-colors text-center uppercase font-bold tracking-wider" @click="menuOpen = false">Lookbook</a>
+                <a href="#about" class="py-3 px-6 hover:bg-retro-mid transition-colors text-center uppercase font-bold tracking-wider" @click="menuOpen = false">About</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="py-12 md:py-20 grid-bg">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="mb-4 inline-block p-0.5 y2k-gradient rounded-lg">
+                    <div class="bg-retro-dark px-4 py-2 rounded-lg">
+                        <span class="font-display text-lg text-cyber-yellow">NEW COLLECTION 2025</span>
+                    </div>
+                </div>
+
+                <h2 id="hero-heading" class="text-6xl md:text-7xl font-bubbly mb-6 y2k-gradient-text">
+                    Y2K STYLE<br>IS BACK!
+                </h2>
+
+                <p id="hero-subheading" class="text-xl mb-8 text-cyber-blue leading-relaxed">
+                    Experience the nostalgia with our 2000s-inspired t-shirts. Digital dreams, pixel perfect designs, and all the retro vibes you miss.
+                </p>
+
+                <div class="flex flex-wrap gap-6">
+                    <a href="#shop" id="hero-shop-button" class="relative inline-block y2k-gradient p-0.5 rounded-lg shadow-neon">
+                        <div class="bg-retro-dark hover:bg-retro-mid px-8 py-3 rounded-lg transition-colors">
+                            <span class="font-display text-xl uppercase">Shop Now</span>
+                        </div>
+                    </a>
+
+                    <a href="#lookbook" id="hero-lookbook-button" class="inline-flex items-center group">
+                        <span class="font-display text-xl text-white mr-2 group-hover:text-cyber-pink transition-colors">VIEW LOOKBOOK</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyber-pink group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute inset-0 y2k-gradient blur-xl opacity-40"></div>
+                <div class="relative hologram">
+                    <img id="hero-image" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Y2K Style T-shirt" class="w-full rounded-lg">
+
+                    <!-- Retro computer interface elements -->
+                    <div class="absolute bottom-4 left-4 frosted-glass p-3 rounded-lg">
+                        <div class="text-xs font-mono">
+                            <div class="text-cyber-green">CONNECTION: ESTABLISHED</div>
+                            <div class="text-cyber-yellow">LOADING: 100% COMPLETE</div>
+                            <div class="text-cyber-blue">STATUS: ONLINE</div>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-4 right-4 y2k-gradient p-0.5 rounded-lg">
+                        <div class="bg-retro-dark px-4 py-2 rounded-lg">
+                            <span class="font-display text-lg text-cyber-yellow">HOT DROP!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Digital Counter Section -->
+<section class="py-10 bg-retro-mid">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="flex flex-wrap justify-center md:justify-between gap-8 text-center">
+            <div>
+                <div class="font-display text-4xl text-cyber-pink mb-2">1337+</div>
+                <div class="text-sm uppercase tracking-wider">Satisfied Customers</div>
+            </div>
+
+            <div>
+                <div class="font-display text-4xl text-cyber-blue mb-2">42</div>
+                <div class="text-sm uppercase tracking-wider">Unique Designs</div>
+            </div>
+
+            <div>
+                <div class="font-display text-4xl text-cyber-yellow mb-2">24/7</div>
+                <div class="text-sm uppercase tracking-wider">Customer Support</div>
+            </div>
+
+            <div>
+                <div class="font-display text-4xl text-cyber-green mb-2">99%</div>
+                <div class="text-sm uppercase tracking-wider">Positive Reviews</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section id="categories" class="py-16 bg-retro-dark">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-12">
+            <h2 id="categories-heading" class="text-5xl font-bubbly mb-4 y2k-gradient-text inline-block">
+                BROWSE CATEGORIES
+            </h2>
+            <p id="categories-subheading" class="text-cyber-blue text-lg max-w-2xl mx-auto">
+                Find your perfect nostalgic style with our curated collections of Y2K-inspired designs.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Digital Dreams Collection -->
+            <div class="group relative overflow-hidden">
+                <div class="absolute inset-0 y2k-gradient opacity-25 group-hover:opacity-40 transition-opacity"></div>
+                <div class="border-2 border-cyber-pink rounded-lg overflow-hidden">
+                    <img id="category-image-1" src="https://images.unsplash.com/photo-1583744946564-b52d01e7f0e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Digital Dreams Collection" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                </div>
+
+                <div class="mt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 id="category-title-1" class="font-display text-2xl text-white">DIGITAL DREAMS</h3>
+
+                        <div class="dialup-loading">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <p id="category-description-1" class="text-gray-300 mb-4">Futuristic designs inspired by early internet aesthetics and digital art.</p>
+
+                    <a href="#" id="category-link-1" class="inline-flex items-center font-display text-cyber-pink group-hover:text-cyber-blue transition-colors">
+                        <span>EXPLORE COLLECTION</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Cyber Punk Collection -->
+            <div class="group relative overflow-hidden">
+                <div class="absolute inset-0 y2k-gradient-alt opacity-25 group-hover:opacity-40 transition-opacity"></div>
+                <div class="border-2 border-cyber-blue rounded-lg overflow-hidden">
+                    <img id="category-image-2" src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cyber Punk Collection" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                </div>
+
+                <div class="mt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 id="category-title-2" class="font-display text-2xl text-white">CYBER PUNK</h3>
+
+                        <div class="dialup-loading">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <p id="category-description-2" class="text-gray-300 mb-4">Bold, high-contrast cyberpunk-inspired designs with retro futuristic vibes.</p>
+
+                    <a href="#" id="category-link-2" class="inline-flex items-center font-display text-cyber-blue group-hover:text-cyber-pink transition-colors">
+                        <span>EXPLORE COLLECTION</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Retro Gaming Collection -->
+            <div class="group relative overflow-hidden">
+                <div class="absolute inset-0 y2k-gradient opacity-25 group-hover:opacity-40 transition-opacity"></div>
+                <div class="border-2 border-cyber-yellow rounded-lg overflow-hidden">
+                    <img id="category-image-3" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Retro Gaming Collection" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                </div>
+
+                <div class="mt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 id="category-title-3" class="font-display text-2xl text-white">RETRO GAMING</h3>
+
+                        <div class="dialup-loading">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <p id="category-description-3" class="text-gray-300 mb-4">Nostalgic designs celebrating classic video games and early console culture.</p>
+
+                    <a href="#" id="category-link-3" class="inline-flex items-center font-display text-cyber-yellow group-hover:text-cyber-blue transition-colors">
+                        <span>EXPLORE COLLECTION</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section id="shop" class="py-16 grid-bg">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-16">
+            <div>
+                <h2 id="products-heading" class="text-5xl font-bubbly mb-4 y2k-gradient-text">
+                    SHOP ALL TEES
+                </h2>
+                <p id="products-subheading" class="text-cyber-blue text-lg max-w-xl">
+                    Browse our full collection of Y2K-inspired t-shirts and find your perfect nostalgic style.
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="mt-6 md:mt-0 flex flex-wrap gap-3">
+                <button
+                        @click="activeCategory = 'all'"
+                        :class="{'bg-cyber-pink text-white': activeCategory === 'all', 'bg-retro-mid hover:bg-cyber-pink/50': activeCategory !== 'all'}"
+                        class="px-4 py-2 rounded font-display transition-colors"
+                >
+                    ALL
+                </button>
+                <button
+                        @click="activeCategory = 'digital'"
+                        :class="{'bg-cyber-pink text-white': activeCategory === 'digital', 'bg-retro-mid hover:bg-cyber-pink/50': activeCategory !== 'digital'}"
+                        class="px-4 py-2 rounded font-display transition-colors"
+                >
+                    DIGITAL
+                </button>
+                <button
+                        @click="activeCategory = 'cyber'"
+                        :class="{'bg-cyber-pink text-white': activeCategory === 'cyber', 'bg-retro-mid hover:bg-cyber-pink/50': activeCategory !== 'cyber'}"
+                        class="px-4 py-2 rounded font-display transition-colors"
+                >
+                    CYBER
+                </button>
+                <button
+                        @click="activeCategory = 'gaming'"
+                        :class="{'bg-cyber-pink text-white': activeCategory === 'gaming', 'bg-retro-mid hover:bg-cyber-pink/50': activeCategory !== 'gaming'}"
+                        class="px-4 py-2 rounded font-display transition-colors"
+                >
+                    GAMING
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <template x-for="(product, index) in filteredProducts()" :key="product.id">
+                <div class="group">
+                    <div class="relative overflow-hidden">
+                        <div
+                                class="absolute inset-0 opacity-25 group-hover:opacity-40 transition-opacity"
+                                :class="{
+                                    'y2k-gradient': index % 3 === 0,
+                                    'y2k-gradient-alt': index % 3 === 1,
+                                    'bg-gradient-to-br from-cyber-yellow to-cyber-green': index % 3 === 2
+                                }"
+                        ></div>
+
+                        <div
+                                class="border-2 rounded-lg overflow-hidden"
+                                :class="{
+                                    'border-cyber-pink': index % 3 === 0,
+                                    'border-cyber-blue': index % 3 === 1,
+                                    'border-cyber-yellow': index % 3 === 2
+                                }"
+                        >
+                            <img
+                                    x-bind:src="product.image || 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'"
+                                    x-bind:alt="product.name"
+                                    class="w-full h-72 object-cover transform group-hover:scale-110 transition-transform duration-700"
+                            >
+                        </div>
+
+                        <!-- Badge -->
+                        <div
+                                x-show="index % 4 === 0"
+                                class="absolute top-3 right-3 y2k-gradient p-0.5 rounded"
+                        >
+                            <div class="bg-retro-dark px-2 py-1 rounded">
+                                <span class="font-display text-sm text-cyber-yellow">TRENDING</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick View Button -->
+                        <div class="absolute inset-0 bg-retro-dark/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button
+                                    class="px-6 py-2 font-display text-lg bg-retro-mid border-2 border-white hover:bg-cyber-pink transition-colors rounded-lg transform -translate-y-10 group-hover:translate-y-0 transition-transform duration-300"
+                            >
+                                QUICK VIEW
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <div class="font-display text-lg mb-1"
+                             :class="{
+                                    'text-cyber-pink': index % 3 === 0,
+                                    'text-cyber-blue': index % 3 === 1,
+                                    'text-cyber-yellow': index % 3 === 2
+                                }"
+                             x-text="product.name"
+                        ></div>
+
+                        <p class="text-gray-300 text-sm mb-3 line-clamp-2" x-text="product.description"></p>
+
+                        <div class="flex justify-between items-center">
+                            <span class="font-display text-xl text-white" x-text="'$' + product.price.toFixed(2)"></span>
+
+                            <button
+                                    class="text-cyber-blue hover:text-cyber-pink transition-colors font-display"
+                            >
+                                ADD TO CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Empty state -->
+            <div
+                    class="col-span-full py-20 text-center"
+                    x-show="filteredProducts().length === 0"
+            >
+                <div class="inline-block mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-cyber-pink mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+
+                <h3 id="no-products-heading" class="font-bubbly text-3xl text-cyber-blue mb-4">404 PRODUCTS NOT FOUND</h3>
+                <p id="no-products-message" class="text-gray-300 mb-8 max-w-lg mx-auto">
+                    Oops! It looks like we couldn't find any products matching your criteria. Please try a different search term or browse our collections.
+                </p>
+
+                <button
+                        @click="searchQuery = ''; activeCategory = 'all'"
+                        class="y2k-gradient p-0.5 rounded-lg inline-block shadow-neon"
+                >
+                    <div class="bg-retro-dark hover:bg-retro-mid px-8 py-3 rounded-lg transition-colors">
+                        <span class="font-display text-xl uppercase">Reset Filters</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Collection -->
+<section id="featured-collection" class="py-20 bg-retro-mid">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="mb-4 inline-block p-0.5 y2k-gradient rounded-lg">
+                    <div class="bg-retro-dark px-4 py-2 rounded-lg">
+                        <span class="font-display text-lg text-cyber-yellow">LIMITED EDITION</span>
+                    </div>
+                </div>
+
+                <h2 id="featured-heading" class="text-5xl font-bubbly mb-6 y2k-gradient-text">
+                    THE MATRIX<br>COLLECTION
+                </h2>
+
+                <p id="featured-description" class="text-gray-300 mb-8 leading-relaxed">
+                    Inspired by the iconic movie that defined the Y2K aesthetic. This collection features digital rain patterns, glitch effects, and futuristic designs that will transport you back to the dawn of the millennium.
+                </p>
+
+                <div class="flex items-center mb-8">
+                    <div class="font-display text-3xl text-cyber-green mr-4">$49.99</div>
+                    <div class="text-sm bg-black text-green-500 px-2 py-1 rounded font-mono">WHILE SUPPLIES LAST</div>
+                </div>
+
+                <div class="flex flex-wrap gap-6 mb-8">
+                    <!-- Size Options -->
+                    <div>
+                        <div class="text-sm mb-2 text-gray-300">SELECT SIZE:</div>
+                        <div class="flex gap-2">
+                            <button class="w-10 h-10 flex items-center justify-center font-display bg-retro-dark hover:bg-cyber-green/30 border border-cyber-green rounded transition-colors">S</button>
+                            <button class="w-10 h-10 flex items-center justify-center font-display bg-cyber-green/30 border-2 border-cyber-green rounded">M</button>
+                            <button class="w-10 h-10 flex items-center justify-center font-display bg-retro-dark hover:bg-cyber-green/30 border border-cyber-green rounded transition-colors">L</button>
+                            <button class="w-10 h-10 flex items-center justify-center font-display bg-retro-dark hover:bg-cyber-green/30 border border-cyber-green rounded transition-colors">XL</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-6">
+                    <a href="#" id="featured-button" class="relative inline-block y2k-gradient p-0.5 rounded-lg shadow-neon">
+                        <div class="bg-retro-dark hover:bg-retro-mid px-8 py-3 rounded-lg transition-colors">
+                            <span class="font-display text-xl uppercase">Buy Now</span>
+                        </div>
+                    </a>
+
+                    <a href="#" id="featured-view-button" class="inline-flex items-center group">
+                        <span class="font-display text-xl text-white mr-2 group-hover:text-cyber-green transition-colors">VIEW DETAILS</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyber-green group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2 hologram">
+                <div class="relative">
+                    <img id="featured-image" src="https://images.unsplash.com/photo-1517398741578-cd9778ae1270?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Matrix Collection" class="w-full rounded-lg border-2 border-cyber-green shadow-neon-blue">
+
+                    <!-- Terminal overlay -->
+                    <div class="absolute bottom-6 left-6 bg-black/80 p-4 rounded border border-cyber-green font-mono text-cyber-green text-sm">
+                        <div>> LOADING MATRIX.EXE</div>
+                        <div>> ACCESS GRANTED...</div>
+                        <div>> WAKE UP, NEO...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lookbook Section -->
+<section id="lookbook" class="py-20 bg-retro-dark">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16">
+            <h2 id="lookbook-heading" class="text-5xl font-bubbly mb-4 y2k-gradient-text">
+                LOOKBOOK
+            </h2>
+            <p id="lookbook-subheading" class="text-cyber-blue text-lg max-w-2xl mx-auto">
+                See how our customers are rocking their Y2K tees and get inspired for your next look.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="overflow-hidden rounded-lg border-2 border-cyber-pink group hover:shadow-neon">
+                <img id="lookbook-image-1" src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image" class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <div class="overflow-hidden rounded-lg border-2 border-cyber-blue group hover:shadow-neon-blue">
+                <img id="lookbook-image-2" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image" class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <div class="overflow-hidden rounded-lg border-2 border-cyber-yellow group hover:shadow-neon">
+                <img id="lookbook-image-3" src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image" class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <div class="overflow-hidden rounded-lg border-2 border-cyber-purple group hover:shadow-neon-purple">
+                <img id="lookbook-image-4" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image" class="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-700">
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="#" class="relative inline-block y2k-gradient p-0.5 rounded-lg shadow-neon">
+                <div class="bg-retro-dark hover:bg-retro-mid px-8 py-3 rounded-lg transition-colors">
+                    <span class="font-display text-xl uppercase">See More</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-24 grid-bg">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="hologram">
+                <img id="about-image" src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="About Y2KOOL" class="rounded-lg border-2 border-cyber-pink">
+            </div>
+
+            <div>
+                <div class="mb-4 inline-block p-0.5 y2k-gradient rounded-lg">
+                    <div class="bg-retro-dark px-4 py-2 rounded-lg">
+                        <span class="font-display text-lg text-cyber-yellow">OUR STORY</span>
+                    </div>
+                </div>
+
+                <h2 id="about-heading" class="text-5xl font-bubbly mb-6 y2k-gradient-text">
+                    BACK TO THE<br>DIGITAL FUTURE
+                </h2>
+
+                <div class="h-1 w-24 y2k-gradient rounded-full mb-8"></div>
+
+                <p id="about-paragraph-1" class="text-gray-300 mb-6 leading-relaxed">
+                    Y2KOOL was born from a love of the aesthetic that defined the late 90s and early 2000s – a time when the digital revolution was just beginning, and the future seemed full of endless possibilities.
+                </p>
+
+                <p id="about-paragraph-2" class="text-gray-300 mb-8 leading-relaxed">
+                    Our team of designers carefully recreates the nostalgic visual language of that era – from glitchy digital effects to vibrant cyber aesthetics – and translates them into wearable art that resonates with both those who lived through the Y2K era and a new generation discovering its unique style.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-retro-mid p-4 rounded-lg">
+                        <h3 class="font-display text-xl text-cyber-pink mb-2">Sustainable</h3>
+                        <p class="text-sm text-gray-300">All our tees are made from 100% organic cotton using eco-friendly printing methods.</p>
+                    </div>
+
+                    <div class="bg-retro-mid p-4 rounded-lg">
+                        <h3 class="font-display text-xl text-cyber-blue mb-2">Premium Quality</h3>
+                        <p class="text-sm text-gray-300">High-quality fabric and printing that won't fade or crack, even after multiple washes.</p>
+                    </div>
+                </div>
+
+                <a href="#" id="about-link" class="inline-flex items-center group">
+                    <span class="font-display text-xl text-white mr-2 group-hover:text-cyber-yellow transition-colors">LEARN MORE</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyber-yellow group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="py-20 bg-retro-dark">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-16">
+            <h2 id="reviews-heading" class="text-5xl font-bubbly mb-4 y2k-gradient-text">
+                CUSTOMER REVIEWS
+            </h2>
+            <p id="reviews-subheading" class="text-cyber-blue text-lg max-w-2xl mx-auto">
+                See what our customers are saying about their Y2KOOL experience.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-retro-mid p-6 rounded-lg border-2 border-cyber-pink">
+                <div class="flex mb-4 text-cyber-yellow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                </div>
+
+                <p id="testimonial-text-1" class="font-mono text-gray-200 mb-6">
+                    "These tees are INSANE! The Matrix design literally glows under black light. Totally takes me back to LAN parties in 2000. Will definitely buy more!"
+                </p>
+
+                <div class="flex items-center">
+                    <img id="testimonial-image-1" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-3 border border-cyber-pink">
+                    <div>
+                        <div id="testimonial-name-1" class="font-display text-cyber-pink">Mike_1337</div>
+                        <div id="testimonial-date-1" class="text-xs text-gray-400">Verified Customer - 04.13.25</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-retro-mid p-6 rounded-lg border-2 border-cyber-blue">
+                <div class="flex mb-4 text-cyber-yellow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                </div>
+
+                <p id="testimonial-text-2" class="font-mono text-gray-200 mb-6">
+                    "Love the retro gaming collection! The quality is amazing, and the designs are so nostalgic. I get compliments every time I wear my Pixel Adventure tee."
+                </p>
+
+                <div class="flex items-center">
+                    <img id="testimonial-image-2" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-3 border border-cyber-blue">
+                    <div>
+                        <div id="testimonial-name-2" class="font-display text-cyber-blue">GameGirl98</div>
+                        <div id="testimonial-date-2" class="text-xs text-gray-400">Verified Customer - 03.25.25</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-retro-mid p-6 rounded-lg border-2 border-cyber-yellow">
+                <div class="flex mb-4 text-cyber-yellow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                </div>
+
+                <p id="testimonial-text-3" class="font-mono text-gray-200 mb-6">
+                    "Shipping was super fast, and the Digital Dreams tee is fire! The colors are so vibrant, it's like wearing a piece of the early internet. 10/10 would recommend!"
+                </p>
+
+                <div class="flex items-center">
+                    <img id="testimonial-image-3" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-3 border border-cyber-yellow">
+                    <div>
+                        <div id="testimonial-name-3" class="font-display text-cyber-yellow">CyberAlex</div>
+                        <div id="testimonial-date-3" class="text-xs text-gray-400">Verified Customer - 02.15.25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section id="newsletter" class="py-16 bg-retro-mid">
+    <div class="container mx-auto px-4 max-w-3xl text-center">
+        <h2 id="newsletter-heading" class="text-5xl font-bubbly mb-6 y2k-gradient-text">
+            JOIN OUR NETWORK
+        </h2>
+        <p id="newsletter-description" class="text-gray-300 mb-8 max-w-lg mx-auto">
+            Subscribe to get early access to new drops, exclusive discounts, and Y2K-inspired content straight to your inbox.
+        </p>
+
+        <form class="relative max-w-xl mx-auto">
+            <div class="y2k-gradient p-0.5 rounded-lg">
+                <div class="flex flex-col sm:flex-row">
+                    <input
+                            type="email"
+                            id="newsletter-email"
+                            placeholder="YOUR@EMAIL.COM"
+                            class="w-full sm:flex-grow py-3 px-4 bg-retro-dark font-display text-lg focus:outline-none sm:rounded-l-lg"
+                    >
+                    <button
+                            type="submit"
+                            id="newsletter-submit"
+                            class="bg-cyber-pink hover:bg-cyber-purple transition-colors text-white font-display text-lg py-3 px-8 mt-2 sm:mt-0 sm:rounded-r-lg"
+                    >
+                        SUBSCRIBE
+                    </button>
+                </div>
+            </div>
+            <p class="text-xs mt-4 text-gray-400">By subscribing, you agree to our Privacy Policy and to receive our marketing emails.</p>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-retro-dark pt-16 pb-10 border-t border-retro-mid">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div>
+                <a href="#" class="inline-block mb-6">
+                    <h2 id="footer-logo" class="text-3xl font-display chrome-text">
+                        Y2KOOL<span class="text-cyber-pink text-xl blink">_</span>
+                    </h2>
+                </a>
+                <p id="footer-description" class="text-gray-400 mb-6">
+                    Bringing Y2K nostalgia to your wardrobe with our premium retro-inspired t-shirts.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-cyber-pink hover:text-cyber-blue transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-cyber-blue hover:text-cyber-pink transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-cyber-yellow hover:text-cyber-pink transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 id="footer-shop-heading" class="font-display text-xl text-white mb-6">SHOP</h3>
+                <ul class="space-y-4">
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-pink transition-colors">All Products</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-pink transition-colors">Digital Dreams</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-pink transition-colors">Cyber Punk</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-pink transition-colors">Retro Gaming</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 id="footer-company-heading" class="font-display text-xl text-white mb-6">COMPANY</h3>
+                <ul class="space-y-4">
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-blue transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-blue transition-colors">Our Story</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-blue transition-colors">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-blue transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 id="footer-help-heading" class="font-display text-xl text-white mb-6">HELP</h3>
+                <ul class="space-y-4">
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-yellow transition-colors">FAQs</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-yellow transition-colors">Shipping</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-yellow transition-colors">Returns</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-cyber-yellow transition-colors">Track Order</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-retro-mid pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p id="copyright" class="text-gray-500 font-mono text-sm mb-4 md:mb-0">© 2025 Y2KOOL. ALL RIGHTS RESERVED || ERROR 404: TIME_NOT_FOUND</p>
+            <p id="credit" class="text-gray-500 font-mono text-sm">Website designed with <span class="text-cyber-pink">♥</span> by RN Team</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

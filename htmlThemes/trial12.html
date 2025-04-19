@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOSPHERE | Symbiotic Apparel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        proto: ['Space Grotesk', 'sans-serif'],
+                        biome: ['Chillax', 'sans-serif'],
+                        code: ['IBM Plex Mono', 'monospace']
+                    },
+                    colors: {
+                        neural: {
+                            100: '#E6FAF5',
+                            400: '#8CE0D0',
+                            600: '#4ABAA3',
+                            800: '#2A7F6E'
+                        },
+                        terra: {
+                            100: '#FFF5E6',
+                            400: '#FFD8A8',
+                            600: '#CC9E66',
+                            800: '#664C33'
+                        },
+                        cyber: {
+                            100: '#E6F3FF',
+                            400: '#88C4FF',
+                            600: '#3D8BCC',
+                            800: '#1A3D66'
+                        }
+                    },
+                    backgroundImage: {
+                        'cell-pattern': "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cud3MyLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDAiIGZpbGw9IiNGRkY1RTYiLz48L3N2Zz4=')",
+                        'mycelium': "linear-gradient(45deg, #2A7F6E 25%, transparent 25%), linear-gradient(-45deg, #2A7F6E 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #2A7F6E 75%), linear-gradient(-45deg, transparent 75%, #2A7F6E 75%)",
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'flow': 'flow 20s linear infinite',
+                    },
+                    keyframes: {
+                        flow: {
+                            '0%': { 'background-position': '0% 50%' },
+                            '100%': { 'background-position': '200% 50%' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Chillax&family=IBM+Plex+Mono&family=Space+Grotesk&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --organic-filter: url('#organic-turbulence');
+        }
+
+        .organic-distort {
+            filter: var(--organic-filter);
+            transform: translateZ(0);
+        }
+
+        .cyber-veins {
+            background-image:
+                    linear-gradient(to right, #3d8bcc33 1px, transparent 1px),
+                    linear-gradient(to bottom, #3d8bcc33 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .bio-glow {
+            box-shadow: 0 0 15px #8CE0D066;
+        }
+
+        .morph-path {
+            clip-path: polygon(
+                    0% 15%, 15% 0%, 85% 0%, 100% 15%,
+                    100% 85%, 85% 100%, 15% 100%, 0% 85%
+            );
+        }
+
+        @keyframes cell-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .cell-animation:hover {
+            animation: cell-pulse 3s ease-in-out infinite;
+        }
+
+        /* SVG Filters */
+        svg.filter-svg {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body class="bg-neural-100 font-biome text-terra-800">
+<!-- SVG Filters -->
+<svg class="filter-svg">
+    <filter id="organic-turbulence">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="turbulence"/>
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+</svg>
+
+<!-- Navigation -->
+<nav class="bg-terra-100/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-2xl font-proto tracking-tighter">
+            <span class="text-cyber-600">BIO</span><span class="text-neural-600">SPHERE</span>
+        </a>
+        <div class="space-x-8">
+            <a href="#cells" class="hover:text-cyber-600 transition-colors">Cells</a>
+            <a href="#culture" class="hover:text-cyber-600 transition-colors">Culture</a>
+            <a href="#symbiosis" class="hover:text-cyber-600 transition-colors">Symbiosis</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#4ABAA322,transparent)]"></div>
+    <div class="container mx-auto px-6 py-32 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <h1 class="text-6xl font-proto leading-tight">
+                    <span class="text-cyber-600">Wearable</span><br>
+                    <span class="text-neural-600">Ecosystems</span>
+                </h1>
+                <p class="text-xl text-terra-600">
+                    Apparel designed through computational biology - garments that
+                    evolve with environmental inputs and personal microbiome.
+                </p>
+            </div>
+            <div class="organic-distort cell-animation">
+                <div class="morph-path bg-gradient-to-br from-neural-400 to-cyber-400 p-1">
+                    <img src="https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                         class="morph-path w-full h-[500px] object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bio-Cells Section -->
+<section id="cells" class="py-28 bg-terra-100 cyber-veins">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Cell Card -->
+            <div class="bg-white bio-glow p-8 rounded-2xl transition-transform hover:scale-[1.02]">
+                <div class="w-16 h-16 bg-neural-400 rounded-full mb-6"></div>
+                <h3 class="font-proto text-2xl mb-4">Adaptive Membrane</h3>
+                <p class="text-terra-600 mb-6">
+                    Nano-pore fabric responds to atmospheric conditions,
+                    balancing thermal regulation with air purity filtration.
+                </p>
+                <div class="text-cyber-600 font-code">> learn_more</div>
+            </div>
+
+            <!-- Dynamic Symbiosis Card -->
+            <div class="bg-white bio-glow p-8 rounded-2xl transition-transform hover:scale-[1.02]">
+                <div class="w-16 h-16 bg-cyber-400 rounded-full mb-6"></div>
+                <h3 class="font-proto text-2xl mb-4">Mycelium Network</h3>
+                <p class="text-terra-600 mb-6">
+                    Embedded fungal cultures break down garment at end-of-life cycle,
+                    returning nutrients to local biome.
+                </p>
+                <div class="text-neural-600 font-code">> view_process</div>
+            </div>
+
+            <!-- Neural Interface Card -->
+            <div class="bg-white bio-glow p-8 rounded-2xl transition-transform hover:scale-[1.02]">
+                <div class="w-16 h-16 bg-terra-400 rounded-full mb-6"></div>
+                <h3 class="font-proto text-2xl mb-4">Phyto Sensors</h3>
+                <p class="text-terra-600 mb-6">
+                    Plant-derived conductivity networks monitor
+                    environmental toxins and body vitality in real-time.
+                </p>
+                <div class="text-cyber-600 font-code">> explore_data</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Living Collection -->
+<section class="py-28 bg-[url('./mycelium')]">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-proto text-5xl mb-8">
+                <span class="text-neural-600">Cultured</span>
+                <span class="text-cyber-600">Collections</span>
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="aspect-square bg-neural-400 rounded-xl"></div>
+                <div class="aspect-square bg-cyber-400 rounded-xl"></div>
+                <div class="aspect-square bg-terra-400 rounded-xl"></div>
+                <div class="aspect-square bg-neural-600 rounded-xl"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Symbiosis Interface -->
+<section class="min-h-screen bg-gradient-to-br from-neural-100 to-cyber-100">
+    <div class="container mx-auto px-6 py-28">
+        <div class="bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <h3 class="font-proto text-4xl">
+                        <span class="text-neural-600">Bio</span>
+                        <span class="text-cyber-600">Interface</span>
+                    </h3>
+                    <div class="h-1 w-24 bg-cyber-400"></div>
+                    <p class="text-xl">
+                        Monitor your symbiotic relationship through
+                        our neural network-powered dashboard.
+                    </p>
+                </div>
+                <div class="bg-gradient-to-br from-neural-400 to-cyber-400 p-1 rounded-2xl">
+                    <div class="bg-white rounded-2xl p-6">
+                        <!-- Interface Elements -->
+                        <div class="font-code mb-4">$> system_check</div>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-neural-400 rounded-full mr-4"></div>
+                                <div class="flex-1 h-3 bg-neural-100 rounded-full">
+                                    <div class="h-full bg-neural-400 rounded-full w-3/4"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-cyber-400 rounded-full mr-4"></div>
+                                <div class="flex-1 h-3 bg-cyber-100 rounded-full">
+                                    <div class="h-full bg-cyber-400 rounded-full w-2/3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

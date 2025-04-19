@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONO | Minimalist Apparel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&family=Inconsolata:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --color-ink: #1a1a1a;
+            --color-paper: #f8f8f8;
+            --color-accent: #c0392b;
+            --font-jp: 'Noto Sans JP', sans-serif;
+            --font-mono: 'Inconsolata', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-jp);
+            color: var(--color-ink);
+            background-color: var(--color-paper);
+        }
+
+        .font-jp {
+            font-family: var(--font-jp);
+        }
+
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+
+        .text-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .brush-stroke {
+            position: relative;
+            display: inline-block;
+        }
+
+        .brush-stroke::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 30%;
+            width: 100%;
+            background-color: var(--color-accent);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' fill-opacity='0.02' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .horizontal-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .product-card {
+            transition: all 0.5s ease;
+            display: inline-block;
+            white-space: normal;
+            vertical-align: top;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .hover-line {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hover-line::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .hover-line:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto;
+            gap: 2rem;
+        }
+
+        .asymmetric-grid > div:first-child {
+            grid-column: 1 / 8;
+            grid-row: 1 / 3;
+        }
+
+        .asymmetric-grid > div:nth-child(2) {
+            grid-column: 8 / 13;
+            grid-row: 1 / 2;
+        }
+
+        .asymmetric-grid > div:nth-child(3) {
+            grid-column: 8 / 13;
+            grid-row: 2 / 3;
+        }
+
+        .reveal-mask {
+            clip-path: inset(0 0 0 0);
+            transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .reveal-mask.hidden-mask {
+            clip-path: inset(0 0 100% 0);
+        }
+
+        .ink-wash {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ink-wash::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(240, 240, 240, 0.2), transparent 70%);
+            mix-blend-mode: overlay;
+        }
+
+        .sticky-side {
+            position: sticky;
+            top: 20vh;
+            align-self: start;
+        }
+
+        /* Load more animation */
+        .loading-dots .dot {
+            animation: dotPulse 1.5s infinite;
+            background-color: var(--color-ink);
+            display: inline-block;
+            height: 0.5rem;
+            width: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .loading-dots .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dots .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Cursor */
+        .custom-cursor {
+            cursor: none;
+        }
+
+        .cursor {
+            width: 25px;
+            height: 25px;
+            border: 1px solid var(--color-ink);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: transform 0.2s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .expand {
+            transform: scale(3);
+            background-color: var(--color-ink);
+            mix-blend-mode: difference;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ink': '#1a1a1a',
+                        'paper': '#f8f8f8',
+                        'accent': {
+                            DEFAULT: '#c0392b',
+                            light: '#e74c3c',
+                            dark: '#a33025',
+                        },
+                        'stone': {
+                            light: '#f5f5f5',
+                            DEFAULT: '#e0e0e0',
+                            dark: '#a0a0a0',
+                        }
+                    },
+                    fontFamily: {
+                        'jp': ['Noto Sans JP', 'sans-serif'],
+                        'mono': ['Inconsolata', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="paper-texture" x-data="{ showCursor: true }">
+<div
+        x-data="{
+            cursorX: 0,
+            cursorY: 0,
+            cursorExpanded: false
+        }"
+        x-init="
+            document.addEventListener('mousemove', (e) => {
+                cursorX = e.clientX;
+                cursorY = e.clientY;
+                $refs.cursor.style.transform = `translate3d(${cursorX - 12.5}px, ${cursorY - 12.5}px, 0)`;
+            });
+            document.addEventListener('mousedown', () => { cursorExpanded = true });
+            document.addEventListener('mouseup', () => { cursorExpanded = false });
+        "
+        class="relative custom-cursor"
+>
+    <!-- Custom Cursor -->
+    <div x-ref="cursor" class="cursor hidden md:block" :class="{ 'expand': cursorExpanded }"></div>
+
+    <!-- SVG Sprites -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+        <!-- Search Icon -->
+        <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </symbol>
+
+        <!-- Arrow Icon -->
+        <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </symbol>
+
+        <!-- Up Arrow Icon -->
+        <symbol id="up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </symbol>
+
+        <!-- Heart Icon -->
+        <symbol id="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </symbol>
+
+        <!-- Star Icon (for ratings) -->
+        <symbol id="star-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </symbol>
+    </svg>
+
+    <div x-data="shopApp()" x-init="init()">
+        <!-- Navbar -->
+        <header class="fixed top-0 left-0 right-0 z-50 bg-paper/90 backdrop-blur-sm">
+            <nav class="container mx-auto px-6 py-6">
+                <div class="flex justify-between items-center">
+                    <a href="#" class="text-2xl font-light tracking-[0.2em] uppercase">
+                        M<span class="text-accent">o</span>no
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex space-x-12 font-light text-sm tracking-widest uppercase">
+                        <a href="#" class="hover-line">Home</a>
+                        <a href="#collection" class="hover-line">Collection</a>
+                        <a href="#philosophy" class="hover-line">Philosophy</a>
+                        <a href="#about" class="hover-line">About</a>
+                    </div>
+
+                    <div class="flex items-center space-x-8">
+                        <div class="relative">
+                            <input
+                                    x-model="searchQuery"
+                                    @input="filterProducts()"
+                                    type="text"
+                                    placeholder="Search"
+                                    class="pl-10 pr-4 py-2 w-40 bg-transparent border-b border-ink/20 text-ink placeholder-ink/50 focus:outline-none focus:border-ink tracking-wider text-sm"
+                            >
+                            <div class="absolute left-0 top-2 text-ink/50">
+                                <svg class="h-5 w-5">
+                                    <use xlink:href="#search-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Menu Toggle -->
+                        <button class="md:hidden text-ink" x-data="{ open: false }" @click="open = !open">
+                            <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                            <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu (hidden by default) -->
+                <div class="md:hidden bg-paper absolute left-0 right-0 mt-4 py-4 px-6 shadow-lg z-20 hidden">
+                    <div class="flex flex-col space-y-6 font-light text-sm tracking-widest uppercase text-center">
+                        <a href="#" class="py-2">Home</a>
+                        <a href="#collection" class="py-2">Collection</a>
+                        <a href="#philosophy" class="py-2">Philosophy</a>
+                        <a href="#about" class="py-2">About</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row justify-between items-start">
+                    <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-16">
+                        <div class="mb-8">
+                                <span class="inline-block text-xs uppercase tracking-[0.3em] font-mono mb-2">
+                                    Simplicity is the ultimate sophistication
+                                </span>
+                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-light leading-tight">
+                                <span class="font-jp">究極の</span><br>
+                                <span class="brush-stroke">Minimalist</span><br>
+                                T-shirts
+                            </h1>
+                        </div>
+                        <p class="text-ink/70 mb-12 max-w-md text-lg font-light leading-relaxed">
+                            Our collection embodies the Japanese concept of "Ma" (間) — finding beauty in simplicity and the space between elements.
+                        </p>
+                        <a href="#collection" class="inline-block px-12 py-4 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors duration-300 tracking-wider uppercase text-sm font-light">
+                            Explore Collection
+                        </a>
+                    </div>
+
+                    <div class="lg:w-1/2 relative">
+                        <div class="relative">
+                            <div class="absolute top-0 left-0 w-20 h-20 border-t border-l border-ink"></div>
+                            <div class="absolute bottom-0 right-0 w-20 h-20 border-b border-r border-ink"></div>
+                            <div class="p-8">
+                                <img
+                                        src="https://images.unsplash.com/photo-1527628217451-b2414a1ee733?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                                        alt="Minimalist T-shirt"
+                                        class="w-full h-auto object-cover ink-wash"
+                                >
+                            </div>
+                        </div>
+                        <!-- Vertical Japanese text -->
+                        <div class="absolute -right-8 top-1/2 transform -translate-y-1/2 text-vertical text-5xl font-jp font-thin text-ink/10">
+                            シンプル
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Collection (Horizontal Scroll) -->
+        <section class="py-24 bg-stone-light">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-between items-end mb-12">
+                    <div>
+                        <h2 class="text-3xl font-light mb-2 flex items-center">
+                            <span class="font-jp mr-3">精選</span> Featured Pieces
+                        </h2>
+                        <p class="text-ink/60 max-w-xl">
+                            Hover and scroll horizontally to explore our featured collection.
+                        </p>
+                    </div>
+                    <a href="#collection" class="hidden md:flex items-center text-sm uppercase tracking-wider hover-line">
+                        View All
+                        <svg class="h-4 w-4 ml-2">
+                            <use xlink:href="#arrow-icon"></use>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="horizontal-scroll pb-8 -mx-4">
+                    <!-- Featured Product 1 -->
+                    <div class="product-card w-72 md:w-80 px-4">
+                        <div class="bg-paper p-4 mb-4">
+                            <div class="relative overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Minimalist White Tee"
+                                        class="w-full h-80 object-cover"
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-jp text-lg mb-1">雲 (Kumo) Cloud</h3>
+                            <p class="text-ink/60 text-sm mb-2">Pure cotton, relaxed silhouette</p>
+                            <span class="font-mono">$78</span>
+                        </div>
+                    </div>
+
+                    <!-- Featured Product 2 -->
+                    <div class="product-card w-72 md:w-80 px-4">
+                        <div class="bg-paper p-4 mb-4">
+                            <div class="relative overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Minimalist Black Tee"
+                                        class="w-full h-80 object-cover"
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-jp text-lg mb-1">影 (Kage) Shadow</h3>
+                            <p class="text-ink/60 text-sm mb-2">Organic cotton, structured fit</p>
+                            <span class="font-mono">$68</span>
+                        </div>
+                    </div>
+
+                    <!-- Featured Product 3 -->
+                    <div class="product-card w-72 md:w-80 px-4">
+                        <div class="bg-paper p-4 mb-4">
+                            <div class="relative overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Minimalist Gray Tee"
+                                        class="w-full h-80 object-cover"
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-jp text-lg mb-1">霧 (Kiri) Mist</h3>
+                            <p class="text-ink/60 text-sm mb-2">Linen blend, oversized silhouette</p>
+                            <span class="font-mono">$72</span>
+                        </div>
+                    </div>
+
+                    <!-- Featured Product 4 -->
+                    <div class="product-card w-72 md:w-80 px-4">
+                        <div class="bg-paper p-4 mb-4">
+                            <div class="relative overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1551749006-038de4ced6a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Natural Dye Tee"
+                                        class="w-full h-80 object-cover"
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-jp text-lg mb-1">土 (Tsuchi) Earth</h3>
+                            <p class="text-ink/60 text-sm mb-2">Natural dye, relaxed fit</p>
+                            <span class="font-mono">$88</span>
+                        </div>
+                    </div>
+
+                    <!-- Featured Product 5 -->
+                    <div class="product-card w-72 md:w-80 px-4">
+                        <div class="bg-paper p-4 mb-4">
+                            <div class="relative overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1554568218-0f1715e72254?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Indigo Tee"
+                                        class="w-full h-80 object-cover"
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-jp text-lg mb-1">藍 (Ai) Indigo</h3>
+                            <p class="text-ink/60 text-sm mb-2">Hand-dyed indigo, classic fit</p>
+                            <span class="font-mono">$92</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8 md:hidden">
+                    <a href="#collection" class="flex items-center justify-center text-sm uppercase tracking-wider hover-line inline-flex">
+                        View All
+                        <svg class="h-4 w-4 ml-2">
+                            <use xlink:href="#arrow-icon"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="asymmetric-grid">
+                    <div class="relative">
+                        <div class="p-8 relative">
+                            <div class="absolute top-0 left-0 w-16 h-16 border-t border-l border-ink"></div>
+                            <img
+                                    src="https://images.unsplash.com/photo-1548094891-c4ba474efd16?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                                    alt="Zen-inspired Design"
+                                    class="w-full h-auto"
+                            >
+                            <div class="absolute bottom-0 right-0 w-16 h-16 border-b border-r border-ink"></div>
+                        </div>
+                        <!-- Decorative Japanese text -->
+                        <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 text-vertical text-4xl font-jp font-thin text-ink/10">
+                            禅の美学
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <img
+                                src="https://images.unsplash.com/photo-1607038563464-847fb2163724?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Zen detail"
+                                class="w-full h-auto object-cover"
+                        >
+                    </div>
+
+                    <div class="flex flex-col justify-end">
+                        <span class="inline-block font-mono text-xs uppercase tracking-widest mb-2">Our Philosophy</span>
+                        <h2 class="text-3xl font-light mb-4">
+                            <span class="font-jp">侘寂</span>
+                            <span class="block">Wabi-Sabi</span>
+                        </h2>
+                        <p class="text-ink/70 mb-6 leading-relaxed">
+                            We embrace the Japanese aesthetic of wabi-sabi — finding beauty in imperfection, impermanence, and incompleteness. Each t-shirt is intentionally designed with simplicity and crafted to age beautifully over time.
+                        </p>
+                        <a href="#about" class="flex items-center text-sm uppercase tracking-wider hover-line w-max">
+                            Learn More
+                            <svg class="h-4 w-4 ml-2">
+                                <use xlink:href="#arrow-icon"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Collection -->
+        <section id="collection" class="py-24 bg-paper">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row justify-between items-start mb-12">
+                    <div>
+                        <span class="inline-block font-mono text-xs uppercase tracking-widest mb-2">Our Collection</span>
+                        <h2 class="text-3xl font-light mb-2">
+                            <span class="font-jp">コレクション</span>
+                            <span class="block">T-shirts</span>
+                        </h2>
+                        <p class="text-ink/60 max-w-xl">
+                            Each piece is crafted with attention to detail and respect for minimalist principles.
+                        </p>
+                    </div>
+
+                    <div class="w-full lg:w-1/3 mt-8 lg:mt-0">
+                        <div class="relative">
+                            <input
+                                    x-model="searchQuery"
+                                    @input="filterProducts()"
+                                    type="text"
+                                    placeholder="Search the collection"
+                                    class="w-full py-3 px-4 bg-stone-light border-none text-ink placeholder-ink/50 focus:outline-none focus:ring-1 focus:ring-ink tracking-wider text-sm"
+                            >
+                            <div class="absolute right-4 top-3 text-ink/50">
+                                <svg class="h-5 w-5">
+                                    <use xlink:href="#search-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters / Category tabs -->
+                <div class="flex flex-wrap gap-4 border-b border-ink/10 pb-4 mb-12">
+                    <button class="px-4 py-2 bg-ink text-paper text-sm uppercase tracking-wider">
+                        All
+                    </button>
+                    <button class="px-4 py-2 hover:bg-stone-light text-sm uppercase tracking-wider">
+                        Essentials
+                    </button>
+                    <button class="px-4 py-2 hover:bg-stone-light text-sm uppercase tracking-wider">
+                        Minimalist
+                    </button>
+                    <button class="px-4 py-2 hover:bg-stone-light text-sm uppercase tracking-wider">
+                        Natural Dye
+                    </button>
+                </div>
+
+                <!-- No products found message -->
+                <div x-show="filteredProducts.length === 0" class="text-center py-20">
+                    <div class="inline-block mx-auto border border-ink/20 p-12 max-w-md">
+                        <p class="text-2xl font-light mb-4">No products found</p>
+                        <p class="text-ink/60 mb-8">Your search did not match any products in our collection.</p>
+                        <button
+                                @click="searchQuery = ''; filterProducts()"
+                                class="inline-block px-8 py-3 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors duration-300 text-sm uppercase tracking-wider"
+                        >
+                            Reset Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div
+                        x-show="filteredProducts.length > 0"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                >
+                    <template x-for="product in filteredProducts" :key="product.id">
+                        <div class="product-card">
+                            <div class="bg-stone-light p-4 mb-4">
+                                <div class="relative overflow-hidden">
+                                    <img
+                                            x-bind:src="product.image || 'https://via.placeholder.com/400x500?text=MONO'"
+                                            class="w-full h-80 object-cover transition-transform duration-700 hover:scale-105"
+                                            x-bind:alt="product.name"
+                                    >
+                                </div>
+                            </div>
+                            <div>
+                                <!-- Rating stars (subtle) -->
+                                <div class="flex items-center mb-2">
+                                    <template x-for="i in 5" :key="i">
+                                        <svg class="h-3 w-3 mr-0.5" :class="i <= product.rating ? 'text-accent/80' : 'text-stone'">
+                                            <use xlink:href="#star-icon"></use>
+                                        </svg>
+                                    </template>
+                                </div>
+
+                                <h3 class="text-lg mb-1" x-text="product.name"></h3>
+                                <p class="text-ink/60 text-sm mb-2 line-clamp-2" x-text="product.description"></p>
+                                <span class="font-mono" x-text="'$' + product.price.toFixed(2)"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-16">
+                    <button class="inline-block px-10 py-4 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors duration-300 text-sm uppercase tracking-wider">
+                        <span>Load More</span>
+                        <span class="loading-dots ml-2">
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-stone-light">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row gap-16">
+                    <div class="lg:w-1/2 sticky-side">
+                        <span class="inline-block font-mono text-xs uppercase tracking-widest mb-2">About Us</span>
+                        <h2 class="text-3xl font-light mb-4">
+                            <span class="font-jp">物語</span>
+                            <span class="block">Our Story</span>
+                        </h2>
+                        <div class="text-ink/70 space-y-4 leading-relaxed">
+                            <p>
+                                Founded in Tokyo in 2018, MONO was born from a desire to create t-shirts that embody the essence of Japanese minimalism — pieces that are timeless, functional, and beautiful in their simplicity.
+                            </p>
+                            <p>
+                                We focus on three key principles: <span class="font-medium">quality materials</span>, <span class="font-medium">thoughtful design</span>, and <span class="font-medium">responsible production</span>. Each t-shirt is crafted from premium organic cotton or linen blends, designed with intention, and produced in small batches to minimize waste.
+                            </p>
+                            <p>
+                                Our design philosophy draws inspiration from the Japanese concepts of "Ma" (間) — the meaningful space between elements — and "Shibui" (渋い) — simple, subtle, and unobtrusive beauty.
+                            </p>
+                        </div>
+
+                        <div class="mt-8">
+                            <a href="#" class="inline-block px-8 py-3 border border-ink text-ink hover:bg-ink hover:text-paper transition-colors duration-300 text-sm uppercase tracking-wider">
+                                Our Process
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-1/2">
+                        <div class="space-y-10">
+                            <div class="p-6 bg-paper">
+                                <img
+                                        src="https://images.unsplash.com/photo-1499971856191-1a420a42b498?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Craftsmanship"
+                                        class="w-full h-auto"
+                                >
+                            </div>
+                            <div class="p-6 bg-paper">
+                                <img
+                                        src="https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Materials"
+                                        class="w-full h-auto"
+                                >
+                            </div>
+                            <div class="p-6 bg-paper">
+                                <img
+                                        src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Design Process"
+                                        class="w-full h-auto"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-24 bg-ink text-paper">
+            <div class="container mx-auto px-6">
+                <div class="max-w-2xl mx-auto text-center">
+                        <span class="inline-block font-mono text-xs uppercase tracking-widest mb-2 text-paper/60">
+                            Join Our Community
+                        </span>
+                    <h2 class="text-3xl font-light mb-4 text-paper">
+                        <span class="font-jp">ニュースレター</span>
+                        <span class="block">Subscribe to Our Newsletter</span>
+                    </h2>
+                    <p class="text-paper/70 mb-8 leading-relaxed">
+                        Stay updated with new releases, design insights, and exclusive offers.
+                    </p>
+
+                    <form class="flex flex-col md:flex-row gap-4">
+                        <input
+                                type="email"
+                                placeholder="Your email address"
+                                class="flex-1 px-6 py-4 bg-transparent border border-paper/30 text-paper placeholder-paper/40 focus:outline-none focus:border-paper focus:ring-0"
+                                required
+                        >
+                        <button
+                                type="submit"
+                                class="px-8 py-4 bg-paper text-ink hover:bg-paper/90 transition-colors duration-300 text-sm uppercase tracking-wider font-light"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Go Up Button -->
+        <button
+                @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="fixed bottom-8 right-8 bg-ink text-paper p-3 opacity-80 hover:opacity-100 transition-opacity duration-300 z-10"
+                x-show="window.scrollY > 500"
+                x-transition
+                x-cloak
+        >
+            <svg class="h-6 w-6">
+                <use xlink:href="#up-arrow"></use>
+            </svg>
+        </button>
+
+        <!-- Footer -->
+        <footer class="py-16 bg-paper border-t border-ink/10">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                    <div>
+                        <a href="#" class="inline-block text-2xl font-light tracking-[0.2em] uppercase mb-6">
+                            M<span class="text-accent">o</span>no
+                        </a>
+                        <p class="text-ink/60 mb-6 font-light">
+                            Minimalist t-shirts inspired by Japanese aesthetics and the beauty of simplicity.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 border border-ink/20 flex items-center justify-center text-ink/60 hover:text-ink hover:border-ink transition-colors duration-300">
+                                <svg fill="currentColor" class="h-4 w-4" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 border border-ink/20 flex items-center justify-center text-ink/60 hover:text-ink hover:border-ink transition-colors duration-300">
+                                <svg fill="currentColor" class="h-4 w-4" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 border border-ink/20 flex items-center justify-center text-ink/60 hover:text-ink hover:border-ink transition-colors duration-300">
+                                <svg fill="currentColor" class="h-4 w-4" viewBox="0 0 24 24">
+                                    <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-base uppercase tracking-wider mb-6">Shop</h3>
+                        <ul class="space-y-4 font-light text-ink/70">
+                            <li><a href="#" class="hover-line">All T-shirts</a></li>
+                            <li><a href="#" class="hover-line">New Arrivals</a></li>
+                            <li><a href="#" class="hover-line">Essentials</a></li>
+                            <li><a href="#" class="hover-line">Natural Dye Collection</a></li>
+                            <li><a href="#" class="hover-line">Gift Cards</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-base uppercase tracking-wider mb-6">Company</h3>
+                        <ul class="space-y-4 font-light text-ink/70">
+                            <li><a href="#" class="hover-line">Our Story</a></li>
+                            <li><a href="#" class="hover-line">Philosophy</a></li>
+                            <li><a href="#" class="hover-line">Sustainability</a></li>
+                            <li><a href="#" class="hover-line">Journal</a></li>
+                            <li><a href="#" class="hover-line">Store Locations</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-base uppercase tracking-wider mb-6">Support</h3>
+                        <ul class="space-y-4 font-light text-ink/70">
+                            <li><a href="#" class="hover-line">Contact Us</a></li>
+                            <li><a href="#" class="hover-line">Shipping & Returns</a></li>
+                            <li><a href="#" class="hover-line">Size Guide</a></li>
+                            <li><a href="#" class="hover-line">Care Instructions</a></li>
+                            <li><a href="#" class="hover-line">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-ink/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-ink/50 font-light">
+                    <p class="mb-4 md:mb-0">© 2023 MONO. All rights reserved.</p>
+                    <p>
+                        Website designed with
+                        <svg class="h-4 w-4 inline-block text-accent opacity-60">
+                            <use xlink:href="#heart-icon"></use>
+                        </svg>
+                        by RN Team
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script>
+    function shopApp() {
+        return {
+            // Product data
+            products: PRODUCTS,
+            filteredProducts: [],
+            searchQuery: '',
+
+            // Methods
+            init() {
+                // Initialize filtered products with all products
+                this.filteredProducts = [...this.products];
+
+                // Add scroll event listener for the go up button
+                window.addEventListener('scroll', () => {
+                    this.$nextTick(() => {
+                        const scrollButton = this.$el.querySelector('[x-show="window.scrollY > 500"]');
+                        if (scrollButton) {
+                            if (window.scrollY > 500) {
+                                scrollButton._x_doShow();
+                            } else {
+                                scrollButton._x_doHide();
+                            }
+                        }
+                    });
+
+                    // Reveal animations on scroll
+                    document.querySelectorAll('.reveal-mask').forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        if (rect.top <= windowHeight * 0.75) {
+                            el.classList.remove('hidden-mask');
+                        }
+                    });
+                });
+
+                // Setup cursor expansion for links and buttons
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        this.$dispatch('mousedown');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        this.$dispatch('mouseup');
+                    });
+                });
+            },
+
+            filterProducts() {
+                if (!this.searchQuery.trim()) {
+                    this.filteredProducts = [...this.products];
+                } else {
+                    const query = this.searchQuery.toLowerCase().trim();
+                    this.filteredProducts = this.products.filter(product =>
+                        product.name.toLowerCase().includes(query) ||
+                        product.description.toLowerCase().includes(query)
+                    );
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

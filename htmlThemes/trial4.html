@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEXTILE | Premium T-Shirt Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                },
+            },
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0ea5e9;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0284c7;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        .animate-float {
+            animation: floatUp 6s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: floatUp 6s ease-in-out 2s infinite;
+        }
+
+        .product-card {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .hover-trigger .hover-target {
+            transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .hover-trigger:hover .hover-target {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-gray-800" x-data="{
+    menuOpen: false,
+    searchQuery: '',
+    activeTab: 'all',
+
+    // Product data
+    products: PRODUCTS,
+
+    filteredProducts() {
+        // First filter by search query
+        let filtered = this.products;
+        if (this.searchQuery.trim()) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query)
+            );
+        }
+
+        // Then filter by category/tab if not 'all'
+        if (this.activeTab !== 'all') {
+            filtered = filtered.filter(product => product.category === this.activeTab);
+        }
+
+        return filtered;
+    }
+}">
+
+<!-- SVG Sprites Definition -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Star Icon -->
+    <symbol id="star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Menu Icon -->
+    <symbol id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </symbol>
+
+    <!-- Close Icon -->
+    <symbol id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+
+    <!-- Arrow Down Icon -->
+    <symbol id="arrow-down-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+    </symbol>
+
+    <!-- Check Icon -->
+    <symbol id="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+    </symbol>
+</svg>
+
+<!-- Header -->
+<header id="header-section" class="bg-white py-6 sticky top-0 z-50 shadow-sm">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex justify-between items-center">
+            <a href="#" id="brand-link" class="text-gray-900">
+                <h1 id="logo-text" class="text-2xl font-extrabold tracking-tight">
+                    <span id="logo-prefix" class="text-black">TEX</span><span id="logo-highlight" class="text-brand-600">TILE</span>
+                </h1>
+            </a>
+
+            <nav id="main-navigation" class="hidden md:flex items-center space-x-12">
+                <a href="#home" id="nav-home" class="text-gray-600 hover:text-brand-600 transition-colors text-sm font-medium tracking-wide">HOME</a>
+                <a href="#collections" id="nav-featured" class="text-gray-600 hover:text-brand-600 transition-colors text-sm font-medium tracking-wide">COLLECTIONS</a>
+                <a href="#products" id="nav-products" class="text-gray-600 hover:text-brand-600 transition-colors text-sm font-medium tracking-wide">SHOP</a>
+                <a href="#about" id="nav-about" class="text-gray-600 hover:text-brand-600 transition-colors text-sm font-medium tracking-wide">ABOUT</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button
+                    id="menu-toggle"
+                    class="p-2 text-gray-600 hover:text-brand-600 md:hidden"
+                    @click="menuOpen = !menuOpen"
+            >
+                <svg x-show="!menuOpen" class="w-6 h-6">
+                    <use xlink:href="#menu-icon"></use>
+                </svg>
+                <svg x-show="menuOpen" class="w-6 h-6" x-cloak>
+                    <use xlink:href="#close-icon"></use>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+                id="mobile-menu"
+                x-show="menuOpen"
+                x-transition
+                class="md:hidden mt-4 py-6 border-t border-gray-100"
+                x-cloak
+        >
+            <nav class="flex flex-col space-y-6">
+                <a href="#home" id="mobile-nav-home" class="text-gray-600 hover:text-brand-600 transition-colors font-medium" @click="menuOpen = false">Home</a>
+                <a href="#collections" id="mobile-nav-featured" class="text-gray-600 hover:text-brand-600 transition-colors font-medium" @click="menuOpen = false">Collections</a>
+                <a href="#products" id="mobile-nav-products" class="text-gray-600 hover:text-brand-600 transition-colors font-medium" @click="menuOpen = false">Shop</a>
+                <a href="#about" id="mobile-nav-about" class="text-gray-600 hover:text-brand-600 transition-colors font-medium" @click="menuOpen = false">About</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="relative min-h-screen flex items-center pt-16 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+    <!-- Background Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-50 to-white -z-10"></div>
+
+    <!-- Decorative Circle Elements -->
+    <div class="absolute top-1/4 left-10 w-64 h-64 bg-brand-200 rounded-full mix-blend-multiply opacity-30 filter blur-3xl animate-float -z-10"></div>
+    <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-brand-100 rounded-full mix-blend-multiply opacity-40 filter blur-3xl animate-float-delayed -z-10"></div>
+
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                <span id="hero-label" class="inline-block px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-600 uppercase bg-brand-50 rounded-full mb-6">Summer Collection 2025</span>
+                <h2 id="hero-heading" class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
+                    Elevate Your <br class="hidden md:block"> <span class="text-brand-600">Everyday</span> Style
+                </h2>
+                <p id="hero-subheading" class="text-xl text-gray-600 mb-8 max-w-xl">Experience our meticulously crafted t-shirts made from sustainable materials, designed for both comfort and modern style.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#products" id="hero-shop-button" class="px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-md transition shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                        Explore Collection
+                    </a>
+                    <a href="#about" id="hero-about-button" class="px-8 py-4 border-2 border-gray-300 hover:border-brand-600 hover:text-brand-600 font-medium rounded-md transition transform hover:-translate-y-1">
+                        Our Story
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 relative">
+                <div class="relative z-10">
+                    <img id="hero-image" src="https://images.unsplash.com/photo-1566955849863-d9aef9b288b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Premium T-shirt collection" class="rounded-2xl shadow-2xl">
+                </div>
+                <div class="absolute -top-6 -left-6 w-full h-full border-2 border-brand-200 rounded-2xl -z-0"></div>
+                <div class="absolute -bottom-8 -right-8 w-full h-full bg-brand-500 rounded-2xl opacity-10 -z-0"></div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center">
+            <p class="text-sm font-medium text-gray-600 mb-2">Scroll to explore</p>
+            <svg class="w-6 h-6 mx-auto text-gray-600 scroll-indicator">
+                <use xlink:href="#arrow-down-icon"></use>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Values -->
+<section id="values-section" class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-14">
+            <div id="value-1" class="group">
+                <div class="bg-brand-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-100 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                    </svg>
+                </div>
+                <h3 id="value-title-1" class="text-xl font-bold mb-3 group-hover:text-brand-600 transition-colors duration-300">Premium Fabrics</h3>
+                <p id="value-description-1" class="text-gray-600">Our t-shirts are crafted from 100% organic cotton with a 180 GSM weight, ensuring both comfort and durability for everyday wear.</p>
+            </div>
+
+            <div id="value-2" class="group">
+                <div class="bg-brand-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-100 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h3 id="value-title-2" class="text-xl font-bold mb-3 group-hover:text-brand-600 transition-colors duration-300">Sustainable Production</h3>
+                <p id="value-description-2" class="text-gray-600">We're committed to ethical manufacturing and eco-friendly practices that minimize our environmental footprint while maximizing quality.</p>
+            </div>
+
+            <div id="value-3" class="group">
+                <div class="bg-brand-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-100 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <h3 id="value-title-3" class="text-xl font-bold mb-3 group-hover:text-brand-600 transition-colors duration-300">Timeless Design</h3>
+                <p id="value-description-3" class="text-gray-600">Our designs focus on longevity over fast fashion, creating versatile pieces with precise cuts and refined details that elevate your wardrobe.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Collections Section -->
+<section id="collections" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="text-center mb-16">
+            <span id="collections-label" class="inline-block px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-600 uppercase bg-brand-50 rounded-full mb-4">Our Collections</span>
+            <h2 id="collections-heading" class="text-4xl md:text-5xl font-bold mb-4">Curated For Your Style</h2>
+            <p id="collections-subheading" class="text-gray-600 max-w-2xl mx-auto text-lg">Explore our thoughtfully designed t-shirt collections, each with a distinct aesthetic and purpose.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Collection Card 1 -->
+            <div id="collection-1" class="relative overflow-hidden rounded-2xl shadow-lg group hover-trigger h-[500px]">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-70 transition-all z-10"></div>
+                <img id="collection-image-1" src="https://images.unsplash.com/photo-1551798507-629020c81463?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Essential Collection" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-x-0 bottom-0 p-10 text-white z-20">
+                    <h3 id="collection-title-1" class="text-3xl font-bold mb-3">Essentials</h3>
+                    <p id="collection-description-1" class="text-white text-opacity-90 mb-6 max-w-xs">Timeless basics in neutral tones, designed as the perfect foundation for any outfit.</p>
+                    <a href="#products" id="collection-link-1" class="inline-block hover-target bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 text-white py-3 px-6 rounded-md border border-white border-opacity-40 transition-all">
+                        Explore Collection
+                    </a>
+                </div>
+            </div>
+
+            <!-- Collection Card 2 -->
+            <div id="collection-2" class="relative overflow-hidden rounded-2xl shadow-lg group hover-trigger h-[500px]">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-70 transition-all z-10"></div>
+                <img id="collection-image-2" src="https://images.unsplash.com/photo-1566022326595-584864f4b3e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Premium Collection" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-x-0 bottom-0 p-10 text-white z-20">
+                    <h3 id="collection-title-2" class="text-3xl font-bold mb-3">Premium</h3>
+                    <p id="collection-description-2" class="text-white text-opacity-90 mb-6 max-w-xs">Luxury materials with exceptional quality, subtle details, and refined finishes.</p>
+                    <a href="#products" id="collection-link-2" class="inline-block hover-target bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 text-white py-3 px-6 rounded-md border border-white border-opacity-40 transition-all">
+                        Explore Collection
+                    </a>
+                </div>
+            </div>
+
+            <!-- Collection Card 3 -->
+            <div id="collection-3" class="relative overflow-hidden rounded-2xl shadow-lg group hover-trigger h-[500px]">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 group-hover:opacity-70 transition-all z-10"></div>
+                <img id="collection-image-3" src="https://images.unsplash.com/photo-1578932750294-f5075e85f44a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Graphic Collection" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-x-0 bottom-0 p-10 text-white z-20">
+                    <h3 id="collection-title-3" class="text-3xl font-bold mb-3">Graphic</h3>
+                    <p id="collection-description-3" class="text-white text-opacity-90 mb-6 max-w-xs">Artistic expressions and unique designs that make a bold statement.</p>
+                    <a href="#products" id="collection-link-3" class="inline-block hover-target bg-white bg-opacity-20 backdrop-blur-sm hover:bg-opacity-30 text-white py-3 px-6 rounded-md border border-white border-opacity-40 transition-all">
+                        Explore Collection
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section id="products" class="py-24 bg-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="text-center mb-16">
+            <span id="products-label" class="inline-block px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-600 uppercase bg-brand-50 rounded-full mb-4">Our Products</span>
+            <h2 id="products-heading" class="text-4xl md:text-5xl font-bold mb-4">Discover Our Collection</h2>
+            <p id="products-subheading" class="text-gray-600 max-w-2xl mx-auto text-lg">Every t-shirt is crafted with attention to detail, using premium materials that ensure both style and comfort.</p>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="mb-16">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Search Bar -->
+                <div id="search-container" class="w-full md:w-1/3">
+                    <div class="relative">
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400">
+                            <use xlink:href="#search-icon"></use>
+                        </svg>
+                        <input
+                                id="search-input"
+                                type="text"
+                                x-model="searchQuery"
+                                placeholder="Search for t-shirts..."
+                                class="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                        >
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div id="category-tabs" class="flex flex-wrap justify-center gap-2">
+                    <button
+                            @click="activeTab = 'all'"
+                            :class="{'bg-brand-600 text-white': activeTab === 'all', 'bg-gray-100 text-gray-800 hover:bg-gray-200': activeTab !== 'all'}"
+                            class="px-5 py-3 rounded-lg font-medium transition-colors"
+                    >
+                        All
+                    </button>
+                    <button
+                            @click="activeTab = 'essential'"
+                            :class="{'bg-brand-600 text-white': activeTab === 'essential', 'bg-gray-100 text-gray-800 hover:bg-gray-200': activeTab !== 'essential'}"
+                            class="px-5 py-3 rounded-lg font-medium transition-colors"
+                    >
+                        Essentials
+                    </button>
+                    <button
+                            @click="activeTab = 'premium'"
+                            :class="{'bg-brand-600 text-white': activeTab === 'premium', 'bg-gray-100 text-gray-800 hover:bg-gray-200': activeTab !== 'premium'}"
+                            class="px-5 py-3 rounded-lg font-medium transition-colors"
+                    >
+                        Premium
+                    </button>
+                    <button
+                            @click="activeTab = 'graphic'"
+                            :class="{'bg-brand-600 text-white': activeTab === 'graphic', 'bg-gray-100 text-gray-800 hover:bg-gray-200': activeTab !== 'graphic'}"
+                            class="px-5 py-3 rounded-lg font-medium transition-colors"
+                    >
+                        Graphic
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <template x-for="product in filteredProducts()" :key="product.id">
+                <div class="product-card bg-white rounded-xl overflow-hidden shadow border border-gray-100 group">
+                    <div class="relative h-80 overflow-hidden">
+                        <img
+                                x-bind:src="product.image || 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'"
+                                x-bind:alt="product.name"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+
+                        <div class="absolute top-4 left-4">
+                                <span x-show="product.isNew" class="inline-block px-3 py-1 bg-brand-600 text-white text-xs font-semibold rounded-full">
+                                    NEW
+                                </span>
+                        </div>
+
+                        <!-- Quick View Button -->
+                        <button
+                                class="absolute bottom-4 right-4 p-3 bg-white rounded-full shadow-md transform translate-y-12 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <template x-for="i in 5" :key="i">
+                                <svg class="w-4 h-4 mr-0.5" :class="{'text-yellow-400': i <= product.rating, 'text-gray-200': i > product.rating}">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </template>
+                            <span class="text-xs text-gray-500 ml-2" x-text="product.rating + '/5'"></span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 group-hover:text-brand-600 transition-colors" x-text="product.name"></h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2" x-text="product.description"></p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-bold text-brand-600" x-text="'$' + product.price.toFixed(2)"></span>
+                            <a
+                                    href="#"
+                                    class="text-brand-600 hover:text-brand-700 font-medium text-sm border-b-2 border-transparent hover:border-brand-600 pb-0.5 transition-all"
+                            >
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Empty state when no products match search -->
+            <div
+                    class="col-span-full text-center py-16"
+                    x-show="filteredProducts().length === 0"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-300 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p id="no-products-message" class="text-gray-500 text-lg mb-6">No t-shirts found matching your search.</p>
+                <button
+                        @click="searchQuery = ''; activeTab = 'all'"
+                        class="text-brand-600 hover:text-brand-700 font-medium border-b-2 border-transparent hover:border-brand-600 pb-0.5 transition-all"
+                >
+                    Clear filters
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Banner -->
+<section id="featured-banner" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="relative overflow-hidden rounded-2xl bg-brand-600">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-10 md:p-16 flex items-center text-white">
+                    <div>
+                        <span id="banner-label" class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-brand-700 uppercase bg-white rounded-full mb-6">Limited Edition</span>
+                        <h2 id="banner-heading" class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">Summer Essentials '25</h2>
+                        <p id="banner-description" class="text-white text-opacity-90 mb-8 text-lg">Beat the heat with our lightweight organic cotton t-shirts in fresh seasonal colors and relaxed fits.</p>
+                        <a href="#products" id="banner-cta" class="inline-block px-8 py-4 bg-white hover:bg-gray-100 text-brand-600 font-medium rounded-md transition shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                            Shop the Collection
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img id="banner-image" src="https://images.unsplash.com/photo-1562157873-818bc0726f68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Summer Collection" class="w-full h-full object-cover">
+                </div>
+                <!-- Decorative elements -->
+                <div class="absolute top-0 left-0 w-40 h-40 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 right-0 w-60 h-60 bg-white opacity-10 rounded-full translate-x-1/4 translate-y-1/4"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-24 bg-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 mb-12 lg:mb-0 relative">
+                <div class="relative z-10">
+                    <img id="about-image-1" src="https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-xl mb-6 md:mb-0 md:mr-6 w-full md:w-2/3">
+                    <img id="about-image-2" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="rounded-2xl shadow-xl absolute bottom-0 right-0 w-2/3 md:w-1/2 border-8 border-white">
+                </div>
+                <!-- Decorative elements -->
+                <div class="absolute -top-6 -left-6 w-24 h-24 bg-brand-100 rounded-full -z-10"></div>
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-500 opacity-10 rounded-full -z-10"></div>
+            </div>
+
+            <div class="lg:w-1/2 lg:pl-16">
+                <span id="about-label" class="inline-block px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-600 uppercase bg-brand-50 rounded-full mb-6">Our Story</span>
+                <h2 id="about-heading" class="text-4xl font-bold mb-6">Crafted With Purpose</h2>
+                <p id="about-description-1" class="text-gray-600 mb-6 text-lg">TEXTILE was founded with a commitment to creating premium quality t-shirts that combine comfort, style, and sustainability.</p>
+                <p id="about-description-2" class="text-gray-600 mb-6">Every t-shirt begins with the finest organic cotton, sourced from ethical farmers who share our vision for a more sustainable fashion industry. Our fabrics are carefully selected for softness, durability, and reduced environmental impact.</p>
+                <p id="about-description-3" class="text-gray-600 mb-8">From design to production, we prioritize craftsmanship and attention to detail. Our experienced team ensures that every stitch meets our exacting standards, creating t-shirts that look great and stand the test of time.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    <div id="about-stat-1" class="text-center">
+                        <span class="block text-4xl font-bold text-brand-600 mb-2">100%</span>
+                        <span class="text-gray-600">Organic Cotton</span>
+                    </div>
+                    <div id="about-stat-2" class="text-center">
+                        <span class="block text-4xl font-bold text-brand-600 mb-2">5+</span>
+                        <span class="text-gray-600">Years Experience</span>
+                    </div>
+                    <div id="about-stat-3" class="text-center">
+                        <span class="block text-4xl font-bold text-brand-600 mb-2">10k+</span>
+                        <span class="text-gray-600">Happy Customers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="text-center mb-16">
+            <span id="testimonials-label" class="inline-block px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-600 uppercase bg-brand-50 rounded-full mb-4">Testimonials</span>
+            <h2 id="testimonials-heading" class="text-4xl font-bold mb-4">What Our Customers Say</h2>
+            <p id="testimonials-subheading" class="text-gray-600 max-w-2xl mx-auto text-lg">Don't just take our word for it. Here's what people love about our t-shirts.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div id="testimonial-1" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition group">
+                <div class="flex items-center mb-6 text-yellow-400">
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                </div>
+                <p id="testimonial-text-1" class="text-gray-600 mb-8 text-lg italic leading-relaxed">"These are the best t-shirts I've ever owned. The quality is exceptional, and they fit perfectly. Even after multiple washes, they still look brand new."</p>
+                <div class="flex items-center">
+                    <img id="testimonial-image-1" src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4 object-cover">
+                    <div>
+                        <h4 id="testimonial-name-1" class="font-bold group-hover:text-brand-600 transition-colors">Sarah Johnson</h4>
+                        <p id="testimonial-location-1" class="text-gray-500 text-sm">New York, NY</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="testimonial-2" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition group">
+                <div class="flex items-center mb-6 text-yellow-400">
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                </div>
+                <p id="testimonial-text-2" class="text-gray-600 mb-8 text-lg italic leading-relaxed">"I love the sustainable aspect of these shirts. Knowing they're made from organic cotton makes me feel good about my purchase, and they're incredibly comfortable too!"</p>
+                <div class="flex items-center">
+                    <img id="testimonial-image-2" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4 object-cover">
+                    <div>
+                        <h4 id="testimonial-name-2" class="font-bold group-hover:text-brand-600 transition-colors">Michael Chen</h4>
+                        <p id="testimonial-location-2" class="text-gray-500 text-sm">Los Angeles, CA</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="testimonial-3" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition group">
+                <div class="flex items-center mb-6 text-yellow-400">
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                    <svg class="w-5 h-5"><use xlink:href="#star-icon"></use></svg>
+                </div>
+                <p id="testimonial-text-3" class="text-gray-600 mb-8 text-lg italic leading-relaxed">"The designs are so unique and stylish. I get compliments every time I wear one of my TEXTILE shirts. Great value for the price, highly recommend!"</p>
+                <div class="flex items-center">
+                    <img id="testimonial-image-3" src="https://randomuser.me/api/portraits/women/65.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4 object-cover">
+                    <div>
+                        <h4 id="testimonial-name-3" class="font-bold group-hover:text-brand-600 transition-colors">Emma Rodriguez</h4>
+                        <p id="testimonial-location-3" class="text-gray-500 text-sm">Chicago, IL</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section id="newsletter" class="py-20 bg-brand-600 text-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h2 id="newsletter-heading" class="text-3xl font-bold mb-4">Join our newsletter</h2>
+                <p id="newsletter-description" class="text-white text-opacity-90 text-lg">Stay updated on new collections, exclusive offers, and styling tips. No spam, just the good stuff.</p>
+            </div>
+            <div class="md:w-1/2 md:pl-8">
+                <form id="newsletter-form" class="flex flex-col sm:flex-row">
+                    <input type="email" id="newsletter-email" placeholder="Your email address" class="w-full sm:w-2/3 px-6 py-4 rounded-l-md focus:outline-none text-gray-800 text-lg" required>
+                    <button type="submit" id="newsletter-submit" class="w-full sm:w-1/3 bg-brand-900 hover:bg-black text-white px-6 py-4 rounded-r-md transition mt-3 sm:mt-0 shadow-md hover:shadow-lg text-lg font-medium">
+                        Subscribe
+                    </button>
+                </form>
+                <p class="text-white text-opacity-70 text-sm mt-4">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Credit Section -->
+<section class="py-12 bg-white text-center">
+    <p id="credit" class="text-gray-500">Website designed with ♥ by RN Team</p>
+</section>
+</body>
+</html>

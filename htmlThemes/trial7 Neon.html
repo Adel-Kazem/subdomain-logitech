@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPECTRUM | Neon Vibes T-Shirts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cyber: ['Orbitron', 'sans-serif'],
+                        futura: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        dark: {
+                            900: '#050505',
+                            800: '#0F0F0F',
+                            700: '#151515',
+                            600: '#1A1A1A',
+                            500: '#202020',
+                        },
+                        neon: {
+                            pink: '#FF2DCD',
+                            blue: '#2DC8FF',
+                            green: '#37FF8B',
+                            purple: '#A43EFF',
+                            yellow: '#FFE32D',
+                        },
+                    },
+                    keyframes: {
+                        pulse: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.5 },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%, 100%': {
+                                'box-shadow': '0 0 5px rgba(255, 45, 205, 0.5), 0 0 15px rgba(255, 45, 205, 0.3)'
+                            },
+                            '50%': {
+                                'box-shadow': '0 0 20px rgba(255, 45, 205, 0.8), 0 0 40px rgba(255, 45, 205, 0.5)'
+                            },
+                        },
+                    },
+                    animation: {
+                        pulse: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        float: 'float 6s ease-in-out infinite',
+                        glow: 'glow 3s ease-in-out infinite',
+                    },
+                },
+            },
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="products.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        body {
+            background-color: #050505;
+            background-image:
+                    radial-gradient(circle at 15% 50%, rgba(255, 45, 205, 0.05) 0%, transparent 25%),
+                    radial-gradient(circle at 85% 30%, rgba(45, 200, 255, 0.05) 0%, transparent 25%);
+        }
+
+        .bg-glass {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bg-glass-dark {
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor;
+        }
+
+        .glow-border {
+            box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+        }
+
+        .glow-card {
+            transition: all 0.3s ease;
+        }
+
+        .glow-card:hover {
+            box-shadow: 0 0 15px currentColor, 0 0 30px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .grid-pattern {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Clip path shapes */
+        .clip-triangle {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .clip-diagonal {
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
+        }
+
+        .clip-hex {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        /* Duotone image effect */
+        .duotone {
+            filter: grayscale(100%) contrast(1.2) brightness(1.1);
+            mix-blend-mode: lighten;
+        }
+
+        .duotone-pink {
+            background-color: rgba(255, 45, 205, 0.2);
+        }
+
+        .duotone-blue {
+            background-color: rgba(45, 200, 255, 0.2);
+        }
+
+        .duotone-green {
+            background-color: rgba(55, 255, 139, 0.2);
+        }
+
+        /* Cyberpunk glitch effect */
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        .glitch:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0F0F0F;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 45, 205, 0.5);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 45, 205, 0.8);
+        }
+    </style>
+</head>
+<body class="font-futura text-white" x-data="{
+    menuOpen: false,
+    searchQuery: '',
+    activeCategory: 'all',
+    showSearch: false,
+
+    // Product data
+    products: PRODUCTS,
+
+    // Methods
+    filteredProducts() {
+        let filtered = this.products;
+        if (this.searchQuery.trim()) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query)
+            );
+        }
+
+        if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(product => product.category === this.activeCategory);
+        }
+
+        return filtered;
+    }
+}">
+
+<!-- SVG Definitions -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Menu Icon -->
+    <symbol id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </symbol>
+
+    <!-- Close Icon -->
+    <symbol id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+
+    <!-- Arrow Icon -->
+    <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </symbol>
+
+    <!-- Chip Icon -->
+    <symbol id="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+        <rect x="9" y="9" width="6" height="6"></rect>
+        <line x1="9" y1="2" x2="9" y2="4"></line>
+        <line x1="15" y1="2" x2="15" y2="4"></line>
+        <line x1="9" y1="20" x2="9" y2="22"></line>
+        <line x1="15" y1="20" x2="15" y2="22"></line>
+        <line x1="20" y1="9" x2="22" y2="9"></line>
+        <line x1="20" y1="14" x2="22" y2="14"></line>
+        <line x1="2" y1="9" x2="4" y2="9"></line>
+        <line x1="2" y1="14" x2="4" y2="14"></line>
+    </symbol>
+
+    <!-- Lightning Icon -->
+    <symbol id="lightning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+    </symbol>
+
+    <!-- Globe Icon -->
+    <symbol id="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="2" y1="12" x2="22" y2="12"></line>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </symbol>
+</svg>
+
+<!-- Header -->
+<header id="header-section" class="fixed top-0 left-0 right-0 z-50 bg-glass py-4">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex justify-between items-center">
+            <a href="#" id="brand-link" class="flex items-center">
+                <h1 id="logo-text" class="text-2xl md:text-3xl font-cyber font-bold tracking-wider">
+                    <span class="text-neon-pink glow-text">SPEC</span><span class="text-neon-blue glow-text">TRUM</span>
+                </h1>
+            </a>
+
+            <nav id="main-navigation" class="hidden md:flex items-center space-x-10">
+                <a href="#home" id="nav-home" class="text-white hover:text-neon-pink hover:glow-text transition-all">HOME</a>
+                <a href="#products" id="nav-products" class="text-white hover:text-neon-pink hover:glow-text transition-all">PRODUCTS</a>
+                <a href="#collections" id="nav-collections" class="text-white hover:text-neon-pink hover:glow-text transition-all">COLLECTIONS</a>
+                <a href="#features" id="nav-features" class="text-white hover:text-neon-pink hover:glow-text transition-all">FEATURES</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <!-- Search Toggle -->
+                <button
+                        @click="showSearch = !showSearch"
+                        class="p-2 rounded-full border border-white/20 hover:border-neon-pink hover:text-neon-pink transition-colors"
+                        :class="{'text-neon-pink border-neon-pink': showSearch}"
+                >
+                    <svg class="w-5 h-5">
+                        <use xlink:href="#search-icon"></use>
+                    </svg>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button
+                        id="menu-toggle"
+                        class="p-2 rounded-full border border-white/20 hover:border-neon-pink hover:text-neon-pink transition-colors md:hidden"
+                        :class="{'text-neon-pink border-neon-pink': menuOpen}"
+                        @click="menuOpen = !menuOpen"
+                >
+                    <svg x-show="!menuOpen" class="w-5 h-5">
+                        <use xlink:href="#menu-icon"></use>
+                    </svg>
+                    <svg x-show="menuOpen" class="w-5 h-5" x-cloak>
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar (Hidden by default) -->
+        <div
+                x-show="showSearch"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2"
+                class="mt-4 relative"
+                x-cloak
+        >
+            <input
+                    id="search-input"
+                    type="text"
+                    x-model="searchQuery"
+                    @keydown.escape="showSearch = false"
+                    placeholder="SEARCH PRODUCTS..."
+                    class="w-full py-3 px-5 bg-dark-800 border border-white/10 rounded-md focus:outline-none focus:border-neon-pink font-mono text-sm"
+                    autofocus
+            >
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <button @click="showSearch = false" class="text-white/50 hover:text-neon-pink">
+                    <svg class="w-5 h-5">
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+                id="mobile-menu"
+                x-show="menuOpen"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2"
+                class="md:hidden mt-4 py-4 bg-dark-700 rounded-md border border-white/10"
+                x-cloak
+        >
+            <nav class="flex flex-col space-y-4 px-4">
+                <a href="#home" id="mobile-nav-home" class="py-2 px-4 hover:bg-dark-600 rounded-md hover:text-neon-pink transition-colors" @click="menuOpen = false">HOME</a>
+                <a href="#products" id="mobile-nav-products" class="py-2 px-4 hover:bg-dark-600 rounded-md hover:text-neon-pink transition-colors" @click="menuOpen = false">PRODUCTS</a>
+                <a href="#collections" id="mobile-nav-collections" class="py-2 px-4 hover:bg-dark-600 rounded-md hover:text-neon-pink transition-colors" @click="menuOpen = false">COLLECTIONS</a>
+                <a href="#features" id="mobile-nav-features" class="py-2 px-4 hover:bg-dark-600 rounded-md hover:text-neon-pink transition-colors" @click="menuOpen = false">FEATURES</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="pt-28 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 grid-pattern opacity-30"></div>
+
+    <!-- Glow Elements -->
+    <div class="absolute top-1/4 -left-20 w-60 h-60 rounded-full bg-neon-pink/10 blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-neon-blue/10 blur-3xl animate-pulse"></div>
+
+    <div class="container mx-auto px-4 max-w-7xl relative z-10">
+        <div class="flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 lg:pr-16 mb-12 lg:mb-0 text-center lg:text-left">
+                <h1 id="hero-heading" class="font-cyber font-bold text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">
+                    <span class="block text-white">THE FUTURE OF</span>
+                    <span class="block text-neon-pink glow-text">STREET</span>
+                    <span class="block text-neon-blue glow-text">WEAR</span>
+                </h1>
+
+                <p id="hero-description" class="text-white/80 text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0">
+                    Merging cutting-edge design with sustainable materials to create t-shirts for the digital age. Express your future-self.
+                </p>
+
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#products" id="hero-shop-button" class="px-8 py-3 bg-neon-pink text-white font-cyber font-bold tracking-wider rounded-md hover:glow-border border border-neon-pink hover:animate-glow transition-all">
+                        EXPLORE_
+                    </a>
+
+                    <a href="#video" id="hero-video-button" class="px-8 py-3 border border-white/20 text-white font-cyber tracking-wider rounded-md hover:border-neon-blue hover:text-neon-blue transition-colors flex items-center justify-center sm:justify-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                        WATCH_VIDEO
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 relative">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-neon-pink to-neon-blue rounded-2xl opacity-75 blur"></div>
+                <div class="relative bg-dark-900 rounded-2xl overflow-hidden">
+                    <img id="hero-image" src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Futuristic T-shirt" class="w-full duotone duotone-pink">
+
+                    <!-- Decorative elements -->
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-glass-dark rounded-full text-neon-pink text-xs font-cyber">
+                        SPECTRUM_2077
+                    </div>
+
+                    <div class="absolute bottom-4 right-4 px-3 py-1 bg-glass-dark rounded-full text-neon-blue text-xs font-mono">
+                        // FUTURE_RESPONSIVE_WEAR
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section id="collections" class="py-24 relative bg-dark-800">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="text-center mb-16">
+            <p class="text-neon-pink font-mono mb-4">// SELECT_YOUR_STYLE</p>
+            <h2 id="categories-heading" class="font-cyber text-4xl md:text-5xl font-bold mb-8">
+                <span class="text-neon-blue glow-text">BROWSE</span>
+                <span class="text-white">COLLECTIONS</span>
+            </h2>
+            <p id="categories-subheading" class="text-white/70 max-w-2xl mx-auto">
+                Our collections merge the physical and digital realms, created for those who live on the cutting edge of tomorrow.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Neon Collection -->
+            <div class="group relative bg-dark-700 rounded-xl overflow-hidden glow-card border border-neon-pink/30 hover:border-neon-pink/70">
+                <div class="absolute inset-0 bg-gradient-to-br from-neon-pink/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                <div class="h-80 overflow-hidden">
+                    <img id="category-image-1" src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Neon Collection" class="w-full h-full object-cover duotone duotone-pink transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <div class="p-6 relative">
+                    <div class="absolute -top-12 left-4 bg-neon-pink text-white font-cyber px-4 py-1 rounded-md">
+                        NEON_PULSE
+                    </div>
+
+                    <h3 id="category-title-1" class="font-cyber text-2xl mb-3 text-white group-hover:text-neon-pink transition-colors">NEON COLLECTION</h3>
+                    <p id="category-description-1" class="text-white/70 mb-6">Vibrant designs that glow in low light, perfect for night events and cyberpunk enthusiasts.</p>
+
+                    <a href="#" id="category-link-1" class="inline-flex items-center text-neon-pink font-mono hover:glow-text">
+                        <span>BROWSE_COLLECTION</span>
+                        <svg class="w-5 h-5 ml-2">
+                            <use xlink:href="#arrow-icon"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tech Collection -->
+            <div class="group relative bg-dark-700 rounded-xl overflow-hidden glow-card border border-neon-blue/30 hover:border-neon-blue/70">
+                <div class="absolute inset-0 bg-gradient-to-br from-neon-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                <div class="h-80 overflow-hidden">
+                    <img id="category-image-2" src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tech Collection" class="w-full h-full object-cover duotone duotone-blue transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <div class="p-6 relative">
+                    <div class="absolute -top-12 left-4 bg-neon-blue text-white font-cyber px-4 py-1 rounded-md">
+                        DIGITAL_ECHO
+                    </div>
+
+                    <h3 id="category-title-2" class="font-cyber text-2xl mb-3 text-white group-hover:text-neon-blue transition-colors">TECH COLLECTION</h3>
+                    <p id="category-description-2" class="text-white/70 mb-6">Circuit-inspired patterns and digital aesthetics for the technology enthusiasts.</p>
+
+                    <a href="#" id="category-link-2" class="inline-flex items-center text-neon-blue font-mono hover:glow-text">
+                        <span>BROWSE_COLLECTION</span>
+                        <svg class="w-5 h-5 ml-2">
+                            <use xlink:href="#arrow-icon"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Neo Collection -->
+            <div class="group relative bg-dark-700 rounded-xl overflow-hidden glow-card border border-neon-green/30 hover:border-neon-green/70">
+                <div class="absolute inset-0 bg-gradient-to-br from-neon-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                <div class="h-80 overflow-hidden">
+                    <img id="category-image-3" src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Neo Collection" class="w-full h-full object-cover duotone duotone-green transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <div class="p-6 relative">
+                    <div class="absolute -top-12 left-4 bg-neon-green text-black font-cyber px-4 py-1 rounded-md">
+                        MATRIX_RELOADED
+                    </div>
+
+                    <h3 id="category-title-3" class="font-cyber text-2xl mb-3 text-white group-hover:text-neon-green transition-colors">NEO COLLECTION</h3>
+                    <p id="category-description-3" class="text-white/70 mb-6">Minimalist designs with matrix-inspired elements for the digital rebels.</p>
+
+                    <a href="#" id="category-link-3" class="inline-flex items-center text-neon-green font-mono hover:glow-text">
+                        <span>BROWSE_COLLECTION</span>
+                        <svg class="w-5 h-5 ml-2">
+                            <use xlink:href="#arrow-icon"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Product Section -->
+<section id="featured" class="py-24 bg-dark-900 relative overflow-hidden">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 grid-pattern opacity-20"></div>
+
+    <!-- Glow Elements -->
+    <div class="absolute top-1/3 right-0 w-96 h-96 rounded-full bg-neon-purple/10 blur-3xl animate-pulse"></div>
+
+    <div class="container mx-auto px-4 max-w-7xl relative z-10">
+        <div class="flex flex-col lg:flex-row items-center">
+            <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-16">
+                <div class="inline-block bg-glass px-3 py-1 rounded-full text-neon-purple text-xs font-cyber mb-6">
+                    FEATURED_PRODUCT
+                </div>
+
+                <h2 id="featured-heading" class="font-cyber text-4xl font-bold mb-6 leading-tight">
+                    <span class="text-white">THE</span>
+                    <span class="text-neon-purple glow-text">QUANTUM</span>
+                    <span class="text-white">SERIES</span>
+                </h2>
+
+                <p id="featured-price" class="font-mono text-2xl text-neon-purple mb-6">$79.99</p>
+
+                <p id="featured-description" class="text-white/80 mb-8">
+                    Our flagship Quantum Series features interactive elements that respond to sound and movement. Embedded with microscopic light-reactive threads, this t-shirt transforms under different lighting conditions, creating a dynamic visual experience that's uniquely yours.
+                </p>
+
+                <div class="space-y-6 mb-8">
+                    <div class="flex items-start">
+                        <div class="bg-neon-purple/10 p-2 rounded-md mr-4">
+                            <svg class="w-5 h-5 text-neon-purple">
+                                <use xlink:href="#chip-icon"></use>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Reactive Fabric Technology</h4>
+                            <p class="text-white/70 text-sm">Light-sensitive threads that respond to environmental changes</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="bg-neon-purple/10 p-2 rounded-md mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-neon-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Day & Night Modes</h4>
+                            <p class="text-white/70 text-sm">Subtle by day, radiant by night - two shirts in one</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="bg-neon-purple/10 p-2 rounded-md mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-neon-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold mb-1">Custom Fit Algorithm</h4>
+                            <p class="text-white/70 text-sm">Precision tailored for your body's unique dimensions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="px-8 py-3 bg-neon-purple text-white font-cyber tracking-wider rounded-md hover:glow-border border border-neon-purple">
+                        ADD_TO_CART
+                    </button>
+
+                    <button class="px-8 py-3 bg-transparent border border-white/20 text-white font-cyber tracking-wider rounded-md hover:border-neon-purple hover:text-neon-purple transition-colors">
+                        LEARN_MORE
+                    </button>
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 relative">
+                <div class="relative">
+                    <!-- Decorative frame -->
+                    <div class="absolute -inset-4 bg-gradient-to-r from-neon-purple/30 to-neon-blue/30 rounded-xl blur-sm animate-pulse"></div>
+
+                    <div class="relative bg-dark-700 p-2 rounded-xl">
+                        <img id="featured-image" src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Quantum T-shirt" class="rounded-lg">
+
+                        <!-- Decorative elements -->
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-glass-dark rounded-full font-mono text-xs text-neon-purple">
+                            QUANTUM_V2.5
+                        </div>
+
+                        <div class="absolute -bottom-3 -right-3 w-24 h-24 bg-dark-800 rounded-full flex items-center justify-center border border-neon-purple animate-float">
+                            <div class="text-center">
+                                <div class="text-neon-purple font-cyber text-sm">NEW</div>
+                                <div class="text-white/80 text-xs font-mono">RELEASE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section id="products" class="py-24 bg-dark-800">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="text-center mb-16">
+            <p class="text-neon-blue font-mono mb-4">// BROWSE_OUR_LINEUP</p>
+            <h2 id="products-heading" class="font-cyber text-4xl md:text-5xl font-bold mb-8">
+                <span class="text-white">LATEST</span>
+                <span class="text-neon-blue glow-text">PRODUCTS</span>
+            </h2>
+            <p id="products-subheading" class="text-white/70 max-w-2xl mx-auto">
+                Discover our collection of futuristic t-shirts, each designed with purpose and precision for the digital age.
+            </p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <button
+                    @click="activeCategory = 'all'"
+                    :class="{'bg-neon-pink text-white border-neon-pink': activeCategory === 'all', 'bg-dark-700 border-white/10 hover:border-neon-pink/50': activeCategory !== 'all'}"
+                    class="px-6 py-2 rounded-full text-sm font-mono transition-colors border"
+            >
+                ALL_ITEMS
+            </button>
+            <button
+                    @click="activeCategory = 'neon'"
+                    :class="{'bg-neon-pink text-white border-neon-pink': activeCategory === 'neon', 'bg-dark-700 border-white/10 hover:border-neon-pink/50': activeCategory !== 'neon'}"
+                    class="px-6 py-2 rounded-full text-sm font-mono transition-colors border"
+            >
+                NEON_PULSE
+            </button>
+            <button
+                    @click="activeCategory = 'tech'"
+                    :class="{'bg-neon-pink text-white border-neon-pink': activeCategory === 'tech', 'bg-dark-700 border-white/10 hover:border-neon-pink/50': activeCategory !== 'tech'}"
+                    class="px-6 py-2 rounded-full text-sm font-mono transition-colors border"
+            >
+                DIGITAL_ECHO
+            </button>
+            <button
+                    @click="activeCategory = 'neo'"
+                    :class="{'bg-neon-pink text-white border-neon-pink': activeCategory === 'neo', 'bg-dark-700 border-white/10 hover:border-neon-pink/50': activeCategory !== 'neo'}"
+                    class="px-6 py-2 rounded-full text-sm font-mono transition-colors border"
+            >
+                MATRIX_RELOADED
+            </button>
+        </div>
+
+        <!-- Search Results Indicator -->
+        <div
+                x-show="searchQuery.trim() !== ''"
+                class="mb-8 bg-dark-700 py-3 px-6 rounded-md mx-auto max-w-lg text-center"
+                x-cloak
+        >
+            <p class="font-mono text-sm">
+                <span class="text-neon-blue">SEARCH_RESULTS</span>
+                <span class="text-white/70">for</span>
+                <span class="text-neon-pink" x-text="searchQuery"></span>
+            </p>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <template x-for="(product, index) in filteredProducts()" :key="product.id">
+                <div
+                        class="bg-dark-700 rounded-xl overflow-hidden glow-card"
+                        :class="{
+                            'border border-neon-pink/30 hover:border-neon-pink': index % 3 === 0,
+                            'border border-neon-blue/30 hover:border-neon-blue': index % 3 === 1,
+                            'border border-neon-green/30 hover:border-neon-green': index % 3 === 2
+                        }"
+                >
+                    <div class="relative">
+                        <div class="h-64 overflow-hidden">
+                            <img
+                                    x-bind:src="product.image || 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'"
+                                    x-bind:alt="product.name"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                    :class="{
+                                        'duotone duotone-pink': index % 3 === 0,
+                                        'duotone duotone-blue': index % 3 === 1,
+                                        'duotone duotone-green': index % 3 === 2
+                                    }"
+                            >
+                        </div>
+
+                        <!-- Price Tag -->
+                        <div
+                                class="absolute top-4 right-4 px-3 py-1 rounded-full font-mono text-sm bg-glass-dark"
+                                :class="{
+                                    'text-neon-pink': index % 3 === 0,
+                                    'text-neon-blue': index % 3 === 1,
+                                    'text-neon-green': index % 3 === 2
+                                }"
+                        >
+                            <span x-text="'$' + product.price.toFixed(2)"></span>
+                        </div>
+
+                        <!-- Quick View Overlay -->
+                        <div class="absolute inset-0 bg-dark-900/80 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button
+                                    class="px-6 py-2 border rounded-md font-cyber text-sm transition-colors"
+                                    :class="{
+                                        'border-neon-pink text-neon-pink hover:bg-neon-pink hover:text-white': index % 3 === 0,
+                                        'border-neon-blue text-neon-blue hover:bg-neon-blue hover:text-white': index % 3 === 1,
+                                        'border-neon-green text-neon-green hover:bg-neon-green hover:text-black': index % 3 === 2
+                                    }"
+                            >
+                                QUICK_VIEW
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-cyber text-lg mb-2 tracking-wide" x-text="product.name"
+                            :class="{
+                                    'text-neon-pink': index % 3 === 0,
+                                    'text-neon-blue': index % 3 === 1,
+                                    'text-neon-green': index % 3 === 2
+                                }"
+                        ></h3>
+
+                        <p class="text-white/70 text-sm mb-4 line-clamp-2" x-text="product.description"></p>
+
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-1">
+                                <template x-for="i in 5" :key="i">
+                                    <svg class="w-4 h-4" :class="i <= product.rating ? 'text-neon-yellow' : 'text-white/20'">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" fill="currentColor"></path>
+                                    </svg>
+                                </template>
+                            </div>
+
+                            <button
+                                    class="text-sm font-mono hover:underline"
+                                    :class="{
+                                        'text-neon-pink': index % 3 === 0,
+                                        'text-neon-blue': index % 3 === 1,
+                                        'text-neon-green': index % 3 === 2
+                                    }"
+                            >
+                                ADD_TO_CART
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Empty State -->
+            <div
+                    class="col-span-full py-16 text-center"
+                    x-show="filteredProducts().length === 0"
+            >
+                <div class="inline-block p-6 rounded-full bg-dark-700 border border-neon-pink mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-neon-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+
+                <h3 class="font-cyber text-2xl text-white mb-4">NO_RESULTS_FOUND</h3>
+                <p class="text-white/70 mb-8 max-w-md mx-auto">We couldn't find any products matching your query. Try adjusting your search or browse our collections.</p>
+
+                <button
+                        @click="searchQuery = ''; activeCategory = 'all'"
+                        class="px-8 py-3 bg-neon-pink text-white font-cyber tracking-wider rounded-md hover:glow-border border border-neon-pink"
+                >
+                    RESET_FILTERS
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-24 bg-dark-900 relative">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 grid-pattern opacity-20"></div>
+
+    <div class="container mx-auto px-4 max-w-7xl relative z-10">
+        <div class="text-center mb-16">
+            <p class="text-neon-green font-mono mb-4">// WHY_CHOOSE_SPECTRUM</p>
+            <h2 id="features-heading" class="font-cyber text-4xl md:text-5xl font-bold mb-8">
+                <span class="text-white">FUTURE</span>
+                <span class="text-neon-green glow-text">TECHNOLOGY</span>
+            </h2>
+            <p id="features-subheading" class="text-white/70 max-w-2xl mx-auto">
+                Our shirts are more than fabric - they're a fusion of fashion and technology, designed for the digital citizen.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="bg-dark-700 rounded-xl p-8 border border-neon-pink/20 hover:border-neon-pink/60 transition-colors">
+                <div class="w-16 h-16 rounded-lg bg-neon-pink/10 flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-neon-pink">
+                        <use xlink:href="#chip-icon"></use>
+                    </svg>
+                </div>
+
+                <h3 id="feature-title-1" class="font-cyber text-xl mb-4 text-neon-pink">SMART FABRIC</h3>
+                <p id="feature-description-1" class="text-white/70">
+                    Our proprietary fabric blend integrates nano-reactive fibers that adapt to environmental conditions for optimal comfort in any setting.
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="bg-dark-700 rounded-xl p-8 border border-neon-blue/20 hover:border-neon-blue/60 transition-colors">
+                <div class="w-16 h-16 rounded-lg bg-neon-blue/10 flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-neon-blue">
+                        <use xlink:href="#lightning-icon"></use>
+                    </svg>
+                </div>
+
+                <h3 id="feature-title-2" class="font-cyber text-xl mb-4 text-neon-blue">REACTIVE VISUALS</h3>
+                <p id="feature-description-2" class="text-white/70">
+                    Light-sensitive patterns that activate under specific conditions, creating a dynamic visual experience that evolves throughout your day.
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="bg-dark-700 rounded-xl p-8 border border-neon-green/20 hover:border-neon-green/60 transition-colors">
+                <div class="w-16 h-16 rounded-lg bg-neon-green/10 flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-neon-green">
+                        <use xlink:href="#globe-icon"></use>
+                    </svg>
+                </div>
+
+                <h3 id="feature-title-3" class="font-cyber text-xl mb-4 text-neon-green">ECO SYNTHESIS</h3>
+                <p id="feature-description-3" class="text-white/70">
+                    Combining cutting-edge technology with sustainable materials, our production process minimizes environmental impact without compromising quality.
+                </p>
+            </div>
+        </div>
+
+        <!-- Video Section -->
+        <div id="video" class="mt-24 relative">
+            <div class="absolute -inset-1 bg-gradient-to-r from-neon-pink via-neon-blue to-neon-green opacity-50 blur-md rounded-xl"></div>
+
+            <div class="relative bg-dark-800 rounded-xl overflow-hidden">
+                <div class="aspect-w-16 aspect-h-9 bg-dark-700">
+                    <div class="w-full h-full flex items-center justify-center">
+                        <!-- Video Placeholder - would be replaced with actual video in production -->
+                        <img src="https://images.unsplash.com/photo-1618556450994-a6a128ef0d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Product demo video thumbnail" class="w-full h-full object-cover opacity-60">
+
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <button class="w-20 h-20 rounded-full bg-neon-pink/80 flex items-center justify-center text-white hover:bg-neon-pink transition-colors animate-pulse">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Decorative elements -->
+                        <div class="absolute top-6 left-6 font-cyber text-neon-pink text-lg glow-text">SPECTRUM_TECH</div>
+
+                        <div class="absolute bottom-6 right-6 px-4 py-2 bg-glass rounded-md">
+                            <div class="font-mono text-sm text-white/80">// WATCH_HOW_IT_WORKS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section id="newsletter" class="py-16 bg-dark-800 border-t border-b border-white/5">
+    <div class="container mx-auto px-4 max-w-3xl">
+        <div class="text-center">
+            <p class="font-mono text-neon-blue mb-3">// JOIN_OUR_NETWORK</p>
+            <h2 id="newsletter-heading" class="font-cyber text-3xl font-bold mb-6">
+                <span class="text-white">STAY</span>
+                <span class="text-neon-blue glow-text">CONNECTED</span>
+            </h2>
+            <p id="newsletter-description" class="text-white/70 mb-8 max-w-lg mx-auto">
+                Subscribe to our neural network for early access to new designs, exclusive offers, and technological insights.
+            </p>
+
+            <form class="flex flex-col sm:flex-row gap-3">
+                <input
+                        type="email"
+                        id="newsletter-email"
+                        placeholder="ENTER_YOUR_EMAIL"
+                        class="bg-dark-900 border border-white/10 rounded-md py-3 px-5 flex-grow text-white focus:outline-none focus:border-neon-blue font-mono"
+                >
+                <button
+                        type="submit"
+                        id="newsletter-submit"
+                        class="bg-neon-blue hover:bg-neon-blue/90 text-white py-3 px-8 rounded-md font-cyber tracking-wider hover:glow-text transition-all"
+                >
+                    CONNECT_
+                </button>
+            </form>
+
+            <p class="text-white/50 text-xs mt-4 font-mono">BY_SUBSCRIBING_YOU_AGREE_TO_OUR_PRIVACY_POLICY</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark-900 text-white pt-20 pb-10">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+            <div>
+                <h2 id="footer-logo" class="text-2xl font-cyber font-bold tracking-wider mb-6">
+                    <span class="text-neon-pink glow-text">SPEC</span><span class="text-neon-blue glow-text">TRUM</span>
+                </h2>
+                <p id="footer-description" class="text-white/60 mb-4">
+                    Futuristic t-shirts for the digital age. Express your cyber-self with our neon-infused designs.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white/40 hover:text-neon-pink transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white/40 hover:text-neon-pink transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white/40 hover:text-neon-pink transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 id="footer-shop-heading" class="font-cyber text-lg mb-6 text-white/80">SHOP_</h3>
+                <ul class="space-y-3 font-mono text-sm">
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">ALL_PRODUCTS</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">NEW_ARRIVALS</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">FEATURED</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">COLLECTIONS</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 id="footer-company-heading" class="font-cyber text-lg mb-6 text-white/80">COMPANY_</h3>
+                <ul class="space-y-3 font-mono text-sm">
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">ABOUT_US</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">OUR_TECH</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">SUSTAINABILITY</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">PARTNERS</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 id="footer-support-heading" class="font-cyber text-lg mb-6 text-white/80">SUPPORT_</h3>
+                <ul class="space-y-3 font-mono text-sm">
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">HELP_CENTER</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">SHIPPING</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">RETURNS</a></li>
+                    <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors">PRIVACY_POLICY</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p id="copyright" class="text-white/40 text-sm font-mono mb-4 md:mb-0">© 2077_SPECTRUM_COLLECTIVE // ALL_RIGHTS_RESERVED</p>
+            <p id="credit" class="text-white/40 text-sm">
+                <span class="font-mono">DESIGNED_WITH</span>
+                <span class="text-neon-pink">♥</span>
+                <span class="font-mono">BY_RN_TEAM</span>
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

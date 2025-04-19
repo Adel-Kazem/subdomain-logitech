@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOCKSHIFT | Bold T-Shirts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Cabinet Grotesk', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'primary': '#F5DF4D', // Yellow
+                        'secondary': '#0E79B2', // Blue
+                        'tertiary': '#FF6B6B', // Red
+                        'accent': '#9BDEAC', // Mint
+                        'dark': '#000000',
+                        'light': '#FFFFFF',
+                    },
+                    boxShadow: {
+                        'brutal': '5px 5px 0px 0px rgba(0,0,0,1)',
+                        'brutal-lg': '8px 8px 0px 0px rgba(0,0,0,1)',
+                        'brutal-xl': '12px 12px 0px 0px rgba(0,0,0,1)',
+                        'brutal-white': '5px 5px 0px 0px rgba(255,255,255,1)',
+                        'brutal-blue': '5px 5px 0px 0px rgba(14,121,178,1)',
+                        'brutal-yellow': '5px 5px 0px 0px rgba(245,223,77,1)',
+                        'brutal-red': '5px 5px 0px 0px rgba(255,107,107,1)',
+                    },
+                },
+            },
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="products.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        @font-face {
+            font-family: 'Cabinet Grotesk';
+            src: url('https://fonts.cdnfonts.com/css/cabinet-grotesk') format('woff2');
+            font-weight: 400 800;
+            font-style: normal;
+        }
+
+        /* Custom cursor */
+        body {
+            cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23F5DF4D' stroke='black' stroke-width='2'/%3E%3C/svg%3E"), auto;
+        }
+
+        /* Button and link hover effect */
+        a, button {
+            cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23FF6B6B' stroke='black' stroke-width='2'/%3E%3C/svg%3E"), pointer;
+        }
+
+        /* Brutalist pattern */
+        .pattern-dots {
+            background-image: radial-gradient(#000 10%, transparent 11%),
+                              radial-gradient(#000 10%, transparent 11%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-repeat: repeat;
+            opacity: 0.1;
+        }
+
+        .pattern-lines {
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 5px,
+                rgba(0, 0, 0, 0) 5px,
+                rgba(0, 0, 0, 0) 25px
+            );
+        }
+
+        /* Skewed transform for some elements */
+        .skew-element {
+            transform: skew(-5deg, 0deg);
+        }
+
+        /* Wiggle animation for some elements */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .animate-wiggle:hover {
+            animation: wiggle 0.3s ease-in-out 2;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 16px;
+            height: 16px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FFF;
+            border: 2px solid #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #F5DF4D;
+            border: 2px solid #000;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B6B;
+        }
+
+        /* Image tape effect */
+        .tape {
+            position: relative;
+        }
+
+        .tape::before, .tape::after {
+            content: "";
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            height: 30px;
+            width: 80px;
+            z-index: 10;
+        }
+
+        .tape::before {
+            top: -15px;
+            left: 20px;
+            transform: rotate(-10deg);
+            border: 2px solid black;
+        }
+
+        .tape::after {
+            bottom: -15px;
+            right: 20px;
+            transform: rotate(10deg);
+            border: 2px solid black;
+        }
+
+        /* Sticker effect */
+        .sticker {
+            position: relative;
+            transform: rotate(-5deg);
+        }
+
+        .sticker-blue {
+            position: relative;
+            transform: rotate(3deg);
+        }
+    </style>
+</head>
+<body class="bg-light font-sans text-dark" x-data="{
+    menuOpen: false,
+    searchActive: false,
+    searchQuery: '',
+    activeCategory: 'all',
+
+    // Product data
+    products: PRODUCTS,
+
+    // Methods
+    filteredProducts() {
+        let filtered = this.products;
+        if (this.searchQuery.trim()) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query)
+            );
+        }
+
+        if (this.activeCategory !== 'all') {
+            filtered = filtered.filter(product => product.category === this.activeCategory);
+        }
+
+        return filtered;
+    }
+}">
+
+    <!-- Header -->
+    <header id="header-section" class="bg-primary border-b-4 border-dark sticky top-0 z-50">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex justify-between items-center py-6">
+                <a href="#" id="brand-link" class="relative">
+                    <div class="absolute inset-0 bg-tertiary -rotate-2 -translate-x-1 translate-y-1 -z-10"></div>
+                    <h1 id="logo-text" class="text-3xl font-display font-black relative">
+                        BLOCK<span class="text-secondary">SHIFT</span>
+                    </h1>
+                </a>
+
+                <nav id="main-navigation" class="hidden md:flex items-center space-x-8">
+                    <a href="#home" id="nav-home" class="font-bold text-lg hover:underline underline-offset-4 decoration-4 decoration-tertiary">HOME</a>
+                    <a href="#shop" id="nav-shop" class="font-bold text-lg hover:underline underline-offset-4 decoration-4 decoration-tertiary">SHOP</a>
+                    <a href="#drops" id="nav-drops" class="font-bold text-lg hover:underline underline-offset-4 decoration-4 decoration-tertiary">DROPS</a>
+                    <a href="#about" id="nav-about" class="font-bold text-lg hover:underline underline-offset-4 decoration-4 decoration-tertiary">ABOUT</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <!-- Search Toggle -->
+                    <button
+                        @click="searchActive = !searchActive"
+                        class="p-2 border-2 border-dark bg-light hover:bg-accent transition-colors shadow-brutal"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+
+                    <!-- Cart Link -->
+                    <a href="#" class="p-2 border-2 border-dark bg-secondary text-light hover:bg-tertiary transition-colors shadow-brutal">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                    </a>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button
+                        @click="menuOpen = !menuOpen"
+                        class="p-2 border-2 border-dark bg-tertiary hover:bg-secondary text-dark md:hidden transition-colors shadow-brutal"
+                    >
+                        <svg x-show="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="menuOpen" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div
+                x-show="searchActive"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-10"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-10"
+                class="py-6"
+                x-cloak
+            >
+                <div class="relative">
+                    <input
+                        type="text"
+                        x-model="searchQuery"
+                        placeholder="SEARCH FOR AWESOME TEES..."
+                        class="w-full border-4 border-dark bg-light py-4 px-6 font-bold shadow-brutal-lg focus:outline-none focus:bg-accent"
+                    >
+                    <button
+                        @click="searchActive = false"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 p-2"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div
+                x-show="menuOpen"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-10"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-10"
+                class="md:hidden bg-accent border-4 border-dark mb-6 shadow-brutal-lg"
+                x-cloak
+            >
+                <nav class="flex flex-col divide-y-4 divide-dark">
+                    <a href="#home" class="py-4 px-6 text-xl font-bold hover:bg-tertiary" @click="menuOpen = false">HOME</a>
+                    <a href="#shop" class="py-4 px-6 text-xl font-bold hover:bg-tertiary" @click="menuOpen = false">SHOP</a>
+                    <a href="#drops" class="py-4 px-6 text-xl font-bold hover:bg-tertiary" @click="menuOpen = false">DROPS</a>
+                    <a href="#about" class="py-4 px-6 text-xl font-bold hover:bg-tertiary" @click="menuOpen = false">ABOUT</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-light py-16 md:py-24 relative overflow-hidden">
+        <div class="pattern-dots absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 max-w-7xl relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="relative inline-block mb-6">
+                        <span class="absolute inset-0 bg-tertiary translate-x-2 translate-y-2"></span>
+                        <span class="relative bg-accent px-4 py-2 border-4 border-dark font-display font-bold text-lg">NEW DROP</span>
+                    </div>
+
+                    <h1 id="hero-heading" class="text-5xl md:text-7xl font-display font-black mb-8 leading-none">
+                        <span class="block">BOLD DESIGNS</span>
+                        <span class="block">FOR</span>
+                        <span class="block bg-secondary text-light px-4 skew-element inline-block mt-2">BOLD PEOPLE</span>
+                    </h1>
+
+                    <p id="hero-subheading" class="text-xl mb-10 max-w-xl border-l-8 border-tertiary pl-6">
+                        Distinctive t-shirts with attitude. Our designs break the rules so you can too. Limited drops, unlimited style.
+                    </p>
+
+                    <div class="flex flex-wrap gap-6">
+                        <a href="#shop" id="hero-shop-button" class="inline-block bg-primary hover:bg-tertiary font-display font-bold text-xl px-10 py-4 border-4 border-dark shadow-brutal-lg transform hover:-translate-y-1 hover:shadow-brutal-xl transition-all">
+                            SHOP NOW
+                        </a>
+
+                        <a href="#drops" id="hero-drops-button" class="inline-flex items-center group">
+                            <span class="font-bold underline decoration-4 decoration-secondary mr-2">SEE LATEST DROPS</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" stroke-linejoin="miter" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <!-- Main image with tape effect -->
+                    <div class="tape relative border-4 border-dark shadow-brutal-xl bg-white">
+                        <img id="hero-image" src="https://images.unsplash.com/photo-1503342394128-c104d54dba01?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Bold T-shirt collection" class="w-full h-[500px] object-cover object-center">
+                    </div>
+
+                    <!-- Decorative elements -->
+                    <div class="absolute -bottom-10 -left-10 bg-accent w-40 h-40 border-4 border-dark shadow-brutal-lg -z-10"></div>
+                    <div class="absolute -top-8 -right-8 bg-tertiary p-4 border-4 border-dark shadow-brutal rotate-12 z-20 sticker">
+                        <div class="font-display font-bold text-xl">ONLY $39</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="bg-secondary py-20 relative">
+        <div class="pattern-lines absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 max-w-7xl relative">
+            <div class="text-center mb-16">
+                <h2 id="categories-heading" class="text-5xl font-display font-black text-light mb-6 inline-block relative skew-element">
+                    <span class="relative z-10">OUR COLLECTIONS</span>
+                    <span class="absolute inset-0 bg-dark -translate-x-2 translate-y-2 skew-element"></span>
+                </h2>
+                <p id="categories-subheading" class="text-light text-xl max-w-2xl mx-auto">
+                    Explore our different collections, each with its own attitude and style.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Streetwear Collection -->
+                <div class="bg-white border-4 border-dark group transform hover:-translate-y-2 hover:rotate-1 transition-all shadow-brutal-lg hover:shadow-brutal-xl">
+                    <div class="h-80 overflow-hidden border-b-4 border-dark">
+                        <img id="category-image-1" src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Streetwear Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+
+                    <div class="p-6 relative">
+                        <div class="absolute -top-12 right-6 bg-tertiary border-4 border-dark px-4 py-1 font-display font-bold shadow-brutal text-lg rotate-3">
+                            HOT!
+                        </div>
+
+                        <h3 id="category-title-1" class="font-display font-black text-3xl mb-4">STREETWEAR</h3>
+                        <p id="category-description-1" class="mb-6">Urban designs with attitude for those who want to make a statement.</p>
+
+                        <a href="#" id="category-link-1" class="inline-flex items-center font-bold group">
+                            <span class="underline decoration-4 decoration-tertiary mr-2">EXPLORE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" stroke-linejoin="miter" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Graphic Collection -->
+                <div class="bg-accent border-4 border-dark group transform hover:-translate-y-2 hover:-rotate-1 transition-all shadow-brutal-lg hover:shadow-brutal-xl">
+                    <div class="h-80 overflow-hidden border-b-4 border-dark">
+                        <img id="category-image-2" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Graphic Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 id="category-title-2" class="font-display font-black text-3xl mb-4">GRAPHIC TEES</h3>
+                        <p id="category-description-2" class="mb-6">Bold graphics and illustrations that tell a story and catch the eye.</p>
+
+                        <a href="#" id="category-link-2" class="inline-flex items-center font-bold group">
+                            <span class="underline decoration-4 decoration-tertiary mr-2">EXPLORE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" stroke-linejoin="miter" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Minimalist Collection -->
+                <div class="bg-primary border-4 border-dark group transform hover:-translate-y-2 hover:rotate-1 transition-all shadow-brutal-lg hover:shadow-brutal-xl">
+                    <div class="h-80 overflow-hidden border-b-4 border-dark">
+                        <img id="category-image-3" src="https://images.unsplash.com/photo-1551798507-629020c81463?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Minimalist Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 id="category-title-3" class="font-display font-black text-3xl mb-4">MINIMALIST</h3>
+                        <p id="category-description-3" class="mb-6">Clean designs with a focus on typography and simple elements.</p>
+
+                        <a href="#" id="category-link-3" class="inline-flex items-center font-bold group">
+                            <span class="underline decoration-4 decoration-tertiary mr-2">EXPLORE</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="square" stroke-linejoin="miter" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="shop" class="py-24 bg-light">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8 mb-16">
+                <div>
+                    <h2 id="products-heading" class="text-5xl font-display font-black mb-4">SHOP THE LOOK</h2>
+                    <p id="products-subheading" class="text-xl max-w-2xl">Find your next favorite tee from our curated collection of designs.</p>
+                </div>
+
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap gap-4 border-4 border-dark p-2 bg-white shadow-brutal">
+                    <button
+                        @click="activeCategory = 'all'"
+                        :class="{'bg-tertiary': activeCategory === 'all', 'bg-white hover:bg-accent': activeCategory !== 'all'}"
+                        class="px-6 py-2 font-bold border-2 border-dark transition-colors"
+                    >
+                        ALL
+                    </button>
+                    <button
+                        @click="activeCategory = 'streetwear'"
+                        :class="{'bg-tertiary': activeCategory === 'streetwear', 'bg-white hover:bg-accent': activeCategory !== 'streetwear'}"
+                        class="px-6 py-2 font-bold border-2 border-dark transition-colors"
+                    >
+                        STREETWEAR
+                    </button>
+                    <button
+                        @click="activeCategory = 'graphic'"
+                        :class="{'bg-tertiary': activeCategory === 'graphic', 'bg-white hover:bg-accent': activeCategory !== 'graphic'}"
+                        class="px-6 py-2 font-bold border-2 border-dark transition-colors"
+                    >
+                        GRAPHIC
+                    </button>
+                    <button
+                        @click="activeCategory = 'minimal'"
+                        :class="{'bg-tertiary': activeCategory === 'minimal', 'bg-white hover:bg-accent': activeCategory !== 'minimal'}"
+                        class="px-6 py-2 font-bold border-2 border-dark transition-colors"
+                    >
+                        MINIMAL
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <template x-for="(product, index) in filteredProducts()" :key="product.id">
+                    <div class="group">
+                        <div
+                            class="border-4 border-dark overflow-hidden bg-white transform transition-all hover:-translate-y-2 hover:rotate-1 shadow-brutal-lg hover:shadow-brutal-xl"
+                            :class="{
+                                'hover:shadow-brutal-red': index % 3 === 0,
+                                'hover:shadow-brutal-blue': index % 3 === 1,
+                                'hover:shadow-brutal-yellow': index % 3 === 2
+                            }"
+                        >
+                            <div class="relative h-64 overflow-hidden border-b-4 border-dark">
+                                <img
+                                    x-bind:src="product.image || 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'"
+                                    x-bind:alt="product.name"
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                >
+
+                                <!-- Price Tab -->
+                                <div
+                                    class="absolute top-4 right-0 font-display font-bold text-xl px-4 py-2 border-y-4 border-l-4 border-r-0 border-dark shadow-brutal"
+                                    :class="{
+                                        'bg-tertiary': index % 3 === 0,
+                                        'bg-secondary text-white': index % 3 === 1,
+                                        'bg-primary': index % 3 === 2
+                                    }"
+                                >
+                                    <span x-text="'$' + product.price.toFixed(0)"></span>
+                                </div>
+
+                                <!-- Quick Shop Button -->
+                                <div class="absolute inset-0 bg-dark bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <button
+                                        class="font-display font-bold text-lg px-6 py-3 border-4 border-dark transform -translate-y-10 group-hover:translate-y-0 transition-transform"
+                                        :class="{
+                                            'bg-tertiary': index % 3 === 0,
+                                            'bg-secondary text-white': index % 3 === 1,
+                                            'bg-primary': index % 3 === 2
+                                        }"
+                                    >
+                                        QUICK VIEW
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="p-6">
+                                <h3 class="font-display font-bold text-xl mb-2" x-text="product.name"></h3>
+                                <p class="text-gray-700 mb-4 line-clamp-2" x-text="product.description"></p>
+
+                                <div class="flex justify-between items-center">
+                                    <div class="flex">
+                                        <template x-for="i in 5" :key="i">
+                                            <svg
+                                                class="w-5 h-5"
+                                                :class="i <= product.rating ? 'text-tertiary fill-current' : 'text-gray-300 fill-current'"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                            </svg>
+                                        </template>
+                                    </div>
+
+                                    <button
+                                        class="font-bold text-sm border-b-4 hover:border-tertiary"
+                                        :class="{
+                                            'border-tertiary': index % 3 === 0,
+                                            'border-secondary': index % 3 === 1,
+                                            'border-primary': index % 3 === 2
+                                        }"
+                                    >
+                                        ADD TO CART
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Empty state when no products match search -->
+                <div
+                    class="col-span-full text-center py-20"
+                    x-show="filteredProducts().length === 0"
+                >
+                    <div class="inline-block mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-24 w-24 text-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+
+                    <h3 id="no-products-heading" class="font-display font-black text-3xl mb-4">NO PRODUCTS FOUND</h3>
+                    <p id="no-products-message" class="text-xl mb-8 max-w-md mx-auto">
+                        We couldn't find any products matching your criteria. Try adjusting your search.
+                    </p>
+
+                    <button
+                        @click="searchQuery = ''; activeCategory = 'all'"
+                        class="inline-block bg-tertiary hover:bg-secondary font-display font-bold text-xl px-10 py-4 border-4 border-dark shadow-brutal-lg transform hover:-translate-y-1 hover:shadow-brutal-xl transition-all"
+                    >
+                        RESET FILTERS
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Drop Section -->
+    <section id="drops" class="py-24 bg-accent">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="inline-block mb-6 rotate-2">
+                        <div class="bg-tertiary border-4 border-dark px-4 py-2 font-display font-bold text-lg shadow-brutal">
+                            LIMITED EDITION
+                        </div>
+                    </div>
+
+                    <h2 id="featured-heading" class="text-5xl font-display font-black mb-6">
+                        THE BLOCK PARTY <br>
+                        <span class="bg-secondary text-light px-4 inline-block mt-2 -rotate-1">SUMMER COLLECTION</span>
+                    </h2>
+
+                    <p id="featured-description" class="text-xl mb-8 border-l-8 border-secondary pl-6">
+                        Our latest drop features bold geometric patterns and vibrant colors inspired by summer block parties. Each design is limited to just 100 prints.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="bg-tertiary w-12 h-12 border-4 border-dark flex items-center justify-center mr-4 shrink-0 shadow-brutal text-2xl font-display font-black">
+                                1
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Premium Materials</h3>
+                                <p>100% organic cotton with reinforced stitching</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="bg-primary w-12 h-12 border-4 border-dark flex items-center justify-center mr-4 shrink-0 shadow-brutal text-2xl font-display font-black">
+                                2
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Limited Runs</h3>
+                                <p>Only 100 pieces per design will ever be made</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-6">
+                        <a href="#" id="featured-shop-button" class="inline-block bg-primary hover:bg-tertiary font-display font-bold text-xl px-10 py-4 border-4 border-dark shadow-brutal-lg transform hover:-translate-y-1 hover:shadow-brutal-xl transition-all animate-wiggle">
+                            SHOP THE DROP
+                        </a>
+
+                        <div class="flex items-center">
+                            <div class="font-display font-black text-3xl mr-3">$49</div>
+                            <div class="text-sm font-bold bg-secondary text-white px-2 py-1 border-2 border-dark rotate-3">LIMITED TIME</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 relative">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-tertiary -translate-x-6 translate-y-6 border-4 border-dark -z-10"></div>
+                        <img id="featured-image" src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Block Party Collection" class="w-full border-4 border-dark shadow-brutal-xl">
+                    </div>
+
+                    <!-- Decorative elements -->
+                    <div class="absolute top-4 -right-8 bg-primary p-4 border-4 border-dark shadow-brutal-lg -rotate-12 font-display font-bold text-lg z-20 sticker-blue">
+                        NEW!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Gallery Section -->
+    <section id="instagram" class="py-24 bg-light relative">
+        <div class="pattern-dots absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 max-w-7xl relative">
+            <div class="text-center mb-16">
+                <h2 id="instagram-heading" class="text-5xl font-display font-black mb-6 inline-block relative">
+                    <span class="absolute inset-0 bg-primary translate-x-2 translate-y-2 -z-10"></span>
+                    <span class="relative z-10">#BLOCKSHIFT</span>
+                </h2>
+                <p id="instagram-subheading" class="text-xl max-w-2xl mx-auto">
+                    Tag us in your photos for a chance to be featured and win store credit.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="border-4 border-dark overflow-hidden transform hover:rotate-2 hover:-translate-y-2 transition-all shadow-brutal hover:shadow-brutal-lg group">
+                    <img id="instagram-image-1" src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Instagram post" class="w-full aspect-square object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+
+                <div class="border-4 border-dark overflow-hidden transform hover:-rotate-2 hover:-translate-y-2 transition-all shadow-brutal hover:shadow-brutal-lg group">
+                    <img id="instagram-image-2" src="https://images.unsplash.com/photo-1507398941214-572c25f4b1dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Instagram post" class="w-full aspect-square object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+
+                <div class="border-4 border-dark overflow-hidden transform hover:rotate-2 hover:-translate-y-2 transition-all shadow-brutal hover:shadow-brutal-lg group">
+                    <img id="instagram-image-3" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Instagram post" class="w-full aspect-square object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+
+                <div class="border-4 border-dark overflow-hidden transform hover:-rotate-2 hover:-translate-y-2 transition-all shadow-brutal hover:shadow-brutal-lg group">
+                    <img id="instagram-image-4" src="https://images.unsplash.com/photo-1515600051222-a3c338ff16f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Instagram post" class="w-full aspect-square object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-white hover:bg-tertiary font-display font-bold text-lg px-8 py-3 border-4 border-dark shadow-brutal transform hover:-translate-y-1 hover:shadow-brutal-lg transition-all">
+                    FOLLOW @BLOCKSHIFT
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-primary relative">
+        <div class="pattern-lines absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 max-w-7xl relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="tape border-4 border-dark shadow-brutal-xl bg-white">
+                        <img id="about-image" src="https://images.unsplash.com/photo-1626948683768-78116eeb8ebe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="About BLOCKSHIFT" class="w-full">
+                    </div>
+
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-12 -left-12 bg-tertiary w-32 h-32 border-4 border-dark shadow-brutal-lg -z-10 rotate-12"></div>
+                </div>
+
+                <div>
+                    <div class="inline-block -rotate-2 mb-6">
+                        <span class="bg-secondary text-light px-4 py-2 border-4 border-dark font-display font-bold text-lg shadow-brutal">
+                            OUR STORY
+                        </span>
+                    </div>
+
+                    <h2 id="about-heading" class="text-5xl font-display font-black mb-6 leading-tight">
+                        BREAKING THE <br>
+                        <span class="bg-white px-4 skew-element inline-block mt-2">T-SHIRT RULES</span>
+                    </h2>
+
+                    <p id="about-paragraph-1" class="text-xl mb-6">
+                        BLOCKSHIFT was born in 2020 from a desire to create t-shirts that break the mold. We believe fashion should be bold, unapologetic, and fun.
+                    </p>
+
+                    <p id="about-paragraph-2" class="text-xl mb-8">
+                        Our team of designers create limited-run collections that combine street culture, contemporary art, and a healthy dose of irreverence. We're not just making t-shirts; we're making statements.
+                    </p>
+
+                    <div class="flex flex-wrap gap-8">
+                        <div class="text-center">
+                            <div class="font-display font-black text-5xl mb-2">3K+</div>
+                            <div class="font-bold">Happy Customers</div>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="font-display font-black text-5xl mb-2">24</div>
+                            <div class="font-bold">Limited Drops</div>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="font-display font-black text-5xl mb-2">100%</div>
+                            <div class="font-bold">Organic Cotton</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="py-20 bg-secondary text-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-10">
+                <h2 id="newsletter-heading" class="text-5xl font-display font-black mb-6 inline-block relative">
+                    <span class="absolute inset-0 bg-tertiary translate-x-2 translate-y-2 -z-10"></span>
+                    <span class="relative z-10">JOIN THE BLOCK</span>
+                </h2>
+                <p id="newsletter-description" class="text-xl max-w-2xl mx-auto">
+                    Sign up for our newsletter to get early access to drops, exclusive discounts, and more.
+                </p>
+            </div>
+
+            <form class="flex flex-col md:flex-row gap-4">
+                <input
+                    type="email"
+                    id="newsletter-email"
+                    placeholder="YOUR EMAIL ADDRESS"
+                    class="flex-grow py-4 px-6 border-4 border-dark font-bold shadow-brutal focus:outline-none focus:bg-accent focus:text-dark"
+                >
+                <button
+                    type="submit"
+                    id="newsletter-submit"
+                    class="bg-tertiary hover:bg-primary text-dark font-display font-bold text-xl px-8 py-4 border-4 border-dark shadow-brutal transform hover:-translate-y-1 hover:shadow-brutal-lg transition-all"
+                >
+                    SUBSCRIBE
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+                <div>
+                    <a href="#" class="inline-block mb-6 relative">
+                        <div class="absolute inset-0 bg-tertiary -rotate-3 -translate-x-1 translate-y-1 -z-10"></div>
+                        <h2 id="footer-logo" class="text-3xl font-display font-black relative">
+                            BLOCK<span class="text-primary">SHIFT</span>
+                        </h2>
+                    </a>
+                    <p id="footer-description" class="text-gray-400 mb-6">
+                        Bold t-shirts for those who dare to stand out. Limited drops, unlimited style.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white hover:bg-tertiary text-dark flex items-center justify-center border-2 border-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white hover:bg-tertiary text-dark flex items-center justify-center border-2 border-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white hover:bg-tertiary text-dark flex items-center justify-center border-2 border-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 id="footer-shop-heading" class="font-display font-bold text-xl mb-6">SHOP</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-tertiary">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Collections</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Sale</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="footer-company-heading" class="font-display font-bold text-xl mb-6">COMPANY</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-tertiary">Our Story</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Careers</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Press</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="footer-help-heading" class="font-display font-bold text-xl mb-6">HELP</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="hover:text-tertiary">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-tertiary">FAQ</a></li>
+                        <li><a href="#" class="hover:text-tertiary">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center">
+                <p id="copyright" class="text-gray-500 mb-4 md:mb-0">© 2025 BLOCKSHIFT. All rights reserved.</p>
+                <p id="credit" class="text-gray-500">Website designed with ♥ by RN Team</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

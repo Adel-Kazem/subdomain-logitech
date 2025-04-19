@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONOCHROME | Artisanal T-Shirts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sora', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['Space Mono', 'monospace']
+                    },
+                    colors: {
+                        dark: {
+                            900: '#121212',
+                            800: '#181818',
+                            700: '#222222',
+                            600: '#2A2A2A',
+                            500: '#303030',
+                            400: '#404040',
+                            300: '#505050',
+                            200: '#606060',
+                            100: '#707070',
+                        },
+                        accent: {
+                            gold: '#E6C78C',
+                            muted: '#AE9A77',
+                            cream: '#F5F0E5',
+                        }
+                    },
+                },
+            },
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@100;200;300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E6C78C;
+            border-radius: 0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #AE9A77;
+        }
+
+        /* Text stroke effect */
+        .text-outline {
+            -webkit-text-stroke: 1px #E6C78C;
+            color: transparent;
+        }
+
+        /* Animations */
+        @keyframes revealText {
+            0% { clip-path: inset(0 100% 0 0); }
+            100% { clip-path: inset(0 0 0 0); }
+        }
+
+        .animate-reveal {
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        .animate-reveal-delay-1 {
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) 0.2s forwards;
+        }
+
+        .animate-reveal-delay-2 {
+            animation: revealText 1s cubic-bezier(0.77, 0, 0.175, 1) 0.4s forwards;
+        }
+
+        /* Custom horizontal scrollbar styling for product carousel */
+        .horizontal-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: #E6C78C #121212;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar-track {
+            background: #121212;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar-thumb {
+            background: #E6C78C;
+            border-radius: 0;
+        }
+
+        /* Image hover reveal effect */
+        .image-reveal {
+            clip-path: inset(0 0 100% 0);
+            transition: clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .image-container:hover .image-reveal {
+            clip-path: inset(0 0 0 0);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-white font-sans" x-data="{
+    menuOpen: false,
+    searchQuery: '',
+    activeCollection: 'all',
+
+    // Product data
+    products: PRODUCTS,
+
+    // Methods
+    filteredProducts() {
+        let filtered = this.products;
+        if (this.searchQuery.trim()) {
+            const query = this.searchQuery.toLowerCase();
+            filtered = filtered.filter(product =>
+                product.name.toLowerCase().includes(query) ||
+                product.description.toLowerCase().includes(query)
+            );
+        }
+
+        if (this.activeCollection !== 'all') {
+            filtered = filtered.filter(product => product.category === this.activeCollection);
+        }
+
+        return filtered;
+    }
+}">
+
+<!-- SVG Sprites Definition -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Menu Icon -->
+    <symbol id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </symbol>
+
+    <!-- Close Icon -->
+    <symbol id="close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+    </symbol>
+
+    <!-- Arrow Icon -->
+    <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </symbol>
+
+    <!-- Plus Icon -->
+    <symbol id="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+    </symbol>
+</svg>
+
+<!-- Header -->
+<header id="header-section" class="border-b border-dark-600 py-6 sticky top-0 z-50 bg-dark-900/90 backdrop-blur-md">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="flex justify-between items-center">
+            <a href="#" id="brand-link">
+                <h1 id="logo-text" class="text-2xl font-mono tracking-tighter font-bold">
+                    <span id="logo-highlight" class="text-accent-gold">MONO</span>CHROME
+                </h1>
+            </a>
+
+            <nav id="main-navigation" class="hidden md:flex items-center space-x-12">
+                <a href="#home" id="nav-home" class="hover:text-accent-gold transition-colors text-sm uppercase tracking-widest">Home</a>
+                <a href="#collection" id="nav-collection" class="hover:text-accent-gold transition-colors text-sm uppercase tracking-widest">Collection</a>
+                <a href="#atelier" id="nav-atelier" class="hover:text-accent-gold transition-colors text-sm uppercase tracking-widest">Atelier</a>
+                <a href="#lookbook" id="nav-lookbook" class="hover:text-accent-gold transition-colors text-sm uppercase tracking-widest">Lookbook</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button
+                    id="menu-toggle"
+                    class="text-white hover:text-accent-gold md:hidden"
+                    @click="menuOpen = !menuOpen"
+            >
+                <svg x-show="!menuOpen" class="w-6 h-6">
+                    <use xlink:href="#menu-icon"></use>
+                </svg>
+                <svg x-show="menuOpen" class="w-6 h-6" x-cloak>
+                    <use xlink:href="#close-icon"></use>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+                id="mobile-menu"
+                x-show="menuOpen"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2"
+                class="md:hidden pt-8 pb-6"
+                x-cloak
+        >
+            <nav class="flex flex-col space-y-8">
+                <a href="#home" id="mobile-nav-home" class="text-lg uppercase tracking-widest hover:text-accent-gold transition-colors" @click="menuOpen = false">Home</a>
+                <a href="#collection" id="mobile-nav-collection" class="text-lg uppercase tracking-widest hover:text-accent-gold transition-colors" @click="menuOpen = false">Collection</a>
+                <a href="#atelier" id="mobile-nav-atelier" class="text-lg uppercase tracking-widest hover:text-accent-gold transition-colors" @click="menuOpen = false">Atelier</a>
+                <a href="#lookbook" id="mobile-nav-lookbook" class="text-lg uppercase tracking-widest hover:text-accent-gold transition-colors" @click="menuOpen = false">Lookbook</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="min-h-screen relative flex items-center overflow-hidden">
+    <!-- Split diagonal backdrop -->
+    <div class="absolute inset-0 -z-20">
+        <div class="h-full w-2/3 lg:w-1/2 bg-dark-800"></div>
+    </div>
+    <div class="absolute top-0 right-0 bottom-0 w-1/3 lg:w-1/2 bg-dark-900 -z-20"></div>
+
+    <!-- Hero content -->
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <span id="hero-label" class="inline-block font-mono text-xs tracking-[0.25em] text-accent-muted uppercase mb-8">2025 Collection</span>
+
+                <h2 id="hero-heading" class="overflow-hidden relative">
+                    <span class="block text-5xl md:text-6xl lg:text-7xl font-serif font-semibold mb-2 opacity-0 animate-reveal">Artisanal</span>
+                    <span class="block text-5xl md:text-6xl lg:text-7xl font-serif font-semibold mb-2 opacity-0 animate-reveal-delay-1">Cotton</span>
+                    <span class="block text-5xl md:text-6xl lg:text-7xl font-serif font-semibold text-accent-gold opacity-0 animate-reveal-delay-2">Essentials</span>
+                </h2>
+
+                <p id="hero-description" class="mt-10 mb-10 text-lg text-gray-300 max-w-md leading-relaxed">
+                    Our meticulously crafted t-shirts combine traditional craftsmanship with modern minimalism, creating timeless essentials for the discerning individual.
+                </p>
+
+                <a href="#collection" id="hero-cta" class="inline-flex items-center text-white border border-accent-gold hover:bg-accent-gold hover:text-dark-900 transition-colors duration-300 px-8 py-4 uppercase tracking-widest text-sm">
+                    <span>Explore Collection</span>
+                    <svg class="w-5 h-5 ml-2">
+                        <use xlink:href="#arrow-icon"></use>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="relative">
+                <div class="relative z-10">
+                    <img id="hero-image" src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Premium T-shirt" class="w-full object-cover rounded-none h-[70vh] object-center">
+                </div>
+                <div class="absolute inset-0 border border-accent-gold transform translate-x-4 translate-y-4 -z-10"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Marquee Section -->
+<section class="py-10 bg-dark-800 overflow-hidden">
+    <div class="whitespace-nowrap animate-marquee flex">
+        <div class="flex items-center py-2 animate-marquee">
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Sustainable Materials</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Artisanal Craftsmanship</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Modern Minimalism</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Timeless Design</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Sustainable Materials</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Artisanal Craftsmanship</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Modern Minimalism</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+            <span class="text-lg uppercase tracking-widest px-6 text-accent-gold opacity-70">Timeless Design</span>
+            <span class="w-3 h-3 rounded-full bg-accent-gold opacity-30"></span>
+        </div>
+    </div>
+</section>
+
+<!-- Collection Showcase -->
+<section id="collection" class="py-24 bg-dark-900">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="mb-16">
+            <span id="collection-label" class="inline-block font-mono text-xs tracking-[0.25em] text-accent-muted uppercase mb-2">Our Offering</span>
+            <h2 id="collection-heading" class="text-4xl md:text-5xl font-serif mb-8">The Collection</h2>
+
+            <!-- Collection Navigation -->
+            <div class="flex flex-wrap items-center mt-8 space-x-6">
+                <button
+                        @click="activeCollection = 'all'"
+                        :class="{'text-accent-gold border-accent-gold': activeCollection === 'all', 'border-transparent hover:text-accent-muted': activeCollection !== 'all'}"
+                        class="uppercase tracking-widest text-sm border-b transition-colors px-1 py-2">
+                    All
+                </button>
+                <button
+                        @click="activeCollection = 'essential'"
+                        :class="{'text-accent-gold border-accent-gold': activeCollection === 'essential', 'border-transparent hover:text-accent-muted': activeCollection !== 'essential'}"
+                        class="uppercase tracking-widest text-sm border-b transition-colors px-1 py-2">
+                    Essentials
+                </button>
+                <button
+                        @click="activeCollection = 'premium'"
+                        :class="{'text-accent-gold border-accent-gold': activeCollection === 'premium', 'border-transparent hover:text-accent-muted': activeCollection !== 'premium'}"
+                        class="uppercase tracking-widest text-sm border-b transition-colors px-1 py-2">
+                    Premium
+                </button>
+                <button
+                        @click="activeCollection = 'limited'"
+                        :class="{'text-accent-gold border-accent-gold': activeCollection === 'limited', 'border-transparent hover:text-accent-muted': activeCollection !== 'limited'}"
+                        class="uppercase tracking-widest text-sm border-b transition-colors px-1 py-2">
+                    Limited
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Horizontal Scroll -->
+        <div id="product-carousel" class="overflow-x-auto horizontal-scroll pb-8">
+            <div class="flex space-x-8" style="min-width: max-content;">
+                <template x-for="product in filteredProducts()" :key="product.id">
+                    <div class="w-[300px] group">
+                        <div class="relative overflow-hidden h-[400px] bg-dark-800 mb-6">
+                            <img
+                                    x-bind:src="product.image || 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'"
+                                    x-bind:alt="product.name"
+                                    class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                            >
+                            <div class="absolute inset-0 bg-dark-900 bg-opacity-0 group-hover:bg-opacity-20 transition-all"></div>
+
+                            <!-- Quick View Button -->
+                            <a
+                                    href="#"
+                                    class="absolute bottom-0 left-0 right-0 bg-dark-900 bg-opacity-80 text-center py-3 uppercase tracking-widest text-xs translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                            >
+                                Quick View
+                            </a>
+                        </div>
+
+                        <h3 class="text-lg font-medium mb-1 group-hover:text-accent-gold transition-colors" x-text="product.name"></h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent-gold font-mono" x-text="'$' + product.price.toFixed(2)"></span>
+                            <span class="text-xs uppercase tracking-wider text-gray-400" x-text="product.category || 'Essential'"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="flex justify-end mt-6">
+            <span class="text-xs tracking-widest text-gray-400 uppercase">Scroll to explore</span>
+        </div>
+    </div>
+</section>
+
+<!-- Atelier Section -->
+<section id="atelier" class="py-24 bg-dark-800">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="flex flex-col lg:flex-row">
+            <div class="lg:w-1/2 lg:pr-16 mb-12 lg:mb-0">
+                <span id="atelier-label" class="inline-block font-mono text-xs tracking-[0.25em] text-accent-muted uppercase mb-2">Our Process</span>
+                <h2 id="atelier-heading" class="text-4xl md:text-5xl font-serif mb-8">The Atelier</h2>
+
+                <p id="atelier-description-1" class="text-gray-300 mb-6 leading-relaxed">
+                    Our atelier approaches t-shirt design as an art form. Each piece begins with the selection of premium organic cotton, sourced exclusively from sustainable farms that share our commitment to ethical practices.
+                </p>
+                <p id="atelier-description-2" class="text-gray-300 mb-10 leading-relaxed">
+                    The fabric undergoes a meticulous pre-washing process to ensure a perfect drape and minimize shrinkage. Our master craftspeople then cut and assemble each garment with precision, focusing on clean lines and perfect proportions that complement the human form.
+                </p>
+
+                <!-- Atelier Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
+                    <div>
+                        <div class="text-accent-gold font-mono font-bold text-xl mb-3">01</div>
+                        <h3 id="feature-title-1" class="text-lg font-medium mb-2">Premium Materials</h3>
+                        <p id="feature-description-1" class="text-gray-400 text-sm">180 GSM pure organic cotton with reinforced stitching for longevity.</p>
+                    </div>
+
+                    <div>
+                        <div class="text-accent-gold font-mono font-bold text-xl mb-3">02</div>
+                        <h3 id="feature-title-2" class="text-lg font-medium mb-2">Perfect Fit</h3>
+                        <p id="feature-description-2" class="text-gray-400 text-sm">Precision tailoring for a flattering silhouette on every body type.</p>
+                    </div>
+
+                    <div>
+                        <div class="text-accent-gold font-mono font-bold text-xl mb-3">03</div>
+                        <h3 id="feature-title-3" class="text-lg font-medium mb-2">Handcrafted Details</h3>
+                        <p id="feature-description-3" class="text-gray-400 text-sm">Subtle details and refined finishes that elevate each piece.</p>
+                    </div>
+
+                    <div>
+                        <div class="text-accent-gold font-mono font-bold text-xl mb-3">04</div>
+                        <h3 id="feature-title-4" class="text-lg font-medium mb-2">Sustainable Production</h3>
+                        <p id="feature-description-4" class="text-gray-400 text-sm">Eco-friendly manufacturing with minimal waste and water usage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 grid grid-cols-2 gap-4">
+                <div class="relative">
+                    <img id="atelier-image-1" src="https://images.unsplash.com/photo-1618354691792-d1d42acfd860?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cotton material" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-dark-900/50"></div>
+                </div>
+                <div class="relative mt-20">
+                    <img id="atelier-image-2" src="https://images.unsplash.com/photo-1589310243389-96a5483213a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Crafting process" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-dark-900/50"></div>
+                </div>
+                <div class="relative">
+                    <img id="atelier-image-3" src="https://images.unsplash.com/photo-1556760051-f9151a11a42d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sewing detail" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-dark-900/50"></div>
+                </div>
+                <div class="relative -mt-20">
+                    <img id="atelier-image-4" src="https://images.unsplash.com/photo-1599709273100-f000f139585e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Finishing touches" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-dark-900/50"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Product -->
+<section class="py-24 bg-dark-900">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-16">
+            <div class="lg:col-span-3 order-2 lg:order-1">
+                <div class="relative">
+                    <img id="featured-product-image" src="https://images.unsplash.com/photo-1503341733017-1901578f9f1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Signature Cotton Tee" class="w-full h-[80vh] object-cover object-center">
+                    <div class="absolute bottom-0 right-0 bg-dark-900 border border-accent-gold p-4 md:p-8">
+                        <span class="font-mono text-xl text-accent-gold">$89</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 flex flex-col justify-center order-1 lg:order-2">
+                <span id="featured-label" class="inline-block font-mono text-xs tracking-[0.25em] text-accent-muted uppercase mb-2">Signature Piece</span>
+                <h2 id="featured-heading" class="text-4xl font-serif mb-8">The Monochrome Black</h2>
+
+                <p id="featured-description" class="text-gray-300 mb-10 leading-relaxed">
+                    Our signature piece embodies the perfect balance of luxury and minimalism. Crafted from heavyweight organic cotton and finished with precision flat-lock seams, this essential tee offers unparalleled comfort and a sophisticated silhouette.
+                </p>
+
+                <div class="flex flex-col space-y-6 mb-10">
+                    <div class="flex items-start">
+                        <div class="w-6 h-6 rounded-full border border-accent-gold flex items-center justify-center mr-4 mt-1">
+                            <svg class="w-3 h-3 text-accent-gold">
+                                <use xlink:href="#check-icon"></use>
+                            </svg>
+                        </div>
+                        <p class="text-gray-300 text-sm">220 GSM Heavyweight Organic Cotton</p>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-6 h-6 rounded-full border border-accent-gold flex items-center justify-center mr-4 mt-1">
+                            <svg class="w-3 h-3 text-accent-gold">
+                                <use xlink:href="#check-icon"></use>
+                            </svg>
+                        </div>
+                        <p class="text-gray-300 text-sm">Precision Cut with Relaxed Modern Fit</p>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-6 h-6 rounded-full border border-accent-gold flex items-center justify-center mr-4 mt-1">
+                            <svg class="w-3 h-3 text-accent-gold">
+                                <use xlink:href="#check-icon"></use>
+                            </svg>
+                        </div>
+                        <p class="text-gray-300 text-sm">Pre-washed for Minimal Shrinkage</p>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-6 h-6 rounded-full border border-accent-gold flex items-center justify-center mr-4 mt-1">
+                            <svg class="w-3 h-3 text-accent-gold">
+                                <use xlink:href="#check-icon"></use>
+                            </svg>
+                        </div>
+                        <p class="text-gray-300 text-sm">Finished with Custom Monochrome Label</p>
+                    </div>
+                </div>
+
+                <a href="#" id="featured-cta" class="flex items-center justify-center w-full text-dark-900 bg-accent-gold hover:bg-accent-muted transition-colors duration-300 py-4 uppercase tracking-widest text-sm">
+                    Shop Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lookbook Grid -->
+<section id="lookbook" class="py-24 bg-dark-800">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="mb-16 text-center">
+            <span id="lookbook-label" class="inline-block font-mono text-xs tracking-[0.25em] text-accent-muted uppercase mb-2">Visual Story</span>
+            <h2 id="lookbook-heading" class="text-4xl md:text-5xl font-serif mb-4">2025 Lookbook</h2>
+            <p id="lookbook-description" class="text-gray-300 max-w-xl mx-auto">
+                Our minimalist aesthetic captured through a lens of modern sophistication.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Image 1 -->
+            <div class="image-container relative group overflow-hidden aspect-[3/4]">
+                <img id="lookbook-image-1" src="https://images.unsplash.com/photo-1515600051222-a3c338ff16f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image 1" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p class="text-white text-center px-6">
+                        <span class="block text-xl font-serif mb-2">Minimal White</span>
+                        <span class="text-sm text-accent-gold">Summer Collection</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="image-container relative group overflow-hidden aspect-[3/4]">
+                <img id="lookbook-image-2" src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image 2" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p class="text-white text-center px-6">
+                        <span class="block text-xl font-serif mb-2">Urban Black</span>
+                        <span class="text-sm text-accent-gold">Essential Collection</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="image-container relative group overflow-hidden aspect-[3/4]">
+                <img id="lookbook-image-3" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image 3" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p class="text-white text-center px-6">
+                        <span class="block text-xl font-serif mb-2">Modern Silhouette</span>
+                        <span class="text-sm text-accent-gold">Premium Line</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 4 -->
+            <div class="image-container relative group overflow-hidden aspect-[3/4]">
+                <img id="lookbook-image-4" src="https://images.unsplash.com/photo-1507398941214-572c25f4b1dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image 4" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p class="text-white text-center px-6">
+                        <span class="block text-xl font-serif mb-2">Artistic Expression</span>
+                        <span class="text-sm text-accent-gold">Limited Edition</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 5 -->
+            <div class="image-container relative group overflow-hidden aspect-[3/4]">
+                <img id="lookbook-image-5" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image 5" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p class="text-white text-center px-6">
+                        <span class="block text-xl font-serif mb-2">Classic Neutral</span>
+                        <span class="text-sm text-accent-gold">Core Collection</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 6 -->
+            <div class="image-container relative group overflow-hidden aspect-[3/4]">
+                <img id="lookbook-image-6" src="https://images.unsplash.com/photo-1516826957135-700dedea698c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lookbook image 6" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <p class="text-white text-center px-6">
+                        <span class="block text-xl font-serif mb-2">Contemporary Edge</span>
+                        <span class="text-sm text-accent-gold">Signature Series</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial -->
+<section class="py-24 bg-dark-900">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="relative">
+            <div class="text-[120px] md:text-[200px] font-serif text-accent-gold opacity-10 absolute -top-20 md:-top-32 left-0">"</div>
+
+            <div class="max-w-3xl mx-auto relative z-10 text-center">
+                <p id="testimonial-text" class="text-xl md:text-2xl lg:text-3xl font-serif leading-relaxed mb-10 text-gray-100">
+                    The attention to detail and quality of materials in these t-shirts is exceptional. They've become the foundation of my daily wardrobe, offering both comfort and refined style.
+                </p>
+
+                <div class="flex flex-col items-center">
+                    <img id="testimonial-image" src="https://randomuser.me/api/portraits/men/41.jpg" alt="James Anderson" class="w-16 h-16 rounded-full mb-4">
+                    <h4 id="testimonial-name" class="font-medium mb-1">James Anderson</h4>
+                    <p id="testimonial-title" class="text-sm text-accent-muted">Design Director, Studio Minimal</p>
+                </div>
+            </div>
+
+            <div class="text-[120px] md:text-[200px] font-serif text-accent-gold opacity-10 absolute -bottom-60 md:-bottom-32 right-0">"</div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section id="newsletter" class="py-20 bg-dark-800 border-t border-dark-600">
+    <div class="container mx-auto px-4 max-w-screen-xl">
+        <div class="max-w-xl mx-auto text-center">
+            <span id="newsletter-label" class="inline-block font-mono text-xs tracking-[0.25em] text-accent-muted uppercase mb-2">Stay Connected</span>
+            <h2 id="newsletter-heading" class="text-3xl font-serif mb-6">Join Our Community</h2>
+            <p id="newsletter-description" class="text-gray-300 mb-8">
+                Subscribe to receive early access to new collections, exclusive events, and curated content.
+            </p>
+
+            <form id="newsletter-form" class="flex flex-col sm:flex-row">
+                <input type="email" id="newsletter-email" placeholder="Your email address" class="bg-dark-700 border border-dark-500 text-white px-6 py-4 w-full sm:w-2/3 focus:outline-none focus:border-accent-gold" required>
+                <button type="submit" id="newsletter-submit" class="w-full sm:w-1/3 bg-accent-gold hover:bg-accent-muted text-dark-900 px-6 py-4 font-medium uppercase tracking-wider text-sm transition-colors mt-3 sm:mt-0">
+                    Subscribe
+                </button>
+            </form>
+
+            <p class="text-gray-500 text-xs mt-4">By subscribing, you agree to our Privacy Policy and consent to receive updates.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Credit -->
+<div class="py-8 bg-dark-900 border-t border-dark-700 text-center">
+    <p id="credit" class="text-gray-500 text-sm">Website designed with ♥ by RN Team</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEONGRID | Retro-Futuristic Tees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --color-neon-pink: #ff2a6d;
+            --color-neon-blue: #05d9e8;
+            --color-neon-purple: #9d4edd;
+            --color-neon-green: #39ff14;
+            --color-cyber-yellow: #ffd400;
+            --color-dark: #01012b;
+            --color-darker: #010117;
+            --color-grid-line: rgba(5, 217, 232, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Chakra Petch', sans-serif;
+            background-color: var(--color-dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .cyber-btn {
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--color-neon-blue);
+            color: var(--color-neon-blue);
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-neon-blue);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .cyber-btn:hover {
+            color: var(--color-dark);
+        }
+
+        .cyber-btn:hover::before {
+            left: 0;
+        }
+
+        .cyber-btn-alt {
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--color-neon-pink);
+            color: var(--color-neon-pink);
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .cyber-btn-alt::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-neon-pink);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .cyber-btn-alt:hover {
+            color: var(--color-dark);
+        }
+
+        .cyber-btn-alt:hover::before {
+            left: 0;
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--color-neon-pink);
+            animation: glitch-animation 2s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--color-neon-blue);
+            animation: glitch-animation 3s infinite linear alternate-reverse;
+            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch-animation {
+            0% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-2px);
+            }
+            40% {
+                transform: translateX(2px);
+            }
+            60% {
+                transform: translateX(-1px);
+            }
+            80% {
+                transform: translateX(1px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .grid-bg {
+            background-image:
+                    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+
+        .glow-text {
+            text-shadow: 0 0 5px currentColor, 0 0 20px currentColor;
+        }
+
+        .neon-box {
+            box-shadow: 0 0 10px currentColor, inset 0 0 10px currentColor;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px var(--color-neon-blue), 0 0 40px rgba(5, 217, 232, 0.3);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, var(--color-neon-pink), var(--color-neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .border-gradient {
+            position: relative;
+            z-index: 0;
+        }
+
+        .border-gradient::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            inset: 0;
+            padding: 2px;
+            border-radius: inherit;
+            background: linear-gradient(to right, var(--color-neon-pink), var(--color-neon-blue));
+            -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 42, 109, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 42, 109, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 42, 109, 0);
+            }
+        }
+
+        .rotate-3d {
+            transition: transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .rotate-3d:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+
+        .square-dots {
+            background-image: radial-gradient(var(--color-grid-line) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        .cyberpunk-divider {
+            position: relative;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--color-neon-pink), transparent);
+        }
+
+        .cyberpunk-divider::before {
+            content: "//";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--color-dark);
+            padding: 0 15px;
+            color: var(--color-neon-blue);
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        /* Split text effect */
+        .split-text {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .split-text .line {
+            transition: transform 0.5s ease;
+        }
+
+        .split-text:hover .line:nth-child(odd) {
+            transform: translateX(-10px);
+        }
+
+        .split-text:hover .line:nth-child(even) {
+            transform: translateX(10px);
+        }
+
+        /* VHS noise effect */
+        .vhs-noise {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vhs-noise::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+            opacity: 0.05;
+            pointer-events: none;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-pink': '#ff2a6d',
+                        'neon-blue': '#05d9e8',
+                        'neon-purple': '#9d4edd',
+                        'neon-green': '#39ff14',
+                        'cyber-yellow': '#ffd400',
+                        'dark': '#01012b',
+                        'darker': '#010117',
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'cyber': ['Chakra Petch', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="vhs-noise">
+<!-- SVG Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Star Icon (for ratings) -->
+    <symbol id="star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Arrow Icon -->
+    <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </symbol>
+
+    <!-- Up Arrow Icon -->
+    <symbol id="up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </symbol>
+
+    <!-- Heart Icon -->
+    <symbol id="heart-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </symbol>
+
+    <!-- Lightning Icon -->
+    <symbol id="lightning-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+    </symbol>
+
+    <!-- Grid Icon -->
+    <symbol id="grid-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+    </symbol>
+</svg>
+
+<div x-data="shopApp()" x-init="init()">
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-dark/80 border-b border-neon-blue/30">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="font-orbitron text-3xl font-bold tracking-wider flex items-center">
+                    <span class="text-white">NEON</span>
+                    <span class="text-neon-blue glow-text">GRID</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8 font-cyber uppercase tracking-wider text-sm">
+                    <a href="#" class="text-white hover:text-neon-pink transition-colors duration-300 relative group">
+                        <span>Home</span>
+                        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-neon-pink transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+                    </a>
+                    <a href="#collection" class="text-white hover:text-neon-blue transition-colors duration-300 relative group">
+                        <span>Collection</span>
+                        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-neon-blue transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+                    </a>
+                    <a href="#tech" class="text-white hover:text-neon-green transition-colors duration-300 relative group">
+                        <span>Tech</span>
+                        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-neon-green transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+                    </a>
+                    <a href="#" class="text-white hover:text-cyber-yellow transition-colors duration-300 relative group">
+                        <span>About</span>
+                        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-cyber-yellow transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <div class="relative group">
+                        <input
+                                x-model="searchQuery"
+                                @input="filterProducts()"
+                                type="text"
+                                placeholder="SEARCH"
+                                class="pl-10 pr-4 py-2 w-40 md:w-48 bg-darker border border-neon-blue/50 text-white placeholder-white/50 text-sm focus:outline-none focus:border-neon-blue focus:ring-1 focus:ring-neon-blue rounded-md font-cyber uppercase tracking-wider"
+                        >
+                        <div class="absolute left-3 top-2.5 text-neon-blue">
+                            <svg class="h-4 w-4">
+                                <use xlink:href="#search-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="md:hidden text-white focus:outline-none" x-data="{ open: false }" @click="open = !open">
+                        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (hidden by default) -->
+            <div class="md:hidden bg-darker absolute left-0 right-0 mt-4 py-4 px-6 shadow-lg z-20 hidden border-b border-neon-blue/30">
+                <div class="flex flex-col space-y-4 font-cyber uppercase tracking-wider">
+                    <a href="#" class="text-white hover:text-neon-pink transition-colors duration-300 py-2">Home</a>
+                    <a href="#collection" class="text-white hover:text-neon-blue transition-colors duration-300 py-2">Collection</a>
+                    <a href="#tech" class="text-white hover:text-neon-green transition-colors duration-300 py-2">Tech</a>
+                    <a href="#" class="text-white hover:text-cyber-yellow transition-colors duration-300 py-2">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-32 grid-bg relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-darker to-transparent opacity-80"></div>
+
+        <!-- Abstract neon elements -->
+        <div class="absolute top-1/4 right-1/4 w-64 h-64 bg-neon-blue opacity-20 rounded-full filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/3 left-1/4 w-80 h-80 bg-neon-pink opacity-20 rounded-full filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-block px-4 py-1 border border-neon-pink rounded mb-6 text-neon-pink text-xs font-cyber uppercase tracking-widest font-medium">
+                        Future is now
+                    </div>
+                    <h1 class="font-orbitron text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                        <div class="glitch" data-text="WEAR">WEAR</div>
+                        <div class="text-neon-blue glow-text">THE</div>
+                        <div class="glitch" data-text="FUTURE">FUTURE</div>
+                    </h1>
+                    <p class="text-white/70 font-cyber text-lg mb-8 max-w-xl">
+                        Cyberpunk-inspired t-shirts for the digital age. Bold designs that blend retro tech aesthetics with futuristic vision.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#collection" class="cyber-btn px-8 py-4 rounded-md font-orbitron tracking-wider">
+                            Explore Collection
+                        </a>
+                        <a href="#tech" class="cyber-btn-alt px-8 py-4 rounded-md font-orbitron tracking-wider">
+                            Our Technology
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="border-gradient rounded-xl overflow-hidden rotate-3d">
+                        <img
+                                src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Cyberpunk T-shirt"
+                                class="w-full rounded-xl"
+                        >
+                        <!-- Retro scan line effect -->
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon-blue/10 to-transparent bg-repeat-y pointer-events-none" style="background-size: 100% 4px;"></div>
+                    </div>
+
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-6 -right-6 px-4 py-1 bg-darker border border-neon-blue text-neon-blue font-cyber text-sm uppercase rotate-3">
+                        Limited Edition
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-darker border border-neon-pink flex items-center justify-center rounded-full neon-box" style="box-shadow-color: var(--color-neon-pink);">
+                        <div class="text-neon-pink font-orbitron text-xs text-center">
+                            <div class="text-lg font-bold">2077</div>
+                            <div>Collection</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="py-24 bg-darker square-dots">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                    <span class="inline-block px-4 py-1 bg-neon-purple/10 text-neon-purple rounded-full font-cyber text-sm uppercase tracking-widest mb-4">
+                        Features
+                    </span>
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-6 text-white">
+                    T-shirts from <span class="text-neon-purple glow-text">Another Dimension</span>
+                </h2>
+                <div class="cyberpunk-divider w-48 mx-auto my-8"></div>
+                <p class="text-white/70 max-w-2xl mx-auto font-cyber text-lg">
+                    Our designs combine cutting-edge digital aesthetics with premium materials for the ultimate cyberpunk expression.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div class="border-gradient bg-dark p-8 rounded-xl">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-neon-blue/10 rounded-lg">
+                        <svg class="h-8 w-8 text-neon-blue">
+                            <use xlink:href="#lightning-icon"></use>
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron text-xl font-bold mb-4 text-white">Digital Prints</h3>
+                    <p class="text-white/70 font-cyber">
+                        Advanced printing technology that creates vibrant, high-definition graphics that remain sharp wash after wash.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="border-gradient bg-dark p-8 rounded-xl">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-neon-pink/10 rounded-lg">
+                        <svg class="h-8 w-8 text-neon-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron text-xl font-bold mb-4 text-white">Premium Fabrics</h3>
+                    <p class="text-white/70 font-cyber">
+                        Engineered with technical fabrics that provide superior comfort, durability, and a futuristic feel.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="border-gradient bg-dark p-8 rounded-xl">
+                    <div class="w-16 h-16 flex items-center justify-center mb-6 bg-neon-green/10 rounded-lg">
+                        <svg class="h-8 w-8 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                        </svg>
+                    </div>
+                    <h3 class="font-orbitron text-xl font-bold mb-4 text-white">Reactive Elements</h3>
+                    <p class="text-white/70 font-cyber">
+                        Select designs feature UV-reactive inks and reflective details that transform under different lighting conditions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Section -->
+    <section id="tech" class="py-24 bg-dark grid-bg relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-darker to-transparent opacity-70"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                        <span class="inline-block px-4 py-1 border border-neon-green rounded mb-6 text-neon-green text-xs font-cyber uppercase tracking-widest font-medium">
+                            Our Technology
+                        </span>
+                    <h2 class="font-orbitron text-4xl md:text-5xl font-bold mb-6 text-white">
+                        <span class="text-gradient">Future</span> of <br/>Fashion<span class="text-neon-green">.</span>
+                    </h2>
+
+                    <div class="space-y-6 mb-8">
+                        <div class="split-text">
+                            <div class="line font-cyber text-lg text-white/70">
+                                Our t-shirts aren't just clothing—they're a technological statement.
+                            </div>
+                            <div class="line font-cyber text-lg text-white/70">
+                                We use advanced digital printing techniques and premium performance fabrics to create wearable art pieces that blend comfort with futuristic aesthetics.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-darker/50 backdrop-blur-sm border border-neon-blue/30 p-6 rounded-xl font-cyber">
+                        <div class="flex flex-col sm:flex-row sm:items-center mb-4">
+                            <div class="text-neon-blue mb-2 sm:mb-0 sm:mr-4">01</div>
+                            <div class="text-white font-medium">Digital Reactive Inks</div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center mb-4">
+                            <div class="text-neon-pink mb-2 sm:mb-0 sm:mr-4">02</div>
+                            <div class="text-white font-medium">Thermo-chromatic Elements</div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center">
+                            <div class="text-neon-green mb-2 sm:mb-0 sm:mr-4">03</div>
+                            <div class="text-white font-medium">Reflective 3M Detailing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 flex justify-center">
+                    <div class="relative max-w-md">
+                        <div class="border-gradient p-4 rounded-xl">
+                            <div class="aspect-w-3 aspect-h-4 rounded-lg overflow-hidden">
+                                <img
+                                        src="https://images.unsplash.com/photo-1611890798517-07b0fcb4a811?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                        alt="Futuristic T-shirt"
+                                        class="object-cover w-full h-full"
+                                >
+                                <!-- Scan line effect -->
+                                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon-pink/10 to-transparent bg-repeat-y pointer-events-none" style="background-size: 100% 4px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Tech specs decorative elements -->
+                        <div class="absolute -top-6 -left-6 flex items-center space-x-2 bg-darker p-3 border border-neon-blue/50 rounded-lg font-cyber text-xs text-neon-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <span>TECH-ENHANCED</span>
+                        </div>
+
+                        <div class="absolute -bottom-6 -right-6 bg-darker p-3 border border-neon-green/50 rounded-lg font-cyber text-xs text-neon-green">
+                            REACTIVE FABRICS
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-24 bg-darker">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-12">
+                <div>
+                        <span class="inline-block px-4 py-1 bg-cyber-yellow/10 text-cyber-yellow rounded-full font-cyber text-sm uppercase tracking-widest mb-4">
+                            Featured
+                        </span>
+                    <h2 class="font-orbitron text-4xl font-bold text-white mb-4">
+                        Limited <span class="text-cyber-yellow glow-text">Edition</span>
+                    </h2>
+                    <p class="text-white/70 max-w-xl font-cyber">
+                        Exclusive designs created for the digital rebels and cyber enthusiasts.
+                    </p>
+                </div>
+                <a href="#collection" class="group mt-6 md:mt-0 cyber-btn px-6 py-3 rounded-md font-cyber tracking-wider flex items-center text-sm">
+                    View Collection
+                    <svg class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300">
+                        <use xlink:href="#arrow-icon"></use>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Featured Product 1 -->
+                <div class="border-gradient card-hover bg-dark/50 rounded-xl overflow-hidden">
+                    <div class="relative overflow-hidden">
+                        <img
+                                src="https://images.unsplash.com/photo-1551749006-038de4ced6a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Digital Disruption Tee"
+                                class="w-full h-72 object-cover"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                        <div class="absolute top-4 left-4 bg-darker px-3 py-1 border border-neon-pink text-neon-pink text-xs font-cyber uppercase">
+                            Bestseller
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2">Digital Disruption Tee</h3>
+                        <p class="text-white/70 font-cyber text-sm mb-4">Glitch art print on performance stretch fabric.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-neon-blue font-cyber font-bold">$65.00</span>
+                            <a href="#" class="px-4 py-2 bg-neon-blue/10 text-neon-blue border border-neon-blue rounded font-cyber text-sm hover:bg-neon-blue hover:text-dark transition-colors duration-300">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Product 2 -->
+                <div class="border-gradient card-hover bg-dark/50 rounded-xl overflow-hidden">
+                    <div class="relative overflow-hidden">
+                        <img
+                                src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Neon Nights Tee"
+                                class="w-full h-72 object-cover"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                        <div class="absolute top-4 left-4 bg-darker px-3 py-1 border border-neon-green text-neon-green text-xs font-cyber uppercase">
+                            New Arrival
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2">Neon Nights Tee</h3>
+                        <p class="text-white/70 font-cyber text-sm mb-4">Reflective print that glows under flash photography.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-neon-blue font-cyber font-bold">$72.00</span>
+                            <a href="#" class="px-4 py-2 bg-neon-blue/10 text-neon-blue border border-neon-blue rounded font-cyber text-sm hover:bg-neon-blue hover:text-dark transition-colors duration-300">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Product 3 -->
+                <div class="border-gradient card-hover bg-dark/50 rounded-xl overflow-hidden">
+                    <div class="relative overflow-hidden">
+                        <img
+                                src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Synthwave Sunset Tee"
+                                class="w-full h-72 object-cover"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+                        <div class="absolute top-4 left-4 bg-darker px-3 py-1 border border-cyber-yellow text-cyber-yellow text-xs font-cyber uppercase">
+                            Limited
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-orbitron text-xl font-bold text-white mb-2">Synthwave Sunset Tee</h3>
+                        <p class="text-white/70 font-cyber text-sm mb-4">80s-inspired design with gradient color effect.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-neon-blue font-cyber font-bold">$68.00</span>
+                            <a href="#" class="px-4 py-2 bg-neon-blue/10 text-neon-blue border border-neon-blue rounded font-cyber text-sm hover:bg-neon-blue hover:text-dark transition-colors duration-300">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section with Search and Products -->
+    <section id="collection" class="py-24 bg-dark grid-bg relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-darker to-transparent opacity-70"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between items-start mb-12">
+                <div>
+                        <span class="inline-block px-4 py-1 bg-neon-pink/10 text-neon-pink rounded-full font-cyber text-sm uppercase tracking-widest mb-4">
+                            Shop Now
+                        </span>
+                    <h2 class="font-orbitron text-4xl font-bold text-white mb-4">
+                        The <span class="text-neon-pink glow-text">Collection</span>
+                    </h2>
+                    <p class="text-white/70 max-w-xl font-cyber mb-8 lg:mb-0">
+                        Browse our full range of cyber-inspired t-shirts designed for the digital age.
+                    </p>
+                </div>
+
+                <div class="w-full lg:w-auto flex flex-wrap gap-3">
+                    <button class="px-4 py-2 bg-dark border border-neon-blue rounded-md font-cyber text-neon-blue text-sm uppercase hover:bg-neon-blue hover:text-dark transition-colors duration-300">
+                        All Designs
+                    </button>
+                    <button class="px-4 py-2 bg-dark border border-neon-blue/30 rounded-md font-cyber text-white/70 text-sm uppercase hover:border-neon-blue hover:text-neon-blue transition-colors duration-300">
+                        Cyberpunk
+                    </button>
+                    <button class="px-4 py-2 bg-dark border border-neon-blue/30 rounded-md font-cyber text-white/70 text-sm uppercase hover:border-neon-blue hover:text-neon-blue transition-colors duration-300">
+                        Synthwave
+                    </button>
+                    <button class="px-4 py-2 bg-dark border border-neon-blue/30 rounded-md font-cyber text-white/70 text-sm uppercase hover:border-neon-blue hover:text-neon-blue transition-colors duration-300">
+                        Vaporwave
+                    </button>
+                </div>
+            </div>
+
+            <!-- No products found message -->
+            <div x-show="filteredProducts.length === 0" class="text-center py-20 border border-dashed border-neon-blue/30 rounded-xl bg-darker/50 backdrop-blur-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-neon-blue/30 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="font-orbitron text-xl font-bold text-white mb-2">No Products Found</h3>
+                <p class="text-white/60 font-cyber mb-6">Your search query returned no results.</p>
+                <button
+                        @click="searchQuery = ''; filterProducts()"
+                        class="cyber-btn px-6 py-3 rounded-md font-cyber tracking-wider"
+                >
+                    Reset Search
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div
+                    x-show="filteredProducts.length > 0"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            >
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="border-gradient card-hover bg-dark/50 rounded-xl overflow-hidden">
+                        <div class="relative overflow-hidden">
+                            <img
+                                    x-bind:src="product.image || 'https://via.placeholder.com/400x500?text=NEONGRID'"
+                                    class="w-full h-64 object-cover"
+                                    x-bind:alt="product.name"
+                            >
+                            <!-- Overlay gradient -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-70"></div>
+
+                            <!-- Product tag -->
+                            <div class="absolute top-4 left-4">
+                                <div class="bg-darker px-3 py-1 border border-neon-blue text-neon-blue text-xs font-cyber uppercase">
+                                    Cyberwear
+                                </div>
+                            </div>
+
+                            <!-- Quick view button -->
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                                <a href="#" class="bg-darker/80 backdrop-blur-sm border border-neon-pink text-neon-pink px-6 py-3 rounded-md font-cyber text-sm uppercase hover:bg-neon-pink hover:text-dark transition-colors duration-300">
+                                    Quick View
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <!-- Rating stars -->
+                            <div class="flex items-center mb-2">
+                                <template x-for="i in 5" :key="i">
+                                    <svg class="h-4 w-4 mr-0.5" :class="i <= product.rating ? 'text-cyber-yellow' : 'text-gray-600'">
+                                        <use xlink:href="#star-icon"></use>
+                                    </svg>
+                                </template>
+                            </div>
+
+                            <h3 class="font-orbitron text-lg font-bold text-white mb-1" x-text="product.name"></h3>
+                            <p class="text-white/70 font-cyber text-sm mb-3 line-clamp-2" x-text="product.description"></p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-neon-blue font-cyber font-bold" x-text="'$' + product.price.toFixed(2)"></span>
+                                <a href="#" class="px-4 py-2 bg-neon-blue/10 text-neon-blue border border-neon-blue rounded font-cyber text-xs hover:bg-neon-blue hover:text-dark transition-colors duration-300 uppercase">
+                                    Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 bg-darker relative overflow-hidden">
+        <!-- Decorative background elements -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-neon-purple/20 rounded-full filter blur-3xl"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-neon-pink/20 rounded-full filter blur-3xl"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="border-gradient bg-dark/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                        <span class="inline-block font-cyber text-xs uppercase tracking-widest text-neon-green mb-2">
+                            Join the network
+                        </span>
+                    <h2 class="font-orbitron text-3xl md:text-4xl font-bold text-white mb-4">
+                        Stay <span class="text-neon-green glow-text">Connected</span>
+                    </h2>
+                    <p class="text-white/70 font-cyber max-w-xl mx-auto">
+                        Subscribe to get early access to limited edition drops, exclusive designs, and special offers.
+                    </p>
+                </div>
+
+                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input
+                            type="email"
+                            placeholder="ENTER YOUR EMAIL"
+                            class="flex-1 px-6 py-4 bg-darker border border-neon-green/50 text-white placeholder-white/50 text-sm font-cyber uppercase tracking-wider focus:outline-none focus:border-neon-green focus:ring-1 focus:ring-neon-green rounded-md"
+                            required
+                    >
+                    <button
+                            type="submit"
+                            class="px-8 py-4 bg-neon-green text-dark font-orbitron tracking-wider rounded-md hover:bg-neon-green/90 transition-colors duration-300 uppercase font-bold"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Go Up Button -->
+    <button
+            @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="fixed bottom-8 right-8 bg-neon-pink text-dark p-3 rounded-full font-bold hover:bg-neon-pink/90 transition-colors z-10 pulse"
+            x-show="window.scrollY > 500"
+            x-transition
+            x-cloak
+    >
+        <svg class="h-6 w-6">
+            <use xlink:href="#up-arrow"></use>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-darker py-16 border-t border-neon-blue/30">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <a href="#" class="font-orbitron text-2xl font-bold tracking-wider flex items-center mb-6">
+                        <span class="text-white">NEON</span>
+                        <span class="text-neon-blue glow-text">GRID</span>
+                    </a>
+                    <p class="text-white/60 font-cyber mb-6">
+                        Pushing the boundaries of fashion with cyberpunk-inspired designs for the digital age.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 border border-neon-blue/50 flex items-center justify-center rounded-md text-neon-blue hover:bg-neon-blue hover:text-dark transition-all duration-300">
+                            <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-neon-blue/50 flex items-center justify-center rounded-md text-neon-blue hover:bg-neon-blue hover:text-dark transition-all duration-300">
+                            <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 border border-neon-blue/50 flex items-center justify-center rounded-md text-neon-blue hover:bg-neon-blue hover:text-dark transition-all duration-300">
+                            <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-6 uppercase tracking-wide">Shop</h3>
+                    <ul class="space-y-3 font-cyber text-sm">
+                        <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors duration-200">All Products</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors duration-200">New Arrivals</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors duration-200">Bestsellers</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors duration-200">Collaborations</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-pink transition-colors duration-200">Limited Editions</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-6 uppercase tracking-wide">Information</h3>
+                    <ul class="space-y-3 font-cyber text-sm">
+                        <li><a href="#" class="text-white/60 hover:text-neon-blue transition-colors duration-200">About Us</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-blue transition-colors duration-200">Our Technology</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-blue transition-colors duration-200">Sustainability</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-blue transition-colors duration-200">Size Guide</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-neon-blue transition-colors duration-200">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-orbitron text-lg font-bold text-white mb-6 uppercase tracking-wide">Contact</h3>
+                    <ul class="space-y-3 font-cyber text-sm">
+                        <li class="text-white/60">
+                            <strong class="text-neon-green">Email:</strong> hello@neongrid.com
+                        </li>
+                        <li class="text-white/60">
+                            <strong class="text-neon-green">Location:</strong> Neo City, Digital District
+                        </li>
+                        <li class="text-white/60">
+                            <strong class="text-neon-green">Support:</strong> 24/7 AI assistance
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 mt-8 border-t border-neon-blue/20 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-white/40 font-cyber text-sm mb-4 md:mb-0">
+                    © 2077 NEONGRID. All rights reserved. Visitor ID: NRG-92821
+                </p>
+                <p class="text-white/40 font-cyber text-sm">
+                    Website designed with
+                    <svg class="h-4 w-4 inline-block text-neon-pink">
+                        <use xlink:href="#heart-icon"></use>
+                    </svg>
+                    by RN Team
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function shopApp() {
+        return {
+            // Product data
+            products: PRODUCTS,
+            filteredProducts: [],
+            searchQuery: '',
+
+            // Methods
+            init() {
+                // Initialize filtered products with all products
+                this.filteredProducts = [...this.products];
+
+                // Add scroll event listener for the go up button
+                window.addEventListener('scroll', () => {
+                    this.$nextTick(() => {
+                        const scrollButton = this.$el.querySelector('[x-show="window.scrollY > 500"]');
+                        if (scrollButton) {
+                            if (window.scrollY > 500) {
+                                scrollButton._x_doShow();
+                            } else {
+                                scrollButton._x_doHide();
+                            }
+                        }
+                    });
+                });
+            },
+
+            filterProducts() {
+                if (!this.searchQuery.trim()) {
+                    this.filteredProducts = [...this.products];
+                } else {
+                    const query = this.searchQuery.toLowerCase().trim();
+                    this.filteredProducts = this.products.filter(product =>
+                        product.name.toLowerCase().includes(query) ||
+                        product.description.toLowerCase().includes(query)
+                    );
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
