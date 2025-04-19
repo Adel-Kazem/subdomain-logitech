@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXE | Premium Lifestyle Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fbf8f1',
+                            100: '#f7f0e1',
+                            200: '#efe0c2',
+                            300: '#e5ca95',
+                            400: '#d7af68',
+                            500: '#c99440',
+                            600: '#b67a33',
+                            700: '#96602a',
+                            800: '#7b4e29',
+                            900: '#654224',
+                        },
+                        charcoal: {
+                            50: '#f6f7f7',
+                            100: '#e3e5e6',
+                            200: '#c6cacc',
+                            300: '#a1a7ab',
+                            400: '#7d8389',
+                            500: '#64686d',
+                            600: '#4d5156',
+                            700: '#3b3e42',
+                            800: '#232527',
+                            900: '#171819',
+                            950: '#0c0d0e',
+                        }
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'Georgia', 'serif'],
+                        'sans': ['Montserrat', 'Helvetica', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .horizontal-scroll {
+            scrollbar-width: none;
+        }
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(201, 148, 64, 0.5);
+            color: transparent;
+        }
+        .animation-delay-300 {
+            animation-delay: 300ms;
+        }
+        .animation-delay-600 {
+            animation-delay: 600ms;
+        }
+        .animation-delay-900 {
+            animation-delay: 900ms;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans text-charcoal-800 overflow-x-hidden">
+<div x-data="{
+        products: PRODUCTS,
+        searchQuery: '',
+        isMegaMenuOpen: false,
+        isSearchOpen: false,
+        isCartOpen: false,
+        selectedCategory: 'all',
+        cart: [],
+        recentlyViewed: [],
+        activeFilterMenu: null,
+        compareProducts: [],
+        filters: {
+            price: [0, 1000],
+            ratings: [1, 5],
+            categories: []
+        },
+        filteredProducts() {
+            let filtered = this.products;
+
+            // Search filter
+            if (this.searchQuery) {
+                filtered = filtered.filter(product =>
+                    product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                    product.description.toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+            }
+
+            // Category filter
+            if (this.selectedCategory !== 'all') {
+                filtered = filtered.filter(product =>
+                    product.category === this.selectedCategory
+                );
+            }
+
+            return filtered;
+        },
+        addToCart(product, quantity = 1) {
+            const existingItem = this.cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                this.cart.push({...product, quantity});
+            }
+            this.isCartOpen = true;
+
+            // Add to recently viewed if not already there
+            if (!this.recentlyViewed.find(item => item.id === product.id)) {
+                this.recentlyViewed.unshift(product);
+                if (this.recentlyViewed.length > 6) {
+                    this.recentlyViewed.pop();
+                }
+            }
+        },
+        cartCount() {
+            return this.cart.reduce((sum, item) => sum + item.quantity, 0);
+        },
+        cartTotal() {
+            return this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        },
+        toggleMegaMenu() {
+            this.isMegaMenuOpen = !this.isMegaMenuOpen;
+            if (this.isMegaMenuOpen) {
+                this.isSearchOpen = false;
+                document.body.classList.add('overflow-hidden');
+            } else {
+                document.body.classList.remove('overflow-hidden');
+            }
+        },
+        toggleSearch() {
+            this.isSearchOpen = !this.isSearchOpen;
+            if (this.isSearchOpen) {
+                this.isMegaMenuOpen = false;
+                setTimeout(() => document.getElementById('searchInput').focus(), 100);
+            }
+        },
+        toggleFilterMenu(menu) {
+            this.activeFilterMenu = this.activeFilterMenu === menu ? null : menu;
+        },
+        toggleCompare(product) {
+            const index = this.compareProducts.findIndex(p => p.id === product.id);
+            if (index >= 0) {
+                this.compareProducts.splice(index, 1);
+            } else {
+                if (this.compareProducts.length < 3) {
+                    this.compareProducts.push(product);
+                }
+            }
+        },
+        isInCompare(productId) {
+            return this.compareProducts.some(p => p.id === productId);
+        }
+    }">
+
+    <!-- Full Screen Search Overlay -->
+    <div x-show="isSearchOpen" class="fixed inset-0 bg-white z-50 p-4 overflow-y-auto"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-serif font-bold">Search</h2>
+                <button @click="isSearchOpen = false" class="text-2xl hover:text-gold-500 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="relative mb-8">
+                <input
+                        id="searchInput"
+                        type="text"
+                        x-model="searchQuery"
+                        placeholder="Type to search..."
+                        class="w-full text-2xl py-4 px-2 border-b-2 border-charcoal-200 focus:border-gold-500 outline-none bg-transparent"
+                >
+            </div>
+
+            <div class="pt-4">
+                <h3 class="text-lg font-medium mb-4">Popular searches</h3>
+                <div class="flex flex-wrap gap-2">
+                    <a href="#" class="px-4 py-2 rounded-full border border-charcoal-200 text-sm hover:border-gold-500 hover:text-gold-500 transition-colors">Luxury</a>
+                    <a href="#" class="px-4 py-2 rounded-full border border-charcoal-200 text-sm hover:border-gold-500 hover:text-gold-500 transition-colors">New arrivals</a>
+                    <a href="#" class="px-4 py-2 rounded-full border border-charcoal-200 text-sm hover:border-gold-500 hover:text-gold-500 transition-colors">Bestsellers</a>
+                    <a href="#" class="px-4 py-2 rounded-full border border-charcoal-200 text-sm hover:border-gold-500 hover:text-gold-500 transition-colors">Collections</a>
+                </div>
+            </div>
+
+            <div x-show="searchQuery" class="mt-10">
+                <h3 class="text-xl font-medium mb-6">Search results for "<span x-text="searchQuery"></span>"</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <template x-for="product in filteredProducts()" :key="product.id">
+                        <div class="group relative">
+                            <div class="aspect-w-3 aspect-h-4 mb-4 overflow-hidden bg-charcoal-100">
+                                <img
+                                        x-bind:src="product.image || 'https://via.placeholder.com/400x500?text=LUXE'"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        x-bind:alt="product.name"
+                                >
+                            </div>
+                            <h4 class="text-base font-medium" x-text="product.name"></h4>
+                            <p class="text-charcoal-500 text-sm mb-2" x-text="'$' + product.price.toFixed(2)"></p>
+                            <button @click="addToCart(product); isSearchOpen = false" class="text-sm text-gold-600 hover:text-gold-800 font-medium hover:underline transition-colors">
+                                Add to cart
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mega Menu -->
+    <div x-show="isMegaMenuOpen" class="fixed inset-0 bg-white z-50 overflow-y-auto"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 transform -translate-y-4"
+         x-transition:enter-end="opacity-100 transform translate-y-0"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 transform translate-y-0"
+         x-transition:leave-end="opacity-0 transform -translate-y-4">
+        <div class="container mx-auto px-4 py-12">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-3xl font-serif font-bold">Navigation</h2>
+                <button @click="toggleMegaMenu()" class="text-2xl hover:text-gold-500 transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                <div class="space-y-6">
+                    <h3 class="text-xl font-medium mb-4 border-b border-charcoal-200 pb-2">Shop</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Bestsellers</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Exclusive Items</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Sale</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-xl font-medium mb-4 border-b border-charcoal-200 pb-2">Collections</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Summer 2025</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Essentials</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Premium Line</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Limited Edition</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Collaborations</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-xl font-medium mb-4 border-b border-charcoal-200 pb-2">About</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Our Story</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Artisans</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Journal</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Press</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-xl font-medium mb-4 border-b border-charcoal-200 pb-2">Customer Care</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">FAQs</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-16 border-t border-charcoal-200 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                    <a href="#" class="hover:text-gold-500 transition-colors">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-gold-500 transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-gold-500 transition-colors">
+                        <i class="fab fa-pinterest-p text-xl"></i>
+                    </a>
+                    <a href="#" class="hover:text-gold-500 transition-colors">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+
+                <div>
+                    <h4 class="text-sm mb-3">Sign up for our newsletter</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="py-2 px-3 border border-charcoal-200 focus:border-gold-500 outline-none">
+                        <button class="bg-gold-500 hover:bg-gold-600 text-white py-2 px-4 transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div x-show="isCartOpen"
+         class="fixed inset-0 z-50"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black bg-opacity-50" @click="isCartOpen = false"></div>
+
+        <!-- Cart Panel -->
+        <div class="absolute top-0 right-0 w-full max-w-md h-full bg-white shadow-xl transform transition-transform duration-300"
+             :class="isCartOpen ? 'translate-x-0' : 'translate-x-full'">
+            <div class="h-full flex flex-col">
+                <div class="p-6 border-b border-charcoal-100 flex justify-between items-center">
+                    <h2 class="text-xl font-medium">Your Cart <span x-show="cartCount() > 0" class="text-sm text-charcoal-500" x-text="'(' + cartCount() + ' items)'"></span></h2>
+                    <button @click="isCartOpen = false" class="text-2xl hover:text-gold-500 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="flex-grow overflow-y-auto py-4">
+                    <!-- Empty cart state -->
+                    <template x-if="cart.length === 0">
+                        <div class="h-full flex flex-col items-center justify-center p-6 text-center">
+                            <div class="w-20 h-20 mb-6 text-charcoal-300">
+                                <i class="fas fa-shopping-bag text-5xl"></i>
+                            </div>
+                            <h3 class="text-lg font-medium mb-2">Your cart is empty</h3>
+                            <p class="text-charcoal-500 mb-6">Looks like you haven't added any products yet.</p>
+                            <button @click="isCartOpen = false" class="bg-gold-500 hover:bg-gold-600 text-white py-2 px-6 transition-colors">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </template>
+
+                    <!-- Cart items -->
+                    <template x-if="cart.length > 0">
+                        <div class="divide-y divide-charcoal-100">
+                            <template x-for="(item, index) in cart" :key="item.id">
+                                <div class="py-4 px-6 flex gap-4">
+                                    <div class="w-20 h-24 bg-charcoal-100 flex-shrink-0">
+                                        <img :src="item.image || 'https://via.placeholder.com/80x96?text=LUXE'" class="w-full h-full object-cover" :alt="item.name">
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between">
+                                            <h4 class="font-medium" x-text="item.name"></h4>
+                                            <button @click="cart.splice(index, 1)" class="text-charcoal-400 hover:text-red-500 transition-colors">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <p class="text-charcoal-500 text-sm mb-2">Quantity: <span x-text="item.quantity"></span></p>
+                                        <p class="font-medium" x-text="'$' + (item.price * item.quantity).toFixed(2)"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+                <template x-if="cart.length > 0">
+                    <div class="p-6 border-t border-charcoal-100">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-lg">Subtotal</span>
+                            <span class="text-lg font-medium" x-text="'$' + cartTotal().toFixed(2)"></span>
+                        </div>
+                        <p class="text-sm text-charcoal-500 mb-4">Shipping, taxes, and discounts calculated at checkout.</p>
+                        <button class="w-full bg-gold-500 hover:bg-gold-600 text-white py-3 transition-colors mb-3">
+                            Checkout
+                        </button>
+                        <button @click="isCartOpen = false" class="w-full border border-charcoal-800 hover:bg-charcoal-800 hover:text-white py-3 transition-colors">
+                            Continue Shopping
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur-sm z-40 transition-all duration-300"
+            :class="{'py-6': window.scrollY === 0, 'py-3 shadow-sm': window.scrollY > 0}"
+            @scroll.window="$el.classList.toggle('py-6', window.scrollY === 0); $el.classList.toggle('py-3', window.scrollY > 0);">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-serif font-bold tracking-wider">LUXE</a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="hover:text-gold-500 transition-colors text-sm uppercase tracking-wide">Home</a>
+                    <a href="#shop" class="hover:text-gold-500 transition-colors text-sm uppercase tracking-wide">Shop</a>
+                    <a href="#collections" class="hover:text-gold-500 transition-colors text-sm uppercase tracking-wide">Collections</a>
+                    <a href="#" class="hover:text-gold-500 transition-colors text-sm uppercase tracking-wide">About</a>
+                    <a href="#" class="hover:text-gold-500 transition-colors text-sm uppercase tracking-wide">Journal</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-6">
+                    <button @click="toggleSearch()" class="hover:text-gold-500 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <a href="#" class="hover:text-gold-500 transition-colors hidden md:block">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <button @click="isCartOpen = true" class="hover:text-gold-500 transition-colors relative">
+                        <i class="fas fa-shopping-bag"></i>
+                        <template x-if="cartCount() > 0">
+                            <span class="absolute -top-2 -right-2 w-5 h-5 flex items-center justify-center bg-gold-500 text-white text-xs rounded-full" x-text="cartCount()"></span>
+                        </template>
+                    </button>
+                    <button @click="toggleMegaMenu()" class="hover:text-gold-500 transition-colors">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-12">
+        <!-- Hero Section -->
+        <section class="relative h-screen bg-charcoal-950 overflow-hidden">
+            <!-- Video background -->
+            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-70">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-fashion-model-walking-around-a-shopping-mall-14551-large.mp4" type="video/mp4">
+            </video>
+
+            <!-- Overlay gradient -->
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-transparent"></div>
+
+            <div class="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center">
+                <div class="max-w-2xl animate-fade-in-up">
+                    <h1 class="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-4">Exceptional <span class="text-stroke">Quality</span> Timeless Style</h1>
+                    <p class="text-xl text-white/80 mb-8 max-w-lg">Discover our curated collection of premium products designed for the modern connoisseur.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#shop" class="bg-gold-500 hover:bg-gold-600 text-white px-8 py-3 transition-colors">Shop Now</a>
+                        <a href="#collections" class="border border-white hover:bg-white hover:text-charcoal-900 text-white px-8 py-3 transition-colors">Discover More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Featured Categories with Horizontal Scroll -->
+        <section id="collections" class="py-24">
+            <div class="container mx-auto px-4">
+                <div class="flex items-end justify-between mb-12">
+                    <div>
+                        <h5 class="text-gold-500 uppercase tracking-wider mb-2">Collections</h5>
+                        <h2 class="text-4xl font-serif font-bold">Explore Categories</h2>
+                    </div>
+                    <div class="hidden md:flex items-center gap-2">
+                        <button id="scrollLeft" class="w-10 h-10 border border-charcoal-200 hover:border-gold-500 hover:text-gold-500 transition-colors rounded-full flex items-center justify-center">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="scrollRight" class="w-10 h-10 border border-charcoal-200 hover:border-gold-500 hover:text-gold-500 transition-colors rounded-full flex items-center justify-center">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="horizontal-scroll relative overflow-x-auto hide-scrollbar" id="categoriesScroll">
+                <div class="flex gap-4 px-4 pb-4 min-w-max">
+                    <div class="w-[500px] h-[600px] relative flex-shrink-0 group overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Fashion">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 to-transparent"></div>
+                        <div class="absolute inset-0 flex flex-col justify-end p-10">
+                            <h3 class="text-3xl font-serif font-bold text-white mb-3">Fashion</h3>
+                            <p class="text-white/80 mb-6 max-w-xs">Timeless pieces crafted for those who appreciate refined aesthetics.</p>
+                            <a href="#" class="inline-block px-6 py-3 bg-white text-charcoal-900 hover:bg-gold-500 hover:text-white transition-colors duration-300 self-start">
+                                Discover Collection
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="w-[500px] h-[600px] relative flex-shrink-0 group overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Technology">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 to-transparent"></div>
+                        <div class="absolute inset-0 flex flex-col justify-end p-10">
+                            <h3 class="text-3xl font-serif font-bold text-white mb-3">Technology</h3>
+                            <p class="text-white/80 mb-6 max-w-xs">Cutting-edge devices that perfectly balance form and function.</p>
+                            <a href="#" class="inline-block px-6 py-3 bg-white text-charcoal-900 hover:bg-gold-500 hover:text-white transition-colors duration-300 self-start">
+                                Discover Collection
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="w-[500px] h-[600px] relative flex-shrink-0 group overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Fitness">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 to-transparent"></div>
+                        <div class="absolute inset-0 flex flex-col justify-end p-10">
+                            <h3 class="text-3xl font-serif font-bold text-white mb-3">Fitness</h3>
+                            <p class="text-white/80 mb-6 max-w-xs">Premium equipment for those who take their wellness seriously.</p>
+                            <a href="#" class="inline-block px-6 py-3 bg-white text-charcoal-900 hover:bg-gold-500 hover:text-white transition-colors duration-300 self-start">
+                                Discover Collection
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="w-[500px] h-[600px] relative flex-shrink-0 group overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Home Decor">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 to-transparent"></div>
+                        <div class="absolute inset-0 flex flex-col justify-end p-10">
+                            <h3 class="text-3xl font-serif font-bold text-white mb-3">Home Decor</h3>
+                            <p class="text-white/80 mb-6 max-w-xs">Elevate your space with artisanal pieces that tell a story.</p>
+                            <a href="#" class="inline-block px-6 py-3 bg-white text-charcoal-900 hover:bg-gold-500 hover:text-white transition-colors duration-300 self-start">
+                                Discover Collection
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const scrollContainer = document.getElementById('categoriesScroll');
+                    const scrollLeftBtn = document.getElementById('scrollLeft');
+                    const scrollRightBtn = document.getElementById('scrollRight');
+
+                    scrollLeftBtn.addEventListener('click', () => {
+                        scrollContainer.scrollBy({ left: -500, behavior: 'smooth' });
+                    });
+
+                    scrollRightBtn.addEventListener('click', () => {
+                        scrollContainer.scrollBy({ left: 500, behavior: 'smooth' });
+                    });
+                });
+            </script>
+        </section>
+
+        <!-- Large Product Showcase (Split Screen) -->
+        <section class="py-16 bg-charcoal-50">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <!-- Product Image Side -->
+                <div class="relative h-[600px] bg-charcoal-100 overflow-hidden">
+                    <img
+                            src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            class="w-full h-full object-cover"
+                            alt="Featured Product"
+                    >
+                </div>
+
+                <!-- Product Info Side -->
+                <div class="flex items-center justify-center p-12 lg:p-16">
+                    <div class="max-w-lg">
+                        <h5 class="text-gold-500 uppercase tracking-wider mb-2">Featured Product</h5>
+                        <h2 class="text-4xl font-serif font-bold mb-4">Whey Protein Isolate</h2>
+                        <p class="text-lg mb-6 text-charcoal-600">High-quality protein with 27g per serving for muscle recovery and growth.</p>
+                        <div class="flex items-center mb-6">
+                            <div class="flex items-center text-gold-500 mr-3">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-charcoal-500">(120 reviews)</span>
+                        </div>
+                        <p class="text-2xl font-medium mb-8">$39.99</p>
+                        <div class="mb-8">
+                            <h4 class="text-sm font-medium mb-3 uppercase">Choose Flavor</h4>
+                            <div class="flex gap-3">
+                                <button class="px-4 py-2 border-2 border-charcoal-800 bg-charcoal-800 text-white">Vanilla</button>
+                                <button class="px-4 py-2 border-2 border-charcoal-200 hover:border-charcoal-800 transition-colors">Chocolate</button>
+                                <button class="px-4 py-2 border-2 border-charcoal-200 hover:border-charcoal-800 transition-colors">Strawberry</button>
+                            </div>
+                        </div>
+                        <button class="w-full md:w-auto bg-gold-500 hover:bg-gold-600 text-white px-10 py-3 transition-colors mb-4">
+                            Add to Cart
+                        </button>
+                        <p class="text-sm text-charcoal-500">Free shipping on orders over $50</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Listing Section -->
+        <section id="shop" class="py-24">
+            <div class="container mx-auto px-4">
+                <div class="flex items-end justify-between mb-12">
+                    <div>
+                        <h5 class="text-gold-500 uppercase tracking-wider mb-2">Shop</h5>
+                        <h2 class="text-4xl font-serif font-bold">Explore Our Products</h2>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="hidden md:flex items-center space-x-6">
+                        <button
+                                @click="selectedCategory = 'all'"
+                                :class="selectedCategory === 'all' ? 'text-gold-500 border-b-2 border-gold-500' : 'hover:text-gold-500'"
+                                class="pb-1 transition-colors">
+                            All
+                        </button>
+                        <button
+                                @click="selectedCategory = 'fitness'"
+                                :class="selectedCategory === 'fitness' ? 'text-gold-500 border-b-2 border-gold-500' : 'hover:text-gold-500'"
+                                class="pb-1 transition-colors">
+                            Fitness
+                        </button>
+                        <button
+                                @click="selectedCategory = 'tech'"
+                                :class="selectedCategory === 'tech' ? 'text-gold-500 border-b-2 border-gold-500' : 'hover:text-gold-500'"
+                                class="pb-1 transition-colors">
+                            Tech
+                        </button>
+                        <button
+                                @click="selectedCategory = 'fashion'"
+                                :class="selectedCategory === 'fashion' ? 'text-gold-500 border-b-2 border-gold-500' : 'hover:text-gold-500'"
+                                class="pb-1 transition-colors">
+                            Fashion
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search and Advanced Filter Bar -->
+                <div class="mb-10 bg-white border border-charcoal-100 p-4 flex flex-wrap items-center justify-between gap-4">
+                    <div class="relative w-full md:w-80">
+                        <input
+                                type="text"
+                                x-model="searchQuery"
+                                placeholder="Search products..."
+                                class="w-full py-2 px-4 pr-10 border border-charcoal-200 focus:border-gold-500 outline-none"
+                        >
+                        <span class="absolute right-3 top-2.5 text-charcoal-400">
+                                <i class="fas fa-search"></i>
+                            </span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="relative" @click.away="activeFilterMenu = null">
+                            <button
+                                    @click="toggleFilterMenu('price')"
+                                    class="px-4 py-2 border border-charcoal-200 hover:border-gold-500 transition-colors flex items-center gap-2">
+                                <span>Price</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div x-show="activeFilterMenu === 'price'" class="absolute top-full left-0 mt-1 w-64 bg-white shadow-lg z-20 p-4">
+                                <h4 class="font-medium mb-2">Price Range</h4>
+                                <div class="mb-4">
+                                    <input type="range" min="0" max="1000" x-model="filters.price[1]" class="w-full">
+                                </div>
+                                <div class="flex justify-between">
+                                    <span x-text="'$' + filters.price[0]"></span>
+                                    <span x-text="'$' + filters.price[1]"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative" @click.away="activeFilterMenu = null">
+                            <button
+                                    @click="toggleFilterMenu('rating')"
+                                    class="px-4 py-2 border border-charcoal-200 hover:border-gold-500 transition-colors flex items-center gap-2">
+                                <span>Rating</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div x-show="activeFilterMenu === 'rating'" class="absolute top-full left-0 mt-1 w-48 bg-white shadow-lg z-20 p-4">
+                                <h4 class="font-medium mb-3">Minimum Rating</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="rating" value="5" checked>
+                                        <div class="flex text-gold-500">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="rating" value="4">
+                                        <div class="flex text-gold-500">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" name="rating" value="3">
+                                        <div class="flex text-gold-500">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative" @click.away="activeFilterMenu = null">
+                            <button
+                                    @click="toggleFilterMenu('sort')"
+                                    class="px-4 py-2 border border-charcoal-200 hover:border-gold-500 transition-colors flex items-center gap-2">
+                                <span>Sort By</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div x-show="activeFilterMenu === 'sort'" class="absolute top-full right-0 mt-1 w-48 bg-white shadow-lg z-20 p-4">
+                                <h4 class="font-medium mb-3">Sort Products</h4>
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="hover:text-gold-500 transition-colors">Price: Low to High</a></li>
+                                    <li><a href="#" class="hover:text-gold-500 transition-colors">Price: High to Low</a></li>
+                                    <li><a href="#" class="hover:text-gold-500 transition-colors">Newest First</a></li>
+                                    <li><a href="#" class="hover:text-gold-500 transition-colors">Popularity</a></li>
+                                    <li><a href="#" class="hover:text-gold-500 transition-colors">Rating</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results Message -->
+                <div x-show="filteredProducts().length === 0" class="py-12 text-center">
+                    <div class="w-20 h-20 mx-auto mb-6 text-charcoal-300">
+                        <i class="fas fa-search text-5xl"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-2">No products found</h3>
+                    <p class="text-charcoal-500 mb-6">Try adjusting your search or filter to find what you're looking for.</p>
+                    <button @click="searchQuery = ''; selectedCategory = 'all'" class="bg-gold-500 hover:bg-gold-600 text-white py-2 px-6 transition-colors">
+                        Clear All Filters
+                    </button>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <template x-for="product in filteredProducts()" :key="product.id">
+                        <div class="group">
+                            <div class="relative overflow-hidden bg-charcoal-50 mb-4">
+                                <!-- Product Image with hover effect -->
+                                <div class="aspect-w-3 aspect-h-4 overflow-hidden">
+                                    <img
+                                            x-bind:src="product.image || 'https://via.placeholder.com/300x400?text=LUXE'"
+                                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                            x-bind:alt="product.name"
+                                    >
+                                </div>
+
+                                <!-- Quick actions overlay -->
+                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                    <div class="flex gap-2 -translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                        <button @click="addToCart(product)" class="w-10 h-10 bg-white hover:bg-gold-500 hover:text-white transition-colors rounded-full flex items-center justify-center">
+                                            <i class="fas fa-shopping-bag"></i>
+                                        </button>
+                                        <button @click="toggleCompare(product)" :class="isInCompare(product.id) ? 'bg-gold-500 text-white' : 'bg-white text-charcoal-800 hover:bg-gold-500 hover:text-white'" class="w-10 h-10 transition-colors rounded-full flex items-center justify-center">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                        <button class="w-10 h-10 bg-white hover:bg-gold-500 hover:text-white transition-colors rounded-full flex items-center justify-center">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Info -->
+                            <div>
+                                <div class="flex mb-1">
+                                    <template x-for="i in 5" :key="i">
+                                        <i :class="i <= product.rating ? 'text-gold-500' : 'text-charcoal-200'" class="fas fa-star text-sm"></i>
+                                    </template>
+                                </div>
+                                <h3 class="font-medium mb-1" x-text="product.name"></h3>
+                                <p class="text-charcoal-500 text-sm mb-2 line-clamp-2" x-text="product.description"></p>
+                                <p class="font-semibold" x-text="'$' + product.price.toFixed(2)"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recently Viewed Section -->
+        <section x-show="recentlyViewed.length > 0" class="py-16 bg-charcoal-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-serif font-bold mb-8">Recently Viewed</h2>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <template x-for="product in recentlyViewed" :key="product.id">
+                        <div class="group">
+                            <div class="aspect-w-1 aspect-h-1 bg-white mb-3 overflow-hidden">
+                                <img
+                                        x-bind:src="product.image || 'https://via.placeholder.com/150x150?text=LUXE'"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        x-bind:alt="product.name"
+                                >
+                            </div>
+                            <h4 class="text-sm font-medium truncate" x-text="product.name"></h4>
+                            <p class="text-gold-500 text-sm" x-text="'$' + product.price.toFixed(2)"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Comparison Section -->
+        <section x-show="compareProducts.length > 0" class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-serif font-bold">Compare Products</h2>
+                    <button @click="compareProducts = []" class="text-charcoal-500 hover:text-gold-500 transition-colors">
+                        Clear All
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto pb-4">
+                    <table class="w-full min-w-[800px]">
+                        <thead class="border-b border-charcoal-200">
+                        <tr>
+                            <th class="text-left p-4 min-w-[200px]">Product</th>
+                            <template x-for="product in compareProducts" :key="product.id">
+                                <th class="p-4 min-w-[200px]">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-24 h-24 bg-charcoal-50 mb-3">
+                                            <img :src="product.image || 'https://via.placeholder.com/96x96?text=LUXE'" class="w-full h-full object-cover" :alt="product.name">
+                                        </div>
+                                        <h4 class="font-medium text-center" x-text="product.name"></h4>
+                                        <p class="text-gold-500" x-text="'$' + product.price.toFixed(2)"></p>
+                                        <button @click="toggleCompare(product)" class="mt-2 text-charcoal-500 hover:text-red-500 transition-colors">
+                                            <i class="fas fa-times"></i> Remove
+                                        </button>
+                                    </div>
+                                </th>
+                            </template>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="border-b border-charcoal-200">
+                            <td class="p-4 font-medium">Description</td>
+                            <template x-for="product in compareProducts" :key="product.id">
+                                <td class="p-4 text-center" x-text="product.description"></td>
+                            </template>
+                        </tr>
+                        <tr class="border-b border-charcoal-200">
+                            <td class="p-4 font-medium">Rating</td>
+                            <template x-for="product in compareProducts" :key="product.id">
+                                <td class="p-4">
+                                    <div class="flex justify-center">
+                                        <template x-for="i in 5" :key="i">
+                                            <i :class="i <= product.rating ? 'text-gold-500' : 'text-charcoal-200'" class="fas fa-star"></i>
+                                        </template>
+                                    </div>
+                                </td>
+                            </template>
+                        </tr>
+                        <tr>
+                            <td class="p-4"></td>
+                            <template x-for="product in compareProducts" :key="product.id">
+                                <td class="p-4">
+                                    <button @click="addToCart(product)" class="w-full bg-gold-500 hover:bg-gold-600 text-white py-2 transition-colors">
+                                        Add to Cart
+                                    </button>
+                                </td>
+                            </template>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Gallery Section -->
+        <section class="py-24 bg-white relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold-500 opacity-5 rounded-full"></div>
+            <div class="absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2 w-64 h-64 bg-gold-500 opacity-5 rounded-full"></div>
+
+            <div class="container mx-auto px-4 relative">
+                <div class="text-center mb-12">
+                    <h5 class="text-gold-500 uppercase tracking-wider mb-2">Social Media</h5>
+                    <h2 class="text-4xl font-serif font-bold mb-4">Follow Our Journey</h2>
+                    <p class="text-charcoal-500 max-w-lg mx-auto">Join our community and tag your photos with <span class="text-gold-500 font-medium">#LUXESTYLE</span> for a chance to be featured.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <a href="#" class="block group relative aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Instagram Post">
+                        <div class="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <i class="fab fa-instagram text-white text-2xl"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="block group relative aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1566206091558-7f218b696731?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Instagram Post">
+                        <div class="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <i class="fab fa-instagram text-white text-2xl"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="block group relative aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Instagram Post">
+                        <div class="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <i class="fab fa-instagram text-white text-2xl"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="block group relative aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Instagram Post">
+                        <div class="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <i class="fab fa-instagram text-white text-2xl"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="block group relative aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Instagram Post">
+                        <div class="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <i class="fab fa-instagram text-white text-2xl"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="block group relative aspect-square overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Instagram Post">
+                        <div class="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                            <i class="fab fa-instagram text-white text-2xl"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="#" class="inline-flex items-center gap-2 text-gold-500 hover:text-gold-600 font-medium transition-colors">
+                        <span>Follow us on Instagram</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-24 bg-charcoal-900 text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-2xl mx-auto text-center">
+                    <h2 class="text-4xl font-serif font-bold mb-4">Join The LUXE Lifestyle</h2>
+                    <p class="text-charcoal-300 mb-8">Subscribe to receive updates on new collections, exclusive offers, and curated content.</p>
+                    <div class="flex flex-col md:flex-row gap-4 md:gap-0 max-w-md mx-auto">
+                        <input type="email" placeholder="Your email address" class="flex-grow py-3 px-4 md:rounded-l-full md:rounded-r-none rounded-full focus:outline-none text-charcoal-800">
+                        <button class="bg-gold-500 hover:bg-gold-600 text-white py-3 px-6 md:rounded-r-full md:rounded-l-none rounded-full transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
+                    <p class="mt-4 text-charcoal-400 text-sm">By subscribing, you agree to our Privacy Policy and consent to receive our marketing emails.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal-950 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-charcoal-800">
+                <div>
+                    <h3 class="text-2xl font-serif font-bold mb-6">LUXE</h3>
+                    <p class="text-charcoal-400 mb-6">Elevating everyday living through exceptional design and craftsmanship. Every product tells a story of quality and purpose.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                        <a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-medium mb-6">Shop</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Bestsellers</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Collections</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Sale</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-medium mb-6">Help</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Customer Service</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Product Care</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">FAQs</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-medium mb-6">About</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Our Story</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Journal</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-charcoal-400 hover:text-gold-500 transition-colors">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-charcoal-500 text-sm mb-4 md:mb-0">&copy; 2025 LUXE. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-charcoal-500 hover:text-gold-500 transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-charcoal-500 hover:text-gold-500 transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-charcoal-500 hover:text-gold-500 transition-colors text-sm">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

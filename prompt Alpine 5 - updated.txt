@@ -82,7 +82,7 @@ I want to generate them using Alpinejs (loop),knowing that the products variable
             products: PRODUCTS,
 
 because the PRODUCTS is actually coming from this source:
-<script src="productsTheme.js"></script>
+<script src="../productsTheme.js"></script>
 which includes a set of products data with the following structure & syntax:
 
 

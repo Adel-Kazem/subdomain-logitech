@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegance Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-neutral-50 font-['Montserrat']">
+<!-- Header/Navigation -->
+<header class="bg-white border-b border-neutral-200">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-neutral-800">Elegance</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-neutral-600 hover:text-neutral-900">New Arrivals</a>
+                <a href="#" class="text-neutral-600 hover:text-neutral-900">Collections</a>
+                <a href="#" class="text-neutral-600 hover:text-neutral-900">Sale</a>
+                <a href="#" class="text-neutral-600 hover:text-neutral-900">About</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-neutral-600 hover:text-neutral-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                </a>
+                <button class="md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<div class="relative">
+    <div class="absolute inset-0 bg-black/40 z-10"></div>
+    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8"
+         alt="Hero Image"
+         class="w-full h-[600px] object-cover">
+    <div class="absolute inset-0 z-20 flex items-center justify-center text-center">
+        <div class="max-w-3xl px-4">
+            <h2 class="text-5xl font-bold text-white mb-6">Discover Your Style</h2>
+            <p class="text-xl text-white mb-8">Explore our curated collection of premium products</p>
+            <a href="#products" class="inline-block bg-white text-neutral-900 px-8 py-3 rounded-full hover:bg-neutral-100 transition">
+                Shop Now
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Products -->
+<section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold text-neutral-900 mb-8 text-center">Featured Products</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Product 1 -->
+        <div class="group">
+            <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+                     alt="Product 1"
+                     class="w-full h-96 object-cover transform group-hover:scale-105 transition duration-500">
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-xl font-semibold text-white">Premium Product</h3>
+                    <p class="text-white/90">Exclusive Collection</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-semibold text-neutral-900">$199.99</span>
+                    <button class="bg-neutral-900 text-white px-6 py-2 rounded-full hover:bg-neutral-700">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="group">
+            <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+                     alt="Product 2"
+                     class="w-full h-96 object-cover transform group-hover:scale-105 transition duration-500">
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-xl font-semibold text-white">Signature Item</h3>
+                    <p class="text-white/90">Limited Edition</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-semibold text-neutral-900">$299.99</span>
+                    <button class="bg-neutral-900 text-white px-6 py-2 rounded-full hover:bg-neutral-700">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="group">
+            <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1503602642458-232111445657"
+                     alt="Product 3"
+                     class="w-full h-96 object-cover transform group-hover:scale-105 transition duration-500">
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <h3 class="text-xl font-semibold text-white">Classic Collection</h3>
+                    <p class="text-white/90">Bestseller</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-semibold text-neutral-900">$149.99</span>
+                    <button class="bg-neutral-900 text-white px-6 py-2 rounded-full hover:bg-neutral-700">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Elegance</h3>
+                <p class="text-neutral-400">Curating excellence for our customers</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Contact</h3>
+                <p class="text-neutral-400">Email: hello@elegance.com</p>
+                <p class="text-neutral-400">Phone: (555) 123-4567</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-neutral-400 hover:text-white">Instagram</a>
+                    <a href="#" class="text-neutral-400 hover:text-white">Facebook</a>
+                    <a href="#" class="text-neutral-400 hover:text-white">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-neutral-800 text-center text-neutral-400">
+            <p>&copy; 2025 Elegance. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

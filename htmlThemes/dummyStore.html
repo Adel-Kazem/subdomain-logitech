@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechGear Store</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-['Poppins']">
+<!-- Header/Navigation -->
+<header class="bg-white shadow-sm">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-800">TechGear Store</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-600 hover:text-gray-900">Home</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Products</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">About</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">Contact</a>
+            </div>
+            <button class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<div class="bg-blue-600 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-bold mb-4">Welcome to TechGear Store</h2>
+        <p class="text-xl">Discover our amazing products at great prices</p>
+    </div>
+</div>
+
+<!-- Products Section -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">Featured Products</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Product 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x300" alt="Product 1" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900">Wireless Headphones</h3>
+                <p class="text-gray-600 mt-2">High-quality wireless headphones with noise cancellation</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xl font-bold text-blue-600">$199.99</span>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x300" alt="Product 2" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900">Smart Watch</h3>
+                <p class="text-gray-600 mt-2">Feature-rich smartwatch with health tracking</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xl font-bold text-blue-600">$299.99</span>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="https://via.placeholder.com/400x300" alt="Product 3" class="w-full h-64 object-cover">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900">Wireless Speaker</h3>
+                <p class="text-gray-600 mt-2">Portable bluetooth speaker with amazing sound</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-xl font-bold text-blue-600">$149.99</span>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-semibold mb-4">TechGear Store</h3>
+                <p class="text-gray-400">Your one-stop shop for tech accessories</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Contact</h3>
+                <p class="text-gray-400">Email: info@techgear.com</p>
+                <p class="text-gray-400">Phone: (555) 123-4567</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white">Facebook</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Twitter</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+            <p>&copy; 2025 TechGear Store. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PATTERN PLAY | Geometric Tees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Poppins:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] { display: none !important; }
+
+        :root {
+            --color-primary: #ff5470;
+            --color-secondary: #05f2db;
+            --color-tertiary: #ffde59;
+            --color-accent: #5271ff;
+            --color-dark: #2b2d42;
+            --color-light: #fffffe;
+            --font-heading: 'Bungee', cursive;
+            --font-body: 'Poppins', sans-serif;
+            --font-alt: 'DM Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-dark);
+            background-color: var(--color-light);
+        }
+
+        /* Memphis patterns */
+        .pattern-dots {
+            background-image: radial-gradient(var(--color-primary) 2px, transparent 2px);
+            background-size: 30px 30px;
+            background-color: var(--color-light);
+        }
+
+        .pattern-stripes {
+            background: repeating-linear-gradient(
+                    45deg,
+                    var(--color-tertiary),
+                    var(--color-tertiary) 10px,
+                    var(--color-light) 10px,
+                    var(--color-light) 20px
+            );
+        }
+
+        .pattern-zigzag {
+            background: linear-gradient(135deg, var(--color-accent) 25%, transparent 25%) -10px 0,
+            linear-gradient(225deg, var(--color-accent) 25%, transparent 25%) -10px 0,
+            linear-gradient(315deg, var(--color-accent) 25%, transparent 25%),
+            linear-gradient(45deg, var(--color-accent) 25%, transparent 25%);
+            background-size: 20px 20px;
+            background-color: var(--color-light);
+        }
+
+        /* Squiggle decorations */
+        .squiggle {
+            position: relative;
+        }
+
+        .squiggle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            bottom: -10px;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0, 20 5, 30 10, 40 5, 50 0, 60 5, 70 10, 80 5, 90 0, 100 5' stroke='%23ff5470' stroke-width='2' fill='none' /%3E%3C/svg%3E");
+            background-size: 100px 10px;
+            background-repeat: repeat-x;
+        }
+
+        .squiggle-blue::after {
+            background: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0, 20 5, 30 10, 40 5, 50 0, 60 5, 70 10, 80 5, 90 0, 100 5' stroke='%2305f2db' stroke-width='2' fill='none' /%3E%3C/svg%3E");
+            background-size: 100px 10px;
+            background-repeat: repeat-x;
+        }
+
+        .squiggle-yellow::after {
+            background: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 10 0, 20 5, 30 10, 40 5, 50 0, 60 5, 70 10, 80 5, 90 0, 100 5' stroke='%23ffde59' stroke-width='2' fill='none' /%3E%3C/svg%3E");
+            background-size: 100px 10px;
+            background-repeat: repeat-x;
+        }
+
+        /* Geometric shapes */
+        .geo-circle {
+            border-radius: 50%;
+        }
+
+        .geo-triangle {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .geo-zigzag {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 75% 50%, 75% 25%, 50% 25%, 50% 50%, 25% 50%, 25% 75%, 0% 75%);
+        }
+
+        .geo-blob {
+            border-radius: 54% 46% 70% 30% / 53% 30% 70% 47%;
+        }
+
+        /* Hover effects */
+        .pattern-hover {
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .pattern-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--color-primary) 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pattern-hover:hover::before {
+            opacity: 0.1;
+        }
+
+        .pattern-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Play button */
+        .play-button {
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .play-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: currentColor;
+            z-index: -1;
+            transition: height 0.3s ease;
+        }
+
+        .play-button:hover::after {
+            height: 100%;
+        }
+
+        .play-button:hover {
+            color: var(--color-light);
+        }
+
+        /* Custom card design */
+        .card-memphis {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .card-memphis::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-tertiary);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .card-memphis:hover::before {
+            top: 8px;
+            left: 8px;
+        }
+
+        .card-memphis:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Pattern divider */
+        .pattern-divider {
+            height: 20px;
+            background-image:
+                    linear-gradient(45deg, transparent 25%, var(--color-primary) 25%),
+                    linear-gradient(-45deg, transparent 25%, var(--color-primary) 25%),
+                    linear-gradient(45deg, var(--color-primary) 25%, transparent 25%),
+                    linear-gradient(-45deg, var(--color-primary) 25%, transparent 25%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px 0, 10px 10px;
+        }
+
+        /* Sticker-style badge */
+        .sticker-badge {
+            transform: rotate(-5deg);
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Wave animated background */
+        .wave-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            background: radial-gradient(circle at center, var(--color-secondary) 0%, transparent 50%);
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Animated zigzag border */
+        .zigzag-border {
+            position: relative;
+        }
+
+        .zigzag-border::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            top: -8px;
+            left: 0;
+            background:
+                    linear-gradient(45deg, transparent 33.333%, var(--color-tertiary) 33.333%, var(--color-tertiary) 66.667%, transparent 66.667%),
+                    linear-gradient(-45deg, transparent 33.333%, var(--color-tertiary) 33.333%, var(--color-tertiary) 66.667%, transparent 66.667%);
+            background-size: 16px 16px;
+        }
+
+        .zigzag-border::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            bottom: -8px;
+            left: 0;
+            background:
+                    linear-gradient(45deg, transparent 33.333%, var(--color-tertiary) 33.333%, var(--color-tertiary) 66.667%, transparent 66.667%),
+                    linear-gradient(-45deg, transparent 33.333%, var(--color-tertiary) 33.333%, var(--color-tertiary) 66.667%, transparent 66.667%);
+            background-size: 16px 16px;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': {
+                            DEFAULT: '#ff5470',
+                            light: '#ff7a90',
+                            dark: '#e63e58',
+                        },
+                        'secondary': {
+                            DEFAULT: '#05f2db',
+                            light: '#60f7e5',
+                            dark: '#04cbb8',
+                        },
+                        'tertiary': {
+                            DEFAULT: '#ffde59',
+                            light: '#ffe57d',
+                            dark: '#e6c84f',
+                        },
+                        'accent': {
+                            DEFAULT: '#5271ff',
+                            light: '#748aff',
+                            dark: '#3f5de6',
+                        },
+                        'dark': '#2b2d42',
+                        'light': '#fffffe',
+                    },
+                    fontFamily: {
+                        'heading': ['Bungee', 'cursive'],
+                        'body': ['Poppins', 'sans-serif'],
+                        'alt': ['DM Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- SVG Sprites -->
+<svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+    <!-- Search Icon -->
+    <symbol id="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </symbol>
+
+    <!-- Arrow Icon -->
+    <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+    </symbol>
+
+    <!-- Up Arrow Icon -->
+    <symbol id="up-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </symbol>
+
+    <!-- Heart Icon -->
+    <symbol id="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </symbol>
+
+    <!-- Star Icon (for ratings) -->
+    <symbol id="star-icon" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </symbol>
+
+    <!-- Geometric Icon -->
+    <symbol id="geo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12,3L1,9L12,15L23,9L12,3Z"></path>
+        <polyline points="1 9 1 20 12 22 23 20 23 9"></polyline>
+        <line x1="12" y1="15" x2="12" y2="22"></line>
+        <path d="M20,13l-8,2l-8-2"></path>
+    </symbol>
+
+    <!-- Zigzag Icon -->
+    <symbol id="zigzag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="7 8 3 12 7 16"></polyline>
+        <polyline points="17 8 21 12 17 16"></polyline>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+    </symbol>
+</svg>
+
+<div x-data="shopApp()" x-init="init()">
+    <!-- Announcement Bar -->
+    <div class="bg-primary text-light text-center py-2">
+        <div class="container mx-auto px-4">
+            <p class="text-sm font-bold">FREE SHIPPING ON ORDERS OVER $75! Use code: <span class="font-heading">PLAY25</span> for 25% off your first order</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-light/95 backdrop-blur-sm shadow-sm">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center">
+                    <div class="relative">
+                        <span class="font-heading text-3xl tracking-wide text-primary">PATTERN</span>
+                        <span class="font-heading text-3xl tracking-wide text-secondary ml-1">PLAY</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-10 font-bold">
+                    <a href="#" class="text-dark hover:text-primary transition-colors duration-300">HOME</a>
+                    <a href="#collection" class="text-dark hover:text-secondary transition-colors duration-300">SHOP</a>
+                    <a href="#patterns" class="text-dark hover:text-tertiary transition-colors duration-300">PATTERNS</a>
+                    <a href="#" class="text-dark hover:text-accent transition-colors duration-300">ABOUT</a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <div class="relative">
+                        <input
+                                x-model="searchQuery"
+                                @input="filterProducts()"
+                                type="text"
+                                placeholder="Search"
+                                class="hidden md:block pl-10 pr-4 py-2 w-40 lg:w-52 bg-white border-2 border-primary/20 text-dark placeholder-dark/40 focus:outline-none focus:border-primary rounded-full text-sm"
+                        >
+                        <div class="absolute left-3 top-2.5 text-primary/50">
+                            <svg class="h-4 w-4">
+                                <use xlink:href="#search-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <button class="md:hidden text-primary" x-data="{ open: false }" @click="open = !open">
+                        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (hidden by default) -->
+            <div class="md:hidden bg-white absolute left-0 right-0 mt-2 py-6 px-6 shadow-lg z-20 hidden rounded-b-2xl">
+                <div class="flex flex-col space-y-5 text-center font-bold">
+                    <div class="relative">
+                        <input
+                                x-model="searchQuery"
+                                @input="filterProducts()"
+                                type="text"
+                                placeholder="Search"
+                                class="pl-10 pr-4 py-2 w-full bg-white border-2 border-primary/20 text-dark placeholder-dark/40 focus:outline-none focus:border-primary rounded-full text-sm mb-6"
+                        >
+                        <div class="absolute left-3 top-2.5 text-primary/50">
+                            <svg class="h-4 w-4">
+                                <use xlink:href="#search-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <a href="#" class="py-2 text-dark hover:text-primary transition-colors duration-300">HOME</a>
+                    <a href="#collection" class="py-2 text-dark hover:text-secondary transition-colors duration-300">SHOP</a>
+                    <a href="#patterns" class="py-2 text-dark hover:text-tertiary transition-colors duration-300">PATTERNS</a>
+                    <a href="#" class="py-2 text-dark hover:text-accent transition-colors duration-300">ABOUT</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden bg-white pt-6 pb-20">
+        <!-- Geometric decorative elements -->
+        <div class="absolute top-0 right-0 w-40 h-40 bg-secondary geo-circle opacity-10 -mr-10 -mt-10"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-tertiary geo-triangle opacity-10 -ml-32 -mb-32"></div>
+        <div class="absolute top-1/2 left-1/3 w-20 h-20 bg-primary geo-zigzag opacity-10"></div>
+
+        <div class="container mx-auto px-6 relative pt-12">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-12">
+                <div class="lg:w-1/2 relative order-2 lg:order-1">
+                    <div class="relative mb-6">
+                        <div class="inline-block bg-tertiary text-dark px-4 py-1 rounded-full text-sm font-bold mb-6 sticker-badge">
+                            NEW COLLECTION
+                        </div>
+                    </div>
+                    <h1 class="font-heading text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">
+                        <span class="text-primary block">BOLD</span>
+                        <span class="text-secondary block">GEOMETRIC</span>
+                        <span class="text-dark block">DESIGNS</span>
+                    </h1>
+                    <p class="text-dark/80 mb-8 text-lg max-w-xl">
+                        Express yourself with our collection of vibrant, pattern-rich t-shirts inspired by bold geometric shapes and Memphis design.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#collection" class="play-button bg-white text-primary px-8 py-4 rounded-full font-bold border-2 border-primary">
+                            SHOP COLLECTION
+                        </a>
+                        <a href="#patterns" class="play-button bg-white text-secondary px-8 py-4 rounded-full font-bold border-2 border-secondary">
+                            EXPLORE PATTERNS
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 order-1 lg:order-2">
+                    <div class="relative">
+                        <div class="absolute -top-8 -left-8 w-full h-full pattern-dots"></div>
+                        <div class="absolute -bottom-8 -right-8 w-full h-full pattern-stripes"></div>
+                        <div class="card-memphis bg-white p-6 relative">
+                            <img
+                                    src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                                    alt="Geometric T-shirt"
+                                    class="w-full h-auto rounded-xl relative z-10"
+                            >
+                        </div>
+
+                        <!-- Floating shape decorations -->
+                        <div class="absolute -top-6 -right-6 w-16 h-16 bg-accent rounded-full"></div>
+                        <div class="absolute -bottom-4 left-1/4 w-10 h-10 bg-tertiary geo-triangle rotate-45"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="patterns" class="py-20 bg-dark text-light relative overflow-hidden">
+        <!-- Decorative patterns -->
+        <div class="absolute top-0 left-0 w-full h-12 pattern-zigzag opacity-10"></div>
+        <div class="absolute bottom-0 left-0 w-full h-12 pattern-zigzag opacity-10"></div>
+
+        <div class="container mx-auto px-6 relative">
+            <div class="text-center mb-16">
+                <div class="font-heading text-lg text-tertiary mb-3">OUR PATTERN COLLECTIONS</div>
+                <h2 class="font-heading text-4xl md:text-5xl mb-6">
+                    <span class="text-primary">CHOOSE YOUR</span>
+                    <span class="text-secondary block">STYLE</span>
+                </h2>
+                <div class="w-24 h-1 bg-tertiary mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Category 1 -->
+                <div class="pattern-hover bg-light text-dark rounded-2xl overflow-hidden group">
+                    <div class="relative h-80 overflow-hidden">
+                        <img
+                                src="https://images.unsplash.com/photo-1623113562225-670f04de0583?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Geometric Collection"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6">
+                            <span class="font-heading text-3xl text-tertiary">GEO</span>
+                            <h3 class="font-heading text-4xl text-light">METRIC</h3>
+                            <p class="text-light/80 mt-2">Bold shapes and clean lines.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-center">
+                        <a href="#" class="play-button bg-white text-primary px-6 py-2 rounded-full text-sm font-bold border-2 border-primary">
+                            SHOP COLLECTION
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="pattern-hover bg-light text-dark rounded-2xl overflow-hidden group">
+                    <div class="relative h-80 overflow-hidden">
+                        <img
+                                src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Zigzag Collection"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6">
+                            <span class="font-heading text-3xl text-primary">ZIG</span>
+                            <h3 class="font-heading text-4xl text-light">ZAG</h3>
+                            <p class="text-light/80 mt-2">Dynamic lines and energy.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-center">
+                        <a href="#" class="play-button bg-white text-secondary px-6 py-2 rounded-full text-sm font-bold border-2 border-secondary">
+                            SHOP COLLECTION
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="pattern-hover bg-light text-dark rounded-2xl overflow-hidden group">
+                    <div class="relative h-80 overflow-hidden">
+                        <img
+                                src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Confetti Collection"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6">
+                            <span class="font-heading text-3xl text-secondary">CON</span>
+                            <h3 class="font-heading text-4xl text-light">FETTI</h3>
+                            <p class="text-light/80 mt-2">Playful dots and splashes.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-center">
+                        <a href="#" class="play-button bg-white text-accent px-6 py-2 rounded-full text-sm font-bold border-2 border-accent">
+                            SHOP COLLECTION
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="py-20 wave-bg bg-white relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between items-end mb-12">
+                <div>
+                    <div class="inline-block bg-tertiary text-dark px-4 py-1 rounded-full text-sm font-bold mb-6 sticker-badge">
+                        BEST SELLERS
+                    </div>
+                    <h2 class="font-heading text-4xl text-dark mb-2 squiggle pb-6">
+                        POPULAR PICKS
+                    </h2>
+                    <p class="text-dark/70 max-w-lg">
+                        Our most loved designs, featuring bold geometric patterns and vibrant colors.
+                    </p>
+                </div>
+                <a href="#collection" class="mt-6 lg:mt-0 font-bold text-primary inline-flex items-center group">
+                    VIEW ALL STYLES
+                    <svg class="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform duration-200">
+                        <use xlink:href="#arrow-icon"></use>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Featured Product 1 -->
+                <div class="card-memphis bg-white">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img
+                                src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Geo Triangle Tee"
+                                class="w-full h-80 object-cover"
+                        >
+                        <div class="absolute top-4 left-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full sticker-badge">
+                            BEST SELLER
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-heading text-xl text-dark">GEO TRIANGLE TEE</h3>
+                            <span class="font-bold text-primary">$42</span>
+                        </div>
+                        <p class="text-dark/70 text-sm mb-4">Bold geometric triangle pattern in vibrant colors.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-2">
+                                <span class="w-6 h-6 rounded-full bg-primary border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-secondary border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-tertiary border-2 border-white"></span>
+                            </div>
+                            <a href="#" class="font-bold text-secondary hover:text-accent transition-colors duration-300">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Product 2 -->
+                <div class="card-memphis bg-white">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img
+                                src="https://images.unsplash.com/photo-1571945153237-4929e783af4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Zigzag Pattern Tee"
+                                class="w-full h-80 object-cover"
+                        >
+                        <div class="absolute top-4 left-4 bg-secondary text-dark text-sm font-bold px-3 py-1 rounded-full sticker-badge">
+                            NEW ARRIVAL
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-heading text-xl text-dark">ZIGZAG PATTERN TEE</h3>
+                            <span class="font-bold text-primary">$38</span>
+                        </div>
+                        <p class="text-dark/70 text-sm mb-4">Dynamic zigzag design across the chest and back.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-2">
+                                <span class="w-6 h-6 rounded-full bg-accent border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-tertiary border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-primary border-2 border-white"></span>
+                            </div>
+                            <a href="#" class="font-bold text-secondary hover:text-accent transition-colors duration-300">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Product 3 -->
+                <div class="card-memphis bg-white">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img
+                                src="https://images.unsplash.com/photo-1512327536842-5aa37d1ba3e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Memphis Dots Tee"
+                                class="w-full h-80 object-cover"
+                        >
+                        <div class="absolute top-4 left-4 bg-accent text-white text-sm font-bold px-3 py-1 rounded-full sticker-badge">
+                            LIMITED EDITION
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-heading text-xl text-dark">MEMPHIS DOTS TEE</h3>
+                            <span class="font-bold text-primary">$45</span>
+                        </div>
+                        <p class="text-dark/70 text-sm mb-4">Classic Memphis-style dot pattern across the fabric.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-2">
+                                <span class="w-6 h-6 rounded-full bg-white border-2 border-dark"></span>
+                                <span class="w-6 h-6 rounded-full bg-secondary border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-primary border-2 border-white"></span>
+                            </div>
+                            <a href="#" class="font-bold text-secondary hover:text-accent transition-colors duration-300">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Product 4 -->
+                <div class="card-memphis bg-white">
+                    <div class="relative overflow-hidden rounded-t-xl">
+                        <img
+                                src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                alt="Retro Grid Tee"
+                                class="w-full h-80 object-cover"
+                        >
+                        <div class="absolute top-4 left-4 bg-tertiary text-dark text-sm font-bold px-3 py-1 rounded-full sticker-badge">
+                            TRENDING
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-heading text-xl text-dark">RETRO GRID TEE</h3>
+                            <span class="font-bold text-primary">$42</span>
+                        </div>
+                        <p class="text-dark/70 text-sm mb-4">80's inspired grid pattern with retro color palette.</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-2">
+                                <span class="w-6 h-6 rounded-full bg-tertiary border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-accent border-2 border-white"></span>
+                                <span class="w-6 h-6 rounded-full bg-dark border-2 border-white"></span>
+                            </div>
+                            <a href="#" class="font-bold text-secondary hover:text-accent transition-colors duration-300">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="pattern-dots py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-block bg-secondary text-dark px-4 py-1 rounded-full text-sm font-bold mb-6 sticker-badge">
+                    WHY CHOOSE US
+                </div>
+                <h2 class="font-heading text-4xl text-dark mb-2 squiggle-blue pb-6">
+                    QUALITY & STYLE
+                </h2>
+                <p class="text-dark/70 max-w-xl mx-auto">
+                    Our t-shirts combine premium fabrics with bold, playful designs that stand out from the crowd.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg card-memphis">
+                    <div class="w-16 h-16 bg-tertiary rounded-xl flex items-center justify-center mb-6">
+                        <svg class="h-8 w-8 text-dark">
+                            <use xlink:href="#geo-icon"></use>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl text-dark mb-4">PREMIUM FABRICS</h3>
+                    <p class="text-dark/70">
+                        100% combed cotton that's soft, durable, and perfect for showcasing our vibrant patterns.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg card-memphis">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-6">
+                        <svg class="h-8 w-8 text-white">
+                            <use xlink:href="#zigzag-icon"></use>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl text-dark mb-4">BOLD DESIGNS</h3>
+                    <p class="text-dark/70">
+                        Unique patterns created by our in-house artists, inspired by the Memphis design movement.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg card-memphis">
+                    <div class="w-16 h-16 bg-accent rounded-xl flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h3 class="font-heading text-xl text-dark mb-4">ETHICALLY MADE</h3>
+                    <p class="text-dark/70">
+                        Sustainably produced with fair labor practices and eco-friendly dyeing processes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="py-24 bg-white relative">
+        <!-- Decorative elements -->
+        <div class="absolute -top-6 right-0 pattern-divider w-full"></div>
+
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-start mb-12">
+                <div>
+                    <div class="inline-block bg-accent text-white px-4 py-1 rounded-full text-sm font-bold mb-6 sticker-badge">
+                        FULL COLLECTION
+                    </div>
+                    <h2 class="font-heading text-4xl text-dark mb-2 squiggle-yellow pb-6">
+                        ALL PATTERNS
+                    </h2>
+                    <p class="text-dark/70 max-w-lg">
+                        Browse our complete collection of pattern-rich, geometric t-shirts.
+                    </p>
+                </div>
+
+                <div class="w-full lg:w-1/3 mt-8 lg:mt-0">
+                    <div class="relative">
+                        <input
+                                x-model="searchQuery"
+                                @input="filterProducts()"
+                                type="text"
+                                placeholder="Search the collection"
+                                class="w-full pl-12 pr-4 py-4 border-2 border-primary/20 rounded-full text-dark placeholder-dark/40 focus:outline-none focus:border-primary"
+                        >
+                        <div class="absolute left-4 top-4 text-primary">
+                            <svg class="h-5 w-5">
+                                <use xlink:href="#search-icon"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter buttons -->
+            <div class="flex flex-wrap gap-3 mb-10">
+                <button class="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold">
+                    ALL STYLES
+                </button>
+                <button class="bg-white text-dark border-2 border-secondary px-6 py-2 rounded-full text-sm font-bold hover:bg-secondary hover:text-dark transition-colors duration-300">
+                    GEOMETRIC
+                </button>
+                <button class="bg-white text-dark border-2 border-tertiary px-6 py-2 rounded-full text-sm font-bold hover:bg-tertiary hover:text-dark transition-colors duration-300">
+                    MEMPHIS
+                </button>
+                <button class="bg-white text-dark border-2 border-accent px-6 py-2 rounded-full text-sm font-bold hover:bg-accent hover:text-white transition-colors duration-300">
+                    ZIGZAG
+                </button>
+                <button class="bg-white text-dark border-2 border-primary px-6 py-2 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-colors duration-300">
+                    ABSTRACT
+                </button>
+            </div>
+
+            <!-- No products found message -->
+            <div x-show="filteredProducts.length === 0" class="text-center py-20">
+                <div class="inline-block mx-auto bg-white p-12 rounded-2xl shadow-lg max-w-md">
+                    <img src="https://i.imgur.com/23wprKx.png" alt="No results" class="w-32 h-32 mx-auto mb-6">
+                    <h3 class="font-heading text-2xl text-dark mb-4">No Patterns Found</h3>
+                    <p class="text-dark/60 mb-8">We couldn't find any products matching your search.</p>
+                    <button
+                            @click="searchQuery = ''; filterProducts()"
+                            class="play-button bg-white text-primary px-8 py-3 rounded-full font-bold border-2 border-primary"
+                    >
+                        SHOW ALL PATTERNS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div
+                    x-show="filteredProducts.length > 0"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            >
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="card-memphis bg-white">
+                        <div class="relative overflow-hidden rounded-t-xl">
+                            <img
+                                    x-bind:src="product.image || 'https://via.placeholder.com/400x500?text=PATTERN+PLAY'"
+                                    class="w-full h-72 object-cover"
+                                    x-bind:alt="product.name"
+                            >
+                            <!-- Random tag -->
+                            <div class="absolute top-4 left-4">
+                                <div
+                                        x-data="{
+                                            tags: [
+                                                {name: 'NEW', color: 'bg-secondary'},
+                                                {name: 'POPULAR', color: 'bg-tertiary'},
+                                                {name: 'HOT', color: 'bg-primary'},
+                                                {name: 'TRENDING', color: 'bg-accent'}
+                                            ],
+                                            selectedTag: null
+                                        }"
+                                        x-init="selectedTag = tags[Math.floor(Math.random() * tags.length)]"
+                                        class="sticker-badge text-sm font-bold px-3 py-1 rounded-full"
+                                        :class="selectedTag.color + (selectedTag.color === 'bg-tertiary' ? ' text-dark' : ' text-white')"
+                                        x-text="selectedTag.name"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <!-- Rating stars -->
+                            <div class="flex items-center mb-2">
+                                <template x-for="i in 5" :key="i">
+                                    <svg class="h-4 w-4 mr-0.5" :class="i <= product.rating ? 'text-tertiary' : 'text-gray-300'">
+                                        <use xlink:href="#star-icon"></use>
+                                    </svg>
+                                </template>
+                            </div>
+
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-heading text-xl text-dark" x-text="product.name"></h3>
+                                <span class="font-bold text-primary" x-text="'$' + product.price.toFixed(2)"></span>
+                            </div>
+                            <p class="text-dark/70 text-sm mb-4 line-clamp-2" x-text="product.description"></p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex space-x-2">
+                                    <span class="w-6 h-6 rounded-full bg-tertiary border-2 border-white"></span>
+                                    <span class="w-6 h-6 rounded-full bg-accent border-2 border-white"></span>
+                                    <span class="w-6 h-6 rounded-full bg-primary border-2 border-white"></span>
+                                </div>
+                                <a href="#" class="font-bold text-secondary hover:text-accent transition-colors duration-300">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-dark text-light">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="inline-block bg-tertiary text-dark px-4 py-1 rounded-full text-sm font-bold mb-6 sticker-badge">
+                    CUSTOMER LOVE
+                </div>
+                <h2 class="font-heading text-4xl text-light mb-6 squiggle-yellow pb-6 relative inline-block">
+                    HAPPY PATTERN PLAYERS
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white text-dark p-8 rounded-2xl zigzag-border relative">
+                    <div class="absolute -top-4 -right-4 bg-tertiary geo-circle w-12 h-12"></div>
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Customer" class="w-14 h-14 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Melissa K.</h4>
+                            <div class="flex text-tertiary">
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-dark/80 mb-6">
+                        "I get so many compliments on my Geo Triangle Tee! The colors are vibrant and the quality is excellent. Will definitely be ordering more designs!"
+                    </p>
+                    <div class="text-primary font-bold">Verified Customer</div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white text-dark p-8 rounded-2xl zigzag-border relative">
+                    <div class="absolute -top-4 -right-4 bg-primary geo-triangle w-12 h-12"></div>
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-14 h-14 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Jake T.</h4>
+                            <div class="flex text-tertiary">
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-dark/80 mb-6">
+                        "The Memphis Dots Tee is now my favorite shirt. The fabric is super comfortable and the pattern is bold without being over the top. Love it!"
+                    </p>
+                    <div class="text-primary font-bold">Verified Customer</div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white text-dark p-8 rounded-2xl zigzag-border relative">
+                    <div class="absolute -top-4 -right-4 bg-accent geo-zigzag w-12 h-12"></div>
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="w-14 h-14 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah R.</h4>
+                            <div class="flex text-tertiary">
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                                <svg class="h-4 w-4">
+                                    <use xlink:href="#star-icon"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-dark/80 mb-6">
+                        "I've ordered three different designs from Pattern Play and they're all amazing. The Zigzag Pattern Tee is my absolute favorite - so unique!"
+                    </p>
+                    <div class="text-primary font-bold">Verified Customer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 bg-light pattern-dots relative">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto bg-white p-12 rounded-2xl shadow-lg border-2 border-primary/20 relative">
+                <div class="absolute -top-6 -left-6 bg-tertiary w-12 h-12 geo-circle"></div>
+                <div class="absolute -bottom-6 -right-6 bg-secondary w-12 h-12 geo-triangle"></div>
+
+                <div class="text-center mb-8">
+                    <div class="inline-block bg-secondary text-dark px-4 py-1 rounded-full text-sm font-bold mb-6 sticker-badge">
+                        JOIN THE PLAY
+                    </div>
+                    <h2 class="font-heading text-3xl text-dark mb-4">
+                        GET THE PATTERN UPDATES
+                    </h2>
+                    <p class="text-dark/70">
+                        Subscribe to receive updates on new patterns, exclusive discounts, and creative inspiration.
+                    </p>
+                </div>
+
+                <form class="flex flex-col md:flex-row gap-4">
+                    <input
+                            type="email"
+                            placeholder="Your email address"
+                            class="flex-1 px-6 py-4 border-2 border-primary/20 rounded-full text-dark placeholder-dark/40 focus:outline-none focus:border-primary"
+                            required
+                    >
+                    <button
+                            type="submit"
+                            class="play-button bg-white text-primary px-8 py-4 rounded-full font-bold border-2 border-primary"
+                    >
+                        SUBSCRIBE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Go Up Button -->
+    <button
+            @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+            class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors z-10"
+            x-show="window.scrollY > 500"
+            x-transition
+            x-cloak
+    >
+        <svg class="h-6 w-6">
+            <use xlink:href="#up-arrow"></use>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-2">
+                    <a href="#" class="flex items-center mb-6">
+                        <span class="font-heading text-3xl tracking-wide text-primary">PATTERN</span>
+                        <span class="font-heading text-3xl tracking-wide text-secondary ml-1">PLAY</span>
+                    </a>
+                    <p class="text-light/70 mb-6">
+                        Bold, geometric patterns and vibrant colors inspired by the Memphis Design movement. Express yourself through pattern and play!
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-light/10 flex items-center justify-center rounded-full text-light/70 hover:bg-primary hover:text-white transition-colors duration-300">
+                            <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-light/10 flex items-center justify-center rounded-full text-light/70 hover:bg-primary hover:text-white transition-colors duration-300">
+                            <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-light/10 flex items-center justify-center rounded-full text-light/70 hover:bg-primary hover:text-white transition-colors duration-300">
+                            <svg fill="currentColor" class="h-5 w-5" viewBox="0 0 24 24">
+                                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-heading text-xl text-secondary mb-6">SHOP</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">All T-shirts</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">New Arrivals</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">Best Sellers</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">Geometric Collection</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">Memphis Collection</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-heading text-xl text-tertiary mb-6">INFO</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">About Us</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">Sustainability</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">Contact</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">FAQs</a></li>
+                        <li><a href="#" class="text-light/70 hover:text-primary transition-colors duration-300">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-light/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-light/50 mb-4 md:mb-0">© 2023 PATTERN PLAY. All rights reserved.</p>
+                <p class="text-light/50">
+                    Website designed with
+                    <svg class="h-4 w-4 inline-block text-primary">
+                        <use xlink:href="#heart-icon"></use>
+                    </svg>
+                    by RN Team
+                </p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function shopApp() {
+        return {
+            // Product data
+            products: PRODUCTS,
+            filteredProducts: [],
+            searchQuery: '',
+
+            // Methods
+            init() {
+                // Initialize filtered products with all products
+                this.filteredProducts = [...this.products];
+
+                // Rename products to have more geometric/pattern themed names
+                this.filteredProducts = this.filteredProducts.map(product => {
+                    const patternNames = [
+                        "GEO TRIANGLE TEE",
+                        "ZIGZAG PATTERN TEE",
+                        "MEMPHIS DOTS TEE",
+                        "RETRO GRID TEE",
+                        "FUNKY SQUIGGLE TEE",
+                        "CONFETTI SPLASH TEE",
+                        "ABSTRACT SHAPE TEE",
+                        "NEON BLOCK TEE",
+                        "PLAYFUL PATTERN TEE",
+                        "BOLD STRIPE TEE"
+                    ];
+
+                    return {
+                        ...product,
+                        name: patternNames[Math.floor(Math.random() * patternNames.length)]
+                    };
+                });
+
+                // Add scroll event listener for the go up button
+                window.addEventListener('scroll', () => {
+                    this.$nextTick(() => {
+                        const scrollButton = this.$el.querySelector('[x-show="window.scrollY > 500"]');
+                        if (scrollButton) {
+                            if (window.scrollY > 500) {
+                                scrollButton._x_doShow();
+                            } else {
+                                scrollButton._x_doHide();
+                            }
+                        }
+                    });
+
+                    // Reveal elements on scroll
+                    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                        if (isElementInViewport(el)) {
+                            el.classList.add('revealed');
+                        }
+                    });
+                });
+
+                function isElementInViewport(el) {
+                    const rect = el.getBoundingClientRect();
+                    return (
+                        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8
+                    );
+                }
+            },
+
+            filterProducts() {
+                if (!this.searchQuery.trim()) {
+                    this.filteredProducts = [...this.products];
+                    // Rename products to match pattern theme
+                    this.filteredProducts = this.filteredProducts.map(product => {
+                        const patternNames = [
+                            "GEO TRIANGLE TEE",
+                            "ZIGZAG PATTERN TEE",
+                            "MEMPHIS DOTS TEE",
+                            "RETRO GRID TEE",
+                            "FUNKY SQUIGGLE TEE",
+                            "CONFETTI SPLASH TEE",
+                            "ABSTRACT SHAPE TEE",
+                            "NEON BLOCK TEE",
+                            "PLAYFUL PATTERN TEE",
+                            "BOLD STRIPE TEE"
+                        ];
+
+                        return {
+                            ...product,
+                            name: patternNames[Math.floor(Math.random() * patternNames.length)]
+                        };
+                    });
+                } else {
+                    const query = this.searchQuery.toLowerCase().trim();
+                    // Search through original products
+                    let filtered = this.products.filter(product =>
+                        product.name.toLowerCase().includes(query) ||
+                        product.description.toLowerCase().includes(query)
+                    );
+
+                    // Then rename the results to match pattern theme
+                    this.filteredProducts = filtered.map(product => {
+                        const patternNames = [
+                            "GEO TRIANGLE TEE",
+                            "ZIGZAG PATTERN TEE",
+                            "MEMPHIS DOTS TEE",
+                            "RETRO GRID TEE",
+                            "FUNKY SQUIGGLE TEE",
+                            "CONFETTI SPLASH TEE",
+                            "ABSTRACT SHAPE TEE",
+                            "NEON BLOCK TEE",
+                            "PLAYFUL PATTERN TEE",
+                            "BOLD STRIPE TEE"
+                        ];
+
+                        return {
+                            ...product,
+                            name: patternNames[Math.floor(Math.random() * patternNames.length)]
+                        };
+                    });
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

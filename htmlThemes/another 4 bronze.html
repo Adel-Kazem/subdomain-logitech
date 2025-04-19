@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MONO | Considered Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Archivo', 'system-ui', 'sans-serif']
+                    },
+                    colors: {
+                        'stone': {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                            950: '#0c0a09',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="../productsTheme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-auto-rows: 10px;
+            grid-gap: 1.5rem;
+        }
+
+        .masonry-item {
+            grid-row-end: span var(--rows);
+        }
+
+        .animation-delay-300 {
+            animation-delay: 300ms;
+        }
+
+        .animation-delay-600 {
+            animation-delay: 600ms;
+        }
+
+        .animation-delay-900 {
+            animation-delay: 900ms;
+        }
+
+        @keyframes cursor {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .cursor::after {
+            content: '|';
+            display: inline-block;
+            margin-left: 0.1em;
+            animation: cursor 1s infinite;
+        }
+    </style>
+</head>
+<body class="bg-white text-stone-900 antialiased">
+<div x-data="{
+        products: PRODUCTS,
+        searchQuery: '',
+        isMenuOpen: false,
+        isSearchOpen: false,
+        showQuickView: false,
+        currentProduct: null,
+        wishlist: [],
+        visibleProducts: 8,
+        currentView: 'grid',
+        activeFilters: {
+            category: 'all',
+            price: [0, 500],
+            sort: 'default',
+            tags: []
+        },
+        discoveryMode: false,
+        contentScroll: 0,
+        lastScrollTop: 0,
+        scrollDirection: 'down',
+        availableTags: ['New', 'Bestseller', 'Limited Edition', 'Sustainable', 'Exclusive'],
+        filteredProducts() {
+            let result = this.products;
+
+            // Search filter
+            if (this.searchQuery) {
+                result = result.filter(product =>
+                    product.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                    product.description.toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+            }
+
+            // Category filter
+            if (this.activeFilters.category !== 'all') {
+                result = result.filter(product => product.category === this.activeFilters.category);
+            }
+
+            // Tags filter
+            if (this.activeFilters.tags.length > 0) {
+                result = result.filter(product => {
+                    // Simulate that some products have tags
+                    const productTags = product.tags || this.getRandomTags(product.id);
+                    return this.activeFilters.tags.some(tag => productTags.includes(tag));
+                });
+            }
+
+            // Sort
+            if (this.activeFilters.sort === 'price-asc') {
+                result.sort((a, b) => a.price - b.price);
+            } else if (this.activeFilters.sort === 'price-desc') {
+                result.sort((a, b) => b.price - a.price);
+            } else if (this.activeFilters.sort === 'name') {
+                result.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (this.activeFilters.sort === 'rating') {
+                result.sort((a, b) => b.rating - a.rating);
+            }
+
+            return result;
+        },
+        getRandomTags(id) {
+            // Deterministic random tags based on product id
+            const hash = id * 13 % 100;
+            const tags = [];
+            if (hash < 20) tags.push('New');
+            if (hash >= 20 && hash < 40) tags.push('Bestseller');
+            if (hash >= 40 && hash < 60) tags.push('Limited Edition');
+            if (hash >= 60 && hash < 80) tags.push('Sustainable');
+            if (hash >= 80) tags.push('Exclusive');
+            return tags;
+        },
+        toggleWishlist(product) {
+            const index = this.wishlist.findIndex(item => item.id === product.id);
+            if (index >= 0) {
+                this.wishlist.splice(index, 1);
+            } else {
+                this.wishlist.push(product);
+            }
+            // Store in localStorage for persistence
+            localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+        },
+        isInWishlist(productId) {
+            return this.wishlist.some(item => item.id === productId);
+        },
+        quickView(product) {
+            this.currentProduct = product;
+            this.showQuickView = true;
+            // Prevent body scrolling
+            document.body.style.overflow = 'hidden';
+        },
+        closeQuickView() {
+            this.showQuickView = false;
+            this.currentProduct = null;
+            // Restore body scrolling
+            document.body.style.overflow = '';
+        },
+        loadMore() {
+            this.visibleProducts += 8;
+        },
+        toggleDiscoveryMode() {
+            this.discoveryMode = !this.discoveryMode;
+            if (this.discoveryMode) {
+                // Reset filters for discovery mode
+                this.activeFilters = {
+                    category: 'all',
+                    price: [0, 500],
+                    sort: 'default',
+                    tags: []
+                };
+                this.searchQuery = '';
+            }
+        },
+        shuffleArray(array) {
+            // Fisher-Yates shuffle algorithm
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        },
+        getDiscoveryProducts() {
+return this.shuffleArray([...this.products]);
+},
+updateScrollDirection() {
+const st = window.pageYOffset || document.documentElement.scrollTop;
+this.scrollDirection = st > this.lastScrollTop ? 'down' : 'up';
+this.lastScrollTop = st <= 0 ? 0 : st;
+},
+init() {
+// Initialize app
+this.wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+// Track scroll for effects
+window.addEventListener('scroll', () => {
+this.contentScroll = window.scrollY;
+this.updateScrollDirection();
+});
+
+// Initialize masonry layout after render
+this.$nextTick(() => this.initMasonry());
+},
+initMasonry() {
+const grid = document.querySelector('.masonry-grid');
+if (!grid) return;
+
+const items = grid.querySelectorAll('.masonry-item');
+
+items.forEach(item => {
+const height = item.querySelector('img').height;
+const rows = Math.ceil(height / 10) + 3; // 10px per row + padding
+item.style.setProperty('--rows', rows);
+});
+}
+}" x-init="init" @scroll.window="contentScroll = window.scrollY">
+    <!-- Quick View Modal -->
+    <div x-show="showQuickView"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-80"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div x-show="showQuickView"
+             @click.away="closeQuickView"
+             class="relative bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto flex flex-col md:flex-row"
+             x-transition:enter="transition ease-out duration-300 delay-100"
+             x-transition:enter-start="opacity-0 transform scale-95"
+             x-transition:enter-end="opacity-100 transform scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 transform scale-100"
+             x-transition:leave-end="opacity-0 transform scale-95">
+
+            <!-- Close Button -->
+            <button @click="closeQuickView" class="absolute top-4 right-4 text-stone-500 hover:text-stone-900 z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Product Image -->
+            <div class="md:w-1/2">
+                <img x-bind:src="currentProduct?.image || 'https://via.placeholder.com/500x600?text=Product+Image'"
+                     class="w-full h-auto object-cover max-h-[70vh] md:max-h-none"
+                     x-bind:alt="currentProduct?.name">
+            </div>
+
+            <!-- Product Details -->
+            <div class="md:w-1/2 p-8 space-y-4">
+                <template x-if="currentProduct">
+                    <div>
+                            <span class="inline-block px-2 py-1 text-xs font-semibold bg-stone-100 mb-2">
+                                <span x-text="getRandomTags(currentProduct.id)[0] || 'Featured'"></span>
+                            </span>
+                        <h2 class="text-2xl font-display font-semibold mb-2" x-text="currentProduct.name"></h2>
+                        <div class="flex items-center mb-4">
+                            <template x-for="i in 5">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :class="i <= currentProduct.rating ? 'text-stone-900' : 'text-stone-300'" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                            </template>
+                            <span class="ml-2 text-sm text-stone-500" x-text="currentProduct.rating + ' / 5'"></span>
+                        </div>
+                        <p class="text-2xl font-semibold mb-4" x-text="'$' + currentProduct.price.toFixed(2)"></p>
+                        <p class="text-stone-600 mb-6" x-text="currentProduct.description"></p>
+
+                        <div class="space-y-6">
+                            <!-- Size Selection (if applicable) -->
+                            <div>
+                                <h3 class="text-sm font-medium mb-3">Size</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="px-4 py-2 border border-stone-200 hover:border-stone-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                                        S
+                                    </button>
+                                    <button class="px-4 py-2 border border-stone-900 bg-stone-900 text-white hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                                        M
+                                    </button>
+                                    <button class="px-4 py-2 border border-stone-200 hover:border-stone-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                                        L
+                                    </button>
+                                    <button class="px-4 py-2 border border-stone-200 hover:border-stone-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                                        XL
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Color Selection (if applicable) -->
+                            <div>
+                                <h3 class="text-sm font-medium mb-3">Color</h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <button class="w-8 h-8 bg-black rounded-full border-2 border-white ring-2 ring-black focus:outline-none"></button>
+                                    <button class="w-8 h-8 bg-stone-200 rounded-full border-2 border-white hover:ring-2 hover:ring-stone-300 focus:outline-none"></button>
+                                    <button class="w-8 h-8 bg-red-800 rounded-full border-2 border-white hover:ring-2 hover:ring-red-800 focus:outline-none"></button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-3">
+                                <button class="flex-1 px-6 py-3 bg-stone-900 text-white hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                                    Add to Wishlist
+                                </button>
+
+                                <button class="px-3 py-3 border border-stone-300 hover:border-stone-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="border-t border-stone-200 pt-6">
+                                <h3 class="text-sm font-medium mb-3">Details</h3>
+                                <ul class="list-disc list-inside text-stone-600 space-y-1">
+                                    <li>Material: Premium quality</li>
+                                    <li>Made with sustainable practices</li>
+                                    <li>Free shipping on all orders</li>
+                                    <li>30 day return policy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay -->
+    <div x-show="isSearchOpen"
+         class="fixed inset-0 bg-white z-40 overflow-y-auto p-4 lg:p-8"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div class="container mx-auto max-w-screen-xl">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-display font-semibold">Search</h2>
+                <button @click="isSearchOpen = false" class="text-stone-500 hover:text-stone-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="mb-8">
+                <div class="relative">
+                    <input
+                            type="text"
+                            x-model="searchQuery"
+                            placeholder="Search for products"
+                            class="cursor w-full border-b-2 border-stone-200 py-4 pl-12 pr-4 text-2xl focus:border-stone-900 focus:outline-none"
+                            @keydown="if ($event.key === 'Escape') isSearchOpen = false"
+                            x-ref="searchInput"
+                            x-init="$nextTick(() => $refs.searchInput.focus())"
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute top-6 left-2 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div x-show="searchQuery.length > 0">
+                <h3 class="font-medium mb-4" x-text="`Results for '${searchQuery}'`"></h3>
+
+                <!-- No results state -->
+                <div x-show="filteredProducts().length === 0" class="text-center py-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-stone-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <p class="text-stone-500">No products found matching your search.</p>
+                    <button @click="searchQuery = ''" class="mt-4 text-stone-900 hover:underline">Clear search</button>
+                </div>
+
+                <!-- Search results -->
+                <div x-show="filteredProducts().length > 0" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <template x-for="product in filteredProducts().slice(0, 8)" :key="product.id">
+                        <div class="group cursor-pointer" @click="quickView(product)">
+                            <div class="aspect-w-1 aspect-h-1 mb-3 overflow-hidden bg-stone-100">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/300x300?text=Product'"
+                                        :alt="product.name"
+                                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                >
+                            </div>
+                            <h3 class="font-medium mb-1" x-text="product.name"></h3>
+                            <p class="text-stone-500 mb-1" x-text="'$' + product.price.toFixed(2)"></p>
+                            <div class="flex items-center">
+                                <template x-for="i in 5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :class="i <= product.rating ? 'text-stone-900' : 'text-stone-300'" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div x-show="searchQuery.length === 0">
+                <h3 class="font-medium mb-4">Popular searches</h3>
+                <div class="flex flex-wrap gap-2">
+                    <button @click="searchQuery = 'protein'" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 rounded-lg">
+                        Protein
+                    </button>
+                    <button @click="searchQuery = 'fitness'" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 rounded-lg">
+                        Fitness
+                    </button>
+                    <button @click="searchQuery = 'new'" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 rounded-lg">
+                        New arrivals
+                    </button>
+                    <button @click="searchQuery = 'premium'" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 rounded-lg">
+                        Premium
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Menu Overlay -->
+    <div x-show="isMenuOpen"
+         class="fixed inset-0 bg-white z-40 overflow-y-auto p-4 lg:p-8"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div class="container mx-auto max-w-screen-xl">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-display font-semibold">Menu</h2>
+                <button @click="isMenuOpen = false" class="text-stone-500 hover:text-stone-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div>
+                    <h3 class="text-lg font-medium mb-4 border-b border-stone-200 pb-2">Shop</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; activeFilters.category = 'all'">All
+                                Products</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; activeFilters.category = 'fitness'">Fitness</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; activeFilters.category = 'tech'">Tech</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; activeFilters.category = 'fashion'">Fashion</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; activeFilters.tags = ['New']">New
+                                Arrivals</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; activeFilters.tags = ['Bestseller']">Bestsellers</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium mb-4 border-b border-stone-200 pb-2">Collections</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false; toggleDiscoveryMode()">Discovery
+                                Mode</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Editor's
+                                Choice</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Summer
+                                Essentials</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Minimalist
+                                Living</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Sustainable
+                                Products</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-2 lg:col-span-1">
+                    <h3 class="text-lg font-medium mb-4 border-b border-stone-200 pb-2">About</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Our
+                                Story</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Sustainability</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Journal</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Store
+                                Locations</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-stone-600 hover:text-stone-900 inline-block py-1" @click="isMenuOpen = false">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-stone-200">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-stone-600 hover:text-stone-900">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-stone-600 hover:text-stone-900">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-stone-600 hover:text-stone-900">
+                            <i class="fab fa-pinterest text-xl"></i>
+                        </a>
+                        <a href="#" class="text-stone-600 hover:text-stone-900">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                    </div>
+
+                    <div>
+                        <form class="flex">
+                            <input type="email" placeholder="Sign up for our newsletter" class="px-4 py-2 border-b border-stone-300 focus:border-stone-900 outline-none min-w-[250px]">
+                            <button type="submit" class="px-4 py-2 bg-stone-900 text-white ml-2">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header - Dynamic behavior based on scroll -->
+    <header class="fixed w-full z-30 transition-all duration-300"
+            :class="contentScroll > 50 ? 'bg-white/95 backdrop-blur-sm shadow-sm py-3' : 'bg-transparent py-6'">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-display font-semibold tracking-wide" :class="contentScroll <= 50 && 'text-white'">MONO</a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-stone-600 hover:text-stone-900" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">Home</a>
+                    <a href="#shop" class="text-stone-600 hover:text-stone-900" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">Shop</a>
+                    <a href="#journal" class="text-stone-600 hover:text-stone-900" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">Journal</a>
+                    <a href="#" class="text-stone-600 hover:text-stone-900" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">About</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
+                    <button @click="isSearchOpen = true" class="text-stone-600 hover:text-stone-900" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
+
+                    <a href="#wishlist" class="text-stone-600 hover:text-stone-900 relative" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                        <span x-show="wishlist.length > 0"
+                              class="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-stone-900 text-white flex items-center justify-center text-xs"
+                              x-text="wishlist.length"></span>
+                    </a>
+
+                    <button @click="isMenuOpen = true" class="text-stone-600 hover:text-stone-900" :class="contentScroll <= 50 && 'text-white/90 hover:text-white'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-screen bg-stone-900 flex items-center">
+            <!-- Background Image with Parallax Effect -->
+            <div class="absolute inset-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+                     class="w-full h-full object-cover opacity-70"
+                     style="transform: translateY(calc(var(--scrollY, 0) * 0.2px));"
+                     x-init="window.addEventListener('scroll', () => {
+                             document.documentElement.style.setProperty('--scrollY', window.scrollY);
+                         })">
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/60 to-transparent"></div>
+            </div>
+
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-2xl text-white">
+                    <span class="block text-stone-300 text-sm tracking-wider uppercase mb-4">Spring/Summer 2025</span>
+                    <h1 class="text-5xl md:text-7xl font-display font-semibold mb-4 leading-tight">Considered Design For
+                        Modern Living</h1>
+                    <p class="text-xl text-stone-300 mb-8 max-w-lg">Elevate your everyday with our thoughtfully curated
+                        collection of premium essentials.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#shop" class="px-8 py-3 bg-white text-stone-900 hover:bg-stone-100 transition-colors">
+                            Shop Now
+                        </a>
+                        <a href="#journal" class="px-8 py-3 border border-white text-white hover:bg-white hover:text-stone-900 transition-colors">
+                            Explore Journal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
+                <span class="text-sm mb-2">Scroll</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Discovery Mode Banner -->
+        <section x-show="discoveryMode" class="py-6 bg-stone-900 text-white sticky top-16 z-20">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                        <span>Discovery Mode Activated - Explore our curated selection</span>
+                    </div>
+                    <button @click="toggleDiscoveryMode()" class="text-white/80 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section - Visual Grid -->
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-display font-semibold mb-12 text-center">Shop By Category</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+                    <!-- Category 1 -->
+                    <div class="group relative h-80 md:h-96 overflow-hidden cursor-pointer" @click="activeFilters.category = 'fitness'; document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
+                        <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                             alt="Fitness Category">
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-900 to-transparent opacity-80"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-display font-semibold mb-2">Fitness</h3>
+                            <p class="text-white/70 mb-4">Premium equipment for optimal performance</p>
+                            <span class="inline-block pb-1 border-b border-white/40 group-hover:border-white transition-colors">Explore Collection</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 2 -->
+                    <div class="group relative h-80 md:h-96 overflow-hidden cursor-pointer" @click="activeFilters.category = 'tech'; document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
+                        <img src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                             alt="Tech Category">
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-900 to-transparent opacity-80"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-display font-semibold mb-2">Technology</h3>
+                            <p class="text-white/70 mb-4">Innovative devices for modern living</p>
+                            <span class="inline-block pb-1 border-b border-white/40 group-hover:border-white transition-colors">Explore Collection</span>
+                        </div>
+                    </div>
+
+                    <!-- Category 3 -->
+                    <div class="group relative h-80 md:h-96 overflow-hidden cursor-pointer" @click="activeFilters.category = 'fashion'; document.getElementById('shop').scrollIntoView({behavior: 'smooth'})">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                             alt="Fashion Category">
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-900 to-transparent opacity-80"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-display font-semibold mb-2">Fashion</h3>
+                            <p class="text-white/70 mb-4">Timeless pieces for your wardrobe</p>
+                            <span class="inline-block pb-1 border-b border-white/40 group-hover:border-white transition-colors">Explore Collection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Editorial Feature -->
+        <section class="py-16 bg-stone-100">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="order-2 md:order-1">
+                        <span class="inline-block text-sm tracking-wider uppercase text-stone-500 mb-2">Featured Collection</span>
+                        <h2 class="text-3xl font-display font-semibold mb-4">The Essentials</h2>
+                        <p class="text-stone-600 mb-6">Discover our curated selection of timeless pieces designed to
+                            elevate your everyday. Quality craftsmanship meets mindful design in this collection of
+                            versatile essentials.</p>
+                        <a href="#shop" class="inline-block px-6 py-3 bg-stone-900 text-white hover:bg-stone-800 transition-colors">
+                            Shop The Collection
+                        </a>
+                    </div>
+
+                    <div class="order-1 md:order-2">
+                        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                             class="w-full h-auto rounded-lg shadow-lg"
+                             alt="Essential Collection">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Listing -->
+        <section id="shop" class="py-24">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div>
+                        <span class="text-sm tracking-wider uppercase text-stone-500">Our Products</span>
+                        <h2 class="text-3xl font-display font-semibold">Shop Collection</h2>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <button @click="currentView = 'grid'" :class="currentView === 'grid' ? 'bg-stone-900 text-white' : 'bg-stone-100 hover:bg-stone-200'" class="px-4 py-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                            </svg>
+                        </button>
+                        <button @click="currentView = 'list'" :class="currentView === 'list' ? 'bg-stone-900 text-white' : 'bg-stone-100 hover:bg-stone-200'" class="px-4 py-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                        <button @click="currentView = 'masonry'" :class="currentView === 'masonry' ? 'bg-stone-900 text-white' : 'bg-stone-100 hover:bg-stone-200'" class="px-4 py-2 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="bg-white border border-stone-200 p-4 mb-8 flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex-1 min-w-[200px]">
+                        <div class="relative">
+                            <input
+                                    type="text"
+                                    x-model="searchQuery"
+                                    placeholder="Search products..."
+                                    class="w-full py-2 px-4 pr-10 border border-stone-200 focus:border-stone-900 outline-none"
+                            >
+                            <span class="absolute right-3 top-2.5 text-stone-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    </svg>
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <select
+                                x-model="activeFilters.category"
+                                class="py-2 px-4 border border-stone-200 focus:border-stone-900 outline-none bg-white"
+                        >
+                            <option value="all">All Categories</option>
+                            <option value="fitness">Fitness</option>
+                            <option value="tech">Tech</option>
+                            <option value="fashion">Fashion</option>
+                        </select>
+
+                        <select
+                                x-model="activeFilters.sort"
+                                class="py-2 px-4 border border-stone-200 focus:border-stone-900 outline-none bg-white"
+                        >
+                            <option value="default">Sort By: Featured</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="name">Name</option>
+                            <option value="rating">Rating</option>
+                        </select>
+
+                        <!-- Tag Filter Dropdown -->
+                        <div class="relative" x-data="{ open: false }">
+                            <button
+                                    @click="open = !open"
+                                    class="py-2 px-4 border border-stone-200 hover:border-stone-900 transition-colors focus:outline-none flex items-center gap-2"
+                            >
+                                <span>Filter by Tags</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div x-show="open" @click.away="open = false" class="absolute top-full right-0 mt-1 w-48 bg-white shadow-lg z-10 border border-stone-200">
+                                <div class="p-3">
+                                    <template x-for="tag in availableTags" :key="tag">
+                                        <div class="flex items-center mb-2">
+                                            <input
+                                                    type="checkbox"
+                                                    :id="'tag-' + tag"
+                                                    :value="tag"
+                                                    x-model="activeFilters.tags"
+                                                    class="mr-2"
+                                            >
+                                            <label :for="'tag-' + tag" x-text="tag"></label>
+                                        </div>
+                                    </template>
+                                    <button
+                                            @click="activeFilters.tags = []"
+                                            class="text-xs text-stone-500 hover:text-stone-900 mt-2"
+                                            x-show="activeFilters.tags.length > 0"
+                                    >
+                                        Clear Filters
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results State -->
+                <div x-show="filteredProducts().length === 0" class="py-16 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-stone-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-2">No products found</h3>
+                    <p class="text-stone-500 mb-8">Try adjusting your filters or search terms.</p>
+                    <button @click="activeFilters = {category: 'all', price: [0, 500], sort: 'default', tags: []}; searchQuery = ''" class="px-6 py-2 bg-stone-900 text-white hover:bg-stone-800 transition-colors">
+                        Reset Filters
+                    </button>
+                </div>
+
+                <!-- Product Grid View -->
+                <div x-show="currentView === 'grid' && filteredProducts().length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                    <template x-for="product in filteredProducts().slice(0, visibleProducts)" :key="product.id">
+                        <div class="group">
+                            <div class="relative overflow-hidden bg-stone-100 mb-4">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/300x300?text=Product'"
+                                        :alt="product.name"
+                                        class="w-full h-auto aspect-square object-cover group-hover:scale-105 transition-transform duration-500"
+                                >
+
+                                <!-- Quick Actions -->
+                                <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <div class="flex gap-2">
+                                        <button @click.stop="quickView(product)" class="p-2 bg-white hover:bg-stone-900 hover:text-white transition-colors rounded-full">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                        </button>
+                                        <button @click.stop="toggleWishlist(product)" class="p-2 bg-white hover:bg-stone-900 hover:text-white transition-colors rounded-full" :class="{'bg-stone-900 text-white': isInWishlist(product.id)}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" :fill="isInWishlist(product.id) ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Product Tags -->
+                                <div class="absolute top-2 left-2">
+                                    <template x-for="tag in getRandomTags(product.id)" :key="tag">
+                                        <span class="inline-block px-2 py-1 bg-white text-stone-900 text-xs font-medium mb-1 mr-1" x-text="tag"></span>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-medium mb-1" x-text="product.name"></h3>
+                                <p class="text-stone-500 mb-1" x-text="'$' + product.price.toFixed(2)"></p>
+                                <div class="flex items-center">
+                                    <template x-for="i in 5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :class="i <= product.rating ? 'text-stone-900' : 'text-stone-300'" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Product List View -->
+                <div x-show="currentView === 'list' && filteredProducts().length > 0" class="space-y-6">
+                    <template x-for="product in filteredProducts().slice(0, visibleProducts)" :key="product.id">
+                        <div class="flex flex-col md:flex-row border border-stone-200 overflow-hidden">
+                            <div class="md:w-1/3 relative">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/300x300?text=Product'"
+                                        :alt="product.name"
+                                        class="w-full h-64 md:h-full object-cover"
+                                >
+                                <!-- Product Tags -->
+                                <div class="absolute top-2 left-2">
+                                    <template x-for="tag in getRandomTags(product.id)" :key="tag">
+                                        <span class="inline-block px-2 py-1 bg-white text-stone-900 text-xs font-medium mb-1 mr-1" x-text="tag"></span>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="p-6 md:w-2/3 flex flex-col">
+                                <h3 class="text-xl font-medium mb-2" x-text="product.name"></h3>
+                                <div class="flex items-center mb-2">
+                                    <template x-for="i in 5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :class="i <= product.rating ? 'text-stone-900' : 'text-stone-300'" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                    </template>
+                                    <span class="ml-2 text-sm text-stone-500" x-text="product.rating + ' / 5'"></span>
+                                </div>
+                                <p class="text-stone-600 mb-4" x-text="product.description"></p>
+                                <div class="mt-auto flex flex-wrap items-center justify-between">
+                                    <p class="text-xl font-medium" x-text="'$' + product.price.toFixed(2)"></p>
+                                    <div class="flex gap-2 mt-4 md:mt-0">
+                                        <button @click="quickView(product)" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 transition-colors">
+                                            Quick View
+                                        </button>
+                                        <button @click="toggleWishlist(product)" class="px-4 py-2 bg-stone-900 text-white hover:bg-stone-800 transition-colors flex items-center gap-1" :class="isInWishlist(product.id) ? 'bg-stone-700' : ''">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :fill="isInWishlist(product.id) ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                            </svg>
+                                            <span x-text="isInWishlist(product.id) ? 'Saved' : 'Save'"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Masonry View -->
+                <div x-show="currentView === 'masonry' && filteredProducts().length > 0" class="masonry-grid" x-init="$nextTick(() => initMasonry())">
+                    <template x-for="product in filteredProducts().slice(0, visibleProducts)" :key="product.id">
+                        <div class="masonry-item group cursor-pointer" @click="quickView(product)">
+                            <div class="relative overflow-hidden bg-stone-100 mb-3">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/300x300?text=Product'"
+                                        :alt="product.name"
+                                        class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                        @load="initMasonry()"
+                                >
+
+                                <!-- Overlay -->
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all flex items-end opacity-0 group-hover:opacity-100">
+                                    <div class="p-4 w-full">
+                                        <button @click.stop="toggleWishlist(product)" class="p-2 bg-white hover:bg-stone-900 hover:text-white transition-colors rounded-full float-right" :class="{'bg-stone-900 text-white': isInWishlist(product.id)}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" :fill="isInWishlist(product.id) ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Product Tags -->
+                                <div class="absolute top-2 left-2">
+                                    <template x-for="tag in getRandomTags(product.id)" :key="tag">
+                                        <span class="inline-block px-2 py-1 bg-white text-stone-900 text-xs font-medium mb-1 mr-1" x-text="tag"></span>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-medium mb-1" x-text="product.name"></h3>
+                                <p class="text-stone-500" x-text="'$' + product.price.toFixed(2)"></p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Load More Button -->
+                <div x-show="filteredProducts().length > visibleProducts" class="text-center mt-12">
+                    <button @click="loadMore()" class="px-6 py-3 border border-stone-300 hover:border-stone-900 transition-colors">
+                        Load More
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discovery Section -->
+        <section class="py-16 bg-stone-100" x-show="discoveryMode">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-display font-semibold mb-2">Discovery Mode</h2>
+                    <p class="text-stone-600 max-w-2xl mx-auto">Explore products curated just for you. Refresh for new
+                        discoveries or save items to your wishlist.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <template x-for="product in getDiscoveryProducts().slice(0, 6)" :key="product.id">
+                        <div class="bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="aspect-w-1 aspect-h-1 bg-stone-50 mb-4 overflow-hidden">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/300x300?text=Discover'"
+                                        :alt="product.name"
+                                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                >
+                            </div>
+                            <h3 class="font-medium mb-2" x-text="product.name"></h3>
+                            <p class="text-stone-600 mb-3 line-clamp-2" x-text="product.description"></p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium" x-text="'$' + product.price.toFixed(2)"></p>
+                                <div class="flex gap-2">
+                                    <button @click="toggleWishlist(product)" class="text-stone-500 hover:text-stone-900" :class="{'text-stone-900': isInWishlist(product.id)}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" :fill="isInWishlist(product.id) ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                        </svg>
+                                    </button>
+                                    <button @click="quickView(product)" class="text-stone-500 hover:text-stone-900">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="text-center mt-12">
+                    <button @click="toggleDiscoveryMode()" class="px-6 py-3 bg-stone-900 text-white hover:bg-stone-800 transition-colors">
+                        Exit Discovery Mode
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wishlist Section -->
+        <section id="wishlist" class="py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-display font-semibold mb-2">Your Wishlist</h2>
+                    <p class="text-stone-600">Items you've saved for later.</p>
+                </div>
+
+                <!-- Empty Wishlist State -->
+                <div x-show="wishlist.length === 0" class="text-center py-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-stone-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                    <h3 class="text-xl font-medium mb-2">Your wishlist is empty</h3>
+                    <p class="text-stone-500 mb-6">Save items you love for easy access later.</p>
+                    <a href="#shop" class="inline-block px-6 py-3 bg-stone-900 text-white hover:bg-stone-800 transition-colors">
+                        Explore Products
+                    </a>
+                </div>
+
+                <!-- Wishlist Items -->
+                <div x-show="wishlist.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <template x-for="product in wishlist" :key="product.id">
+                        <div class="group relative">
+                            <div class="aspect-w-1 aspect-h-1 bg-stone-100 mb-4 overflow-hidden">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/300x300?text=Product'"
+                                        :alt="product.name"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                >
+                                <button @click="toggleWishlist(product)" class="absolute top-2 right-2 p-2 bg-white hover:bg-stone-900 hover:text-white transition-colors rounded-full shadow-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div>
+                                <h3 class="font-medium mb-1" x-text="product.name"></h3>
+                                <p class="text-stone-500 mb-2" x-text="'$' + product.price.toFixed(2)"></p>
+                                <button @click="quickView(product)" class="text-sm text-stone-900 hover:underline">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journal Section -->
+        <section id="journal" class="py-24 bg-stone-100">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-display font-semibold mb-2">Journal</h2>
+                    <p class="text-stone-600 max-w-2xl mx-auto">Explore our latest articles, guides, and stories.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Article 1 -->
+                    <article class="group">
+                        <div class="aspect-w-16 aspect-h-9 mb-4 overflow-hidden bg-stone-200">
+                            <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                 alt="Journal Article 1">
+                        </div>
+                        <div>
+                            <span class="text-sm text-stone-500">April 15, 2025</span>
+                            <h3 class="text-xl font-display font-semibold mb-2 group-hover:text-stone-600 transition-colors">
+                                The Art of Mindful Living</h3>
+                            <p class="text-stone-600 mb-3">Discover how thoughtfully designed products can enhance your
+                                daily rituals and create moments of mindfulness in everyday life.</p>
+                            <a href="#" class="inline-block text-stone-900 hover:text-stone-600 font-medium">
+                                Read More
+                                <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="group">
+                        <div class="aspect-w-16 aspect-h-9 mb-4 overflow-hidden bg-stone-200">
+                            <img src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                 alt="Journal Article 2">
+                        </div>
+                        <div>
+                            <span class="text-sm text-stone-500">April 8, 2025</span>
+                            <h3 class="text-xl font-display font-semibold mb-2 group-hover:text-stone-600 transition-colors">
+                                Sustainable Materials: A Closer Look</h3>
+                            <p class="text-stone-600 mb-3">We explore the innovative materials that are shaping the
+                                future of sustainable product design and manufacturing.</p>
+                            <a href="#" class="inline-block text-stone-900 hover:text-stone-600 font-medium">
+                                Read More
+                                <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="group">
+                        <div class="aspect-w-16 aspect-h-9 mb-4 overflow-hidden bg-stone-200">
+                            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                 alt="Journal Article 3">
+                        </div>
+                        <div>
+                            <span class="text-sm text-stone-500">April 1, 2025</span>
+                            <h3 class="text-xl font-display font-semibold mb-2 group-hover:text-stone-600 transition-colors">
+                                The Essentials Guide: Building Your Collection</h3>
+                            <p class="text-stone-600 mb-3">Learn how to curate a timeless collection of essential
+                                products that will serve you for years to come.</p>
+                            <a href="#" class="inline-block text-stone-900 hover:text-stone-600 font-medium">
+                                Read More
+                                <span class="ml-1">→</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="#" class="inline-block px-6 py-3 border border-stone-900 hover:bg-stone-900 hover:text-white transition-colors">
+                        View All Articles
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-24 bg-stone-900 text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-xl mx-auto text-center">
+                    <h2 class="text-3xl font-display font-semibold mb-4">Join Our Community</h2>
+                    <p class="text-stone-300 mb-8">Subscribe to our newsletter for exclusive content, new product
+                        announcements, and special offers.</p>
+                    <form class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 bg-white/10 border border-white/20 focus:outline-none focus:border-white text-white placeholder-white/50">
+                        <button type="submit" class="px-6 py-3 bg-white text-stone-900 hover:bg-stone-200 transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p class="mt-4 text-stone-400 text-sm">By subscribing, you agree to our Privacy Policy and consent
+                        to receive our newsletters.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="font-display font-semibold text-2xl mb-4">MONO</h3>
+                    <p class="text-stone-600 mb-6">Thoughtfully designed products for modern living. Quality
+                        craftsmanship and timeless design.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-500 hover:text-stone-900 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-stone-500 hover:text-stone-900 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-stone-500 hover:text-stone-900 transition-colors">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                        <a href="#" class="text-stone-500 hover:text-stone-900 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-lg mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#shop" class="text-stone-600 hover:text-stone-900 transition-colors">All
+                            Products</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">New Arrivals</a>
+                        </li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Bestsellers</a>
+                        </li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">On Sale</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Gift Cards</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-lg mb-4">About</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Our Story</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Journal</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Sustainability</a>
+                        </li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Store
+                            Locations</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-lg mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Contact Us</a>
+                        </li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">FAQs</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Shipping &
+                            Returns</a></li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Privacy Policy</a>
+                        </li>
+                        <li><a href="#" class="text-stone-600 hover:text-stone-900 transition-colors">Terms &
+                            Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-stone-200 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-stone-500 text-sm mb-4 md:mb-0">&copy; 2025 MONO. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/visa-3-226460.png" alt="Visa" class="h-8 opacity-50">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/mastercard-3-226462.png" alt="Mastercard" class="h-8 opacity-50">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/paypal-54-226456.png" alt="PayPal" class="h-8 opacity-50">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/apple-pay-4079230-3364522.png" alt="Apple Pay" class="h-8 opacity-50">
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
