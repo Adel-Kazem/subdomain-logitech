@@ -81,47 +81,22 @@ document.addEventListener('alpine:init', () => {
      * UI Utilities Store
      * Handles common UI interactions across all pages
      */
-    Alpine.store('ui', {
-        isMenuOpen: false,
-        showCartNotification: false,
-        notificationTimeout: null,
 
-        // WhatsApp business phone number
-        whatsAppNumber: '96170608543',
+    window.scrollToTopGlobal = function() {
+        console.log('Global scrollToTop called');
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 
-        toggleMenu() {
-            this.isMenuOpen = !this.isMenuOpen;
-        },
-        closeMenu() {
-            this.isMenuOpen = false;
-        },
-        showCartNotification() {
-            // Clear any existing timeout
-            if (this.notificationTimeout) {
-                clearTimeout(this.notificationTimeout);
-            }
-
-            // Show notification
-            this.showCartNotification = true;
-
-            // Auto-hide after 3 seconds
-            this.notificationTimeout = setTimeout(() => {
-                this.showCartNotification = false;
-            }, 3000);
-        },
-        scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        },
-
-        // Enhanced WhatsApp opening function with customizable message
-        openWhatsApp(message = 'Hello, I have a question about your products.') {
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${this.whatsAppNumber}?text=${encodedMessage}`, '_blank');
-        }
-    });
+    window.openWhatsAppGlobal = function(message = 'Hello, I have a question about your products.') {
+        console.log('Global openWhatsApp called');
+        // Use the correct phone number from your cart store
+        const phoneNumber = '96170608543';
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+    };
 
     /**
      * Utility functions for formatting
