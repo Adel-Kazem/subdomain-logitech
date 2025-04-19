@@ -1,6 +1,28 @@
 // app.js - Shared Alpine.js Components for E-commerce
 document.addEventListener('alpine:init', () => {
     /**
+     * UI Utilities Store
+     * Handles common UI interactions across all pages
+     */
+    Alpine.store('ui', {
+        // WhatsApp business phone number
+        whatsAppNumber: '96170608543',
+
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        },
+
+        // Enhanced WhatsApp opening function with customizable message
+        openWhatsApp(message = 'Hello, I have a question about your products.') {
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${this.whatsAppNumber}?text=${encodedMessage}`, '_blank');
+        }
+    });
+
+    /**
      * Shopping Cart Store
      * Handles cart functionality across all pages
      */
@@ -74,28 +96,6 @@ document.addEventListener('alpine:init', () => {
         },
         getFormattedTotal() {
             return '$' + this.getTotalPrice().toFixed(2);
-        }
-    });
-
-    /**
-     * UI Utilities Store
-     * Handles common UI interactions across all pages
-     */
-    Alpine.store('ui', {
-        // WhatsApp business phone number
-        whatsAppNumber: '96170608543',
-
-        scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        },
-
-        // Enhanced WhatsApp opening function with customizable message
-        openWhatsApp(message = 'Hello, I have a question about your products.') {
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${this.whatsAppNumber}?text=${encodedMessage}`, '_blank');
         }
     });
 
