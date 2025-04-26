@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTISAN | Creative Goods & Handcrafted Treasures</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'clay': '#C15627',
+                        'terracotta': '#E07A5F',
+                        'sage': '#81B29A',
+                        'vanilla': '#F2CC8F',
+                        'navy': '#3D405B',
+                        'cream': '#F4F1DE'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'sans': ['Commissioner', 'sans-serif'],
+                        'hand': ['Caveat', 'cursive']
+                    },
+                    animation: {
+                        wiggle: 'wiggle 1s ease-in-out infinite',
+                        float: 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Commissioner:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #F4F1DE;
+        }
+
+        .squiggle-border {
+            position: relative;
+        }
+
+        .squiggle-border::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='6' viewBox='0 0 100 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 3C8.33333 3 8.33333 0 16.6667 0C25 0 25 6 33.3333 6C41.6667 6 41.6667 0 50 0C58.3333 0 58.3333 6 66.6667 6C75 6 75 0 83.3333 0C91.6667 0 91.6667 3 100 3' stroke='%23E07A5F' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 100px 6px;
+        }
+
+        .dotted-bg {
+            background-image: radial-gradient(#3D405B 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .brush-underline {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brush-underline::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+            right: -5px;
+            height: 10px;
+            background-color: #F2CC8F;
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+    </style>
+</head>
+<body class="font-sans text-navy antialiased">
+<!-- Announcement Bar -->
+<div class="bg-navy text-cream py-2 px-4 text-center text-sm font-medium">
+    Free shipping on orders over $75 • Use code WELCOME15 for 15% off your first order
+</div>
+
+<!-- Header -->
+<header class="bg-cream sticky top-0 z-40 shadow-sm">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="lg:hidden text-navy hover:text-clay">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Logo -->
+            <a href="/" class="font-display text-3xl tracking-wide text-navy">
+                <span class="text-clay">ARTISAN</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex space-x-8">
+                <a href="/" class="text-navy hover:text-clay transition-colors duration-300 font-medium">Home</a>
+                <a href="/shop" class="text-navy hover:text-clay transition-colors duration-300 font-medium">Shop</a>
+                <a href="/collections" class="text-navy hover:text-clay transition-colors duration-300 font-medium">Collections</a>
+                <a href="/about" class="text-navy hover:text-clay transition-colors duration-300 font-medium">About</a>
+                <a href="/contact" class="text-navy hover:text-clay transition-colors duration-300 font-medium">Contact</a>
+            </nav>
+
+            <!-- Right Icons -->
+            <div class="flex items-center space-x-5">
+                <a href="/search" class="hidden md:block text-navy hover:text-clay transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </a>
+                <a href="/account" class="hidden md:block text-navy hover:text-clay transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </a>
+                <a href="/cart" class="text-navy hover:text-clay transition-colors duration-300 relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 w-5 h-5 bg-clay text-white text-xs rounded-full flex items-center justify-center">3</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu (Hidden by Default) -->
+<div id="mobile-menu" class="fixed inset-0 z-50 bg-cream flex-col items-center justify-center hidden">
+    <button id="close-menu" class="absolute top-6 right-6 text-navy hover:text-clay">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <nav class="flex flex-col items-center text-center space-y-8">
+        <a href="/" class="text-navy text-2xl hover:text-clay transition-colors duration-300 font-medium">Home</a>
+        <a href="/shop" class="text-navy text-2xl hover:text-clay transition-colors duration-300 font-medium">Shop</a>
+        <a href="/collections" class="text-navy text-2xl hover:text-clay transition-colors duration-300 font-medium">Collections</a>
+        <a href="/about" class="text-navy text-2xl hover:text-clay transition-colors duration-300 font-medium">About</a>
+        <a href="/contact" class="text-navy text-2xl hover:text-clay transition-colors duration-300 font-medium">Contact</a>
+    </nav>
+
+    <div class="mt-12 flex items-center space-x-8">
+        <a href="/search" class="text-navy hover:text-clay transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+        </a>
+        <a href="/account" class="text-navy hover:text-clay transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="py-12 md:py-16 lg:py-20 relative overflow-hidden">
+    <!-- Decorative Elements -->
+    <div class="absolute -left-16 top-1/3 w-32 h-32 bg-sage rounded-full opacity-30 animate-float"></div>
+    <div class="absolute -right-20 top-1/4 w-40 h-40 bg-terracotta rounded-full opacity-20" style="animation: float 3s ease-in-out 1s infinite;"></div>
+    <div class="absolute bottom-10 left-1/3 w-24 h-24 bg-vanilla rounded-full opacity-40" style="animation: float 3.5s ease-in-out 0.5s infinite;"></div>
+
+    <div class="container mx-auto px-4 relative">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="font-hand text-2xl md:text-3xl text-terracotta mb-4 inline-block">Handcrafted with love</span>
+            <h1 class="font-display text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight relative inline-block">
+                Unique Creations for <br>
+                <span class="relative">
+                        Colorful Living
+                        <svg class="absolute -bottom-1 left-0 w-full" width="300" height="12" viewBox="0 0 300 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 7.34001C24.4162 2.82001 46.8324 5.98668 69.2486 7.34001C91.6649 8.69334 114.081 10.0467 136.498 7.34001C158.914 4.63334 181.33 -1.77999 203.746 7.34001C226.163 16.46 248.579 35.14 271 7.34001" stroke="#E07A5F" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+            </h1>
+            <p class="text-navy text-lg mb-8 max-w-2xl mx-auto">Discover our collection of artisanal products handcrafted by skilled makers, designed to bring creativity and joy to your everyday life.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#featured-products" class="bg-clay hover:bg-terracotta text-white font-medium px-8 py-3 rounded-full transition-colors duration-300">
+                    Shop Collection
+                </a>
+                <a href="/about" class="bg-transparent border-2 border-navy text-navy font-medium px-8 py-3 rounded-full hover:bg-navy hover:text-white transition-colors duration-300">
+                    Our Story
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="py-12 pb-24 -mt-10">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- Category 1 -->
+            <a href="/collections/ceramics" class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Ceramics" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                    <h3 class="text-white text-xl font-medium">Ceramics</h3>
+                </div>
+            </a>
+
+            <!-- Category 2 -->
+            <a href="/collections/textiles" class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1574291814206-363acdf2aa79?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Textiles" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                    <h3 class="text-white text-xl font-medium">Textiles</h3>
+                </div>
+            </a>
+
+            <!-- Category 3 -->
+            <a href="/collections/wall-art" class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Wall Art" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                    <h3 class="text-white text-xl font-medium">Wall Art</h3>
+                </div>
+            </a>
+
+            <!-- Category 4 -->
+            <a href="/collections/home-decor" class="relative group overflow-hidden rounded-2xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1495121553079-4c61bcce1894?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Home Decor" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/40 to-transparent"></div>
+                <div class="absolute bottom-4 left-4">
+                    <h3 class="text-white text-xl font-medium">Home Decor</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section id="featured-products" class="py-16 relative">
+    <!-- Decorative Background -->
+    <div class="absolute inset-0 bg-vanilla/30 -skew-y-3 transform origin-top-right"></div>
+
+    <div class="container mx-auto px-4 relative">
+        <div class="mb-12 text-center">
+            <span class="font-hand text-2xl text-terracotta inline-block mb-2">Our Collection</span>
+            <h2 class="font-display text-3xl md:text-4xl squiggle-border inline-block pb-4">Featured Products</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Product 1 -->
+            <div class="product-card bg-white rounded-2xl overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605883705077-8d3d375ebcb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Handcrafted Ceramic Mug" class="w-full h-72 object-cover">
+                    <div class="absolute top-4 right-4 bg-clay text-white text-sm font-medium px-3 py-1 rounded-full">
+                        Bestseller
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-xl mb-2">Artisan Ceramic Mug</h3>
+                    <p class="text-navy/70 text-sm mb-4">Hand-thrown ceramic mug with reactive glaze finish. Each piece is unique.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-clay font-bold text-xl">$32.00</span>
+                        <button class="bg-sage hover:bg-sage/80 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card bg-white rounded-2xl overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1596901028979-11b5d31bfe8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hand-Woven Wall Hanging" class="w-full h-72 object-cover">
+                    <div class="absolute top-4 right-4 bg-terracotta text-white text-sm font-medium px-3 py-1 rounded-full">
+                        New
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-xl mb-2">Macramé Wall Hanging</h3>
+                    <p class="text-navy/70 text-sm mb-4">Handmade macramé wall hanging crafted from natural cotton rope.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-clay font-bold text-xl">$85.00</span>
+                        <button class="bg-sage hover:bg-sage/80 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card bg-white rounded-2xl overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1526566762798-8fac9c07aa98?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hand-Poured Candle" class="w-full h-72 object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-medium text-xl mb-2">Hand-Poured Soy Candle</h3>
+                    <p class="text-navy/70 text-sm mb-4">Natural soy wax candle with essential oils in a handcrafted ceramic vessel.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-clay font-bold text-xl">$28.00</span>
+                        <button class="bg-sage hover:bg-sage/80 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="/collections/all" class="inline-flex items-center font-medium text-clay hover:text-terracotta transition-colors duration-300 group">
+                <span>View all products</span>
+                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Our Story Section -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <!-- Image Side -->
+            <div class="md:w-1/2 relative">
+                <div class="relative z-10">
+                    <img src="https://images.unsplash.com/photo-1556760544-74068565f05c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Artisan at work" class="rounded-lg">
+                </div>
+                <div class="absolute top-10 -right-6 bottom-10 left-10 rounded-lg border-4 border-vanilla -z-0"></div>
+            </div>
+
+            <!-- Content Side -->
+            <div class="md:w-1/2">
+                <span class="font-hand text-2xl text-terracotta">Our Story</span>
+                <h2 class="font-display text-3xl md:text-4xl mb-6 mt-1">Crafted with Passion, Made with Heart</h2>
+                <p class="text-navy/80 mb-6">ARTISAN began with a simple belief: beautiful, thoughtfully-made objects can bring joy to everyday life. What started as a small studio has grown into a community of talented makers, each bringing their unique skills and creativity to our collection.</p>
+                <p class="text-navy/80 mb-8">We celebrate the beauty of imperfection and the unique character that comes from items made by hand. Every piece in our collection tells a story of traditional techniques, sustainable practices, and artistic vision.</p>
+                <a href="/about" class="inline-block bg-clay hover:bg-terracotta text-white font-medium px-8 py-3 rounded-full transition-colors duration-300">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Artisan Values -->
+<section class="py-16 bg-navy text-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <span class="font-hand text-2xl text-vanilla">What We Stand For</span>
+            <h2 class="font-display text-3xl md:text-4xl mt-1">Our Values</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <!-- Value 1 -->
+            <div class="text-center">
+                <div class="w-20 h-20 bg-sage rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-medium mb-3">Handcrafted Quality</h3>
+                <p class="text-white/80">We believe in the value of handmade. Each piece is crafted with care, attention to detail, and a commitment to quality.</p>
+            </div>
+
+            <!-- Value 2 -->
+            <div class="text-center">
+                <div class="w-20 h-20 bg-terracotta rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-medium mb-3">Sustainable Practices</h3>
+                <p class="text-white/80">We're committed to environmentally friendly materials and production methods that minimize our impact on the planet.</p>
+            </div>
+
+            <!-- Value 3 -->
+            <div class="text-center">
+                <div class="w-20 h-20 bg-vanilla rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-medium mb-3">Artisan Support</h3>
+                <p class="text-white/80">We partner with skilled artisans and pay fair wages to support their craft and livelihood, preserving traditional techniques.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Reviews Carousel -->
+<section class="py-16 bg-cream/50 relative overflow-hidden">
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 left-0 w-full h-8 bg-vanilla -skew-y-2"></div>
+
+    <div class="container mx-auto px-4 pt-8">
+        <div class="text-center mb-12">
+            <span class="font-hand text-2xl text-terracotta">Happy Customers</span>
+            <h2 class="font-display text-3xl md:text-4xl mt-1 squiggle-border inline-block pb-4">What People Say</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Review 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex mb-4 text-vanilla">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+                <p class="text-navy/80 mb-6 italic">"I'm absolutely in love with my ceramic mug set. Each piece has its own unique character and it's clear that they were made with love and care. Really special."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-clay rounded-full mr-3"></div>
+                    <div>
+                        <h4 class="font-medium">Jessica R.</h4>
+                        <p class="text-navy/60 text-sm">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex mb-4 text-vanilla">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+                <p class="text-navy/80 mb-6 italic">"The macramé wall hanging has transformed my living room. The craftsmanship is exceptional and it's exactly what I was looking for to add texture to my space."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-sage rounded-full mr-3"></div>
+                    <div>
+                        <h4 class="font-medium">Michael T.</h4>
+                        <p class="text-navy/60 text-sm">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <div class="flex mb-4 text-vanilla">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+                <p class="text-navy/80 mb-6 italic">"Not only are these candles beautiful, but they smell incredible and burn so evenly. I appreciate knowing they're made with natural ingredients. Already ordered more!"</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-terracotta rounded-full mr-3"></div>
+                    <div>
+                        <h4 class="font-medium">Sophia L.</h4>
+                        <p class="text-navy/60 text-sm">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Feed -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-10">
+            <span class="font-hand text-2xl text-terracotta">Follow Us</span>
+            <h2 class="font-display text-3xl md:text-4xl mt-1 mb-4">
+                <span class="brush-underline">@artisan_craft</span>
+            </h2>
+            <p class="text-navy/70 max-w-lg mx-auto">Follow us on Instagram for behind-the-scenes glimpses of our makers at work and to see our products in homes around the world.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <a href="https://instagram.com" target="_blank" class="relative group overflow-hidden aspect-square">
+                <img src="https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-clay/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="relative group overflow-hidden aspect-square">
+                <img src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-clay/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="relative group overflow-hidden aspect-square">
+                <img src="https://images.unsplash.com/photo-1560846389-3c4d8c47a9f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-clay/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+            </a>
+            <a href="https://instagram.com" target="_blank" class="relative group overflow-hidden aspect-square">
+                <img src="https://images.unsplash.com/photo-1606722590624-5501a72c78cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-clay/20 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-16 bg-navy text-white relative dotted-bg overflow-hidden">
+    <div class="absolute top-0 right-0 bottom-0 left-0 bg-navy/90"></div>
+
+    <div class="container mx-auto px-4 relative">
+        <div class="max-w-xl mx-auto text-center">
+            <span class="font-hand text-2xl text-vanilla">Stay Connected</span>
+            <h2 class="font-display text-3xl md:text-4xl mt-1 mb-6">Join Our Newsletter</h2>
+            <p class="text-white/80 mb-8">Sign up to receive updates on new products, artisan stories, and exclusive offers. Plus, get 10% off your first order when you subscribe.</p>
+
+            <form class="flex flex-col sm:flex-row gap-3">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:border-vanilla">
+                <button type="submit" class="bg-terracotta hover:bg-clay text-white font-medium px-6 py-3 rounded-full transition-colors duration-300">
+                    Subscribe
+                </button>
+            </form>
+            <p class="text-white/60 text-sm mt-4">We respect your privacy. Unsubscribe at any time.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-cream pt-16 pb-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <!-- Company Info -->
+            <div>
+                <a href="/" class="font-display text-2xl text-clay inline-block mb-4">ARTISAN</a>
+                <p class="text-navy/70 mb-6">Handcrafted products made with care by skilled artisans from around the world. We believe in the beauty of handmade.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy hover:bg-navy/10 transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy hover:bg-navy/10 transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy hover:bg-navy/10 transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy hover:bg-navy/10 transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" fill-rule="evenodd" clip-rule="evenodd"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Shop Links -->
+            <div>
+                <h3 class="font-medium text-lg mb-4">Shop</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">All Products</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Ceramics</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Textiles</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Wall Art</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Home Decor</a></li>
+                </ul>
+            </div>
+
+            <!-- Company Links -->
+            <div>
+                <h3 class="font-medium text-lg mb-4">Company</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Our Story</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Our Artisans</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Sustainability</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Blog</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Help Links -->
+            <div>
+                <h3 class="font-medium text-lg mb-4">Customer Care</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Shipping & Returns</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">FAQ</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Care Instructions</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Privacy Policy</a></li>
+                    <li><a href="#" class="text-navy/70 hover:text-clay transition-colors duration-300">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="pt-8 border-t border-navy/10 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-navy/60 text-sm mb-4 md:mb-0">&copy; 2025 ARTISAN. All rights reserved.</p>
+            <div class="flex space-x-4">
+                <img src="https://via.placeholder.com/50x30" alt="Visa" class="h-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                <img src="https://via.placeholder.com/50x30" alt="Mastercard" class="h-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                <img src="https://via.placeholder.com/50x30" alt="American Express" class="h-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                <img src="https://via.placeholder.com/50x30" alt="PayPal" class="h-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenu = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeMenu.addEventListener('click', function() {
+        mobileMenu.classList.remove('flex');
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = '';
+    });
+</script>
+</body>
+</html>

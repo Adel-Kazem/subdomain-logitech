@@ -10,14 +10,13 @@ $jsFiles = glob($projectDirectory . '/js/*.js');
 
 // Add additional files manually
 $additionalFiles = [
-    'C:\xampp\htdocs\subdomain-new-standards\js\produc~t-page.js',
+    'C:\xampp\htdocs\subdomain-logitech\js\product-page.js',
     'C:\xampp\htdocs\subdomain-new-standards\js\cart-page.js',
     'C:\xampp\htdocs\subdomain-new-standards\js\app.js',
-    'C:\xampp\htdocs\subdomain-new-standards\js\products.js',
-    'C:\xampp\htdocs\subdomain-new-standards\js\categories.js',
+    'C:\xampp\htdocs\subdomain-logitech\js\products-page.js',
 
 
-    'C:\xampp\htdocs\subdomain-new-standards\index.html',
+//    'C:\xampp\htdocs\subdomain-new-standards\index.html',
 //    'C:\xampp\htdocs\subdomain-new-standards\js\categories.js',
 //    'C:\xampp\htdocs\subdomain-new-standards\js\products.js',
 //    'C:\xampp\htdocs\subdomain-new-standards\js\cart-page.js',

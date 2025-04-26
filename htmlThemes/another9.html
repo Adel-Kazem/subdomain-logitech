@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLAYLAB | Creative Toys</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        play: {
+                            red: '#FF5A5F',
+                            blue: '#00C7D9',
+                            yellow: '#FFD400',
+                            mint: '#8DD9C7',
+                            gray: '#F5F5F5'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Comic Neue', 'cursive'],
+                        body: ['Nunito', 'sans-serif']
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'spin-slow': 'spin 15s linear infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="../productsTheme.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .age-bubble {
+            clip-path: circle(50% at 50% 50%);
+        }
+        .toy-card:hover .action-buttons {
+            bottom: 20px;
+            opacity: 1;
+        }
+        .custom-toy > div {
+            perspective: 1000px;
+        }
+        .rotating-toy {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .rotating-toy:hover {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="font-body bg-play-gray">
+<div x-data="{
+        products: PRODUCTS,
+        activeAge: 'all',
+        searchQuery: '',
+        customToyParts: {
+            base: 1,
+            accessory: 1,
+            color: 'play-red'
+        },
+        showBuilder: false,
+        giftFinderStep: 1,
+
+        get filteredProducts() {
+            return this.products
+                .filter(p => this.activeAge === 'all' || p.age === this.activeAge)
+                .filter(p => p.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
+        },
+
+        get customToyImage() {
+            return `https://via.placeholder.com/300x300/${this.customToyParts.color.replace('#','')}?text=Toy+${this.customToyParts.base}+${this.customToyParts.accessory}`;
+        },
+
+        startGiftFinder() {
+            this.giftFinderStep = 1;
+            this.showBuilder = true;
+        }
+    }">
+    <!-- Gift Finder Modal -->
+    <div x-show="showBuilder" class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-xl p-8 max-w-2xl w-full">
+            <template x-if="giftFinderStep === 1">
+                <div class="text-center">
+                    <h3 class="font-display text-2xl mb-4">Gift Finder</h3>
+                    <p class="mb-6">What age group are you shopping for?</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <button @click="activeAge='0-3'; giftFinderStep=2" class="p-4 bg-play-mint rounded-lg hover:bg-opacity-80">
+                            🍼 0-3 Years
+                        </button>
+                        <button @click="activeAge='4-6'; giftFinderStep=2" class="p-4 bg-play-blue rounded-lg hover:bg-opacity-80">
+                            🧸 4-6 Years
+                        </button>
+                        <button @click="activeAge='7-9'; giftFinderStep=2" class="p-4 bg-play-red rounded-lg hover:bg-opacity-80">
+                            🚀 7-9 Years
+                        </button>
+                        <button @click="activeAge='10+'; giftFinderStep=2" class="p-4 bg-play-yellow rounded-lg hover:bg-opacity-80">
+                            🧩 10+ Years
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="giftFinderStep === 2">
+                <div class="text-center">
+                    <h3 class="font-display text-2xl mb-4">Interests</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                        <button class="p-4 border rounded-lg hover:bg-play-gray">STEM Learning</button>
+                        <button class="p-4 border rounded-lg hover:bg-play-gray">Creative Arts</button>
+                        <button class="p-4 border rounded-lg hover:bg-play-gray">Outdoor Play</button>
+                        <button class="p-4 border rounded-lg hover:bg-play-gray">Pretend Play</button>
+                        <button class="p-4 border rounded-lg hover:bg-play-gray">Building Toys</button>
+                        <button class="p-4 border rounded-lg hover:bg-play-gray">Board Games</button>
+                    </div>
+                    <button @click="showBuilder = false" class="bg-play-blue text-white px-6 py-2 rounded-full">
+                        Show Recommendations
+                    </button>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <h1 class="font-display text-3xl text-play-red">PLAYLAB</h1>
+                <div class="flex items-center space-x-4">
+                    <button @click="startGiftFinder()" class="bg-play-blue text-white px-4 py-2 rounded-full">
+                        🎁 Gift Finder
+                    </button>
+                    <button class="p-2 hover:text-play-red">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="bg-play-red text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="font-display text-4xl mb-6">Spark Creativity & Learning</h2>
+                <p class="text-xl mb-8">Discover toys that grow with your child's imagination</p>
+                <div class="relative max-w-md mx-auto">
+                    <input type="text"
+                           x-model="searchQuery"
+                           class="w-full pl-12 pr-4 py-3 rounded-full"
+                           placeholder="Search toys...">
+                    <svg class="w-5 h-5 absolute left-4 top-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Age Navigation -->
+    <nav class="bg-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button @click="activeAge = 'all'"
+                        :class="activeAge === 'all' ? 'bg-play-yellow' : 'bg-play-gray'"
+                        class="px-6 py-2 rounded-full">
+                    All Ages
+                </button>
+                <button @click="activeAge = '0-3'"
+                        :class="activeAge === '0-3' ? 'bg-play-mint' : 'bg-play-gray'"
+                        class="px-6 py-2 rounded-full">
+                    0-3 Years
+                </button>
+                <button @click="activeAge = '4-6'"
+                        :class="activeAge === '4-6' ? 'bg-play-blue' : 'bg-play-gray'"
+                        class="px-6 py-2 rounded-full">
+                    4-6 Years
+                </button>
+                <button @click="activeAge = '7-9'"
+                        :class="activeAge === '7-9' ? 'bg-play-red text-white' : 'bg-play-gray'"
+                        class="px-6 py-2 rounded-full">
+                    7-9 Years
+                </button>
+                <button @click="activeAge = '10+'"
+                        :class="activeAge === '10+' ? 'bg-play-yellow' : 'bg-play-gray'"
+                        class="px-6 py-2 rounded-full">
+                    10+ Years
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Grid -->
+    <main class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="relative">
+                            <img :src="product.image"
+                                 :alt="product.name"
+                                 class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 age-bubble bg-white w-12 h-12 flex items-center justify-center font-bold">
+                                <span x-text="product.age"></span>
+                            </div>
+                            <div class="action-buttons absolute bottom-0 left-0 right-0 flex justify-center space-x-2 opacity-0 transition-all pb-2">
+                                <button class="bg-play-red text-white p-2 rounded-full hover:bg-opacity-90">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                </button>
+                                <button class="bg-play-blue text-white p-2 rounded-full hover:bg-opacity-90">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold mb-2" x-text="product.name"></h3>
+                            <div class="flex items-center justify-between">
+                                <span class="text-play-red text-lg font-bold" x-text="'$' + product.price"></span>
+                                <div class="flex space-x-1 text-play-yellow">
+                                    <template x-for="i in 5">
+                                        <svg class="w-4 h-4" :fill="i <= product.rating ? 'currentColor' : 'none' " stroke="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                <template x-for="tag in product.tags" :key="tag">
+                                    <span class="px-2 py-1 text-xs bg-play-gray rounded-full" x-text="tag"></span>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Toy Builder -->
+    <section class="py-16 bg-play-blue text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display text-3xl mb-8 text-center">Build Your Own Toy</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="custom-toy">
+                    <div class="w-64 h-64 mx-auto">
+                        <img :src="customToyImage"
+                             class="w-full h-full object-contain rotating-toy"
+                             alt="Custom Toy">
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="font-bold mb-4">Choose Base</h3>
+                        <div class="flex gap-4">
+                            <button @click="customToyParts.base = 1"
+                                    class="w-16 h-16 bg-play-red rounded-lg hover:opacity-80"
+                                    :class="customToyParts.base === 1 ? 'ring-4 ring-white' : ''">
+                                🔴
+                            </button>
+                            <button @click="customToyParts.base = 2"
+                                    class="w-16 h-16 bg-play-blue rounded-lg hover:opacity-80"
+                                    :class="customToyParts.base === 2 ? 'ring-4 ring-white' : ''">
+                                🔵
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold mb-4">Add Accessory</h3>
+                        <div class="flex gap-4">
+                            <button @click="customToyParts.accessory = 1"
+                                    class="w-16 h-16 bg-play-yellow rounded-lg hover:opacity-80"
+                                    :class="customToyParts.accessory === 1 ? 'ring-4 ring-white' : ''">
+                                ⭐
+                            </button>
+                            <button @click="customToyParts.accessory = 2"
+                                    class="w-16 h-16 bg-play-mint rounded-lg hover:opacity-80"
+                                    :class="customToyParts.accessory === 2 ? 'ring-4 ring-white' : ''">
+                                ❄️
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="bg-play-red text-white px-8 py-3 rounded-full hover:bg-opacity-90">
+                        Add to Cart ($49.99)
+                    </button>
+                    <p class="mt-4 text-sm opacity-80">* Price includes free personalization</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Benefits -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display text-3xl text-center mb-12">Learning Through Play</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 border rounded-xl">
+                    <div class="w-12 h-12 bg-play-yellow rounded-full flex items-center justify-center mb-4">
+                        🧠
+                    </div>
+                    <h3 class="font-bold mb-2">Cognitive Development</h3>
+                    <p class="text-gray-600">Problem-solving toys that encourage critical thinking</p>
+                </div>
+                <div class="p-6 border rounded-xl">
+                    <div class="w-12 h-12 bg-play-red rounded-full flex items-center justify-center mb-4">
+                        ✋
+                    </div>
+                    <h3 class="font-bold mb-2">Motor Skills</h3>
+                    <p class="text-gray-600">Toys designed to improve coordination and dexterity</p>
+                </div>
+                <div class="p-6 border rounded-xl">
+                    <div class="w-12 h-12 bg-play-blue rounded-full flex items-center justify-center mb-4">
+                        ❤️
+                    </div>
+                    <h3 class="font-bold mb-2">Emotional Growth</h3>
+                    <p class="text-gray-600">Role-play sets for social-emotional learning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-play-yellow">
+        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display text-3xl mb-4">Join Our Play Community</h2>
+            <p class="mb-8">Get play ideas, special offers, and parenting resources</p>
+            <form class="flex gap-4">
+                <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-full">
+                <button class="bg-play-red text-white px-6 py-2 rounded-full hover:bg-opacity-90">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-play-gray py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="font-display text-xl text-play-red mb-4">PLAYLAB</h4>
+                    <p class="text-gray-600">Making playtime meaningful since 2023</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-play-red">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-play-red">Learning Toys</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-play-red">Outdoor Play</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Safety</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-play-red">Certifications</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-play-red">Material Safety</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-play-red">Recalls</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-play-red">Instagram</a>
+                        <a href="#" class="text-gray-600 hover:text-play-red">Pinterest</a>
+                        <a href="#" class="text-gray-600 hover:text-play-red">TikTok</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-12 pt-8 text-center text-sm text-gray-500">
+                <p>© 2023 PLAYLAB - Creative Play Solutions</p>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

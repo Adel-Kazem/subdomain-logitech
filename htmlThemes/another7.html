@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERRA | Sustainable Living</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terra: {
+                            moss: '#606c38',
+                            olive: '#283618',
+                            sand: '#dda15e',
+                            clay: '#bc6c25',
+                            cream: '#fefae0',
+                            stone: '#ccd5ae'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Mulish', 'sans-serif'],
+                        display: ['Marcellus', 'serif']
+                    },
+                    backgroundImage: {
+                        'leaf-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0C52.794 4.224 50.803 7.143 48.654 8.757c-2.148 1.614-4.819 2.661-8.01 3.142v-.5c0-2.16-1.769-3.93-3.928-3.93-.698 0-1.381.184-1.984.531-1.84-9.544-9.978-16.78-19.931-16.78C6.528-8.78-2.24 0 .54 8.328c2.779 8.328 11.984 13.317 20.152 11.213C14.404 31.05 7.525 38.95 3.21 49.451c-.071.173-.071.359 0 .532.1.245.32.423.574.459.255.036.509-.075.653-.286 5.316-7.804 12.229-13.26 17.983-16.376.5.714 1.33 1.18 2.27 1.18 1.522 0 2.755-1.235 2.755-2.756 0-.328-.057-.641-.163-.934 1.904-.528 3.941-.909 6.112-1.143.155-.017.298-.096.394-.216l.187-.23c.09-.103.14-.235.14-.371 0-.156-.065-.305-.179-.41l-.188-.18c-.105-.092-.242-.139-.382-.13-2.894.156-5.537.674-7.936 1.552.134-.391.207-.812.207-1.248 0-2.159-1.77-3.928-3.93-3.928-.52 0-1.02.102-1.48.29C24.497 17.71 29.51 11.952 35.97 7.4a13.986 13.986 0 0 0-.102 1.633c0 .596.042 1.177.118 1.748 2.645-.41 4.886-1.27 6.722-2.58 2.293-1.636 4.347-4.23 6.16-7.778.233-.453.471-.932.716-1.423.082-.165.067-.362-.04-.511C49.404-1.662 49.21-1.77 49-1.77h-.007a5.42 5.42 0 0 0-1.022.1c-1.336.248-2.735.771-4.2 1.568.268.587.503 1.188.704 1.801 1.375-.732 2.68-1.222 3.914-1.468-1.495 2.783-3.155 5.034-4.98 6.753-1.605 1.51-3.639 2.743-6.101 3.695.198.965.3 1.964.3 2.991 0 .11-.007.218-.01.328 2.773-.534 5.035-1.453 6.8-2.756 2.45-1.807 4.582-4.893 6.375-9.255.073-.174.068-.37-.014-.54A.638.638 0 0 0 49.39.31c-.133-.042-.278-.03-.404.035-2.445 1.244-4.703 1.865-6.774 1.865-.278 0-.571-.016-.85-.037.174-.462.332-.938.471-1.423.062-.218 0-.453-.161-.605C41.509.003 41.301-.4 41.093.012a22.262 22.262 0 0 1-3.388 1.66c.066-.63.11-1.283.128-1.96.004-.187-.09-.362-.247-.457a.551.551 0 0 0-.539-.028c-3.898 1.682-7.326 4.457-10.284 8.325-.348-.091-.711-.138-1.084-.138-2.406 0-4.362 1.955-4.362 4.36 0 .396.055.781.155 1.147-5.995 2.14-10.88 6.287-14.655 12.44-.13.212-.124.482.017.687.14.204.379.315.622.288.243-.027.45-.186.536-.413 3.626-5.866 8.278-9.842 14-11.923.498.74 1.345 1.227 2.3 1.227 1.38 0 2.553-.9 2.965-2.144 4.096-1.174 8.15-1.77 12.168-1.77.236 0 .443-.16.507-.391a.518.518 0 0 0-.272-.586c-4.369-2.163-8.252-3.244-11.648-3.244-.162 0-.325.004-.486.01a4.289 4.289 0 0 0-.032-.51c.322-.28.653-.547.993-.795.16.022.323.033.488.033 2.03 0 3.681-1.65 3.681-3.678 0-.245-.024-.486-.07-.717 3.21-.995 5.731-2.457 7.562-4.387 1.986-2.097 3.59-4.989 4.812-8.675a.555.555 0 0 0-.052-.47.534.534 0 0 0-.381-.25.49.49 0 0 0-.138-.003 22.64 22.64 0 0 1-2.844.185c-3.183 0-6.37-.644-9.565-1.93-.166-.066-.355-.053-.508.038a.539.539 0 0 0-.227.454c.004.054.016.107.035.156 1.246 3.204 3.158 5.953 5.737 8.246zm-30.81-2.33C14.66-13.28 24.628-2.37 19.688 11.65 14.745 25.673-1.05 19.71 3.893 7.66c1.445-3.526 5.588-6.842 10.632-8.985 2.013-.854 4.234-1.415 6.655-1.678 1.155-.126 2.348-.19 3.583-.19.153 0 .306.002.457.003-3.374 3.152-5.917 7.77-7.63 13.854-.67.238.043.493.257.626.213.133.49.102.666-.074 6.738-6.754 14.854-10.131 24.346-10.131.187 0 .36-.102.45-.265a.55.55 0 0 0 .032-.504c-2.011-4.324-4.77-7.47-8.279-9.437-3.11-1.742-6.965-2.624-11.565-2.624-7.59 0-13.78 2.319-18.572 6.958z' fill='%23606c38' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="../productsTheme.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-terra-cream font-sans text-terra-olive">
+<div x-data="{
+      products: PRODUCTS,
+      searchTerm: '',
+      menuOpen: false,
+      selectedProduct: null,
+      showProductDetail: false,
+      activeCategory: 'all',
+
+      get filteredProducts() {
+        let filtered = this.products;
+
+        // Apply search filter
+        if (this.searchTerm.trim()) {
+          const term = this.searchTerm.toLowerCase();
+          filtered = filtered.filter(p =>
+            p.name.toLowerCase().includes(term) ||
+            p.description.toLowerCase().includes(term)
+          );
+        }
+
+        // Apply category filter
+        if (this.activeCategory !== 'all') {
+          // For demo purposes, filter by product ID modulo 3
+          filtered = filtered.filter(p => {
+            if (this.activeCategory === 'home') return p.id % 3 === 0;
+            if (this.activeCategory === 'wellness') return p.id % 3 === 1;
+            if (this.activeCategory === 'kitchen') return p.id % 3 === 2;
+            return true;
+          });
+        }
+
+        return filtered;
+      },
+
+      viewProduct(product) {
+        this.selectedProduct = product;
+        this.showProductDetail = true;
+        document.body.classList.add('overflow-hidden');
+      },
+
+      closeProductDetail() {
+        this.showProductDetail = false;
+        document.body.classList.remove('overflow-hidden');
+      },
+
+      getProductOrigin(id) {
+        // Mock data for product origins
+        const origins = ['Locally Sourced', 'Fair Trade', 'Organic', 'Handcrafted'];
+        return origins[id % origins.length];
+      },
+
+      getEcoLabel(id) {
+        // Mock data for eco labels
+        const labels = ['Carbon Neutral', 'Zero Waste', 'Recycled', 'Biodegradable', 'Plastic-Free'];
+        return labels[id % labels.length];
+      }
+    }">
+
+    <!-- Product Detail Modal -->
+    <div x-show="showProductDetail"
+         class="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-75"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0">
+
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div x-show="showProductDetail"
+                 @click.away="closeProductDetail"
+                 class="bg-terra-cream rounded-lg max-w-6xl w-full relative shadow-xl overflow-hidden"
+                 x-transition:enter="transition ease-out duration-300 delay-100"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100">
+
+                <!-- Close Button -->
+                <button @click="closeProductDetail" class="absolute top-4 right-4 z-10 text-terra-olive hover:text-terra-clay transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Product Image -->
+                    <div class="bg-terra-stone bg-opacity-30">
+                        <div class="aspect-w-3 aspect-h-4">
+                            <img :src="selectedProduct?.image || 'https://via.placeholder.com/600x800?text=Product'"
+                                 :alt="selectedProduct?.name"
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="p-8 md:p-12">
+                        <span class="inline-block px-3 py-1 bg-terra-stone text-terra-olive text-xs uppercase tracking-wide rounded-full mb-4" x-text="getEcoLabel(selectedProduct?.id || 0)"></span>
+
+                        <h2 class="font-display text-3xl mb-3" x-text="selectedProduct?.name"></h2>
+
+                        <div class="flex items-center mb-4">
+                            <template x-for="i in 5">
+                                <svg class="w-5 h-5" :class="i <= (selectedProduct?.rating || 0) ? 'text-terra-clay' : 'text-terra-stone'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </template>
+                            <span class="ml-2 text-sm text-terra-olive/70" x-text="`${selectedProduct?.rating || 0} (24 reviews)`"></span>
+                        </div>
+
+                        <p class="text-2xl font-medium text-terra-clay mb-6" x-text="'$' + (selectedProduct?.price || 0).toFixed(2)"></p>
+
+                        <p class="text-terra-olive/80 mb-8" x-text="selectedProduct?.description"></p>
+
+                        <div class="mb-8">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-terra-olive/70">Origin</span>
+                                <span class="text-sm font-medium" x-text="getProductOrigin(selectedProduct?.id || 0)"></span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm text-terra-olive/70">Materials</span>
+                                <span class="text-sm font-medium">100% Sustainable</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-terra-olive/70">Carbon Footprint</span>
+                                <span class="text-sm font-medium">Low Impact</span>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-terra-stone pt-6 mb-8">
+                            <h3 class="font-medium mb-3">Select Size</h3>
+                            <div class="flex gap-3">
+                                <button class="w-10 h-10 rounded-full border border-terra-olive flex items-center justify-center hover:bg-terra-olive hover:text-terra-cream transition-colors">S</button>
+                                <button class="w-10 h-10 rounded-full border border-terra-olive bg-terra-olive text-terra-cream flex items-center justify-center">M</button>
+                                <button class="w-10 h-10 rounded-full border border-terra-olive flex items-center justify-center hover:bg-terra-olive hover:text-terra-cream transition-colors">L</button>
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-terra-olive text-terra-cream py-3 px-6 rounded-full hover:bg-terra-moss transition-colors mb-4">
+                            Add to Cart
+                        </button>
+
+                        <button class="w-full border border-terra-olive py-3 px-6 rounded-full hover:bg-terra-stone/30 transition-colors">
+                            Save for Later
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="relative bg-terra-cream sticky top-0 z-40 border-b border-terra-stone/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="font-display text-2xl text-terra-olive">TERRA</a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-terra-olive hover:text-terra-clay transition-colors">Home</a>
+                    <a href="#shop" class="text-terra-olive hover:text-terra-clay transition-colors">Shop</a>
+                    <a href="#sustainability" class="text-terra-olive hover:text-terra-clay transition-colors">Sustainability</a>
+                    <a href="#about" class="text-terra-olive hover:text-terra-clay transition-colors">About</a>
+                </nav>
+
+                <!-- Navigation Actions -->
+                <div class="flex items-center space-x-4">
+                    <button @click="$refs.searchInput.focus()" class="text-terra-olive hover:text-terra-clay transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+
+                    <a href="#" class="text-terra-olive hover:text-terra-clay transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button @click="menuOpen = !menuOpen" class="md:hidden text-terra-olive hover:text-terra-clay transition-colors">
+                        <svg x-show="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div x-show="menuOpen" class="md:hidden py-4 border-t border-terra-stone/30" x-transition>
+                <nav class="flex flex-col space-y-3">
+                    <a href="#" class="py-2 text-terra-olive hover:text-terra-clay transition-colors">Home</a>
+                    <a href="#shop" class="py-2 text-terra-olive hover:text-terra-clay transition-colors">Shop</a>
+                    <a href="#sustainability" class="py-2 text-terra-olive hover:text-terra-clay transition-colors">Sustainability</a>
+                    <a href="#about" class="py-2 text-terra-olive hover:text-terra-clay transition-colors">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-terra-stone bg-opacity-25 bg-leaf-pattern overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+            <div class="max-w-xl">
+                <span class="block mb-3 text-terra-moss font-medium">Eco-Conscious Living</span>
+                <h1 class="font-display text-5xl md:text-6xl text-terra-olive leading-tight mb-6">
+                    Sustainable Products for a Better Planet
+                </h1>
+                <p class="text-terra-olive/80 text-lg mb-8 max-w-lg">
+                    Embrace sustainable living with our collection of eco-friendly, ethically sourced products designed to reduce your environmental footprint.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#shop" class="bg-terra-olive text-terra-cream py-3 px-8 rounded-full hover:bg-terra-moss transition-colors">
+                        Shop Collection
+                    </a>
+                    <a href="#sustainability" class="border border-terra-olive text-terra-olive py-3 px-8 rounded-full hover:bg-terra-stone/30 transition-colors">
+                        Our Commitment
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Image -->
+        <div class="absolute right-0 bottom-0 w-1/2 h-full hidden lg:block">
+            <img src="https://images.unsplash.com/photo-1601375863404-5b912f4536df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                 alt="Sustainable Products"
+                 class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-terra-stone to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-display text-3xl mb-4 text-terra-olive">Our Commitment to Sustainability</h2>
+                <p class="text-terra-olive/80">
+                    Each product in our collection is carefully selected to meet our high standards for sustainability, ethics, and quality.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-terra-cream border border-terra-stone/50 rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-terra-stone/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-terra-olive mb-2">Ethically Sourced</h3>
+                    <p class="text-terra-olive/70">
+                        We partner with suppliers who share our values of fair labor practices and environmental responsibility.
+                    </p>
+                </div>
+
+                <div class="bg-terra-cream border border-terra-stone/50 rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-terra-stone/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-terra-olive mb-2">Eco-Friendly Materials</h3>
+                    <p class="text-terra-olive/70">
+                        Our products are made from sustainable, recyclable, or biodegradable materials to minimize environmental impact.
+                    </p>
+                </div>
+
+                <div class="bg-terra-cream border border-terra-stone/50 rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-terra-stone/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-terra-olive mb-2">Carbon Neutral</h3>
+                    <p class="text-terra-olive/70">
+                        We offset our carbon footprint through investment in environmental projects and sustainable shipping practices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Bar Section -->
+    <section class="py-10 bg-terra-stone bg-opacity-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative">
+                <input
+                        type="text"
+                        x-model="searchTerm"
+                        x-ref="searchInput"
+                        placeholder="Search for sustainable products..."
+                        class="w-full pl-12 pr-4 py-4 rounded-full border-2 border-terra-stone/50 focus:border-terra-moss focus:outline-none bg-white placeholder-terra-olive/60"
+                >
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-terra-olive/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="shop" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="font-display text-3xl mb-4 text-terra-olive">Shop by Category</h2>
+                <p class="text-terra-olive/80">
+                    Explore our collection of sustainable products for every aspect of your life.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-16">
+                <button
+                        @click="activeCategory = 'all'"
+                        class="px-6 py-2 rounded-full transition-colors"
+                        :class="activeCategory === 'all' ? 'bg-terra-olive text-terra-cream' : 'bg-terra-stone/30 text-terra-olive hover:bg-terra-stone/50'"
+                >
+                    All Products
+                </button>
+                <button
+                        @click="activeCategory = 'home'"
+                        class="px-6 py-2 rounded-full transition-colors"
+                        :class="activeCategory === 'home' ? 'bg-terra-olive text-terra-cream' : 'bg-terra-stone/30 text-terra-olive hover:bg-terra-stone/50'"
+                >
+                    Home & Living
+                </button>
+                <button
+                        @click="activeCategory = 'wellness'"
+                        class="px-6 py-2 rounded-full transition-colors"
+                        :class="activeCategory === 'wellness' ? 'bg-terra-olive text-terra-cream' : 'bg-terra-stone/30 text-terra-olive hover:bg-terra-stone/50'"
+                >
+                    Wellness
+                </button>
+                <button
+                        @click="activeCategory = 'kitchen'"
+                        class="px-6 py-2 rounded-full transition-colors"
+                        :class="activeCategory === 'kitchen' ? 'bg-terra-olive text-terra-cream' : 'bg-terra-stone/30 text-terra-olive hover:bg-terra-stone/50'"
+                >
+                    Kitchen
+                </button>
+            </div>
+
+            <!-- No Products Found Message -->
+            <div x-show="filteredProducts.length === 0" class="text-center py-12">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-terra-stone mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                <h3 class="text-xl font-medium mb-2">No products found</h3>
+                <p class="text-terra-olive/70 mb-6">We couldn't find any products matching your search.</p>
+                <button @click="searchTerm = ''; activeCategory = 'all'" class="bg-terra-olive text-terra-cream py-2 px-6 rounded-full hover:bg-terra-moss transition-colors">
+                    Clear Filters
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="group cursor-pointer" @click="viewProduct(product)">
+                        <div class="relative overflow-hidden rounded-lg mb-4">
+                            <div class="aspect-w-1 aspect-h-1 bg-terra-stone/20">
+                                <img
+                                        :src="product.image || 'https://via.placeholder.com/400x400?text=Sustainable+Product'"
+                                        :alt="product.name"
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                >
+                            </div>
+
+                            <!-- Eco Label -->
+                            <div class="absolute top-3 left-3">
+                                <span class="inline-block px-3 py-1 bg-terra-cream text-terra-olive text-xs uppercase tracking-wide rounded-full" x-text="getEcoLabel(product.id)"></span>
+                            </div>
+
+                            <!-- Quick View Button -->
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-terra-olive/20">
+                                <button class="bg-terra-cream text-terra-olive py-2 px-4 rounded-full transform -translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <h3 class="font-medium text-lg mb-1 group-hover:text-terra-clay transition-colors" x-text="product.name"></h3>
+
+                        <div class="flex items-center mb-2">
+                            <template x-for="i in 5">
+                                <svg class="w-4 h-4" :class="i <= product.rating ? 'text-terra-clay' : 'text-terra-stone'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </template>
+                            <span class="ml-1 text-xs text-terra-olive/60" x-text="`(${product.rating})`"></span>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <p class="text-terra-clay font-medium" x-text="'$' + product.price.toFixed(2)"></p>
+                            <span class="text-xs text-terra-olive/60" x-text="getProductOrigin(product.id)"></span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Mission Section -->
+    <section id="sustainability" class="py-24 bg-terra-stone/10 bg-leaf-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="font-display text-3xl mb-6 text-terra-olive">Our Sustainability Mission</h2>
+                    <p class="text-terra-olive/80 mb-6">
+                        At TERRA, we believe that small choices can make a big impact. Our mission is to make sustainable living accessible and beautiful through thoughtfully designed products that respect our planet.
+                    </p>
+                    <p class="text-terra-olive/80 mb-6">
+                        We carefully vet each supplier and product to ensure they meet our standards for environmental responsibility, ethical production, and quality craftsmanship.
+                    </p>
+                    <p class="text-terra-olive/80 mb-8">
+                        From reducing plastic waste to supporting regenerative agriculture, our products are designed to help you live more sustainably without sacrificing quality or aesthetics.
+                    </p>
+                    <a href="#" class="inline-block bg-terra-olive text-terra-cream py-3 px-8 rounded-full hover:bg-terra-moss transition-colors">
+                        Learn More About Our Practices
+                    </a>
+                </div>
+
+                <div class="relative">
+                    <img
+                            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            alt="Sustainable Practices"
+                            class="rounded-lg w-full"
+                    >
+                    <div class="absolute inset-0 border-2 border-terra-stone rounded-lg transform translate-x-4 translate-y-4 -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Product -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1">
+                    <span class="inline-block px-3 py-1 bg-terra-stone text-terra-olive text-xs uppercase tracking-wide rounded-full mb-4">Featured Product</span>
+
+                    <h2 class="font-display text-3xl mb-4 text-terra-olive">Whey Protein Isolate</h2>
+
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-terra-clay">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                        <span class="ml-2 text-sm text-terra-olive/70">(52 reviews)</span>
+                    </div>
+
+                    <p class="text-2xl font-medium text-terra-clay mb-6">$39.99</p>
+
+                    <p class="text-terra-olive/80 mb-8">
+                        Our sustainably sourced whey protein isolate provides 27g of high-quality protein per serving. Made with minimal processing and packed in compostable packaging, it's the perfect choice for eco-conscious fitness enthusiasts.
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-terra-stone/30 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <span class="text-terra-olive">27g of protein per serving</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-terra-stone/30 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <span class="text-terra-olive">Grass-fed, ethically raised sources</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-terra-stone/30 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <span class="text-terra-olive">Compostable packaging</span>
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-terra-stone/30 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-terra-moss" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <span class="text-terra-olive">No artificial flavors or sweeteners</span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-terra-olive text-terra-cream py-3 px-8 rounded-full hover:bg-terra-moss transition-colors">
+                            Add to Cart
+                        </button>
+                        <button class="border border-terra-olive text-terra-olive py-3 px-8 rounded-full hover:bg-terra-stone/30 transition-colors">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 relative">
+                    <img
+                            src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            alt="Whey Protein Isolate"
+                            class="rounded-lg w-full"
+                    >
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-terra-cream text-terra-olive text-xs uppercase tracking-wide rounded-full">
+                        Organic
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-terra-stone/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-display text-3xl mb-4 text-terra-olive">What Our Community Says</h2>
+                <p class="text-terra-olive/80">
+                    Join thousands of eco-conscious customers who have made the switch to sustainable living.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-terra-cream rounded-lg p-8 shadow-sm">
+                    <div class="flex text-terra-clay mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="text-terra-olive/80 mb-6">
+                        "I love that I can shop for eco-friendly products without compromising on quality. TERRA has made sustainable living so much more accessible for me and my family."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah J." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-medium">Sarah J.</h4>
+                            <p class="text-sm text-terra-olive/60">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-terra-cream rounded-lg p-8 shadow-sm">
+                    <div class="flex text-terra-clay mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="text-terra-olive/80 mb-6">
+                        "The quality of TERRA's products is exceptional. Not only am I reducing my environmental impact, but I'm also using products that are better for my health and wellbeing."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-medium">Michael T.</h4>
+                            <p class="text-sm text-terra-olive/60">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-terra-cream rounded-lg p-8 shadow-sm">
+                    <div class="flex text-terra-clay mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                    </div>
+                    <p class="text-terra-olive/80 mb-6">
+                        "What sets TERRA apart is their commitment to sustainability throughout the entire product lifecycle. From sourcing to packaging, every detail is thoughtfully considered."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma R." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-medium">Emma R.</h4>
+                            <p class="text-sm text-terra-olive/60">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-terra-olive text-terra-cream">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display text-3xl mb-4">Join Our Sustainable Community</h2>
+            <p class="mb-8 text-terra-cream/80 max-w-2xl mx-auto">
+                Subscribe to our newsletter for eco-friendly tips, new product announcements, and exclusive offers.
+            </p>
+
+            <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                <input
+                        type="email"
+                        placeholder="Your email address"
+                        class="flex-grow px-4 py-3 rounded-full focus:outline-none text-terra-olive"
+                >
+                <button type="submit" class="bg-terra-sand hover:bg-terra-clay text-terra-olive font-medium py-3 px-6 rounded-full transition-colors">
+                    Subscribe
+                </button>
+            </form>
+            <p class="mt-4 text-terra-cream/60 text-sm">
+                By subscribing, you agree to receive email updates from TERRA. You can unsubscribe at any time.
+            </p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img
+                            src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="About TERRA"
+                            class="rounded-lg w-full"
+                    >
+                </div>
+
+                <div>
+                    <h2 class="font-display text-3xl mb-6 text-terra-olive">About TERRA</h2>
+                    <p class="text-terra-olive/80 mb-6">
+                        Founded in 2020, TERRA was born from a desire to make sustainable living accessible and beautiful. We saw a gap in the market for eco-friendly products that didn't compromise on quality or aesthetics.
+                    </p>
+                    <p class="text-terra-olive/80 mb-6">
+                        Our team consists of passionate environmentalists, designers, and product experts who work together to curate a collection that meets our rigorous standards for sustainability and functionality.
+                    </p>
+                    <p class="text-terra-olive/80 mb-8">
+                        We believe that small changes add up to big impact. By choosing sustainable alternatives for everyday products, we can collectively create meaningful change for our planet.
+                    </p>
+                    <a href="#" class="inline-block bg-terra-olive text-terra-cream py-3 px-8 rounded-full hover:bg-terra-moss transition-colors">
+                        Learn More About Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-terra-stone/20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="#" class="font-display text-2xl text-terra-olive mb-4 inline-block">TERRA</a>
+                    <p class="text-terra-olive/80 mb-6 max-w-md">
+                        Sustainable products for mindful living. We're committed to making eco-friendly choices accessible, beautiful, and impactful.
+                    </p>
+                    <div class="flex space-x-4 text-terra-olive">
+                        <a href="#" class="hover:text-terra-clay transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-terra-clay transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-terra-clay transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="hover:text-terra-clay transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium mb-4 text-terra-olive">Shop</h3>
+                    <ul class="space-y-2 text-terra-olive/80">
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">All Products</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Home & Living</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Kitchen</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Wellness</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-medium mb-4 text-terra-olive">About</h3>
+                    <ul class="space-y-2 text-terra-olive/80">
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Our Story</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">B Corp Certification</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-terra-clay transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-terra-stone/30 pt-8 flex flex-col md:flex-row justify-between">
+                <p class="text-terra-olive/70 text-sm mb-4 md:mb-0">
+                    &copy; 2025 TERRA. All rights reserved.
+                </p>
+
+                <div class="flex flex-wrap gap-4 text-terra-olive/70 text-sm">
+                    <a href="#" class="hover:text-terra-clay transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-terra-clay transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-terra-clay transition-colors">Shipping Policy</a>
+                    <a href="#" class="hover:text-terra-clay transition-colors">Returns & Exchanges</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

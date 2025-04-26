@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAISON | Luxury Fashion & Lifestyle</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ivory': '#FFFFF0',
+                        'charcoal': '#2E2E2E',
+                        'taupe': '#B9B7BD',
+                        'accent': '#C9A87C',
+                    },
+                    fontFamily: {
+                        'serif': ['Cormorant Garamond', 'Georgia', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                    },
+                    letterSpacing: {
+                        'ultra': '0.25em',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #FFFFF0;
+            color: #2E2E2E;
+        }
+
+        .editorial-underline {
+            position: relative;
+        }
+
+        .editorial-underline::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 2em;
+            height: 1px;
+            background-color: #C9A87C;
+        }
+
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto;
+            gap: 1rem;
+        }
+
+        .diagonal-line {
+            height: 1px;
+            width: 150px;
+            background-color: #C9A87C;
+            transform: rotate(-45deg);
+            position: absolute;
+        }
+
+        /* Custom cursor */
+        .cursor-circle {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #C9A87C;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+        }
+
+        a:hover ~ .cursor-circle,
+        button:hover ~ .cursor-circle {
+            width: 50px;
+            height: 50px;
+            opacity: 0.5;
+        }
+
+        /* Product hover zoom */
+        .product-img-zoom {
+            overflow: hidden;
+        }
+
+        .product-img-zoom img {
+            transition: transform 1s ease;
+        }
+
+        .product-img-zoom:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Hide scrollbar but allow scrolling */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;  /* Chrome, Safari, Opera */
+        }
+    </style>
+</head>
+<body class="font-sans antialiased no-scrollbar">
+<!-- Custom Cursor (Optional) -->
+<div class="cursor-circle hidden md:block"></div>
+
+<!-- Announcement Bar -->
+<div class="bg-charcoal text-ivory py-2">
+    <div class="container mx-auto px-4 flex justify-center">
+        <span class="text-xs tracking-ultra uppercase">Free shipping on orders over $100</span>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="py-6 bg-ivory sticky top-0 z-50 transition-all duration-300" id="main-header">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-toggle" class="md:hidden text-charcoal hover:text-accent transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Logo -->
+            <a href="/" class="font-display text-4xl tracking-wide text-center md:text-left">MAISON</a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-10">
+                <a href="/" class="text-charcoal font-light tracking-widest text-sm uppercase hover:text-accent transition-colors">Home</a>
+                <a href="/shop" class="text-charcoal font-light tracking-widest text-sm uppercase hover:text-accent transition-colors">Shop</a>
+                <a href="/collections" class="text-charcoal font-light tracking-widest text-sm uppercase hover:text-accent transition-colors">Collections</a>
+                <a href="/about" class="text-charcoal font-light tracking-widest text-sm uppercase hover:text-accent transition-colors">About</a>
+            </nav>
+
+            <!-- Right Icons -->
+            <div class="flex items-center space-x-6">
+                <a href="/search" class="text-charcoal hover:text-accent transition-colors hidden md:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </a>
+                <a href="/account" class="text-charcoal hover:text-accent transition-colors hidden md:block">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </a>
+                <a href="/cart" class="text-charcoal hover:text-accent transition-colors relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 w-4 h-4 bg-accent text-ivory text-[10px] rounded-full flex items-center justify-center">3</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu (Hidden by Default) -->
+<div id="mobile-menu" class="fixed inset-0 z-50 bg-ivory flex-col items-center justify-center hidden">
+    <button id="close-menu" class="absolute top-6 right-6 text-charcoal hover:text-accent transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <nav class="flex flex-col items-center text-center space-y-8">
+        <a href="/" class="text-charcoal font-light tracking-widest text-xl uppercase hover:text-accent transition-colors">Home</a>
+        <a href="/shop" class="text-charcoal font-light tracking-widest text-xl uppercase hover:text-accent transition-colors">Shop</a>
+        <a href="/collections" class="text-charcoal font-light tracking-widest text-xl uppercase hover:text-accent transition-colors">Collections</a>
+        <a href="/about" class="text-charcoal font-light tracking-widest text-xl uppercase hover:text-accent transition-colors">About</a>
+    </nav>
+
+    <div class="mt-12 flex items-center space-x-8">
+        <a href="/search" class="text-charcoal hover:text-accent transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+        </a>
+        <a href="/account" class="text-charcoal hover:text-accent transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+        </a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="py-10 md:py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative">
+        <div class="magazine-grid">
+            <!-- Large Feature Image -->
+            <div class="col-span-12 md:col-span-8 row-span-2 order-2 md:order-1 mt-8 md:mt-0">
+                <div class="relative h-[70vh] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Elegant fashion model" class="w-full h-full object-cover">
+                    <div class="absolute bottom-8 right-8">
+                        <p class="bg-ivory py-2 px-4 text-xs tracking-widest text-charcoal font-light uppercase">Spring/Summer Collection</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Content -->
+            <div class="col-span-12 md:col-span-4 order-1 md:order-2 flex flex-col justify-center">
+                <span class="text-accent tracking-widest text-sm uppercase">Timeless elegance</span>
+                <h1 class="font-display text-4xl md:text-5xl lg:text-6xl mt-3 leading-tight">The Art <br>of Refined <br>Luxury</h1>
+                <p class="text-charcoal/70 mt-6 max-w-md">Discover our curated collection of exquisite pieces designed for those who appreciate understated elegance and timeless sophistication.</p>
+                <div class="mt-8">
+                    <a href="#featured-products" class="inline-block bg-transparent border border-charcoal hover:bg-charcoal hover:text-ivory text-charcoal px-8 py-3 text-sm tracking-widest uppercase transition-colors duration-300">Explore Collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Editorial Statement -->
+<section class="py-16 md:py-24 bg-charcoal text-ivory">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-display text-3xl md:text-4xl italic mb-10">"Elegance is not about being noticed, it's about being remembered."</h2>
+            <p class="tracking-wide text-ivory/70">— Giorgio Armani</p>
+        </div>
+    </div>
+</section>
+
+<!-- Category Highlights -->
+<section class="py-16 md:py-24">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+            <h2 class="font-display text-3xl md:text-4xl editorial-underline">Discover</h2>
+            <p class="text-charcoal/70 mt-4 md:mt-0 max-w-md text-right">Our signature collections, carefully crafted for the modern connoisseur of style.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Category 1 -->
+            <a href="/collections/apparel" class="group">
+                <div class="relative overflow-hidden product-img-zoom aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Apparel" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-ivory text-2xl font-serif font-normal">Apparel</h3>
+                        <p class="text-ivory/80 mt-1 text-sm tracking-widest uppercase">View Collection</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Category 2 -->
+            <a href="/collections/accessories" class="group">
+                <div class="relative overflow-hidden product-img-zoom aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Accessories" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-ivory text-2xl font-serif font-normal">Accessories</h3>
+                        <p class="text-ivory/80 mt-1 text-sm tracking-widest uppercase">View Collection</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Category 3 -->
+            <a href="/collections/footwear" class="group">
+                <div class="relative overflow-hidden product-img-zoom aspect-[3/4]">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Footwear" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal/50 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <h3 class="text-ivory text-2xl font-serif font-normal">Footwear</h3>
+                        <p class="text-ivory/80 mt-1 text-sm tracking-widest uppercase">View Collection</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section id="featured-products" class="py-16 md:py-24 bg-ivory relative">
+    <!-- Decorative diagonal line -->
+    <div class="absolute top-16 left-24 diagonal-line hidden md:block"></div>
+
+    <div class="container mx-auto px-4 relative">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+            <h2 class="font-display text-3xl md:text-4xl editorial-underline">Featured Pieces</h2>
+            <a href="/collections/all" class="group inline-flex items-center mt-4 md:mt-0">
+                <span class="text-charcoal/70 text-sm tracking-widest uppercase group-hover:text-accent transition-colors">View All</span>
+                <svg class="w-4 h-4 ml-2 text-charcoal/70 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <!-- Product 1 -->
+            <div class="group">
+                <div class="overflow-hidden product-img-zoom aspect-[3/4] mb-4">
+                    <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Silk Tailored Blazer" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="font-serif text-xl group-hover:text-accent transition-colors">Silk Tailored Blazer</h3>
+                    <p class="text-charcoal/70 mt-1 text-sm">Impeccably crafted from Italian silk with a modern silhouette.</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-charcoal font-serif text-lg">$580</span>
+                        <button class="text-charcoal hover:text-accent transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group">
+                <div class="overflow-hidden product-img-zoom aspect-[3/4] mb-4">
+                    <img src="https://images.unsplash.com/photo-1548126032-079a0fb0099d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Leather Tote Bag" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="font-serif text-xl group-hover:text-accent transition-colors">Leather Tote Bag</h3>
+                    <p class="text-charcoal/70 mt-1 text-sm">Handcrafted from supple full-grain leather with minimalist hardware.</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-charcoal font-serif text-lg">$420</span>
+                        <button class="text-charcoal hover:text-accent transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group">
+                <div class="overflow-hidden product-img-zoom aspect-[3/4] mb-4">
+                    <img src="https://images.unsplash.com/photo-1560343776-97e7d202ff0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cashmere Scarf" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="font-serif text-xl group-hover:text-accent transition-colors">Cashmere Scarf</h3>
+                    <p class="text-charcoal/70 mt-1 text-sm">Ultra-soft Mongolian cashmere in a timeless pattern and neutral palette.</p>
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="text-charcoal font-serif text-lg">$195</span>
+                        <button class="text-charcoal hover:text-accent transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Editorial Feature -->
+<section class="py-16 md:py-24 relative">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <!-- Left Image -->
+            <div class="md:col-span-5 md:col-start-2">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisan crafting leather" class="w-full h-[70vh] object-cover">
+                    <div class="absolute -bottom-4 -right-4 h-24 w-24 border border-accent"></div>
+                </div>
+            </div>
+
+            <!-- Right Content -->
+            <div class="md:col-span-5">
+                <span class="text-accent tracking-widest text-sm uppercase">Our Philosophy</span>
+                <h2 class="font-display text-3xl md:text-4xl mt-3 mb-6">The Artistry Behind Every Piece</h2>
+                <p class="text-charcoal/70 mb-6">At MAISON, we believe in the timeless value of exceptional craftsmanship. Each of our pieces is meticulously created by master artisans who bring generations of expertise to their work.</p>
+                <p class="text-charcoal/70 mb-8">We source only the finest materials from around the world, ensuring that every product meets our exacting standards for quality, sustainability, and ethical production.</p>
+                <a href="/about" class="inline-block border-b border-accent text-sm tracking-widest uppercase text-charcoal hover:text-accent transition-colors">Discover Our Story</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Gallery -->
+<section class="py-16 bg-taupe/10">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="font-display text-3xl">Follow Our Journey</h2>
+            <p class="text-charcoal/70 mt-2 text-sm tracking-widest uppercase">@maisonofficial</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="https://instagram.com" target="_blank" class="group overflow-hidden product-img-zoom">
+                <img src="https://images.unsplash.com/photo-1513094735237-8f2714d57c13?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full aspect-square object-cover">
+            </a>
+            <a href="https://instagram.com" target="_blank" class="group overflow-hidden product-img-zoom">
+                <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full aspect-square object-cover">
+            </a>
+            <a href="https://instagram.com" target="_blank" class="group overflow-hidden product-img-zoom">
+                <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full aspect-square object-cover">
+            </a>
+            <a href="https://instagram.com" target="_blank" class="group overflow-hidden product-img-zoom">
+                <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Instagram Post" class="w-full aspect-square object-cover">
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-16 md:py-24 bg-charcoal text-ivory">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="font-display text-3xl md:text-4xl mb-6">Join Our Community</h2>
+            <p class="text-ivory/70 mb-8">Subscribe to our newsletter to receive updates on new collections, exclusive events, and curated style insights.</p>
+
+            <form class="flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Your email address" class="flex-grow bg-transparent border-b border-taupe/30 text-ivory placeholder-ivory/40 px-4 py-3 focus:outline-none focus:border-accent">
+                <button type="submit" class="bg-transparent border border-ivory hover:bg-ivory hover:text-charcoal text-ivory px-8 py-3 text-sm tracking-widest uppercase transition-colors duration-300">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-16 pb-8 bg-ivory">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <!-- Brand Info -->
+            <div>
+                <a href="/" class="font-display text-2xl mb-5 inline-block">MAISON</a>
+                <p class="text-charcoal/70 mb-6">Refined luxury goods for the discerning individual who appreciates timeless elegance and exceptional craftsmanship.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-charcoal/60 hover:text-accent transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-charcoal/60 hover:text-accent transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-charcoal/60 hover:text-accent transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" fill-rule="evenodd" clip-rule="evenodd"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Collections Links -->
+            <div>
+                <h3 class="text-sm tracking-widest uppercase mb-6">Collections</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">New Arrivals</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Apparel</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Accessories</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Footwear</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Exclusives</a></li>
+                </ul>
+            </div>
+
+            <!-- About Links -->
+            <div>
+                <h3 class="text-sm tracking-widest uppercase mb-6">About</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Our Story</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Craftsmanship</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Sustainability</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Journal</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Locations</a></li>
+                </ul>
+            </div>
+
+            <!-- Customer Care Links -->
+            <div>
+                <h3 class="text-sm tracking-widest uppercase mb-6">Customer Care</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Care Guide</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">FAQ</a></li>
+                    <li><a href="#" class="text-charcoal/70 hover:text-accent transition-colors">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="pt-8 border-t border-charcoal/10 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-charcoal/50 text-sm mb-4 md:mb-0">&copy; 2025 MAISON. All rights reserved.</p>
+            <div class="flex space-x-6">
+                <img src="https://via.placeholder.com/40x25" alt="Visa" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="https://via.placeholder.com/40x25" alt="Mastercard" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="https://via.placeholder.com/40x25" alt="American Express" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="https://via.placeholder.com/40x25" alt="PayPal" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenu = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeMenu.addEventListener('click', function() {
+        mobileMenu.classList.remove('flex');
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = '';
+    });
+
+    // Custom cursor for desktop (optional)
+    document.addEventListener('DOMContentLoaded', function() {
+        const cursor = document.querySelector('.cursor-circle');
+
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.addEventListener('mousedown', function() {
+                cursor.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            });
+
+            document.addEventListener('mouseup', function() {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        }
+    });
+</script>
+</body>
+</html>
