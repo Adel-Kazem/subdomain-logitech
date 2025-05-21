@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRUTE | Raw Sneaker Culture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Basement Grotesque', 'sans-serif'],
+                    },
+                    colors: {
+                        neon: '#00FF66',
+                        off: '#F2F2F2',
+                        brutal: '#121212',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        @font-face {
+            font-family: 'Basement Grotesque';
+            src: url('https://cdn.jsdelivr.net/gh/dhruvisapro/CDN/BasementGrotesque-Black_v1.202.woff2') format('woff2');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        .brutal-shadow {
+            box-shadow: 6px 6px 0px 0px #000000;
+        }
+
+        .brutal-border {
+            border: 2px solid #000000;
+        }
+
+        .glitch-effect {
+            position: relative;
+        }
+
+        .glitch-effect::before,
+        .glitch-effect::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-effect::before {
+            left: 2px;
+            text-shadow: -1px 0 #00FF66;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch-effect::after {
+            left: -2px;
+            text-shadow: -1px 0 magenta;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(95px, 9999px, 11px, 0); }
+            5% { clip: rect(20px, 9999px, 91px, 0); }
+            10% { clip: rect(59px, 9999px, 27px, 0); }
+            15% { clip: rect(34px, 9999px, 86px, 0); }
+            20% { clip: rect(63px, 9999px, 15px, 0); }
+            25% { clip: rect(78px, 9999px, 85px, 0); }
+            30% { clip: rect(57px, 9999px, 56px, 0); }
+            35% { clip: rect(12px, 9999px, 23px, 0); }
+            40% { clip: rect(46px, 9999px, 72px, 0); }
+            45% { clip: rect(39px, 9999px, 37px, 0); }
+            50% { clip: rect(65px, 9999px, 46px, 0); }
+            55% { clip: rect(7px, 9999px, 46px, 0); }
+            60% { clip: rect(28px, 9999px, 95px, 0); }
+            65% { clip: rect(61px, 9999px, 30px, 0); }
+            70% { clip: rect(87px, 9999px, 35px, 0); }
+            75% { clip: rect(38px, 9999px, 53px, 0); }
+            80% { clip: rect(71px, 9999px, 69px, 0); }
+            85% { clip: rect(33px, 9999px, 17px, 0); }
+            90% { clip: rect(44px, 9999px, 84px, 0); }
+            95% { clip: rect(14px, 9999px, 43px, 0); }
+            100% { clip: rect(32px, 9999px, 63px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(59px, 9999px, 99px, 0); }
+            5% { clip: rect(76px, 9999px, 3px, 0); }
+            10% { clip: rect(25px, 9999px, 81px, 0); }
+            15% { clip: rect(89px, 9999px, 41px, 0); }
+            20% { clip: rect(18px, 9999px, 12px, 0); }
+            25% { clip: rect(53px, 9999px, 37px, 0); }
+            30% { clip: rect(26px, 9999px, 69px, 0); }
+            35% { clip: rect(62px, 9999px, 72px, 0); }
+            40% { clip: rect(78px, 9999px, 45px, 0); }
+            45% { clip: rect(23px, 9999px, 23px, 0); }
+            50% { clip: rect(67px, 9999px, 16px, 0); }
+            55% { clip: rect(38px, 9999px, 95px, 0); }
+            60% { clip: rect(7px, 9999px, 38px, 0); }
+            65% { clip: rect(50px, 9999px, 78px, 0); }
+            70% { clip: rect(36px, 9999px, 84px, 0); }
+            75% { clip: rect(72px, 9999px, 54px, 0); }
+            80% { clip: rect(82px, 9999px, 30px, 0); }
+            85% { clip: rect(19px, 9999px, 46px, 0); }
+            90% { clip: rect(37px, 9999px, 48px, 0); }
+            95% { clip: rect(95px, 9999px, 64px, 0); }
+            100% { clip: rect(40px, 9999px, 19px, 0); }
+        }
+    </style>
+</head>
+<body class="font-sans bg-off text-brutal overflow-x-hidden">
+<!-- Fixed Cursor Tracker -->
+<div id="cursor" class="fixed top-0 left-0 w-6 h-6 rounded-full border-2 border-neon pointer-events-none mix-blend-difference z-50 hidden md:block"></div>
+
+<!-- Marquee Site Warning -->
+<div class="bg-brutal text-off py-2 overflow-hidden relative whitespace-nowrap">
+    <div class="animate-marquee inline-block">
+        RAW SNEAKER CULTURE • NOT FOR THE FAINT-HEARTED • RAW SNEAKER CULTURE • NOT FOR THE FAINT-HEARTED • RAW SNEAKER CULTURE • NOT FOR THE FAINT-HEARTED • RAW SNEAKER CULTURE • NOT FOR THE FAINT-HEARTED •
+    </div>
+</div>
+
+<!-- Header -->
+<header class="bg-off flex justify-between items-center h-20 px-4 md:px-10 sticky top-0 z-40 brutal-border border-t-0 border-l-0 border-r-0">
+    <!-- Logo -->
+    <a href="#" class="text-4xl font-display font-black leading-none">BRUTE.</a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center space-x-12">
+        <a href="#" class="font-bold uppercase tracking-widest text-sm hover:text-neon transition-colors duration-300">CATALOG</a>
+        <a href="#" class="font-bold uppercase tracking-widest text-sm hover:text-neon transition-colors duration-300">COLLABS</a>
+        <a href="#" class="font-bold uppercase tracking-widest text-sm hover:text-neon transition-colors duration-300">DROPS</a>
+        <a href="#" class="font-bold uppercase tracking-widest text-sm hover:text-neon transition-colors duration-300">RAW INFO</a>
+    </nav>
+
+    <!-- Menu Button & Cart -->
+    <div class="flex items-center space-x-6">
+        <a href="#" class="hover:text-neon relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="absolute -top-2 -right-2 bg-neon text-brutal text-xs w-5 h-5 flex items-center justify-center font-bold">2</span>
+        </a>
+        <button id="menu-toggle" class="text-xl hover:text-neon">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 bg-brutal z-50 flex flex-col justify-center items-center transform translate-x-full transition-transform duration-500">
+    <button id="close-menu" class="absolute top-6 right-6 text-off text-3xl">
+        <i class="fas fa-times"></i>
+    </button>
+
+    <nav class="flex flex-col items-center space-y-10 text-off">
+        <a href="#" class="text-5xl font-display font-black hover:text-neon transition-colors duration-300">CATALOG</a>
+        <a href="#" class="text-5xl font-display font-black hover:text-neon transition-colors duration-300">COLLABS</a>
+        <a href="#" class="text-5xl font-display font-black hover:text-neon transition-colors duration-300">DROPS</a>
+        <a href="#" class="text-5xl font-display font-black hover:text-neon transition-colors duration-300">RAW INFO</a>
+    </nav>
+
+    <div class="absolute bottom-10 left-0 right-0 flex justify-center space-x-6 text-off">
+        <a href="#" class="hover:text-neon"><i class="fab fa-instagram text-2xl"></i></a>
+        <a href="#" class="hover:text-neon"><i class="fab fa-twitter text-2xl"></i></a>
+        <a href="#" class="hover:text-neon"><i class="fab fa-tiktok text-2xl"></i></a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="relative pt-8 pb-20 px-4">
+    <div class="container mx-auto max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 relative">
+            <!-- Text Content -->
+            <div class="order-2 md:order-1 mt-8 md:mt-0">
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-display font-black uppercase leading-none tracking-tighter glitch-effect mb-6" data-text="RAW EDGE">RAW EDGE</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-md">Brutal design. Unfiltered style. Sneakers that break the system — not your stride.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="bg-brutal text-off px-8 py-3 text-lg font-bold uppercase brutal-shadow hover:bg-neon hover:text-brutal hover:brutal-shadow transform hover:translate-x-[-3px] hover:translate-y-[-3px] transition-all">SHOP NOW</a>
+                    <a href="#" class="px-8 py-3 text-lg font-bold uppercase brutal-border brutal-shadow bg-off hover:bg-brutal hover:text-off transform hover:translate-x-[-3px] hover:translate-y-[-3px] transition-all">VIEW DROPS</a>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="order-1 md:order-2 transform translate-x-6 translate-y-6 md:translate-x-10 md:translate-y-10">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" alt="Hero Sneaker" class="w-full brutal-border brutal-shadow">
+                    <div class="absolute -bottom-5 -left-5 brutal-border bg-neon p-3 rotate-[-3deg]">
+                        <span class="text-brutal font-bold">JUST DROPPED</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Noise Divider -->
+<div class="h-12 bg-brutal relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=');"></div>
+    <div class="container mx-auto flex justify-center h-full items-center">
+        <span class="text-neon font-bold tracking-widest text-lg animate-pulse">BREAKING BOUNDARIES</span>
+    </div>
+</div>
+
+<!-- Featured Collection Grid -->
+<section class="py-16 px-4 bg-off">
+    <div class="container mx-auto max-w-7xl">
+        <div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end">
+            <h2 class="text-4xl md:text-5xl font-display font-black uppercase">FEATURED</h2>
+            <p class="text-lg md:text-xl mt-2 md:mt-0">Uncompromising designs. Limited quantities.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1: Full Height -->
+            <div class="md:col-span-2 md:row-span-2 relative brutal-border brutal-shadow bg-white">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" alt="Featured Product" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 right-0 p-6 bg-white brutal-border border-b-0 border-l-0 border-r-0">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold">BRUTE FORCE 1</h3>
+                            <p class="text-lg">Limited Edition</p>
+                        </div>
+                        <span class="text-2xl font-bold">$230</span>
+                    </div>
+                    <button class="w-full mt-4 bg-brutal text-off py-3 font-bold uppercase hover:bg-neon hover:text-brutal transform hover:translate-y-[-3px] transition-transform">ADD TO CART</button>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="relative brutal-border brutal-shadow bg-white">
+                <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" alt="Product" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold">CONCRETE HIGH</h3>
+                        <span class="font-bold">$180</span>
+                    </div>
+                    <button class="w-full mt-4 brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">VIEW</button>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="relative brutal-border brutal-shadow bg-white">
+                <img src="https://images.unsplash.com/photo-1579338908476-3a3a1d71a706?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" alt="Product" class="w-full h-64 object-cover">
+                <div class="p-4">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold">URBAN UTILITY</h3>
+                        <span class="font-bold">$210</span>
+                    </div>
+                    <button class="w-full mt-4 brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">VIEW</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Diagonal Slant Section -->
+<div class="h-32 md:h-48 bg-brutal relative overflow-hidden">
+    <div class="absolute inset-0 skew-y-[-5deg] transform origin-top-right scale-110 bg-off"></div>
+</div>
+
+<!-- Categories Grid -->
+<section class="py-16 px-4 bg-brutal text-off">
+    <div class="container mx-auto max-w-7xl">
+        <h2 class="text-4xl md:text-5xl font-display font-black uppercase mb-10">CATEGORIES</h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <!-- Category 1 -->
+            <a href="#" class="group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Running" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-brutal bg-opacity-40 group-hover:bg-opacity-0 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform brutal-border border-b-0 border-l-0 border-r-0 bg-neon">
+                        <h3 class="font-bold text-brutal uppercase text-lg">RUNNING</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Category 2 -->
+            <a href="#" class="group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Basketball" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-brutal bg-opacity-40 group-hover:bg-opacity-0 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform brutal-border border-b-0 border-l-0 border-r-0 bg-neon">
+                        <h3 class="font-bold text-brutal uppercase text-lg">BASKETBALL</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Category 3 -->
+            <a href="#" class="group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lifestyle" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-brutal bg-opacity-40 group-hover:bg-opacity-0 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform brutal-border border-b-0 border-l-0 border-r-0 bg-neon">
+                        <h3 class="font-bold text-brutal uppercase text-lg">LIFESTYLE</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Category 4 -->
+            <a href="#" class="group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Skate" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-brutal bg-opacity-40 group-hover:bg-opacity-0 transition-opacity"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform brutal-border border-b-0 border-l-0 border-r-0 bg-neon">
+                        <h3 class="font-bold text-brutal uppercase text-lg">SKATE</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Large CTA Section -->
+<section class="py-20 px-4 bg-off overflow-hidden relative">
+    <div class="absolute inset-0 uppercase text-[180px] md:text-[300px] font-display text-black text-opacity-5 flex items-center justify-center whitespace-nowrap">
+        BRUTE FORCE
+    </div>
+
+    <div class="container mx-auto max-w-3xl relative z-10">
+        <div class="text-center">
+            <h2 class="text-3xl md:text-5xl font-display font-black uppercase mb-6">JOIN THE MOVEMENT</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Be the first to know about drops, restocks, and exclusive releases. No spam, just the raw details you need.</p>
+
+            <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                <input type="email" placeholder="Your email" class="flex-1 px-4 py-3 brutal-border focus:outline-none focus:border-neon">
+                <button type="submit" class="bg-brutal text-off px-8 py-3 font-bold uppercase brutal-shadow hover:bg-neon hover:text-brutal transform hover:translate-x-[-3px] hover:translate-y-[-3px] transition-all">SUBSCRIBE</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Latest Products Horizontal Scroll -->
+<section class="py-16 px-4 bg-brutal text-off">
+    <div class="container mx-auto max-w-7xl">
+        <div class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end">
+            <h2 class="text-4xl md:text-5xl font-display font-black uppercase">LATEST DROPS</h2>
+            <a href="#" class="text-neon font-bold uppercase hover:underline">VIEW ALL →</a>
+        </div>
+
+        <div class="overflow-x-auto pb-4">
+            <div class="flex space-x-6 min-w-max">
+                <!-- Product 1 -->
+                <div class="w-72 brutal-border bg-off text-brutal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-72 object-cover">
+                        <div class="absolute top-4 left-4 bg-neon brutal-border px-3 py-1 rotate-[-3deg]">
+                            <span class="font-bold text-brutal">NEW</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold">AIR BRUTALIZER</h3>
+                            <span class="font-bold">$250</span>
+                        </div>
+                        <p class="text-sm mb-4">Limited Edition</p>
+                        <button class="w-full brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">ADD TO CART</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="w-72 brutal-border bg-off text-brutal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-72 object-cover">
+                        <div class="absolute top-4 left-4 bg-neon brutal-border px-3 py-1 rotate-[-3deg]">
+                            <span class="font-bold text-brutal">NEW</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold">CONCRETE RUNNER</h3>
+                            <span class="font-bold">$180</span>
+                        </div>
+                        <p class="text-sm mb-4">Performance</p>
+                        <button class="w-full brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">ADD TO CART</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="w-72 brutal-border bg-off text-brutal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-72 object-cover">
+                        <div class="absolute top-4 left-4 bg-neon brutal-border px-3 py-1 rotate-[-3deg]">
+                            <span class="font-bold text-brutal">NEW</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold">URBAN ASSAULT</h3>
+                            <span class="font-bold">$220</span>
+                        </div>
+                        <p class="text-sm mb-4">Streetwear</p>
+                        <button class="w-full brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">ADD TO CART</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="w-72 brutal-border bg-off text-brutal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-72 object-cover">
+                        <div class="absolute top-4 left-4 bg-neon brutal-border px-3 py-1 rotate-[-3deg]">
+                            <span class="font-bold text-brutal">NEW</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold">BASTION HIGH</h3>
+                            <span class="font-bold">$195</span>
+                        </div>
+                        <p class="text-sm mb-4">Basketball</p>
+                        <button class="w-full brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">ADD TO CART</button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="w-72 brutal-border bg-off text-brutal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-72 object-cover">
+                        <div class="absolute top-4 left-4 bg-neon brutal-border px-3 py-1 rotate-[-3deg]">
+                            <span class="font-bold text-brutal">NEW</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold">TERRAIN CRUSHER</h3>
+                            <span class="font-bold">$210</span>
+                        </div>
+                        <p class="text-sm mb-4">Trail Runner</p>
+                        <button class="w-full brutal-border py-2 font-bold uppercase hover:bg-brutal hover:text-off transform hover:translate-y-[-3px] transition-transform">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section class="py-16 px-4 bg-off">
+    <div class="container mx-auto max-w-7xl">
+        <h2 class="text-4xl md:text-5xl font-display font-black uppercase mb-10">RAW FEEDBACK</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Review 1 -->
+            <div class="brutal-border brutal-shadow p-6 bg-white transform hover:translate-x-[-3px] hover:translate-y-[-3px] transition-transform">
+                <div class="flex mb-4">
+                    <div class="text-neon">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="mb-6">"These sneakers are unlike anything I've ever worn. The design is bold and unapologetic, just like the brand says. They're comfortable too, which surprised me."</p>
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4 brutal-border">
+                    <div>
+                        <h4 class="font-bold">Alex K.</h4>
+                        <div class="text-sm">Verified Buyer</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="brutal-border brutal-shadow p-6 bg-white transform hover:translate-x-[-3px] hover:translate-y-[-3px] transition-transform">
+                <div class="flex mb-4">
+                    <div class="text-neon">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="mb-6">"I'm a collector and BRUTE is doing something different from everyone else. The limited drops are worth setting an alarm for. Quality is top tier."</p>
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4 brutal-border">
+                    <div>
+                        <h4 class="font-bold">Maya R.</h4>
+                        <div class="text-sm">Verified Buyer</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="brutal-border brutal-shadow p-6 bg-white transform hover:translate-x-[-3px] hover:translate-y-[-3px] transition-transform">
+                <div class="flex mb-4">
+                    <div class="text-neon">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <p class="mb-6">"Was skeptical about the hype, but these live up to it. My BRUTE FORCE 1s turn heads everywhere I go. Will definitely be grabbing more from future drops."</p>
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4 brutal-border">
+                    <div>
+                        <h4 class="font-bold">Jamal T.</h4>
+                        <div class="text-sm">Verified Buyer</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upcoming Drops Section -->
+<section class="py-16 px-4 bg-brutal text-off">
+    <div class="container mx-auto max-w-7xl">
+        <h2 class="text-4xl md:text-5xl font-display font-black uppercase mb-10">UPCOMING DROPS</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Drop 1 -->
+            <div class="brutal-border border-off p-6 group hover:bg-neon hover:text-brutal transition-colors">
+                <div class="mb-4 text-neon group-hover:text-brutal transition-colors">
+                    <span class="text-3xl font-bold">06.15</span>
+                    <span class="text-xl">.25</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">CONCRETE JUNGLE</h3>
+                <p class="mb-4">Our first collab with street artist DEMENT. Urban-inspired design with distressed details.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold">$245</span>
+                    <button class="px-4 py-2 bg-off text-brutal font-bold uppercase brutal-shadow transform group-hover:translate-y-[-3px] transition-transform">REMINDER</button>
+                </div>
+            </div>
+
+            <!-- Drop 2 -->
+            <div class="brutal-border border-off p-6 group hover:bg-neon hover:text-brutal transition-colors">
+                <div class="mb-4 text-neon group-hover:text-brutal transition-colors">
+                    <span class="text-3xl font-bold">07.02</span>
+                    <span class="text-xl">.25</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">BRUTE 90</h3>
+                <p class="mb-4">Reimagining the classic 90s tech runner with modern materials and brutal aesthetics.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold">$210</span>
+                    <button class="px-4 py-2 bg-off text-brutal font-bold uppercase brutal-shadow transform group-hover:translate-y-[-3px] transition-transform">REMINDER</button>
+                </div>
+            </div>
+
+            <!-- Drop 3 -->
+            <div class="brutal-border border-off p-6 group hover:bg-neon hover:text-brutal transition-colors">
+                <div class="mb-4 text-neon group-hover:text-brutal transition-colors">
+                    <span class="text-3xl font-bold">07.20</span>
+                    <span class="text-xl">.25</span>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">RAW EDGE HIKER</h3>
+                <p class="mb-4">Our first venture into outdoor footwear. Durable, weatherproof, and unmistakably BRUTE.</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold">$265</span>
+                    <button class="px-4 py-2 bg-off text-brutal font-bold uppercase brutal-shadow transform group-hover:translate-y-[-3px] transition-transform">REMINDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Section -->
+<section class="py-16 px-4 bg-off">
+    <div class="container mx-auto max-w-7xl text-center mb-10">
+        <h2 class="text-4xl font-display font-black uppercase mb-2">RAW CULTURE</h2>
+        <p class="text-xl">Follow <span class="font-bold text-neon">@BRUTESNEAKERS</span> for more</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+        <a href="#" class="aspect-square overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+            <div class="absolute inset-0 bg-brutal opacity-20 group-hover:opacity-0 transition-opacity"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i class="fab fa-instagram text-neon text-3xl"></i>
+            </div>
+        </a>
+        <a href="#" class="aspect-square overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+            <div class="absolute inset-0 bg-brutal opacity-20 group-hover:opacity-0 transition-opacity"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i class="fab fa-instagram text-neon text-3xl"></i>
+            </div>
+        </a>
+        <a href="#" class="aspect-square overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+            <div class="absolute inset-0 bg-brutal opacity-20 group-hover:opacity-0 transition-opacity"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i class="fab fa-instagram text-neon text-3xl"></i>
+            </div>
+        </a>
+        <a href="#" class="aspect-square overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+            <div class="absolute inset-0 bg-brutal opacity-20 group-hover:opacity-0 transition-opacity"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i class="fab fa-instagram text-neon text-3xl"></i>
+            </div>
+        </a>
+        <a href="#" class="aspect-square overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+            <div class="absolute inset-0 bg-brutal opacity-20 group-hover:opacity-0 transition-opacity"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i class="fab fa-instagram text-neon text-3xl"></i>
+            </div>
+        </a>
+        <a href="#" class="aspect-square overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+            <div class="absolute inset-0 bg-brutal opacity-20 group-hover:opacity-0 transition-opacity"></div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <i class="fab fa-instagram text-neon text-3xl"></i>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-brutal text-off py-16 px-4">
+    <div class="container mx-auto max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+            <!-- Brand Info -->
+            <div class="md:col-span-2">
+                <h3 class="text-4xl font-display font-black mb-6">BRUTE.</h3>
+                <p class="text-lg mb-8 max-w-md">Breaking design boundaries since 2022. Limited drops, unfiltered style, and raw attitude. Not for everyone—and that's the point.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-neon transition-colors"><i class="fab fa-instagram text-2xl"></i></a>
+                    <a href="#" class="hover:text-neon transition-colors"><i class="fab fa-twitter text-2xl"></i></a>
+                    <a href="#" class="hover:text-neon transition-colors"><i class="fab fa-tiktok text-2xl"></i></a>
+                    <a href="#" class="hover:text-neon transition-colors"><i class="fab fa-youtube text-2xl"></i></a>
+                </div>
+            </div>
+
+            <!-- Links 1 -->
+            <div>
+                <h4 class="text-xl font-bold uppercase mb-6">Shop</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-neon transition-colors">New Drops</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Best Sellers</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Collabs</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Categories</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Gift Cards</a></li>
+                </ul>
+            </div>
+
+            <!-- Links 2 -->
+            <div>
+                <h4 class="text-xl font-bold uppercase mb-6">Info</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-neon transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Terms & Conditions</a></li>
+                    <li><a href="#" class="hover:text-neon transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-16 pt-8 border-t border-white border-opacity-20">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 BRUTE Inc. All Rights Reserved.</p>
+                <p class="text-gray-400">Built with <span class="text-neon">brutal</span> intentions.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.remove('translate-x-full');
+    });
+
+    document.getElementById('close-menu').addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.add('translate-x-full');
+    });
+
+    // Cursor Tracker
+    document.addEventListener('mousemove', function(e) {
+        const cursor = document.getElementById('cursor');
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // Marquee Animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const marquee = document.querySelector('.animate-marquee');
+        const content = marquee.innerHTML;
+        marquee.innerHTML = content + content;
+    });
+</script>
+</body>
+</html>

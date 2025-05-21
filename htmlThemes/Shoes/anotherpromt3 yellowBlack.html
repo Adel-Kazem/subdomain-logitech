@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEVATE | Premium Sneaker Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#121212',
+                        light: '#f8f8f8',
+                        accent: '#D4AF37'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    </style>
+</head>
+<body class="font-sans bg-dark text-light antialiased">
+<!-- Navigation -->
+<nav class="fixed w-full z-50 bg-dark bg-opacity-90 backdrop-blur-sm border-b border-gray-800">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold tracking-tighter">
+                    <span class="text-accent">E</span>LEVATE
+                </a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors duration-300">Collections</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors duration-300">Men</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors duration-300">Women</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors duration-300">Limited</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors duration-300">About</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <button class="focus:outline-none hover:text-accent transition-colors duration-300">
+                    <i class="fas fa-search text-lg"></i>
+                </button>
+                <button class="focus:outline-none hover:text-accent transition-colors duration-300">
+                    <i class="fas fa-user text-lg"></i>
+                </button>
+                <button class="focus:outline-none hover:text-accent transition-colors duration-300 relative">
+                    <i class="fas fa-shopping-bag text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-accent text-dark text-xs w-5 h-5 flex items-center justify-center rounded-full font-semibold">2</span>
+                </button>
+                <button class="md:hidden focus:outline-none hover:text-accent transition-colors duration-300">
+                    <i class="fas fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-24 pb-12 md:py-32 bg-dark relative overflow-hidden">
+    <div class="absolute inset-0 opacity-30">
+        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Background" class="w-full h-full object-cover">
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+            <h4 class="text-accent text-sm md:text-base uppercase tracking-widest mb-4">Spring Collection 2025</h4>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">The Future of <br>Premium Footwear</h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Craftsmanship meets innovation in our exclusive collection of luxury sneakers designed for the modern connoisseur.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="#" class="bg-accent text-dark px-8 py-3 rounded-none font-medium hover:bg-opacity-90 transition-colors duration-300 w-48">Shop Men</a>
+                <a href="#" class="bg-transparent border border-light text-light px-8 py-3 rounded-none font-medium hover:bg-light hover:text-dark transition-colors duration-300 w-48">Shop Women</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Collection Tabs -->
+<section class="py-20 bg-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-16">Featured Collections</h2>
+
+        <!-- Tabs -->
+        <div class="flex justify-center mb-12">
+            <div class="inline-flex border-b border-gray-700">
+                <button class="px-6 py-3 text-sm uppercase tracking-wider font-medium border-b-2 border-accent text-accent">New Arrivals</button>
+                <button class="px-6 py-3 text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-light transition-colors duration-300">Bestsellers</button>
+                <button class="px-6 py-3 text-sm uppercase tracking-wider font-medium text-gray-400 hover:text-light transition-colors duration-300">Trending</button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+            <!-- Product Card 1 -->
+            <div class="group">
+                <div class="relative aspect-square mb-6 overflow-hidden bg-gray-900">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-4 right-4 left-4 flex justify-between">
+                        <span class="bg-accent text-dark px-3 py-1 text-xs font-semibold uppercase tracking-wider">New</span>
+                        <button class="bg-dark bg-opacity-70 backdrop-blur-sm text-light p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-accent hover:text-dark">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="font-medium text-lg mb-1">Phantom Stealth X</h3>
+                <div class="flex justify-between items-center">
+                    <p class="text-gray-400 text-sm">Performance Series</p>
+                    <span class="text-accent font-semibold">$220</span>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="group">
+                <div class="relative aspect-square mb-6 overflow-hidden bg-gray-900">
+                    <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-4 right-4 left-4 flex justify-between">
+                        <span class="bg-accent text-dark px-3 py-1 text-xs font-semibold uppercase tracking-wider">Limited</span>
+                        <button class="bg-dark bg-opacity-70 backdrop-blur-sm text-light p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-accent hover:text-dark">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="font-medium text-lg mb-1">Lunar Eclipse 5</h3>
+                <div class="flex justify-between items-center">
+                    <p class="text-gray-400 text-sm">Signature Collection</p>
+                    <span class="text-accent font-semibold">$280</span>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="group">
+                <div class="relative aspect-square mb-6 overflow-hidden bg-gray-900">
+                    <img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-4 right-4 left-4 flex justify-between">
+                        <span class="bg-accent text-dark px-3 py-1 text-xs font-semibold uppercase tracking-wider">Exclusive</span>
+                        <button class="bg-dark bg-opacity-70 backdrop-blur-sm text-light p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-accent hover:text-dark">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+                <h3 class="font-medium text-lg mb-1">Shadow Legend I</h3>
+                <div class="flex justify-between items-center">
+                    <p class="text-gray-400 text-sm">Luxury Line</p>
+                    <span class="text-accent font-semibold">$350</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-16">
+            <a href="#" class="inline-block border border-accent text-accent px-8 py-3 font-medium hover:bg-accent hover:text-dark transition-colors duration-300">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- Split Banner -->
+<section class="bg-gray-900 py-0">
+    <div class="flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 relative min-h-[500px]">
+            <img src="https://images.unsplash.com/photo-1588099768531-a72d4a198538?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Luxury Edition" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-dark bg-opacity-70"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-10">
+                <div class="max-w-md text-center">
+                    <h3 class="text-accent text-sm uppercase tracking-widest mb-3">Limited Edition</h3>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Gold Standard Collection</h2>
+                    <p class="text-gray-300 mb-8">Handcrafted premium sneakers with gold accents and premium materials. Limited to 500 pairs worldwide.</p>
+                    <a href="#" class="inline-block bg-accent text-dark px-8 py-3 font-medium hover:bg-opacity-90 transition-colors duration-300">Explore Collection</a>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 relative min-h-[500px]">
+            <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Performance Line" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-dark bg-opacity-70"></div>
+            <div class="absolute inset-0 flex items-center justify-center p-10">
+                <div class="max-w-md text-center">
+                    <h3 class="text-accent text-sm uppercase tracking-widest mb-3">Performance Line</h3>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Elite Athlete Series</h2>
+                    <p class="text-gray-300 mb-8">Engineered for peak performance with advanced cushioning, support, and breathability. Preferred by professionals.</p>
+                    <a href="#" class="inline-block bg-transparent border border-light text-light px-8 py-3 font-medium hover:bg-light hover:text-dark transition-colors duration-300">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trending Section -->
+<section class="py-20 bg-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-16">
+            <h2 class="text-3xl font-bold">Trending Now</h2>
+            <div class="mt-4 md:mt-0 flex space-x-3">
+                <button id="prev" class="border border-gray-700 p-3 hover:border-accent hover:text-accent transition-colors duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button id="next" class="border border-gray-700 p-3 hover:border-accent hover:text-accent transition-colors duration-300">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="group bg-gray-900 p-6 hover:bg-gray-800 transition-colors duration-300">
+                <div class="aspect-square mb-6 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex flex-col h-32">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-medium">Quantum Rush</h3>
+                            <p class="text-gray-400 text-sm">Running</p>
+                        </div>
+                        <span class="text-accent font-semibold">$180</span>
+                    </div>
+                    <div class="mt-auto pt-4 border-t border-gray-800">
+                        <button class="w-full bg-dark hover:bg-accent hover:text-dark border border-accent text-accent py-2 transition-colors duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group bg-gray-900 p-6 hover:bg-gray-800 transition-colors duration-300">
+                <div class="aspect-square mb-6 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex flex-col h-32">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-medium">Urban Classic</h3>
+                            <p class="text-gray-400 text-sm">Lifestyle</p>
+                        </div>
+                        <span class="text-accent font-semibold">$130</span>
+                    </div>
+                    <div class="mt-auto pt-4 border-t border-gray-800">
+                        <button class="w-full bg-dark hover:bg-accent hover:text-dark border border-accent text-accent py-2 transition-colors duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group bg-gray-900 p-6 hover:bg-gray-800 transition-colors duration-300">
+                <div class="aspect-square mb-6 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex flex-col h-32">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-medium">Elite Court Pro</h3>
+                            <p class="text-gray-400 text-sm">Basketball</p>
+                        </div>
+                        <span class="text-accent font-semibold">$160</span>
+                    </div>
+                    <div class="mt-auto pt-4 border-t border-gray-800">
+                        <button class="w-full bg-dark hover:bg-accent hover:text-dark border border-accent text-accent py-2 transition-colors duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group bg-gray-900 p-6 hover:bg-gray-800 transition-colors duration-300">
+                <div class="aspect-square mb-6 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex flex-col h-32">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-medium">Velocity X</h3>
+                            <p class="text-gray-400 text-sm">Training</p>
+                        </div>
+                        <span class="text-accent font-semibold">$145</span>
+                    </div>
+                    <div class="mt-auto pt-4 border-t border-gray-800">
+                        <button class="w-full bg-dark hover:bg-accent hover:text-dark border border-accent text-accent py-2 transition-colors duration-300">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Brand Statement -->
+<section class="py-24 bg-accent text-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">Crafted for Excellence, <br>Designed for Performance</h2>
+            <p class="text-dark/80 text-lg md:text-xl mb-10 max-w-3xl mx-auto">At ELEVATE, we believe that premium sneakers are more than just footwear—they're a statement of intent, a commitment to excellence, and a reflection of personal style.</p>
+            <a href="#" class="inline-block bg-dark text-light px-10 py-4 font-medium hover:bg-opacity-90 transition-colors duration-300">Our Story</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured In -->
+<section class="py-16 bg-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h3 class="text-center text-sm uppercase tracking-widest text-gray-400 mb-10">As Featured In</h3>
+        <div class="flex flex-wrap justify-center items-center gap-12 opacity-60">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Vogue_logo.svg/1200px-Vogue_logo.svg.png" alt="Vogue" class="h-6 sm:h-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/The_New_York_Times_logo.svg/2560px-The_New_York_Times_logo.svg.png" alt="New York Times" class="h-6 sm:h-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/GQ_logo.svg/2560px-GQ_logo.svg.png" alt="GQ" class="h-6 sm:h-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Forbes_logo.svg/1200px-Forbes_logo.svg.png" alt="Forbes" class="h-6 sm:h-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hypebeast_logo.svg/2560px-Hypebeast_logo.svg.png" alt="Hypebeast" class="h-6 sm:h-8">
+        </div>
+    </div>
+</section>
+
+<!-- Collection Grid -->
+<section class="py-16 bg-gray-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-16">Shop by Category</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="#" class="block group col-span-1 md:col-span-2 h-96 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Men's Collection" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-dark bg-opacity-40 group-hover:bg-opacity-30 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <h3 class="text-2xl font-bold mb-2">Luxury Classics</h3>
+                    <p class="text-gray-200 mb-4">Timeless designs with a premium twist</p>
+                    <span class="text-accent group-hover:text-light transition-colors duration-300">Shop Now →</span>
+                </div>
+            </a>
+            <a href="#" class="block group h-96 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Women's Collection" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-dark bg-opacity-40 group-hover:bg-opacity-30 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <h3 class="text-2xl font-bold mb-2">Artisan Series</h3>
+                    <p class="text-gray-200 mb-4">Handcrafted with attention to detail</p>
+                    <span class="text-accent group-hover:text-light transition-colors duration-300">Shop Now →</span>
+                </div>
+            </a>
+            <a href="#" class="block group h-96 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Limited Editions" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-dark bg-opacity-40 group-hover:bg-opacity-30 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <h3 class="text-2xl font-bold mb-2">Sport Performance</h3>
+                    <p class="text-gray-200 mb-4">Engineered for optimal results</p>
+                    <span class="text-accent group-hover:text-light transition-colors duration-300">Shop Now →</span>
+                </div>
+            </a>
+            <a href="#" class="block group col-span-1 md:col-span-2 h-96 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kids' Collection" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-dark bg-opacity-40 group-hover:bg-opacity-30 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <h3 class="text-2xl font-bold mb-2">Contemporary Edge</h3>
+                    <p class="text-gray-200 mb-4">Bold designs for the fashion-forward</p>
+                    <span class="text-accent group-hover:text-light transition-colors duration-300">Shop Now →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-20 bg-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">What Our Customers Say</h2>
+            <p class="text-gray-400">Join thousands of satisfied customers who have elevated their sneaker collection.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-gray-900 p-8 border border-gray-800">
+                <div class="flex items-center mb-4">
+                    <div class="text-accent">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-300 mb-6">"These are by far the most comfortable and stylish sneakers I've ever owned. The attention to detail and quality of materials is outstanding. Worth every penny."</p>
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-medium">James Wilson</h4>
+                        <p class="text-gray-500 text-sm">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-gray-900 p-8 border border-gray-800">
+                <div class="flex items-center mb-4">
+                    <div class="text-accent">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-300 mb-6">"I've collected sneakers for years, and ELEVATE consistently delivers premium quality that stands out from the crowd. The Limited Gold Edition is a masterpiece."</p>
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-medium">Emma Chen</h4>
+                        <p class="text-gray-500 text-sm">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="bg-gray-900 p-8 border border-gray-800">
+                <div class="flex items-center mb-4">
+                    <div class="text-accent">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <p class="text-gray-300 mb-6">"Not only do they look amazing, but the performance technology in these sneakers has significantly improved my training. Customer service is exceptional too."</p>
+                <div class="flex items-center">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Customer" class="w-10 h-10 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-medium">Marcus Johnson</h4>
+                        <p class="text-gray-500 text-sm">Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-16 bg-accent text-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Join the ELEVATE Community</h2>
+            <p class="text-dark/80 mb-8">Subscribe for exclusive access to limited releases, early product launches, and special offers.</p>
+
+            <form class="flex flex-col sm:flex-row gap-4">
+                <input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 bg-white/20 border border-dark/20 focus:outline-none focus:ring-1 focus:ring-dark">
+                <button type="submit" class="bg-dark text-light px-8 py-3 font-medium hover:bg-opacity-90 transition-colors duration-300">Subscribe</button>
+            </form>
+
+            <p class="text-dark/60 text-sm mt-4">By subscribing, you agree to our Privacy Policy and Terms of Service.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Feed -->
+<section class="py-16 bg-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-4">Follow Our Journey</h2>
+        <p class="text-gray-400 text-center mb-12">@elevate_official</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+            <a href="#" class="block aspect-square overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-gray-400 pt-16 pb-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <!-- Brand Column -->
+            <div>
+                <a href="#" class="text-2xl font-bold tracking-tighter text-white mb-6 block">
+                    <span class="text-accent">E</span>LEVATE
+                </a>
+                <p class="mb-6">Redefining premium sneakers through innovative design, exceptional craftsmanship, and uncompromising quality.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-accent transition-colors duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors duration-300">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Shop Links -->
+            <div>
+                <h4 class="text-white text-lg font-medium mb-6">Shop</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">New Arrivals</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Men's Collection</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Women's Collection</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Limited Editions</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Sale</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Gift Cards</a></li>
+                </ul>
+            </div>
+
+            <!-- Support Links -->
+            <div>
+                <h4 class="text-white text-lg font-medium mb-6">Support</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">FAQs</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Product Care</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Track Order</a></li>
+                </ul>
+            </div>
+
+            <!-- About Links -->
+            <div>
+                <h4 class="text-white text-lg font-medium mb-6">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Our Story</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Craftsmanship</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Careers</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Press</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Affiliate Program</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm mb-4 md:mb-0">&copy; 2025 ELEVATE. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm hover:text-accent transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-sm hover:text-accent transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="text-sm hover:text-accent transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

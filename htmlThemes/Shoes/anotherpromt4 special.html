@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYPE DROP | Sneakers & Streetwear Culture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hype: {
+                            red: '#FF2D55',
+                            blue: '#0A84FF',
+                            green: '#30D158',
+                            yellow: '#FFD60A',
+                            purple: '#BF5AF2',
+                            dark: '#121214'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        .diagonal-box {
+            position: relative;
+            background: #121214;
+        }
+        .diagonal-box:after {
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 100px;
+            background: inherit;
+            bottom: -50px;
+            left: 0;
+            transform: skewY(-3deg);
+            z-index: 10;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #fff;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100 text-gray-900 overflow-x-hidden">
+<!-- Mobile Menu Overlay -->
+<div class="fixed inset-0 bg-hype-dark bg-opacity-95 z-50 hidden" id="mobile-menu">
+    <div class="flex flex-col h-full">
+        <div class="flex justify-between items-center p-6">
+            <span class="text-2xl font-bold text-white">HYPE<span class="text-hype-red">DROP</span></span>
+            <button class="text-white text-2xl" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex flex-col p-6 space-y-6 text-white text-xl">
+            <a href="#" class="hover:text-hype-red transition-colors">New Drops</a>
+            <a href="#" class="hover:text-hype-red transition-colors">Sneakers</a>
+            <a href="#" class="hover:text-hype-red transition-colors">Apparel</a>
+            <a href="#" class="hover:text-hype-red transition-colors">Brands</a>
+            <a href="#" class="hover:text-hype-red transition-colors">Releases</a>
+            <a href="#" class="hover:text-hype-red transition-colors">Sale</a>
+        </div>
+        <div class="mt-auto p-6">
+            <div class="flex space-x-4 text-gray-400 mb-6">
+                <a href="#" class="hover:text-white"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="#" class="hover:text-white"><i class="fab fa-tiktok text-2xl"></i></a>
+                <a href="#" class="hover:text-white"><i class="fab fa-twitter text-2xl"></i></a>
+                <a href="#" class="hover:text-white"><i class="fab fa-youtube text-2xl"></i></a>
+            </div>
+            <a href="#" class="block w-full py-3 bg-hype-red text-white text-center font-bold rounded-full">Log In / Sign Up</a>
+        </div>
+    </div>
+</div>
+
+<!-- Top Banner -->
+<div class="bg-hype-blue text-white text-center py-2 text-sm font-medium relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+        🔥 NEW DROP ALERT! AIR FORCE 1 "NEON CITY" DROPPING MAY 25TH, 9AM EST • FREE SHIPPING ON ORDERS OVER $150 • SIGN UP FOR EARLY ACCESS TO DROPS • 🔥 NEW DROP ALERT!
+    </div>
+</div>
+
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold tracking-tight">
+                HYPE<span class="text-hype-red">DROP</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#" class="font-medium text-sm uppercase hover:text-hype-red transition-colors">New Drops</a>
+                <a href="#" class="font-medium text-sm uppercase hover:text-hype-red transition-colors">Sneakers</a>
+                <a href="#" class="font-medium text-sm uppercase hover:text-hype-red transition-colors">Apparel</a>
+                <a href="#" class="font-medium text-sm uppercase hover:text-hype-red transition-colors">Brands</a>
+                <a href="#" class="font-medium text-sm uppercase hover:text-hype-red transition-colors">Releases</a>
+            </nav>
+
+            <!-- User Controls -->
+            <div class="flex items-center space-x-4">
+                <button class="p-2 hover:text-hype-red transition-colors md:block hidden">
+                    <i class="fa fa-search text-lg"></i>
+                </button>
+                <button class="p-2 hover:text-hype-red transition-colors">
+                    <i class="fa fa-user text-lg"></i>
+                </button>
+                <button class="p-2 hover:text-hype-red transition-colors relative">
+                    <i class="fa fa-shopping-bag text-lg"></i>
+                    <span class="absolute -top-1 -right-1 bg-hype-red text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">3</span>
+                </button>
+                <button class="md:hidden p-2 hover:text-hype-red transition-colors" onclick="document.getElementById('mobile-menu').classList.remove('hidden')">
+                    <i class="fa fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Banner -->
+<section class="diagonal-box bg-hype-dark relative overflow-hidden">
+    <div class="absolute inset-0 opacity-30 mix-blend-lighten">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-hype-red rounded-full filter blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-hype-blue rounded-full filter blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+    </div>
+
+    <div class="container mx-auto px-4 py-20 md:py-32 relative z-10">
+        <div class="max-w-3xl">
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">Just Dropped: The <span class="text-hype-yellow">Summer 2025</span> Collection</h2>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 text-white leading-none">
+                <div>CHASE THE</div>
+                <div class="flex items-center">
+                    <span class="text-stroke mr-2">HYPE</span>
+                    <span class="text-hype-red">DROP</span>
+                </div>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10">Limited edition drops, exclusive collabs, and the most sought-after kicks. Don't just wear sneakers, make a statement.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#" class="bg-hype-red hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-bold transition-colors">Shop New Drops</a>
+                <a href="#" class="bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 text-white hover:bg-opacity-20 px-8 py-3 rounded-full font-bold transition-colors">Release Calendar</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Top Brands -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-between items-center gap-8 md:gap-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt="Nike" class="h-6 md:h-8 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1280px-Adidas_Logo.svg.png" alt="Adidas" class="h-6 md:h-7 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/37/New_Balance_logo.svg/1200px-New_Balance_logo.svg.png" alt="New Balance" class="h-6 md:h-7 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Puma_logo.svg/2560px-Puma_logo.svg.png" alt="Puma" class="h-6 md:h-7 opacity-70 hover:opacity-100 transition-opacity">
+            <img src="https://1000logos.net/wp-content/uploads/2016/10/Converse-Logo.png" alt="Converse" class="h-6 md:h-7 opacity-70 hover:opacity-100 transition-opacity">
+        </div>
+    </div>
+</section>
+
+<!-- Featured Drops -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-3xl font-bold">Featured Drops</h2>
+            <a href="#" class="text-hype-red font-bold flex items-center hover:underline">
+                View All
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Drop 1 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                <div class="relative">
+                    <div class="absolute top-0 left-0 w-full p-4 flex justify-between">
+                        <span class="bg-hype-dark text-white px-3 py-1 rounded-full text-xs font-bold">Just Dropped</span>
+                        <button class="bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Air Max" class="w-full object-cover h-64 group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-bold text-lg">Air Max Pulse</h3>
+                            <p class="text-gray-600">Nike</p>
+                        </div>
+                        <span class="font-bold text-lg">$179</span>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="h-5 w-5 rounded-full bg-black border-2 border-white cursor-pointer"></span>
+                        <span class="h-5 w-5 rounded-full bg-hype-red border-2 border-white cursor-pointer"></span>
+                        <span class="h-5 w-5 rounded-full bg-hype-green border-2 border-white cursor-pointer"></span>
+                    </div>
+                    <button class="w-full bg-black hover:bg-hype-red text-white py-3 rounded-full font-bold transition-colors">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Drop 2 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                <div class="relative">
+                    <div class="absolute top-0 left-0 w-full p-4 flex justify-between">
+                        <span class="bg-hype-blue text-white px-3 py-1 rounded-full text-xs font-bold">Collaboration</span>
+                        <button class="bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Yeezy" class="w-full object-cover h-64 group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-bold text-lg">Ultra Boost DNA</h3>
+                            <p class="text-gray-600">Adidas</p>
+                        </div>
+                        <span class="font-bold text-lg">$220</span>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="h-5 w-5 rounded-full bg-white border-2 border-gray-300 cursor-pointer"></span>
+                        <span class="h-5 w-5 rounded-full bg-gray-800 border-2 border-white cursor-pointer"></span>
+                        <span class="h-5 w-5 rounded-full bg-hype-blue border-2 border-white cursor-pointer"></span>
+                    </div>
+                    <button class="w-full bg-black hover:bg-hype-red text-white py-3 rounded-full font-bold transition-colors">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Drop 3 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group">
+                <div class="relative">
+                    <div class="absolute top-0 left-0 w-full p-4 flex justify-between">
+                        <span class="bg-hype-purple text-white px-3 py-1 rounded-full text-xs font-bold">Exclusive</span>
+                        <button class="bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Jordan" class="w-full object-cover h-64 group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-bold text-lg">Jordan 4 Retro</h3>
+                            <p class="text-gray-600">Jordan</p>
+                        </div>
+                        <span class="font-bold text-lg">$250</span>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="h-5 w-5 rounded-full bg-gray-300 border-2 border-white cursor-pointer"></span>
+                        <span class="h-5 w-5 rounded-full bg-black border-2 border-white cursor-pointer"></span>
+                        <span class="h-5 w-5 rounded-full bg-hype-yellow border-2 border-white cursor-pointer"></span>
+                    </div>
+                    <button class="w-full bg-black hover:bg-hype-red text-white py-3 rounded-full font-bold transition-colors">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upcoming Releases -->
+<section class="py-16 bg-hype-dark text-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-3xl font-bold">Upcoming Releases</h2>
+            <a href="#" class="text-hype-red font-bold flex items-center hover:underline">
+                Full Calendar
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Release 1 -->
+            <div class="bg-gray-900 rounded-3xl overflow-hidden p-6 group transition-transform hover:-translate-y-2">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="bg-hype-red px-3 py-1 rounded-full text-sm font-bold">May 25</div>
+                    <div class="text-gray-400">9:00 AM EST</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Air Force 1 "Neon City"</h3>
+                        <p class="text-gray-400">Nike</p>
+                        <p class="text-hype-yellow font-bold mt-1">$140</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button class="w-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white py-2 rounded-full font-bold transition-colors">Set Reminder</button>
+                </div>
+            </div>
+
+            <!-- Release 2 -->
+            <div class="bg-gray-900 rounded-3xl overflow-hidden p-6 group transition-transform hover:-translate-y-2">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="bg-hype-blue px-3 py-1 rounded-full text-sm font-bold">May 28</div>
+                    <div class="text-gray-400">10:00 AM EST</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Dunk Low "Urban Camo"</h3>
+                        <p class="text-gray-400">Nike SB</p>
+                        <p class="text-hype-yellow font-bold mt-1">$120</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button class="w-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white py-2 rounded-full font-bold transition-colors">Set Reminder</button>
+                </div>
+            </div>
+
+            <!-- Release 3 -->
+            <div class="bg-gray-900 rounded-3xl overflow-hidden p-6 group transition-transform hover:-translate-y-2">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="bg-hype-purple px-3 py-1 rounded-full text-sm font-bold">June 4</div>
+                    <div class="text-gray-400">8:00 AM EST</div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Yeezy 350 "Slate"</h3>
+                        <p class="text-gray-400">Adidas</p>
+                        <p class="text-hype-yellow font-bold mt-1">$230</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <button class="w-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white py-2 rounded-full font-bold transition-colors">Set Reminder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">Shop by Category</h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Category 1 -->
+            <a href="#" class="group">
+                <div class="rounded-3xl overflow-hidden mb-3 aspect-square relative bg-gradient-to-br from-hype-blue to-hype-purple p-0.5">
+                    <div class="w-full h-full rounded-[23px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lifestyle" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg text-center">Lifestyle</h3>
+            </a>
+
+            <!-- Category 2 -->
+            <a href="#" class="group">
+                <div class="rounded-3xl overflow-hidden mb-3 aspect-square relative bg-gradient-to-br from-hype-red to-hype-yellow p-0.5">
+                    <div class="w-full h-full rounded-[23px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Basketball" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg text-center">Basketball</h3>
+            </a>
+
+            <!-- Category 3 -->
+            <a href="#" class="group">
+                <div class="rounded-3xl overflow-hidden mb-3 aspect-square relative bg-gradient-to-br from-hype-green to-hype-blue p-0.5">
+                    <div class="w-full h-full rounded-[23px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Running" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg text-center">Running</h3>
+            </a>
+
+            <!-- Category 4 -->
+            <a href="#" class="group">
+                <div class="rounded-3xl overflow-hidden mb-3 aspect-square relative bg-gradient-to-br from-hype-yellow to-hype-green p-0.5">
+                    <div class="w-full h-full rounded-[23px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576672843344-f01907a9d40c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Skateboarding" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+                <h3 class="font-bold text-lg text-center">Skateboarding</h3>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Collection Banner -->
+<section class="py-8">
+    <div class="container mx-auto px-4">
+        <div class="relative rounded-3xl overflow-hidden bg-hype-dark">
+            <img src="https://images.unsplash.com/photo-1588117305388-c2631a279f82?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Collection" class="w-full h-full object-cover absolute inset-0 opacity-50">
+            <div class="relative z-10 p-8 md:p-16 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h3 class="text-sm font-bold text-hype-yellow uppercase tracking-wider mb-2">Limited Collection</h3>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Urban Hype Series</h2>
+                    <p class="text-gray-300 mb-6">Our exclusive collaboration with street artists from around the world. Bold colors, unique patterns, and unmatched style.</p>
+                    <a href="#" class="inline-block bg-white hover:bg-hype-yellow text-hype-dark px-8 py-3 rounded-full font-bold transition-colors">Shop Collection</a>
+                </div>
+                <div class="md:w-1/2 transform rotate-12 md:translate-x-10">
+                    <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Featured Sneaker" class="rounded-xl shadow-2xl max-w-xs mx-auto md:max-w-sm">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Picks -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">Popular Right Now</h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md p-4 hover:shadow-xl transition-shadow group">
+                <div class="relative rounded-2xl overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1543508282-6319a3e2621f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500">
+                    <button class="absolute bottom-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="font-bold">Stan Smith</h3>
+                <p class="text-gray-600 text-sm">Adidas</p>
+                <p class="font-bold mt-1">$90</p>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md p-4 hover:shadow-xl transition-shadow group">
+                <div class="relative rounded-2xl overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1595341888016-a392ef81b7de?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500">
+                    <button class="absolute bottom-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="font-bold">Chuck 70 High</h3>
+                <p class="text-gray-600 text-sm">Converse</p>
+                <p class="font-bold mt-1">$85</p>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md p-4 hover:shadow-xl transition-shadow group">
+                <div class="relative rounded-2xl overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1584735175315-9d5df23be2c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500">
+                    <button class="absolute bottom-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="font-bold">Old Skool</h3>
+                <p class="text-gray-600 text-sm">Vans</p>
+                <p class="font-bold mt-1">$75</p>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="bg-white rounded-3xl overflow-hidden shadow-md p-4 hover:shadow-xl transition-shadow group">
+                <div class="relative rounded-2xl overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sneaker" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500">
+                    <button class="absolute bottom-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center hover:text-hype-red transition-colors">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="font-bold">Classic Leather</h3>
+                <p class="text-gray-600 text-sm">Reebok</p>
+                <p class="font-bold mt-1">$80</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What's Hot Section with TikTok Style Videos -->
+<section class="py-16 bg-hype-dark text-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-3xl font-bold">What's Hot</h2>
+            <a href="#" class="text-hype-red font-bold flex items-center hover:underline">
+                See All
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Video Card 1 -->
+            <div class="rounded-3xl overflow-hidden shadow-lg relative group">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Content" class="w-full aspect-[9/16] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <div class="flex items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Creator" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">@sneakerhead</h4>
+                            <p class="text-sm text-gray-300">Original Audio</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">These new Ultra Boosts are 🔥 #sneakers #adidas</p>
+                    <div class="flex space-x-4">
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-heart"></i>
+                            <span>124.5K</span>
+                        </button>
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-comment"></i>
+                            <span>1.2K</span>
+                        </button>
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-share"></i>
+                            <span>18.3K</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-25 rounded-full p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-2xl"></i>
+                </div>
+            </div>
+
+            <!-- Video Card 2 -->
+            <div class="rounded-3xl overflow-hidden shadow-lg relative group">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Content" class="w-full aspect-[9/16] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <div class="flex items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Creator" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">@kicksqueen</h4>
+                            <p class="text-sm text-gray-300">Original Audio</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">Unboxing the Jordan 4 Retro Thunder 🌩️ #jordan #sneakerhead</p>
+                    <div class="flex space-x-4">
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-heart"></i>
+                            <span>89.2K</span>
+                        </button>
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-comment"></i>
+                            <span>3.4K</span>
+                        </button>
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-share"></i>
+                            <span>12.1K</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-25 rounded-full p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-2xl"></i>
+                </div>
+            </div>
+
+            <!-- Video Card 3 -->
+            <div class="rounded-3xl overflow-hidden shadow-lg relative group">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Content" class="w-full aspect-[9/16] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <div class="flex items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Creator" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <h4 class="font-bold">@hypebeastkicks</h4>
+                            <p class="text-sm text-gray-300">Original Audio</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">How to spot fake vs real Air Force 1s 👀 #legit #sneakertips</p>
+                    <div class="flex space-x-4">
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-heart"></i>
+                            <span>324.8K</span>
+                        </button>
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-comment"></i>
+                            <span>15.6K</span>
+                        </button>
+                        <button class="flex items-center space-x-1">
+                            <i class="fas fa-share"></i>
+                            <span>42.3K</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-25 rounded-full p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-play text-white text-2xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- App Download -->
+<section class="py-16 bg-gradient-to-r from-hype-blue to-hype-purple text-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get the App</h2>
+                <p class="text-xl mb-6 text-white/80">Download our app to get early access to drops, exclusive offers, and real-time notifications for releases.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="bg-black hover:bg-opacity-80 rounded-xl px-6 py-3 flex items-center transition-colors">
+                        <i class="fab fa-apple text-2xl mr-3"></i>
+                        <div>
+                            <div class="text-xs">Download on the</div>
+                            <div class="font-bold">App Store</div>
+                        </div>
+                    </a>
+                    <a href="#" class="bg-black hover:bg-opacity-80 rounded-xl px-6 py-3 flex items-center transition-colors">
+                        <i class="fab fa-google-play text-2xl mr-3"></i>
+                        <div>
+                            <div class="text-xs">Get it on</div>
+                            <div class="font-bold">Google Play</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center relative">
+                <div class="relative w-64 md:w-80 h-auto">
+                    <img src="https://cdn.dribbble.com/users/2947819/screenshots/15366796/media/4fe65fa107b2684373aa8fe531ebf7ac.png?compress=1&resize=800x600" alt="App Screenshot" class="rounded-3xl shadow-2xl z-10 relative">
+                    <div class="absolute -top-3 -right-3 -bottom-3 -left-3 bg-hype-yellow rounded-3xl transform rotate-3 z-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="bg-white rounded-3xl shadow-lg p-8 md:p-12">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Join the Hype</h2>
+                <p class="text-gray-600 mb-8">Subscribe to get early access to drops, exclusive offers, and more.</p>
+                <form class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Your email address" class="flex-1 px-6 py-3 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-hype-red">
+                    <button type="submit" class="bg-hype-red hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-bold transition-colors">Subscribe</button>
+                </form>
+                <p class="text-gray-500 text-sm mt-4">By subscribing, you agree to our privacy policy and consent to receive marketing emails.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-hype-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+            <!-- Logo and Social -->
+            <div class="col-span-2 md:col-span-1">
+                <a href="#" class="text-2xl font-bold tracking-tight mb-6 inline-block">
+                    HYPE<span class="text-hype-red">DROP</span>
+                </a>
+                <p class="text-gray-400 mb-6">The ultimate destination for sneaker culture, limited releases, and streetwear essentials.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="bg-white/10 hover:bg-hype-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="bg-white/10 hover:bg-hype-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="bg-white/10 hover:bg-hype-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="bg-white/10 hover:bg-hype-red w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Shop Links -->
+            <div>
+                <h4 class="font-bold mb-4 text-lg">Shop</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">New Releases</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Bestsellers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Men's</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Women's</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Kids'</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Sale</a></li>
+                </ul>
+            </div>
+
+            <!-- Brands Links -->
+            <div>
+                <h4 class="font-bold mb-4 text-lg">Brands</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Nike</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Adidas</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Jordan</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">New Balance</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Vans</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">View All</a></li>
+                </ul>
+            </div>
+
+            <!-- Support Links -->
+            <div>
+                <h4 class="font-bold mb-4 text-lg">Support</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Help Center</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Track Order</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Returns</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Shipping Info</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Size Charts</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Company Links -->
+            <div>
+                <h4 class="font-bold mb-4 text-lg">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Blog</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Affiliate Program</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Press</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-hype-red transition-colors">Sustainability</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 HYPEDROP Inc. All rights reserved.</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="#" class="text-gray-400 hover:text-hype-red text-sm transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-hype-red text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-hype-red text-sm transition-colors">Accessibility</a>
+                    <a href="#" class="text-gray-400 hover:text-hype-red text-sm transition-colors">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        animation: marquee 20s linear infinite;
+    }
+</style>
+</body>
+</html>

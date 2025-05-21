@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KicksCraze | Premium Sneakers & Streetwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF3366',
+                        secondary: '#1A1A2E',
+                        accent: '#16213E'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+<!-- Announcement Bar -->
+<div class="bg-primary text-white text-center py-2 text-sm">
+    <p>Free shipping on orders over $100 | Use code KICKS25 for 25% off your first order</p>
+</div>
+
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto">
+        <div class="flex items-center justify-between py-4 px-4 md:px-8">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold tracking-tight">
+                KICKS<span class="text-primary">CRAZE</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="#" class="font-medium hover:text-primary transition-colors">New Releases</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">Men</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">Women</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">Kids</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">Collections</a>
+                <a href="#" class="font-medium hover:text-primary transition-colors">Sale</a>
+            </nav>
+
+            <!-- User Controls -->
+            <div class="flex items-center space-x-4">
+                <button class="p-2 hover:text-primary transition-colors">
+                    <i class="fa fa-search text-lg"></i>
+                </button>
+                <button class="p-2 hover:text-primary transition-colors">
+                    <i class="fa fa-user text-lg"></i>
+                </button>
+                <button class="p-2 hover:text-primary transition-colors relative">
+                    <i class="fa fa-shopping-bag text-lg"></i>
+                    <span class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">2</span>
+                </button>
+                <button class="lg:hidden p-2">
+                    <i class="fa fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-secondary py-12 md:py-0">
+    <div class="container mx-auto flex flex-col md:flex-row items-center">
+        <div class="w-full md:w-1/2 px-8 py-12 md:py-24">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">Elevate Your <span class="text-primary">Sneaker</span> Game</h1>
+            <p class="text-gray-300 text-lg mb-8 max-w-lg">Discover the latest drops, exclusive collabs, and must-have classics. Your sneaker journey begins here.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#" class="bg-primary hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-medium transition-colors">Shop New Arrivals</a>
+                <a href="#" class="bg-transparent border border-gray-400 text-white hover:border-white px-8 py-3 rounded-full font-medium transition-colors">Explore Bestsellers</a>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 relative">
+            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Featured Sneakers" class="w-full h-full object-cover md:h-[600px]">
+            <div class="absolute top-6 right-6 bg-primary text-white text-sm font-bold px-4 py-2 rounded-full">TRENDING</div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Grid -->
+<section class="py-16">
+    <div class="container mx-auto px-4 md:px-8">
+        <h2 class="text-3xl font-bold mb-12 text-center">Shop By Category</h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <a href="#" class="group">
+                <div class="relative rounded-lg overflow-hidden aspect-square mb-3">
+                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 text-white font-bold text-xl">Running</h3>
+                </div>
+            </a>
+
+            <a href="#" class="group">
+                <div class="relative rounded-lg overflow-hidden aspect-square mb-3">
+                    <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Basketball" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 text-white font-bold text-xl">Basketball</h3>
+                </div>
+            </a>
+
+            <a href="#" class="group">
+                <div class="relative rounded-lg overflow-hidden aspect-square mb-3">
+                    <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lifestyle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 text-white font-bold text-xl">Lifestyle</h3>
+                </div>
+            </a>
+
+            <a href="#" class="group">
+                <div class="relative rounded-lg overflow-hidden aspect-square mb-3">
+                    <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Limited Edition" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    <h3 class="absolute bottom-4 left-4 text-white font-bold text-xl">Limited Edition</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+            <h2 class="text-3xl font-bold">New Arrivals</h2>
+            <div class="mt-4 md:mt-0">
+                <a href="#" class="inline-flex items-center font-medium text-primary hover:underline">
+                    View All Products
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product 1 -->
+            <div class="group">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded">New</span>
+                        </div>
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="bg-white text-gray-900 hover:bg-gray-100 rounded-full p-3 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-medium">Air Terra Quantum</h3>
+                            <div class="text-yellow-400 text-sm">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-3">Performance Running</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$179.99</span>
+                            <button class="bg-gray-900 hover:bg-primary text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded">Sale</span>
+                        </div>
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="bg-white text-gray-900 hover:bg-gray-100 rounded-full p-3 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-medium">Retro Court Low</h3>
+                            <div class="text-yellow-400 text-sm">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-3">Lifestyle</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-lg">$89.99</span>
+                                <span class="text-gray-500 line-through text-sm ml-2">$120.00</span>
+                            </div>
+                            <button class="bg-gray-900 hover:bg-primary text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="bg-white text-gray-900 hover:bg-gray-100 rounded-full p-3 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-medium">Air Force Pro</h3>
+                            <div class="text-yellow-400 text-sm">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-3">Basketball</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$145.00</span>
+                            <button class="bg-gray-900 hover:bg-primary text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group">
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
+                    <div class="relative aspect-square">
+                        <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Product" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">Limited</span>
+                        </div>
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="bg-white text-gray-900 hover:bg-gray-100 rounded-full p-3 transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-medium">Classic Runner X</h3>
+                            <div class="text-yellow-400 text-sm">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-3">Running</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$189.99</span>
+                            <button class="bg-gray-900 hover:bg-primary text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dual Banner Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Banner 1 -->
+            <div class="relative rounded-xl overflow-hidden h-[350px] group">
+                <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Men's Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-secondary/80 to-transparent"></div>
+                <div class="absolute inset-0 flex items-center p-8 md:p-12">
+                    <div>
+                        <h3 class="text-white text-3xl font-bold mb-3">Men's Collection</h3>
+                        <p class="text-gray-200 mb-6 max-w-xs">Discover our premium selection of men's performance and lifestyle sneakers.</p>
+                        <a href="#" class="inline-block bg-white hover:bg-gray-100 text-secondary font-medium px-6 py-2 rounded-full transition-colors">Shop Men's</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner 2 -->
+            <div class="relative rounded-xl overflow-hidden h-[350px] group">
+                <img src="https://images.unsplash.com/photo-1588117305388-c2631a279f82?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Women's Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-transparent"></div>
+                <div class="absolute inset-0 flex items-center p-8 md:p-12">
+                    <div>
+                        <h3 class="text-white text-3xl font-bold mb-3">Women's Collection</h3>
+                        <p class="text-gray-100 mb-6 max-w-xs">Elevate your style with our curated women's selection of the latest trends.</p>
+                        <a href="#" class="inline-block bg-white hover:bg-gray-100 text-primary font-medium px-6 py-2 rounded-full transition-colors">Shop Women's</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bestsellers -->
+<section class="py-16 bg-secondary text-white">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+            <h2 class="text-3xl font-bold">Bestsellers</h2>
+            <div class="mt-4 md:mt-0">
+                <a href="#" class="inline-flex items-center font-medium text-primary hover:text-white">
+                    View All Bestsellers
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto pb-4">
+            <div class="flex space-x-6 min-w-max">
+                <!-- Bestseller 1 -->
+                <div class="bg-accent rounded-xl overflow-hidden shadow-lg w-64 flex-shrink-0">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1597248881519-db089d3744a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bestseller" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded font-medium">#1 Bestseller</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Urban Runner Pro</h3>
+                        <p class="text-gray-400 text-sm mb-3">Limited Edition</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$165.00</span>
+                            <button class="bg-primary hover:bg-opacity-80 text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bestseller 2 -->
+                <div class="bg-accent rounded-xl overflow-hidden shadow-lg w-64 flex-shrink-0">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1617689563472-c66428e83d17?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bestseller" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded font-medium">#2 Bestseller</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Retro Air Classic</h3>
+                        <p class="text-gray-400 text-sm mb-3">Lifestyle</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$120.00</span>
+                            <button class="bg-primary hover:bg-opacity-80 text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bestseller 3 -->
+                <div class="bg-accent rounded-xl overflow-hidden shadow-lg w-64 flex-shrink-0">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bestseller" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded font-medium">#3 Bestseller</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Jump Force Elite</h3>
+                        <p class="text-gray-400 text-sm mb-3">Basketball</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$159.99</span>
+                            <button class="bg-primary hover:bg-opacity-80 text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bestseller 4 -->
+                <div class="bg-accent rounded-xl overflow-hidden shadow-lg w-64 flex-shrink-0">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bestseller" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded font-medium">#4 Bestseller</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Ultra Cushion Run</h3>
+                        <p class="text-gray-400 text-sm mb-3">Performance</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$139.99</span>
+                            <button class="bg-primary hover:bg-opacity-80 text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bestseller 5 -->
+                <div class="bg-accent rounded-xl overflow-hidden shadow-lg w-64 flex-shrink-0">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1576672843344-f01907a9d40c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bestseller" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 m-3">
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded font-medium">#5 Bestseller</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">Street Tour X</h3>
+                        <p class="text-gray-400 text-sm mb-3">Skateboarding</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">$110.00</span>
+                            <button class="bg-primary hover:bg-opacity-80 text-white p-2 rounded-full transition-colors">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Collection Banner -->
+<section class="py-16 relative">
+    <div class="absolute inset-0 bg-gray-900 opacity-80 z-0"></div>
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Featured Collection" class="w-full h-full object-cover">
+    </div>
+
+    <div class="container mx-auto px-4 md:px-8 relative z-10">
+        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-white border-opacity-20 max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">The Iconic Collection</h2>
+            <p class="text-gray-200 mb-8 text-lg">Celebrating the most iconic silhouettes that defined generations. Reimagined for today's sneakerheads.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="bg-primary hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-medium transition-colors">Shop Collection</a>
+                <a href="#" class="bg-transparent border border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-full font-medium transition-colors">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="flex flex-col items-center text-center p-6 rounded-lg">
+                <div class="bg-primary bg-opacity-10 p-4 rounded-full mb-4">
+                    <i class="fa fa-shipping-fast text-primary text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Free Shipping</h3>
+                <p class="text-gray-600">Free standard shipping on all orders over $100. International shipping available.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="flex flex-col items-center text-center p-6 rounded-lg">
+                <div class="bg-primary bg-opacity-10 p-4 rounded-full mb-4">
+                    <i class="fa fa-undo text-primary text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Easy Returns</h3>
+                <p class="text-gray-600">Not the right fit? Return or exchange within 30 days of delivery.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="flex flex-col items-center text-center p-6 rounded-lg">
+                <div class="bg-primary bg-opacity-10 p-4 rounded-full mb-4">
+                    <i class="fa fa-shield-alt text-primary text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Authenticity Guarantee</h3>
+                <p class="text-gray-600">All products are verified authentic and come with our 100% authenticity guarantee.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Feed -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-12">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">Follow Us On Instagram</h2>
+                <p class="text-gray-600">@kickscraze</p>
+            </div>
+            <a href="#" class="mt-4 sm:mt-0 inline-flex items-center text-primary hover:text-primary-dark font-medium">
+                View Our Profile
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <a href="#" class="relative group aspect-square overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div class="text-white flex items-center space-x-3">
+                        <span><i class="fa fa-heart"></i> 1.2k</span>
+                        <span><i class="fa fa-comment"></i> 148</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="relative group aspect-square overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div class="text-white flex items-center space-x-3">
+                        <span><i class="fa fa-heart"></i> 856</span>
+                        <span><i class="fa fa-comment"></i> 92</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="relative group aspect-square overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div class="text-white flex items-center space-x-3">
+                        <span><i class="fa fa-heart"></i> 2.3k</span>
+                        <span><i class="fa fa-comment"></i> 215</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="relative group aspect-square overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div class="text-white flex items-center space-x-3">
+                        <span><i class="fa fa-heart"></i> 1.5k</span>
+                        <span><i class="fa fa-comment"></i> 134</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="relative group aspect-square overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1584735175315-9d5df23be2c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div class="text-white flex items-center space-x-3">
+                        <span><i class="fa fa-heart"></i> 943</span>
+                        <span><i class="fa fa-comment"></i> 87</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="relative group aspect-square overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Instagram Post" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                    <div class="text-white flex items-center space-x-3">
+                        <span><i class="fa fa-heart"></i> 1.1k</span>
+                        <span><i class="fa fa-comment"></i> 103</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="bg-primary py-16">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white mb-3">Join Our Newsletter</h2>
+            <p class="text-white text-opacity-80 mb-8">Be the first to know about new releases, restocks, and exclusive offers.</p>
+
+            <form class="flex flex-col sm:flex-row gap-3">
+                <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-full flex-1 focus:outline-none focus:ring-2 focus:ring-secondary">
+                <button type="submit" class="bg-secondary hover:bg-opacity-90 text-white font-medium px-8 py-3 rounded-full transition-colors">Subscribe</button>
+            </form>
+
+            <p class="text-white text-opacity-60 text-sm mt-4">By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-secondary text-white pt-16 pb-8">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 lg:gap-16 mb-12">
+            <!-- Company Info -->
+            <div>
+                <h3 class="text-xl font-bold mb-6">KICKS<span class="text-primary">CRAZE</span></h3>
+                <p class="text-gray-400 mb-6">Premium sneakers and streetwear for sneaker enthusiasts and collectors.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="bg-accent hover:bg-primary p-2 rounded-full transition-colors">
+                        <i class="fab fa-facebook-f w-4 h-4 flex items-center justify-center"></i>
+                    </a>
+                    <a href="#" class="bg-accent hover:bg-primary p-2 rounded-full transition-colors">
+                        <i class="fab fa-twitter w-4 h-4 flex items-center justify-center"></i>
+                    </a>
+                    <a href="#" class="bg-accent hover:bg-primary p-2 rounded-full transition-colors">
+                        <i class="fab fa-instagram w-4 h-4 flex items-center justify-center"></i>
+                    </a>
+                    <a href="#" class="bg-accent hover:bg-primary p-2 rounded-full transition-colors">
+                        <i class="fab fa-youtube w-4 h-4 flex items-center justify-center"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Shop Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-6">Shop</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">New Releases</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Men's Sneakers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Women's Sneakers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Kids' Sneakers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Collections</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Sale</a></li>
+                </ul>
+            </div>
+
+            <!-- Support Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-6">Support</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Help Center</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Order Status</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Shipping Info</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Returns & Exchanges</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Size Charts</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Company Links -->
+            <div>
+                <h4 class="text-lg font-semibold mb-6">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Press</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Affiliates</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Store Locations</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pt-8 border-t border-gray-700">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2025 KicksCraze. All rights reserved.</p>
+                <div class="flex flex-wrap gap-4 md:gap-6">
+                    <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Accessibility</a>
+                    <a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

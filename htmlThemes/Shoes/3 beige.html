@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELEVA | Luxury Footwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#E8E0D5',
+                        clay: '#A68A7B',
+                        olive: '#707D5D',
+                        charcoal: '#2C3639',
+                        cream: '#F8F5F0'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-charcoal bg-cream antialiased">
+<!-- Announcement Bar -->
+<div class="bg-sand py-2 text-center text-sm">
+    <p>Complimentary shipping worldwide on orders over $250</p>
+</div>
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-sand">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <a href="#" class="font-serif text-2xl tracking-wide">
+                ELEVA
+            </a>
+
+            <nav class="hidden md:block">
+                <ul class="flex space-x-10 text-sm font-light tracking-wider">
+                    <li><a href="#" class="hover:text-olive transition-colors">WOMEN</a></li>
+                    <li><a href="#" class="hover:text-olive transition-colors">MEN</a></li>
+                    <li><a href="#" class="hover:text-olive transition-colors">COLLECTIONS</a></li>
+                    <li><a href="#" class="hover:text-olive transition-colors">ATELIER</a></li>
+                    <li><a href="#" class="hover:text-olive transition-colors">JOURNAL</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center space-x-6">
+                <button class="text-charcoal/70 hover:text-charcoal transition-colors">
+                    <i class="fas fa-search text-sm"></i>
+                </button>
+                <button class="text-charcoal/70 hover:text-charcoal transition-colors">
+                    <i class="far fa-user text-sm"></i>
+                </button>
+                <button class="text-charcoal/70 hover:text-charcoal transition-colors relative">
+                    <i class="fas fa-shopping-bag text-sm"></i>
+                    <span class="absolute -top-2 -right-2 bg-olive text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">2</span>
+                </button>
+                <button class="md:hidden text-charcoal" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu (Hidden by default) -->
+<div class="fixed inset-0 bg-cream/95 backdrop-blur-sm z-40 transform -translate-y-full transition-transform duration-500 ease-in-out" id="mobile-menu">
+    <div class="container mx-auto px-4 py-12 h-full flex flex-col">
+        <div class="flex justify-end mb-8">
+            <button id="close-menu" class="text-charcoal hover:text-olive transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <nav class="flex-1 flex flex-col justify-center">
+            <ul class="space-y-6 text-center">
+                <li><a href="#" class="text-xl hover:text-olive transition-colors">WOMEN</a></li>
+                <li><a href="#" class="text-xl hover:text-olive transition-colors">MEN</a></li>
+                <li><a href="#" class="text-xl hover:text-olive transition-colors">COLLECTIONS</a></li>
+                <li><a href="#" class="text-xl hover:text-olive transition-colors">ATELIER</a></li>
+                <li><a href="#" class="text-xl hover:text-olive transition-colors">JOURNAL</a></li>
+            </ul>
+        </nav>
+        <div class="text-center text-sm text-charcoal/70">
+            <p>© 2025 ELEVA. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="relative overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80" alt="Luxury Footwear" class="w-full h-full object-cover">
+    </div>
+    <div class="relative z-10 flex flex-col justify-end min-h-screen bg-gradient-to-t from-charcoal/50 to-transparent text-white">
+        <div class="container mx-auto px-4 py-20 md:py-32">
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl max-w-3xl leading-tight">Craftsmanship meets contemporary design</h1>
+            <p class="mt-6 max-w-xl text-lg font-light">Introducing our new collection of handcrafted footwear, created for those who appreciate subtle luxury and timeless elegance.</p>
+            <div class="mt-10">
+                <a href="#" class="inline-block bg-cream text-charcoal px-8 py-3 font-medium tracking-wide hover:bg-sand transition-colors">DISCOVER THE COLLECTION</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Philosophy Section -->
+<section class="py-24">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <span class="text-olive text-sm tracking-widest uppercase">Our Philosophy</span>
+            <h2 class="font-serif text-3xl md:text-4xl mt-3 mb-8">Craft is our language. <br>Quality is our promise.</h2>
+            <p class="text-charcoal/70 leading-relaxed">Every pair of ELEVA shoes represents over 120 years of artisanal tradition. We honor this legacy by combining time-tested techniques with innovative, sustainable materials. Each stitch, each curve, each detail is considered with purpose and executed with precision.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Collection -->
+<section class="py-16 bg-sand/30">
+    <div class="container mx-auto px-4">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+            <div>
+                <span class="text-olive text-sm tracking-widest uppercase">Featured Collection</span>
+                <h2 class="font-serif text-3xl md:text-4xl mt-2">The Essence Collection</h2>
+            </div>
+            <a href="#" class="group mt-4 md:mt-0 flex items-center text-charcoal hover:text-olive transition-colors">
+                <span class="mr-2">View all pieces</span>
+                <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Product 1 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2080&q=80" alt="The Aria Pump" class="w-full h-auto aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <div class="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-cream text-charcoal px-6 py-2 text-sm tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform">Quick View</button>
+                    </div>
+                </div>
+                <h3 class="font-serif text-lg">The Aria Pump</h3>
+                <p class="text-charcoal/70 text-sm mb-2">Italian Suede</p>
+                <span class="text-charcoal">$345</span>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1491897554428-130a60dd4757?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1780&q=80" alt="The Lorenzo Oxford" class="w-full h-auto aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <div class="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-cream text-charcoal px-6 py-2 text-sm tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform">Quick View</button>
+                    </div>
+                </div>
+                <h3 class="font-serif text-lg">The Lorenzo Oxford</h3>
+                <p class="text-charcoal/70 text-sm mb-2">Hand-Polished Leather</p>
+                <span class="text-charcoal">$425</span>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80" alt="The Sofia Loafer" class="w-full h-auto aspect-[3/4] object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <div class="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-cream text-charcoal px-6 py-2 text-sm tracking-wider transform translate-y-4 group-hover:translate-y-0 transition-transform">Quick View</button>
+                    </div>
+                </div>
+                <h3 class="font-serif text-lg">The Sofia Loafer</h3>
+                <p class="text-charcoal/70 text-sm mb-2">Woven Calfskin</p>
+                <span class="text-charcoal">$375</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Artisan Story -->
+<section class="py-24">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="order-2 lg:order-1">
+                <span class="text-olive text-sm tracking-widest uppercase">Our Artisans</span>
+                <h2 class="font-serif text-3xl md:text-4xl mt-2 mb-6">The hands behind our designs</h2>
+                <p class="text-charcoal/70 leading-relaxed mb-6">Each pair of ELEVA shoes is the result of over 38 hours of dedicated craftsmanship. Our master artisans, many of whom represent the third generation in their family lineage of shoemakers, work meticulously with tools passed down through generations.</p>
+                <p class="text-charcoal/70 leading-relaxed mb-8">We believe in preserving these techniques while innovating responsibly. The result is footwear with soul – pieces that tell a story and develop character with every step you take.</p>
+                <a href="#" class="inline-block border-b border-charcoal pb-1 text-charcoal hover:text-olive hover:border-olive transition-colors">
+                    Meet our craftspeople
+                </a>
+            </div>
+            <div class="order-1 lg:order-2">
+                <div class="relative">
+                    <div class="absolute -top-6 -left-6 w-64 h-64 border border-sand"></div>
+                    <img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Artisan crafting shoes" class="relative z-10 w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Editorial Section -->
+<section class="py-24 bg-charcoal text-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div class="md:col-span-5 md:col-start-2">
+                <span class="text-olive text-sm tracking-widest uppercase">Editorial</span>
+                <h2 class="font-serif text-3xl md:text-4xl mt-2 mb-6">The art of slow fashion in a fast-paced world</h2>
+                <p class="text-white/70 leading-relaxed mb-8">In an era dominated by disposable trends and transient styles, we're advocating for a return to mindful consumption. Our design philosophy centers on creating pieces that transcend seasons – footwear that accompanies you through years, not merely months.</p>
+                <a href="#" class="inline-block bg-transparent border border-white px-6 py-3 text-sm tracking-wider hover:bg-white hover:text-charcoal transition-colors">
+                    READ THE JOURNAL
+                </a>
+            </div>
+            <div class="md:col-span-5">
+                <img src="https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Editorial" class="w-full h-auto">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- New Arrivals -->
+<section class="py-24">
+    <div class="container mx-auto px-4">
+        <header class="text-center mb-16">
+            <span class="text-olive text-sm tracking-widest uppercase">Just Arrived</span>
+            <h2 class="font-serif text-3xl md:text-4xl mt-2">New Arrivals</h2>
+        </header>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <!-- Product 1 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1898&q=80" alt="The Marco Sneaker" class="w-full h-auto aspect-square object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                </div>
+                <h3 class="font-serif text-base md:text-lg">The Marco Sneaker</h3>
+                <p class="text-charcoal/70 text-xs md:text-sm">$295</p>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1915&q=80" alt="The Bianca Flat" class="w-full h-auto aspect-square object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                </div>
+                <h3 class="font-serif text-base md:text-lg">The Bianca Flat</h3>
+                <p class="text-charcoal/70 text-xs md:text-sm">$275</p>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1554062614-6da4fa67725a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="The Alessandro Boot" class="w-full h-auto aspect-square object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                </div>
+                <h3 class="font-serif text-base md:text-lg">The Alessandro Boot</h3>
+                <p class="text-charcoal/70 text-xs md:text-sm">$495</p>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group">
+                <div class="relative overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80" alt="The Valentina Sandal" class="w-full h-auto aspect-square object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                </div>
+                <h3 class="font-serif text-base md:text-lg">The Valentina Sandal</h3>
+                <p class="text-charcoal/70 text-xs md:text-sm">$325</p>
+            </div>
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="#" class="inline-block bg-sand hover:bg-clay/20 text-charcoal px-8 py-3 text-sm tracking-wider transition-colors">VIEW ALL NEW ARRIVALS</a>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Reviews -->
+<section class="py-24 bg-sand/30">
+    <div class="container mx-auto px-4">
+        <header class="text-center mb-16">
+            <span class="text-olive text-sm tracking-widest uppercase">Testimonials</span>
+            <h2 class="font-serif text-3xl md:text-4xl mt-2">From Our Clients</h2>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Review 1 -->
+            <div class="bg-cream p-8 flex flex-col">
+                <div class="text-olive mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <blockquote class="flex-1 text-charcoal/80 italic font-serif text-lg mb-6">"These are the most comfortable heels I've ever owned. The craftsmanship is evident in every detail, and they've only become more beautiful with wear."</blockquote>
+                <div>
+                    <p class="font-medium">Isabella M.</p>
+                    <p class="text-charcoal/70 text-sm">The Aria Pump</p>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="bg-cream p-8 flex flex-col">
+                <div class="text-olive mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <blockquote class="flex-1 text-charcoal/80 italic font-serif text-lg mb-6">"Worth every penny. The quality is exceptional, and I appreciate that the style is timeless—these won't be going out of fashion anytime soon."</blockquote>
+                <div>
+                    <p class="font-medium">Thomas R.</p>
+                    <p class="text-charcoal/70 text-sm">The Lorenzo Oxford</p>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="bg-cream p-8 flex flex-col">
+                <div class="text-olive mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <blockquote class="flex-1 text-charcoal/80 italic font-serif text-lg mb-6">"The attention to detail is remarkable. These shoes have become a conversation starter every time I wear them—true investment pieces."</blockquote>
+                <div>
+                    <p class="font-medium">Sofia L.</p>
+                    <p class="text-charcoal/70 text-sm">The Sofia Loafer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-24 bg-olive text-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-4xl mb-6">Join Our Community</h2>
+            <p class="text-white/80 mb-8">Subscribe to receive exclusive updates on new collections, limited editions, and invitations to private viewings.</p>
+            <form class="flex flex-col sm:flex-row gap-3">
+                <input type="email" placeholder="Your email address" class="flex-grow bg-transparent border border-white/30 px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:border-white">
+                <button type="submit" class="bg-cream text-olive px-6 py-3 text-sm tracking-wider hover:bg-white transition-colors">SUBSCRIBE</button>
+            </form>
+            <p class="mt-4 text-white/50 text-xs">By subscribing, you agree to our Privacy Policy and consent to receive marketing communications.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-16 pb-8 bg-charcoal text-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <h3 class="font-serif text-lg mb-4">ELEVA</h3>
+                <p class="text-white/60 text-sm leading-relaxed">Handcrafted luxury footwear for the discerning individual. Made with intention, designed to last.</p>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="text-white/60 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white/60 hover:text-white transition-colors"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" class="text-white/60 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white/60 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm uppercase tracking-wider mb-4">Collections</h4>
+                <ul class="space-y-2 text-white/60 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Women</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Men</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">New Arrivals</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Classics</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Bespoke</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm uppercase tracking-wider mb-4">Company</h4>
+                <ul class="space-y-2 text-white/60 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Our Story</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Artisans</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Materials</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Journal</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-sm uppercase tracking-wider mb-4">Client Services</h4>
+                <ul class="space-y-2 text-white/60 text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Care Guide</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Size Guide</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-white/40 text-xs">© 2025 ELEVA. All rights reserved.</p>
+            <div class="flex flex-wrap justify-center gap-4 text-xs text-white/40 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-white transition-colors">Accessibility</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Cookie Consent -->
+<div class="fixed bottom-0 left-0 right-0 bg-charcoal text-white z-50 p-4" id="cookie-banner">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+        <p class="text-sm text-white/70 mb-4 md:mb-0">We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept", you consent to our use of cookies.</p>
+        <div class="flex gap-3">
+            <button id="accept-cookies" class="bg-olive text-white px-4 py-2 text-sm hover:bg-olive/80 transition-colors">Accept</button>
+            <button id="decline-cookies" class="bg-transparent border border-white/20 text-white px-4 py-2 text-sm hover:bg-white/10 transition-colors">Customize</button>
+        </div>
+    </div>
+</div>
+
+<!-- Back to top -->
+<button id="back-to-top" class="fixed bottom-6 right-6 bg-olive text-white w-10 h-10 rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 z-40">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Scripts -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.remove('-translate-y-full');
+            mobileMenu.classList.add('translate-y-0');
+        });
+
+        closeMenu.addEventListener('click', function() {
+            mobileMenu.classList.remove('translate-y-0');
+            mobileMenu.classList.add('-translate-y-full');
+        });
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const declineCookies = document.getElementById('decline-cookies');
+
+        acceptCookies.addEventListener('click', function() {
+            cookieBanner.classList.add('hidden');
+            // In a real implementation, you would set a cookie or local storage item here
+        });
+
+        declineCookies.addEventListener('click', function() {
+            // In a real implementation, you would show cookie preferences here
+            cookieBanner.classList.add('hidden');
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 500) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</body>
+</html>

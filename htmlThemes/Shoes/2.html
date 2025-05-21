@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRIDE | Premium Footwear</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#121212',
+                        accent: '#FF6B6B',
+                        muted: '#333333',
+                        light: '#F9F9F9'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-100 bg-dark">
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-white/10">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between py-4">
+            <a href="#" class="text-2xl font-bold tracking-tight">
+                STRIDE<span class="text-accent">.</span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors">Shop</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors">Collections</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors">Men</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors">Women</a>
+                <a href="#" class="text-sm uppercase tracking-wider hover:text-accent transition-colors">About</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <button class="hover:text-accent transition-colors">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="hover:text-accent transition-colors">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="hover:text-accent transition-colors relative">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="absolute -top-2 -right-2 bg-accent text-dark text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">2</span>
+                </button>
+                <button class="md:hidden hover:text-accent transition-colors" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-dark z-40 transform transition-transform duration-300 translate-x-full" id="mobile-menu">
+    <div class="flex justify-end p-4">
+        <button class="text-white hover:text-accent" id="close-menu">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+    <div class="flex flex-col items-center justify-center h-full space-y-8 -mt-20">
+        <a href="#" class="text-xl uppercase tracking-wider hover:text-accent transition-colors">Shop</a>
+        <a href="#" class="text-xl uppercase tracking-wider hover:text-accent transition-colors">Collections</a>
+        <a href="#" class="text-xl uppercase tracking-wider hover:text-accent transition-colors">Men</a>
+        <a href="#" class="text-xl uppercase tracking-wider hover:text-accent transition-colors">Women</a>
+        <a href="#" class="text-xl uppercase tracking-wider hover:text-accent transition-colors">About</a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="pt-28 pb-16 md:pt-40 md:pb-28 overflow-hidden">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <span class="inline-block text-accent text-sm tracking-widest uppercase mb-4">New Collection</span>
+                <h1 class="text-4xl md:text-5xl xl:text-6xl font-bold leading-tight mb-6">Redefine Your <br><span class="text-accent italic">Running Experience</span></h1>
+                <p class="text-gray-400 mb-8 max-w-lg">Discover our revolutionary AeroGlide series, engineered for maximum performance with cutting-edge design and sustainable materials.</p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="px-8 py-3 bg-accent text-dark font-semibold rounded-full hover:bg-white hover:text-dark transition-colors">Shop Now</a>
+                    <a href="#" class="px-8 py-3 border border-white text-white rounded-full hover:bg-white hover:text-dark transition-colors">Explore</a>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2 relative">
+                <div class="absolute -inset-0.5 bg-gradient-to-tr from-accent to-purple-600 rounded-xl blur opacity-30"></div>
+                <div class="relative bg-dark rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1543508282-5c1f427f023f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80" alt="Running shoes" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Brands -->
+<section class="py-10 border-y border-white/10">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center items-center gap-12">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt="Nike" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png" alt="Adidas" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/New_Balance_logo.svg/2560px-New_Balance_logo.svg.png" alt="New Balance" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Puma_AG.svg/1280px-Puma_AG.svg.png" alt="Puma" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Reebok_logo20.svg/2560px-Reebok_logo20.svg.png" alt="Reebok" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-4">Browse Categories</h2>
+        <p class="text-gray-400 mb-12">Find the perfect fit for your style and performance needs</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="#" class="group relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1512374382149-233c42b6a83b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Running" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent flex items-end p-8">
+                    <div>
+                        <h3 class="text-xl font-bold">Running</h3>
+                        <span class="text-accent group-hover:translate-x-2 transition-transform inline-block">Shop now →</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="group relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1579338559194-a162d19bf842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Basketball" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent flex items-end p-8">
+                    <div>
+                        <h3 class="text-xl font-bold">Basketball</h3>
+                        <span class="text-accent group-hover:translate-x-2 transition-transform inline-block">Shop now →</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="group relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1533681018184-68bd1d883b97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Casual" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent flex items-end p-8">
+                    <div>
+                        <h3 class="text-xl font-bold">Casual</h3>
+                        <span class="text-accent group-hover:translate-x-2 transition-transform inline-block">Shop now →</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="group relative overflow-hidden rounded-xl aspect-square">
+                <img src="https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 to-transparent flex items-end p-8">
+                    <div>
+                        <h3 class="text-xl font-bold">Training</h3>
+                        <span class="text-accent group-hover:translate-x-2 transition-transform inline-block">Shop now →</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-20 bg-muted">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-wrap items-center justify-between mb-12">
+            <div>
+                <h2 class="text-3xl font-bold mb-4">Featured Products</h2>
+                <p class="text-gray-400">Explore our most popular styles this season</p>
+            </div>
+            <div class="flex space-x-3 mt-4 md:mt-0">
+                <button id="prev-featured" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-colors">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="next-featured" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-colors">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto scrollbar-hide pb-8">
+            <div class="flex space-x-6 min-w-max">
+                <!-- Product 1 -->
+                <div class="w-72 group">
+                    <div class="relative mb-4 overflow-hidden rounded-xl">
+                        <span class="absolute top-3 left-3 z-10 bg-accent text-xs font-semibold text-dark px-3 py-1 rounded-full">New</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end justify-center pb-8">
+                            <button class="bg-white text-dark font-semibold px-6 py-2 rounded-full hover:bg-accent transition-colors transform translate-y-8 group-hover:translate-y-0 transition-transform">Add to Cart</button>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80" alt="Nike Air Max" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Nike Air Max Pulse</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-bold">$179.99</span>
+                            <div class="flex text-sm text-gray-400">
+                                <i class="fas fa-star text-amber-400"></i>
+                                <span class="ml-1">4.9 (120)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="w-72 group">
+                    <div class="relative mb-4 overflow-hidden rounded-xl">
+                        <span class="absolute top-3 left-3 z-10 bg-green-500 text-xs font-semibold text-dark px-3 py-1 rounded-full">-20%</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end justify-center pb-8">
+                            <button class="bg-white text-dark font-semibold px-6 py-2 rounded-full hover:bg-accent transition-colors transform translate-y-8 group-hover:translate-y-0 transition-transform">Add to Cart</button>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Adidas Ultraboost" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Adidas Ultraboost 23</h3>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-accent font-bold">$159.99</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">$199.99</span>
+                            </div>
+                            <div class="flex text-sm text-gray-400">
+                                <i class="fas fa-star text-amber-400"></i>
+                                <span class="ml-1">4.8 (86)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="w-72 group">
+                    <div class="relative mb-4 overflow-hidden rounded-xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end justify-center pb-8">
+                            <button class="bg-white text-dark font-semibold px-6 py-2 rounded-full hover:bg-accent transition-colors transform translate-y-8 group-hover:translate-y-0 transition-transform">Add to Cart</button>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80" alt="New Balance 574" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">New Balance 574</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-bold">$124.99</span>
+                            <div class="flex text-sm text-gray-400">
+                                <i class="fas fa-star text-amber-400"></i>
+                                <span class="ml-1">4.7 (54)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="w-72 group">
+                    <div class="relative mb-4 overflow-hidden rounded-xl">
+                        <span class="absolute top-3 left-3 z-10 bg-accent text-xs font-semibold text-dark px-3 py-1 rounded-full">Hot</span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end justify-center pb-8">
+                            <button class="bg-white text-dark font-semibold px-6 py-2 rounded-full hover:bg-accent transition-colors transform translate-y-8 group-hover:translate-y-0 transition-transform">Add to Cart</button>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80" alt="Puma RS-X" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Puma RS-X Reinvention</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-bold">$139.99</span>
+                            <div class="flex text-sm text-gray-400">
+                                <i class="fas fa-star text-amber-400"></i>
+                                <span class="ml-1">4.5 (98)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="w-72 group">
+                    <div class="relative mb-4 overflow-hidden rounded-xl">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-end justify-center pb-8">
+                            <button class="bg-white text-dark font-semibold px-6 py-2 rounded-full hover:bg-accent transition-colors transform translate-y-8 group-hover:translate-y-0 transition-transform">Add to Cart</button>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1924&q=80" alt="Vans Old Skool" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Vans Old Skool Classic</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-accent font-bold">$89.99</span>
+                            <div class="flex text-sm text-gray-400">
+                                <i class="fas fa-star text-amber-400"></i>
+                                <span class="ml-1">4.9 (137)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="#" class="inline-block bg-transparent border border-white/20 text-white font-semibold px-8 py-3 rounded-full hover:bg-accent hover:border-accent transition-colors">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Highlight -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-br from-accent/50 to-purple-600/50 rounded-xl blur-xl opacity-30"></div>
+                    <div class="relative bg-muted rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Advanced Features" class="w-full h-auto">
+                    </div>
+                    <div class="absolute -bottom-5 -right-5">
+                        <div class="bg-accent text-dark font-bold text-xl p-4 rounded-xl shadow-xl">
+                            New Tech
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <span class="text-accent uppercase tracking-wider text-sm font-semibold">Advanced Technology</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-6">Revolutionary Comfort System</h2>
+                <p class="text-gray-400 mb-8">Our exclusive AeroGlide technology combines responsive cushioning with adaptive support to deliver an unparalleled running experience. Each step becomes effortless as energy returns to propel you forward.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="flex items-start">
+                        <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-wind text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Lightweight Design</h3>
+                            <p class="text-gray-400 text-sm">Ultra-light materials reduce weight without sacrificing durability.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-tint text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Weather Resistant</h3>
+                            <p class="text-gray-400 text-sm">Water-repellent coating keeps your feet dry in any condition.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-recycle text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Eco-Friendly</h3>
+                            <p class="text-gray-400 text-sm">Made with 70% recycled materials for a greener planet.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-accent/20 p-3 rounded-lg mr-4">
+                            <i class="fas fa-bolt text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-2">Energy Return</h3>
+                            <p class="text-gray-400 text-sm">Responsive foam converts impact into forward momentum.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="inline-block bg-accent text-dark font-semibold px-8 py-3 rounded-full hover:bg-white transition-colors">Discover the Technology</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- New Releases Carousel -->
+<section class="py-20 bg-gradient-to-br from-muted to-dark">
+    <div class="container mx-auto px-4">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-accent uppercase tracking-wider text-sm font-semibold">Just Dropped</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-6">Latest Releases</h2>
+            <p class="text-gray-400">Be the first to experience our newest designs that push the boundaries of style and performance</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- New Release 1 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="New Release" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-30"></div>
+                    <button class="absolute bottom-4 right-4 bg-accent text-dark rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="text-lg font-semibold">AeroGlide X9000</h3>
+                <p class="text-gray-400 text-sm mb-2">Performance Running</p>
+                <span class="text-accent font-bold">$219.99</span>
+            </div>
+
+            <!-- New Release 2 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="New Release" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-30"></div>
+                    <button class="absolute bottom-4 right-4 bg-accent text-dark rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="text-lg font-semibold">Urban Stepper Pro</h3>
+                <p class="text-gray-400 text-sm mb-2">Lifestyle Sneaker</p>
+                <span class="text-accent font-bold">$189.99</span>
+            </div>
+
+            <!-- New Release 3 -->
+            <div class="group">
+                <div class="relative overflow-hidden rounded-xl aspect-[4/5] mb-4">
+                    <img src="https://images.unsplash.com/photo-1605348532760-6753d2c43329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="New Release" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent opacity-30"></div>
+                    <button class="absolute bottom-4 right-4 bg-accent text-dark rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-shopping-bag"></i>
+                    </button>
+                </div>
+                <h3 class="text-lg font-semibold">FlexForm Trail</h3>
+                <p class="text-gray-400 text-sm mb-2">Outdoor Adventure</p>
+                <span class="text-accent font-bold">$249.99</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-16">
+            <div class="md:w-1/3">
+                <span class="text-accent uppercase tracking-wider text-sm font-semibold">Testimonials</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-3 mb-6">What Athletes Say</h2>
+                <p class="text-gray-400 mb-8">Hear from professional athletes and everyday runners who have experienced the difference our footwear makes in performance and comfort.</p>
+                <div class="flex space-x-3">
+                    <button id="prev-testimonial" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="next-testimonial" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-2/3">
+                <div class="bg-muted p-8 rounded-xl">
+                    <div class="flex items-center mb-6">
+                        <div class="mr-4">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="w-16 h-16 rounded-full">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">James Wilson</h3>
+                            <p class="text-accent">Marathon Runner</p>
+                        </div>
+                        <div class="ml-auto">
+                            <div class="flex text-amber-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <blockquote class="text-gray-300 text-lg italic mb-6">
+                        "After trying countless running shoes, I've finally found my perfect match. The energy return is unlike anything I've experienced before, and I was able to shave 5 minutes off my personal best in the Chicago Marathon. These shoes have become an essential part of my training."
+                    </blockquote>
+                    <p class="text-sm text-gray-400">Verified Purchase - May 12, 2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="py-20 bg-muted">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Stay in the Loop</h2>
+            <p class="text-gray-400 mb-8">Subscribe to get exclusive access to new releases, special offers and expert running tips</p>
+            <form class="flex flex-col sm:flex-row gap-3 mb-6">
+                <input type="email" placeholder="Your email address" class="flex-grow bg-dark text-white px-4 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-accent">
+                <button type="submit" class="bg-accent hover:bg-white text-dark font-semibold px-6 py-3 rounded-full transition-colors">Subscribe</button>
+            </form>
+            <p class="text-sm text-gray-500">By subscribing, you agree to our Privacy Policy and consent to receive marketing emails.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Instagram Feed -->
+<section class="py-10">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold">@stride.official</h2>
+            <a href="#" class="text-accent hover:underline">Follow us on Instagram</a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <a href="#" class="block aspect-square overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1607522370275-f14206abe5d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2021&q=80" alt="Instagram" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1520256862855-398228c41684?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1969&q=80" alt="Instagram" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Instagram" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1599751449128-eb7249c3d6b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1969&q=80" alt="Instagram" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Instagram" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </a>
+            <a href="#" class="block aspect-square overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1618666012174-83b441c0bc76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Instagram" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="pt-20 pb-10 bg-muted">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+            <div class="lg:col-span-2">
+                <h3 class="text-xl font-bold mb-6">STRIDE<span class="text-accent">.</span></h3>
+                <p class="text-gray-400 mb-6 max-w-md">We craft premium footwear designed to enhance performance and elevate your style. Each pair embodies our commitment to quality, innovation, and sustainability.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-dark rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Shop</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Men</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Women</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Kids</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Collections</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">New Arrivals</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Sale</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Support</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Help Center</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Order Status</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Shipping Info</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Returns & Exchanges</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Size Guide</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">About Us</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Sustainability</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Press</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Affiliates</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2025 STRIDE Inc. All rights reserved.</p>
+            <div class="flex flex-wrap gap-4 text-sm text-gray-500">
+                <a href="#" class="hover:text-accent transition-colors">Privacy Policy</a>
+                <span>|</span>
+                <a href="#" class="hover:text-accent transition-colors">Terms of Service</a>
+                <span>|</span>
+                <a href="#" class="hover:text-accent transition-colors">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-accent text-dark rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all z-50">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Simple JS -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        closeMenu.addEventListener('click', function() {
+            mobileMenu.classList.add('translate-x-full');
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 500) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Featured Products carousel buttons are just for show in this demo
+        // In a real implementation, you would add carousel functionality
+        document.getElementById('prev-featured').addEventListener('click', function() {
+            console.log('Previous featured product');
+        });
+
+        document.getElementById('next-featured').addEventListener('click', function() {
+            console.log('Next featured product');
+        });
+
+        // Testimonial navigation buttons
+        document.getElementById('prev-testimonial').addEventListener('click', function() {
+            console.log('Previous testimonial');
+        });
+
+        document.getElementById('next-testimonial').addEventListener('click', function() {
+            console.log('Next testimonial');
+        });
+    });
+</script>
+</body>
+</html>
