@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroX Global - Premium Electronic Appliances</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .custom-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+        }
+
+        .appliance-pattern {
+            background-image:
+                    radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.2) 0%, transparent 25%),
+                    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.2) 0%, transparent 25%),
+                    linear-gradient(45deg, transparent 40%, rgba(6, 182, 212, 0.1) 50%, transparent 60%);
+        }
+
+        .customizable-section {
+            border: 2px dashed transparent;
+            transition: all 0.3s ease;
+        }
+
+        .customizable-section:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.02);
+        }
+
+        .flex-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .product-variant {
+            transition: all 0.3s ease;
+        }
+
+        .product-variant:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .currency-selector {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .modular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .interactive-element:hover {
+            transform: translateY(-2px);
+        }
+
+        .appliance-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .feature-highlight {
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<!-- Header with Multi-Currency Support -->
+<header class="bg-white shadow-sm">
+    <!-- Top Bar with Currency & Language -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-globe mr-1"></i>Worldwide Shipping</span>
+                <span><i class="fas fa-certificate mr-1"></i>International Warranty</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Currency Selector -->
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-dollar-sign"></i>
+                    <select class="bg-transparent text-white border-none focus:outline-none cursor-pointer">
+                        <option value="USD" class="text-gray-800">USD ($)</option>
+                        <option value="EUR" class="text-gray-800">EUR (€)</option>
+                        <option value="GBP" class="text-gray-800">GBP (£)</option>
+                        <option value="JPY" class="text-gray-800">JPY (¥)</option>
+                        <option value="CAD" class="text-gray-800">CAD ($)</option>
+                    </select>
+                </div>
+                <span>|</span>
+                <!-- Language Selector -->
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-language"></i>
+                    <select class="bg-transparent text-white border-none focus:outline-none cursor-pointer">
+                        <option value="EN" class="text-gray-800">English</option>
+                        <option value="ES" class="text-gray-800">Español</option>
+                        <option value="FR" class="text-gray-800">Français</option>
+                        <option value="DE" class="text-gray-800">Deutsch</option>
+                        <option value="JA" class="text-gray-800">日本語</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <div class="custom-gradient w-12 h-12 rounded-xl flex items-center justify-center mr-3">
+                    <i class="fas fa-microchip text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">ElectroX</h1>
+                    <span class="text-xs text-indigo-600">Global Electronics</span>
+                </div>
+            </div>
+
+            <!-- Advanced Search with Filters -->
+            <div class="flex-1 max-w-3xl mx-8">
+                <div class="flex">
+                    <div class="relative flex-1">
+                        <input type="text" placeholder="Search appliances, electronics, gadgets..."
+                               class="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-l-lg focus:outline-none focus:border-indigo-500">
+                        <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+                    </div>
+                    <select class="border-2 border-l-0 border-gray-200 px-4 py-3 bg-white text-gray-700 min-w-0">
+                        <option>All Categories</option>
+                        <option>Kitchen Appliances</option>
+                        <option>Home Electronics</option>
+                        <option>Computer Accessories</option>
+                        <option>Audio & Video</option>
+                        <option>Smart Home</option>
+                        <option>Gaming</option>
+                    </select>
+                    <button class="bg-indigo-600 text-white px-8 py-3 rounded-r-lg hover:bg-indigo-700 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-6">
+                <div class="text-center cursor-pointer interactive-element">
+                    <i class="fas fa-user text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Account</div>
+                </div>
+                <div class="text-center cursor-pointer interactive-element relative">
+                    <i class="fas fa-heart text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Wishlist</div>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">7</span>
+                </div>
+                <div class="text-center cursor-pointer interactive-element relative">
+                    <i class="fas fa-shopping-cart text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Cart</div>
+                    <span class="absolute -top-2 -right-2 bg-indigo-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">4</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customizable Navigation -->
+    <nav class="bg-gray-50 border-t border-b">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-3">
+                <ul class="flex space-x-8">
+                    <li><a href="#" class="text-gray-700 hover:text-indigo-600 font-medium transition">Home</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-indigo-600 font-medium transition">Kitchen</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-indigo-600 font-medium transition">Electronics</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-indigo-600 font-medium transition">Smart Home</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-indigo-600 font-medium transition">Gaming</a></li>
+                    <li><a href="#" class="text-red-600 hover:text-red-700 font-medium transition">Sale</a></li>
+                </ul>
+                <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <span><i class="fas fa-truck mr-1"></i>Free Shipping</span>
+                    <span><i class="fas fa-shield-alt mr-1"></i>Warranty</span>
+                    <span><i class="fas fa-headset mr-1"></i>24/7 Support</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Customizable Hero Section -->
+<section class="customizable-section appliance-pattern py-16 bg-gradient-to-br from-indigo-50 to-purple-50">
+    <div class="container mx-auto px-4">
+        <div class="modular-grid items-center">
+            <!-- Hero Content - Customizable Layout -->
+            <div class="lg:col-span-1">
+                <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8">
+                    <div class="feature-highlight px-4 py-2 rounded-full text-sm font-semibold inline-block mb-4">
+                        <i class="fas fa-bolt mr-2"></i>Global Electronics Store
+                    </div>
+                    <h2 class="text-5xl font-bold mb-6 leading-tight text-gray-800">
+                        Premium <span class="text-indigo-600">Appliances</span><br>
+                        <span class="text-purple-600">Worldwide</span>
+                    </h2>
+                    <p class="text-xl mb-8 text-gray-700">Discover cutting-edge electronic appliances with international shipping, multi-currency support, and worldwide warranty coverage.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="custom-gradient text-white px-8 py-4 rounded-xl font-semibold interactive-element">
+                            Explore Products
+                        </button>
+                        <button class="border-2 border-indigo-600 text-indigo-600 px-8 py-4 rounded-xl font-semibold interactive-element hover:bg-indigo-600 hover:text-white transition">
+                            Global Shipping Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Image - Customizable -->
+            <div class="lg:col-span-1">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=500&fit=crop" alt="Modern Kitchen Appliances" class="rounded-2xl w-full shadow-2xl">
+                    <!-- Floating Currency Indicators -->
+                    <div class="absolute top-4 right-4 currency-selector rounded-lg p-3">
+                        <div class="flex space-x-2 text-sm font-medium">
+                            <span class="text-green-600">$USD</span>
+                            <span class="text-blue-600">€EUR</span>
+                            <span class="text-purple-600">£GBP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customizable Product Categories -->
+<section class="customizable-section py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h3 class="text-3xl font-bold text-gray-800 mb-4">Shop by Category</h3>
+            <p class="text-gray-600 max-w-2xl mx-auto">Flexible category layout - easily customizable for your product range</p>
+        </div>
+
+        <!-- Modular Category Grid -->
+        <div class="modular-grid">
+            <div class="appliance-card rounded-2xl p-6 interactive-element">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-blender text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2 text-gray-800">Kitchen Appliances</h4>
+                <p class="text-gray-600 mb-4">Premium kitchen solutions</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-indigo-600 font-medium">245+ Products</span>
+                    <i class="fas fa-arrow-right text-indigo-600"></i>
+                </div>
+            </div>
+
+            <div class="appliance-card rounded-2xl p-6 interactive-element">
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-tv text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2 text-gray-800">Entertainment</h4>
+                <p class="text-gray-600 mb-4">Audio & video systems</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-indigo-600 font-medium">189+ Products</span>
+                    <i class="fas fa-arrow-right text-indigo-600"></i>
+                </div>
+            </div>
+
+            <div class="appliance-card rounded-2xl p-6 interactive-element">
+                <div class="bg-gradient-to-br from-green-500 to-green-600 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-home text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2 text-gray-800">Smart Home</h4>
+                <p class="text-gray-600 mb-4">Connected living solutions</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-indigo-600 font-medium">167+ Products</span>
+                    <i class="fas fa-arrow-right text-indigo-600"></i>
+                </div>
+            </div>
+
+            <div class="appliance-card rounded-2xl p-6 interactive-element">
+                <div class="bg-gradient-to-br from-red-500 to-red-600 w-16 h-16 rounded-xl flex items-center justify-center mb-4">
+                    <i class="fas fa-gamepad text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2 text-gray-800">Gaming</h4>
+                <p class="text-gray-600 mb-4">Pro gaming accessories</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-indigo-600 font-medium">134+ Products</span>
+                    <i class="fas fa-arrow-right text-indigo-600"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Flexible Product Showcase -->
+<section class="customizable-section py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-12">
+            <div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">Featured Products</h3>
+                <p class="text-gray-600">Customizable product display with international pricing</p>
+            </div>
+            <!-- Customizable Filter Tabs -->
+            <div class="flex space-x-2">
+                <button class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-medium">All</button>
+                <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition">Kitchen</button>
+                <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition">Smart Home</button>
+                <button class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition">Gaming</button>
+            </div>
+        </div>
+
+        <!-- Responsive Product Grid -->
+        <div class="modular-grid">
+            <!-- Product 1 -->
+            <div class="product-variant bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop" alt="Smart Coffee Maker" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 text-sm rounded-full">Smart</span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow interactive-element"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-600 font-medium">Breville</span>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-globe text-gray-400 text-sm"></i>
+                            <span class="text-xs text-gray-500">Ships Worldwide</span>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2 text-gray-800">Smart Coffee Maker Pro</h4>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(234 reviews)</span>
+                    </div>
+                    <!-- Multi-Currency Pricing -->
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-2xl font-bold text-indigo-600">$299.99</span>
+                            <div class="text-sm text-gray-500">
+                                <div>€279.99 • £249.99</div>
+                                <div>¥42,000 • CA$399.99</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition">
+                            Add to Cart
+                        </button>
+                        <button class="px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-variant bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=300&fit=crop" alt="Gaming Mouse" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 text-sm rounded-full">Gaming</span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow interactive-element"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-600 font-medium">Logitech</span>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-globe text-gray-400 text-sm"></i>
+                            <span class="text-xs text-gray-500">Global Warranty</span>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2 text-gray-800">Pro Gaming Mouse X2</h4>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(567 reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-2xl font-bold text-indigo-600">$159.99</span>
+                            <div class="text-sm text-gray-500">
+                                <div>€149.99 • £129.99</div>
+                                <div>¥22,000 • CA$219.99</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition">
+                            Add to Cart
+                        </button>
+                        <button class="px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-variant bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop" alt="Smart Speaker" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-1 text-sm rounded-full">AI</span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow interactive-element"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-600 font-medium">Amazon</span>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-shipping-fast text-gray-400 text-sm"></i>
+                            <span class="text-xs text-gray-500">Express Ship</span>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2 text-gray-800">Echo Studio Smart Speaker</h4>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(1,234 reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-2xl font-bold text-indigo-600">$199.99</span>
+                            <div class="text-sm text-gray-500">
+                                <div>€189.99 • £169.99</div>
+                                <div>¥28,000 • CA$269.99</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition">
+                            Add to Cart
+                        </button>
+                        <button class="px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customizable Features Section -->
+<section class="customizable-section py-16 bg-gradient-to-r from-indigo-50 to-purple-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h3 class="text-3xl font-bold text-gray-800 mb-4">Why Choose ElectroX?</h3>
+            <p class="text-gray-600 max-w-2xl mx-auto">Flexible features designed for global electronics retail</p>
+        </div>
+
+        <div class="modular-grid">
+            <div class="bg-white rounded-2xl p-8 text-center interactive-element">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-globe-americas text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-4 text-gray-800">Global Shipping</h4>
+                <p class="text-gray-600">Worldwide delivery with real-time tracking and international warranty coverage.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 text-center interactive-element">
+                <div class="bg-gradient-to-br from-green-500 to-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-exchange-alt text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-4 text-gray-800">Multi-Currency</h4>
+                <p class="text-gray-600">Shop in your local currency with real-time exchange rates and secure payments.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 text-center interactive-element">
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-cog text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-4 text-gray-800">Customizable</h4>
+                <p class="text-gray-600">Highly flexible layouts and sections that adapt to your business needs.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 text-center interactive-element">
+                <div class="bg-gradient-to-br from-red-500 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-headset text-white text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-4 text-gray-800">24/7 Support</h4>
+                <p class="text-gray-600">Multilingual customer support available around the clock for global customers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter & International -->
+<section class="customizable-section custom-gradient py-16 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h3 class="text-4xl font-bold mb-4">Stay Connected Globally</h3>
+        <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">Join our international community for exclusive deals, product launches, and tech insights</p>
+        <div class="max-w-md mx-auto flex">
+            <input type="email" placeholder="Enter your email"
+                   class="flex-1 px-6 py-4 rounded-l-xl text-gray-800 focus:outline-none">
+            <button class="bg-white text-indigo-600 px-8 py-4 rounded-r-xl font-semibold hover:bg-gray-100 transition">
+                Subscribe
+            </button>
+        </div>
+        <p class="text-sm text-indigo-200 mt-4">Available in 15+ countries with local support</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="modular-grid gap-8">
+            <div class="lg:col-span-2">
+                <div class="flex items-center mb-6">
+                    <div class="custom-gradient w-12 h-12 rounded-xl flex items-center justify-center mr-3">
+                        <i class="fas fa-microchip text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold">ElectroX</h4>
+                        <span class="text-sm text-gray-400">Global Electronics</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 mb-6 max-w-md">Customizable electronics platform serving customers worldwide with premium appliances and innovative solutions.</p>
+                <div class="flex space-x-4">
+                    <i class="fab fa-facebook text-2xl text-gray-400 hover:text-white cursor-pointer interactive-element"></i>
+                    <i class="fab fa-twitter text-2xl text-gray-400 hover:text-white cursor-pointer interactive-element"></i>
+                    <i class="fab fa-instagram text-2xl text-gray-400 hover:text-white cursor-pointer interactive-element"></i>
+                    <i class="fab fa-linkedin text-2xl text-gray-400 hover:text-white cursor-pointer interactive-element"></i>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-4">Global Services</h5>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">International Shipping</a></li>
+                    <li><a href="#" class="hover:text-white transition">Multi-Currency</a></li>
+                    <li><a href="#" class="hover:text-white transition">Global Warranty</a></li>
+                    <li><a href="#" class="hover:text-white transition">Local Support</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-4">Categories</h5>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Kitchen Appliances</a></li>
+                    <li><a href="#" class="hover:text-white transition">Smart Home</a></li>
+                    <li><a href="#" class="hover:text-white transition">Gaming</a></li>
+                    <li><a href="#" class="hover:text-white transition">Entertainment</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-4">Support</h5>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                    <li><a href="#" class="hover:text-white transition">Live Chat</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 ElectroX Global. Customizable electronics platform for worldwide retail.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+

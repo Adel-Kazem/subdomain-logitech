@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electro - Premium Electronics Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066cc',
+                        secondary: '#ff6600',
+                        accent: '#00cc66',
+                        tech: '#1a1a1a',
+                        electric: '#00ffff',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tech-gradient {
+            background: linear-gradient(135deg, #0066cc, #004499, #001a33);
+        }
+        .electric-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        .filter-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+<!-- Top Banner -->
+<div class="bg-tech text-white text-sm py-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div class="flex items-center space-x-6">
+                <span class="flex items-center">
+                    <span class="w-2 h-2 bg-accent rounded-full mr-2 animate-pulse"></span>
+                    FREE shipping on orders $99+
+                </span>
+            <span>📞 1-800-ELECTRO</span>
+            <span>⚡ Same-day delivery available</span>
+        </div>
+        <div class="hidden md:flex space-x-4">
+            <a href="#" class="hover:text-secondary transition-colors">Track Order</a>
+            <a href="#" class="hover:text-secondary transition-colors">Support</a>
+        </div>
+    </div>
+</div>
+
+<!-- Main Header -->
+<header class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <h1 class="text-3xl font-bold">
+                    <span class="text-primary">ELECTRO</span>
+                    <span class="text-secondary text-lg">⚡</span>
+                </h1>
+                <p class="text-xs text-gray-500 -mt-1">ELECTRONICS SUPERSTORE</p>
+            </div>
+
+            <!-- Advanced Search -->
+            <div class="hidden lg:flex flex-1 max-w-2xl mx-8">
+                <div class="flex w-full border-2 border-gray-300 rounded-lg overflow-hidden focus-within:border-primary">
+                    <select class="px-4 py-3 bg-gray-50 text-gray-700 border-r border-gray-300 focus:outline-none">
+                        <option>All Categories</option>
+                        <option>📱 Smartphones</option>
+                        <option>💻 Laptops</option>
+                        <option>🎮 Gaming</option>
+                        <option>📺 TV & Audio</option>
+                        <option>📷 Cameras</option>
+                        <option>⌚ Wearables</option>
+                    </select>
+                    <input type="text" placeholder="Search for electronics, brands, models..."
+                           class="flex-1 px-4 py-3 focus:outline-none">
+                    <button class="bg-primary text-white px-8 py-3 hover:bg-blue-700 transition-colors font-semibold">
+                        🔍 SEARCH
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-6">
+                <div class="hidden md:flex items-center space-x-2">
+                    <div class="text-center">
+                        <div class="text-xs text-gray-500">Compare</div>
+                        <div class="font-semibold text-primary">0 items</div>
+                    </div>
+                </div>
+
+                <button class="relative p-2 text-gray-700 hover:text-primary transition-colors">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <span class="absolute -top-1 -right-1 bg-secondary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </button>
+
+                <button class="relative bg-accent text-white p-3 rounded-lg hover:bg-green-600 transition-colors electric-glow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8"></path>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-bounce-slow">5</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation Menu -->
+<nav class="bg-primary text-white py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <div class="relative group">
+                    <button class="flex items-center space-x-2 bg-secondary px-6 py-3 rounded hover:bg-orange-600 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <span class="font-semibold">ALL CATEGORIES</span>
+                    </button>
+                </div>
+
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="hover:text-secondary transition-colors font-medium flex items-center">
+                        📱 <span class="ml-1">Smartphones</span>
+                    </a>
+                    <a href="#" class="hover:text-secondary transition-colors font-medium flex items-center">
+                        💻 <span class="ml-1">Computers</span>
+                    </a>
+                    <a href="#" class="hover:text-secondary transition-colors font-medium flex items-center">
+                        🎮 <span class="ml-1">Gaming</span>
+                    </a>
+                    <a href="#" class="hover:text-secondary transition-colors font-medium flex items-center">
+                        📺 <span class="ml-1">TV & Audio</span>
+                    </a>
+                    <a href="#" class="hover:text-secondary transition-colors font-medium flex items-center">
+                        🔥 <span class="ml-1">Hot Deals</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center space-x-4 text-sm">
+                <span>⚡ Fast Delivery</span>
+                <span>🛡️ 2-Year Warranty</span>
+                <span>💳 Easy Returns</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="tech-gradient text-white py-20 relative overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="absolute top-10 right-10 w-32 h-32 bg-electric/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute bottom-10 left-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: -1s;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="mb-6">
+                        <span class="bg-secondary text-white px-4 py-2 rounded-full text-sm font-bold animate-pulse">
+                            ⚡ FLASH SALE - UP TO 70% OFF
+                        </span>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-8">
+                    Next-Gen
+                    <span class="text-electric block">Electronics</span>
+                    <span class="text-secondary">& Gaming</span>
+                </h1>
+                <p class="text-xl mb-12 text-gray-200 max-w-lg">
+                    Discover the latest tech innovations. From cutting-edge smartphones to high-performance gaming gear - we have it all.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button class="bg-secondary text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-orange-600 transition-colors electric-glow">
+                        🛒 SHOP NOW
+                    </button>
+                    <button class="border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary transition-colors">
+                        📱 EXPLORE DEALS
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 electric-glow">
+                        <div class="bg-secondary/30 rounded-lg h-24 mb-4 flex items-center justify-center">
+                            <span class="text-3xl">📱</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Latest iPhones</h4>
+                        <p class="text-sm text-gray-300">Starting at $699</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 mt-8">
+                        <div class="bg-accent/30 rounded-lg h-24 mb-4 flex items-center justify-center">
+                            <span class="text-3xl">🎮</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Gaming Laptops</h4>
+                        <p class="text-sm text-gray-300">RTX 4080 Series</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Filter Bar -->
+<section class="py-6 bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-gray-800">🔥 Quick Filters:</h3>
+            <div class="flex flex-wrap gap-3">
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors">All Electronics</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">📱 Smartphones</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">💻 Laptops</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">🎮 Gaming</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">📺 TVs</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">🎧 Audio</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Electronics -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-12">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">⚡ Featured Electronics</h2>
+                <p class="text-gray-600">Handpicked tech essentials with unbeatable performance</p>
+            </div>
+            <div class="flex space-x-2">
+                <button class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors">Latest</button>
+                <button class="px-6 py-2 text-gray-600 hover:text-primary transition-colors">Best Sellers</button>
+                <button class="px-6 py-2 text-gray-600 hover:text-primary transition-colors">On Sale</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all group relative">
+                <div class="absolute top-3 left-3 bg-secondary text-white px-2 py-1 rounded text-xs font-bold z-10">
+                    BESTSELLER
+                </div>
+                <div class="absolute top-3 right-3 z-10">
+                    <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-gradient-to-br from-blue-400 to-indigo-600 h-64 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-6xl text-white opacity-80">📱</span>
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold">Quick View</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-wide">Apple</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">iPhone 15 Pro Max</h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            ★★★★★
+                        </div>
+                        <span class="text-sm text-gray-500 ml-2">(1,247 reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">128GB</span>
+                            <span class="text-xs bg-primary text-white px-2 py-1 rounded">256GB</span>
+                            <span class="text-xs bg-gray-100 px-2 py-1 rounded">512GB</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-2xl font-bold text-primary">$1,199</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">$1,299</span>
+                        </div>
+                        <button class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-3 text-xs text-accent font-semibold">
+                        ⚡ Free same-day delivery
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all group relative">
+                <div class="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold z-10">
+                    SALE 25%
+                </div>
+                <div class="absolute top-3 right-3 z-10">
+                    <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-gradient-to-br from-purple-400 to-pink-600 h-64 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-6xl text-white opacity-80">💻</span>
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold">Quick View</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-wide">MacBook</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">MacBook Pro 16" M3</h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            ★★★★★
+                        </div>
+                        <span class="text-sm text-gray-500 ml-2">(892 reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-xs text-gray-600 mb-2">
+                            ✓ M3 Pro Chip ✓ 18GB RAM ✓ 512GB SSD
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-2xl font-bold text-primary">$2,249</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">$2,999</span>
+                        </div>
+                        <button class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-3 text-xs text-red-500 font-semibold">
+                        🔥 Limited time offer
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all group relative">
+                <div class="absolute top-3 left-3 bg-accent text-white px-2 py-1 rounded text-xs font-bold z-10">
+                    NEW ARRIVAL
+                </div>
+                <div class="absolute top-3 right-3 z-10">
+                    <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-gradient-to-br from-green-400 to-emerald-600 h-64 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-6xl text-white opacity-80">🎮</span>
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold">Quick View</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-wide">PlayStation</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">PlayStation 5 Pro</h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            ★★★★★
+                        </div>
+                        <span class="text-sm text-gray-500 ml-2">(2,156 reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-xs text-gray-600 mb-2">
+                            ✓ 8K Gaming ✓ Ray Tracing ✓ 2TB SSD
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-primary">$699</span>
+                        <button class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-3 text-xs text-accent font-semibold">
+                        📦 In stock - Ships today
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all group relative">
+                <div class="absolute top-3 right-3 z-10">
+                    <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center hover:bg-white transition-colors">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="bg-gradient-to-br from-orange-400 to-red-600 h-64 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-6xl text-white opacity-80">📺</span>
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <button class="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold">Quick View</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-2">
+                        <span class="text-xs text-gray-500 uppercase tracking-wide">Samsung</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">75" QLED 8K TV</h3>
+                    <div class="flex items-center mb-3">
+                        <div class="flex text-yellow-400 text-sm">
+                            ★★★★☆
+                        </div>
+                        <span class="text-sm text-gray-500 ml-2">(534 reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="text-xs text-gray-600 mb-2">
+                            ✓ 8K Resolution ✓ Smart TV ✓ HDR10+
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-primary">$2,899</span>
+                        <button class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-semibold">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="mt-3 text-xs text-primary font-semibold">
+                        🚚 Free white glove delivery
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Deals Banner -->
+<section class="py-16 bg-gradient-to-r from-secondary to-red-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    ⚡ MEGA TECH SALE
+                    <span class="block text-2xl lg:text-3xl text-orange-200">Ends in 23:45:12</span>
+                </h2>
+                <p class="text-xl mb-8 text-orange-100">
+                    Up to 70% off on smartphones, laptops, gaming gear, and more. Limited time offer!
+                </p>
+                <button class="bg-white text-secondary px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors electric-glow">
+                    🔥 SHOP MEGA SALE
+                </button>
+            </div>
+            <div class="text-center">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                    <div class="text-6xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-2">Save Big Today!</h3>
+                    <p class="text-orange-200">Free shipping + Extended warranty</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Brands Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">🏷️ Shop by Top Brands</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">APPLE</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">SAMSUNG</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">SONY</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">LG</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">HP</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">DELL</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">NVIDIA</span>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center hover:shadow-md transition-shadow group">
+                <span class="font-bold text-gray-700 group-hover:text-primary transition-colors">INTEL</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Performance Features -->
+<section class="py-16 bg-tech text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">⚡ Why Choose Electro?</h2>
+            <p class="text-gray-300">Unmatched speed, performance, and customer satisfaction</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-secondary rounded-full mx-auto mb-4 flex items-center justify-center electric-glow">
+                    <span class="text-2xl">⚡</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+                <p class="text-gray-300 text-sm">Fastest loading electronics store with optimized performance</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-accent rounded-full mx-auto mb-4 flex items-center justify-center electric-glow">
+                    <span class="text-2xl">🔍</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Smart Filters</h3>
+                <p class="text-gray-300 text-sm">Advanced filtering system to find exactly what you need</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center electric-glow">
+                    <span class="text-2xl">🛡️</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Best Warranty</h3>
+                <p class="text-gray-300 text-sm">Extended warranty and protection plans for all electronics</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-electric rounded-full mx-auto mb-4 flex items-center justify-center electric-glow">
+                    <span class="text-2xl">🚀</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Expert Support</h3>
+                <p class="text-gray-300 text-sm">24/7 tech support from certified electronics specialists</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div class="md:col-span-2">
+                <h4 class="text-3xl font-bold mb-4">
+                    <span class="text-primary">ELECTRO</span>
+                    <span class="text-secondary">⚡</span>
+                </h4>
+                <p class="text-gray-300 mb-6">Your ultimate destination for cutting-edge electronics. From smartphones to gaming gear, we power your digital lifestyle.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center hover:electric-glow transition-all">
+                        <span class="text-sm font-bold">f</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center hover:electric-glow transition-all">
+                        <span class="text-sm font-bold">t</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center hover:electric-glow transition-all">
+                        <span class="text-sm font-bold">i</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-4">Categories</h5>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="#" class="hover:text-primary transition-colors">📱 Smartphones</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">💻 Laptops</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">🎮 Gaming</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">📺 TVs</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">🎧 Audio</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-4">Support</h5>
+                <ul class="space-y-2 text-gray-300">
+                    <li><a href="#" class="hover:text-secondary transition-colors">Track Order</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Returns</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Warranty</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Tech Support</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-4">Newsletter</h5>
+                <p class="text-gray-300 text-sm mb-4">Get the latest tech deals and product launches</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-l-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <button class="bg-primary px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm">&copy; 2025 Electro Electronics Store. All rights reserved. Powered by innovation.</p>
+            <div class="flex space-x-4 mt-4 md:mt-0 text-sm">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Warranty Info</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

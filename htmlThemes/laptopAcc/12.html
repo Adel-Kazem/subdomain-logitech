@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroZone - Your Electronics Superstore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .vertical-menu {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        .electronics-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .tech-pattern {
+            background-image:
+                    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+        }
+
+        .product-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .quick-view-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .quick-view-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .electronics-badge {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        }
+
+        .spec-pill {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="bg-white shadow-sm border-b-2 border-blue-500">
+    <!-- Top Bar -->
+    <div class="bg-gray-800 text-white text-sm py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex space-x-4">
+                <span><i class="fas fa-truck mr-1"></i>Free shipping on orders $50+</span>
+                <span><i class="fas fa-shield-alt mr-1"></i>2 Year Warranty</span>
+            </div>
+            <div class="flex space-x-4">
+                <span><i class="fas fa-phone mr-1"></i>1-800-ELECTRO</span>
+                <span>|</span>
+                <a href="#" class="hover:text-blue-300">Track Order</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <div class="electronics-gradient w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-bolt text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">ElectroZone</h1>
+                    <span class="text-xs text-blue-600">Electronics Superstore</span>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-2xl mx-8">
+                <div class="relative">
+                    <input type="text" placeholder="Search electronics, gadgets, accessories..."
+                           class="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500">
+                    <i class="fas fa-search absolute left-4 top-4 text-gray-400"></i>
+                    <button class="absolute right-2 top-2 bg-blue-600 text-white px-4 py-2 rounded">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-6">
+                <div class="text-center cursor-pointer">
+                    <i class="fas fa-user text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Account</div>
+                </div>
+                <div class="text-center cursor-pointer relative">
+                    <i class="fas fa-heart text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Wishlist</div>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">4</span>
+                </div>
+                <div class="text-center cursor-pointer relative">
+                    <i class="fas fa-shopping-cart text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Cart</div>
+                    <span class="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Navigation with Vertical Menu -->
+<nav class="bg-white border-b shadow-sm">
+    <div class="container mx-auto px-4">
+        <div class="flex">
+            <!-- Vertical Categories Menu -->
+            <div class="bg-blue-600 text-white px-6 py-3 rounded-none relative group cursor-pointer">
+                <div class="flex items-center">
+                    <i class="fas fa-bars mr-3"></i>
+                    <span class="font-semibold">All Categories</span>
+                    <i class="fas fa-chevron-down ml-3"></i>
+                </div>
+
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-0 w-64 bg-white text-gray-800 shadow-lg z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                    <div class="py-2">
+                        <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-50 border-b">
+                            <i class="fas fa-mouse text-blue-600 w-6"></i>
+                            <span class="ml-3">Mice & Trackpads</span>
+                            <span class="ml-auto text-sm text-gray-500">(234)</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-50 border-b">
+                            <i class="fas fa-keyboard text-blue-600 w-6"></i>
+                            <span class="ml-3">Keyboards</span>
+                            <span class="ml-auto text-sm text-gray-500">(187)</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-50 border-b">
+                            <i class="fas fa-headphones text-blue-600 w-6"></i>
+                            <span class="ml-3">Audio & Headphones</span>
+                            <span class="ml-auto text-sm text-gray-500">(156)</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-50 border-b">
+                            <i class="fas fa-hdd text-blue-600 w-6"></i>
+                            <span class="ml-3">Storage & Memory</span>
+                            <span class="ml-auto text-sm text-gray-500">(298)</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-50 border-b">
+                            <i class="fas fa-usb text-blue-600 w-6"></i>
+                            <span class="ml-3">Cables & Adapters</span>
+                            <span class="ml-auto text-sm text-gray-500">(345)</span>
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-3 hover:bg-blue-50">
+                            <i class="fas fa-gamepad text-blue-600 w-6"></i>
+                            <span class="ml-3">Gaming Accessories</span>
+                            <span class="ml-auto text-sm text-gray-500">(189)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horizontal Navigation -->
+            <ul class="flex space-x-8 py-3 ml-8 items-center">
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium">New Arrivals</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Best Sellers</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Gaming Zone</a></li>
+                <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Professional</a></li>
+                <li><a href="#" class="text-red-600 hover:text-red-700 font-medium">Sale</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Banner -->
+<section class="tech-pattern py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="electronics-badge text-white px-4 py-2 rounded-full text-sm font-semibold inline-block mb-4">
+                    <i class="fas fa-bolt mr-2"></i>Electronics Sale
+                </div>
+                <h2 class="text-5xl font-bold mb-6 leading-tight">Latest Tech at Unbeatable Prices</h2>
+                <p class="text-xl mb-8 text-blue-100">Discover cutting-edge electronics, premium accessories, and innovative gadgets. Free shipping on orders over $50.</p>
+                <div class="flex space-x-4">
+                    <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        Shop Electronics
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                        View Deals
+                    </button>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="bg-white/10 rounded-2xl p-8 backdrop-blur-sm">
+                    <img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=500&h=400&fit=crop" alt="Electronics Collection" class="rounded-lg w-full">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Features -->
+<section class="py-8 bg-white border-b">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-shipping-fast text-green-600"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-gray-800">Free Shipping</div>
+                    <div class="text-sm text-gray-600">Orders over $50</div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-undo text-blue-600"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-gray-800">Easy Returns</div>
+                    <div class="text-sm text-gray-600">30-day policy</div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-purple-600"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-gray-800">Warranty</div>
+                    <div class="text-sm text-gray-600">2-year coverage</div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                    <i class="fas fa-headset text-red-600"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-gray-800">Support 24/7</div>
+                    <div class="text-sm text-gray-600">Expert help</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-12">
+            <div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">Featured Electronics</h3>
+                <p class="text-gray-600">Handpicked products from top brands</p>
+            </div>
+            <div class="flex space-x-2">
+                <button class="px-4 py-2 bg-blue-600 text-white rounded">All</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Gaming</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Audio</button>
+                <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Storage</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="product-card bg-white rounded-xl shadow-md overflow-hidden product-hover transition-all duration-300">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300&h=250&fit=crop" alt="Gaming Mouse" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 left-3">
+                        <span class="electronics-badge text-white px-2 py-1 text-xs rounded-full">HOT</span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow"></i>
+                    </div>
+                    <div class="absolute bottom-3 left-3 right-3 quick-view-btn">
+                        <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-blue-600 mb-1">Logitech</div>
+                    <h4 class="font-semibold mb-2 text-gray-800">G Pro X Wireless Gaming Mouse</h4>
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(247)</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mb-3">
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">25K DPI</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">Wireless</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">RGB</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-lg font-bold text-blue-600">$149.99</span>
+                            <span class="text-sm text-gray-500 line-through ml-1">$179.99</span>
+                        </div>
+                        <span class="text-sm text-green-600 font-medium">Save $30</span>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card bg-white rounded-xl shadow-md overflow-hidden product-hover transition-all duration-300">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&h=250&fit=crop" alt="Mechanical Keyboard" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow"></i>
+                    </div>
+                    <div class="absolute bottom-3 left-3 right-3 quick-view-btn">
+                        <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-blue-600 mb-1">Corsair</div>
+                    <h4 class="font-semibold mb-2 text-gray-800">K95 RGB Platinum Keyboard</h4>
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(183)</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mb-3">
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">Cherry MX</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">RGB</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">Macro Keys</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-lg font-bold text-blue-600">$199.99</span>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card bg-white rounded-xl shadow-md overflow-hidden product-hover transition-all duration-300">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=250&fit=crop" alt="Wireless Headphones" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-green-500 text-white px-2 py-1 text-xs rounded-full">NEW</span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow"></i>
+                    </div>
+                    <div class="absolute bottom-3 left-3 right-3 quick-view-btn">
+                        <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-blue-600 mb-1">Sony</div>
+                    <h4 class="font-semibold mb-2 text-gray-800">WH-1000XM5 Wireless Headphones</h4>
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(412)</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mb-3">
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">Noise Cancel</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">30hr Battery</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">Wireless</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-lg font-bold text-blue-600">$399.99</span>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card bg-white rounded-xl shadow-md overflow-hidden product-hover transition-all duration-300">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=250&fit=crop" alt="External SSD" class="w-full h-48 object-cover">
+                    <div class="absolute top-3 right-3">
+                        <i class="fas fa-heart text-gray-400 hover:text-red-500 cursor-pointer bg-white p-2 rounded-full shadow"></i>
+                    </div>
+                    <div class="absolute bottom-3 left-3 right-3 quick-view-btn">
+                        <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                            Quick View
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="text-sm text-blue-600 mb-1">Samsung</div>
+                    <h4 class="font-semibold mb-2 text-gray-800">T7 Portable SSD 1TB</h4>
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 text-sm ml-2">(89)</span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mb-3">
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">1TB</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">USB 3.2</span>
+                        <span class="spec-pill text-xs px-2 py-1 rounded text-blue-700">Portable</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-lg font-bold text-blue-600">$129.99</span>
+                            <span class="text-sm text-gray-500 line-through ml-1">$159.99</span>
+                        </div>
+                        <span class="text-sm text-green-600 font-medium">Save $30</span>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Accessories Recommendations -->
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">Frequently Bought Together</h3>
+        <div class="bg-white rounded-xl p-8 shadow-md">
+            <div class="grid md:grid-cols-4 gap-6 items-center">
+                <div class="text-center">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=150&h=150&fit=crop" alt="Mouse" class="w-32 h-32 object-cover rounded-lg mx-auto mb-3">
+                    <h4 class="font-semibold mb-1">Gaming Mouse</h4>
+                    <p class="text-blue-600 font-bold">$149.99</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-plus text-2xl text-gray-400 mb-8"></i>
+                </div>
+                <div class="text-center">
+                    <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=150&h=150&fit=crop" alt="Mouse Pad" class="w-32 h-32 object-cover rounded-lg mx-auto mb-3">
+                    <h4 class="font-semibold mb-1">Gaming Mouse Pad</h4>
+                    <p class="text-blue-600 font-bold">$24.99</p>
+                </div>
+                <div class="text-center">
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                        <p class="text-sm text-gray-600 mb-2">Bundle Price:</p>
+                        <p class="text-2xl font-bold text-green-600 mb-1">$164.99</p>
+                        <p class="text-sm text-gray-500 line-through mb-3">$174.98</p>
+                        <button class="bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700 transition">
+                            Add Bundle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recently Viewed -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h3 class="text-2xl font-bold text-gray-800 mb-8">Recently Viewed</h3>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+            <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition">
+                <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-20 object-cover rounded mb-2">
+                <div class="text-sm font-medium text-gray-800">Gaming Mouse</div>
+                <div class="text-sm text-blue-600 font-bold">$149.99</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition">
+                <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-20 object-cover rounded mb-2">
+                <div class="text-sm font-medium text-gray-800">Keyboard</div>
+                <div class="text-sm text-blue-600 font-bold">$199.99</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition">
+                <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-20 object-cover rounded mb-2">
+                <div class="text-sm font-medium text-gray-800">Headphones</div>
+                <div class="text-sm text-blue-600 font-bold">$399.99</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition">
+                <img src="https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-20 object-cover rounded mb-2">
+                <div class="text-sm font-medium text-gray-800">USB Hub</div>
+                <div class="text-sm text-blue-600 font-bold">$89.99</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition">
+                <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-20 object-cover rounded mb-2">
+                <div class="text-sm font-medium text-gray-800">Webcam</div>
+                <div class="text-sm text-blue-600 font-bold">$129.99</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-20 object-cover rounded mb-2">
+                <div class="text-sm font-medium text-gray-800">SSD Storage</div>
+                <div class="text-sm text-blue-600 font-bold">$129.99</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-6">
+                    <div class="electronics-gradient w-10 h-10 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-bolt text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold">ElectroZone</h4>
+                        <span class="text-xs text-gray-400">Electronics Superstore</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 mb-6">Your trusted destination for the latest electronics, computer accessories, and tech gadgets.</p>
+                <div class="flex space-x-4">
+                    <i class="fab fa-facebook text-blue-400 text-xl cursor-pointer hover:text-blue-300"></i>
+                    <i class="fab fa-twitter text-blue-400 text-xl cursor-pointer hover:text-blue-300"></i>
+                    <i class="fab fa-instagram text-pink-400 text-xl cursor-pointer hover:text-pink-300"></i>
+                    <i class="fab fa-youtube text-red-400 text-xl cursor-pointer hover:text-red-300"></i>
+                </div>
+            </div>
+            <div>
+                <h5 class="font-semibold mb-4">Categories</h5>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white">Gaming Accessories</a></li>
+                    <li><a href="#" class="hover:text-white">Audio & Headphones</a></li>
+                    <li><a href="#" class="hover:text-white">Storage & Memory</a></li>
+                    <li><a href="#" class="hover:text-white">Cables & Adapters</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold mb-4">Support</h5>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white">Contact Support</a></li>
+                    <li><a href="#" class="hover:text-white">Warranty Info</a></li>
+                    <li><a href="#" class="hover:text-white">Return Policy</a></li>
+                    <li><a href="#" class="hover:text-white">Tech Support</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-semibold mb-4">Newsletter</h5>
+                <p class="text-gray-400 mb-4">Get the latest tech news and exclusive deals</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 bg-gray-800 text-white rounded-l-lg border border-gray-700 focus:outline-none focus:border-blue-500">
+                    <button class="bg-blue-600 px-4 py-2 rounded-r-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 ElectroZone. All rights reserved. Built for electronics enthusiasts.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept - Creative Design Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#06d6a0',
+                        dark: '#1f2937',
+                        concept: '#f43f5e',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06d6a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .concept-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-white text-dark overflow-x-hidden">
+<!-- Dynamic Header -->
+<header class="relative bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Animated Logo -->
+            <div class="flex-shrink-0">
+                <h1 class="text-3xl font-bold">
+                    <span class="gradient-text">CONCEPT</span>
+                    <span class="text-xs block text-gray-500 -mt-1">CREATIVE STORE</span>
+                </h1>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="relative text-gray-700 hover:text-primary transition-colors font-medium group">
+                    HOME
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#" class="relative text-gray-700 hover:text-secondary transition-colors font-medium group">
+                    PRODUCTS
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-secondary transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#" class="relative text-gray-700 hover:text-accent transition-colors font-medium group">
+                    COLLECTIONS
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#" class="relative text-gray-700 hover:text-concept transition-colors font-medium group">
+                    ABOUT
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-concept transition-all group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-4">
+                <button class="p-2 rounded-full hover:bg-primary/10 transition-colors">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full hover:bg-secondary/10 transition-colors">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                </button>
+                <button class="relative bg-gradient-to-r from-primary to-secondary text-white p-3 rounded-xl hover:shadow-lg transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 bg-concept text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">3</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Innovative Hero Section -->
+<section class="relative min-h-screen flex items-center bg-gradient-to-br from-primary/5 via-white to-secondary/5 overflow-hidden">
+    <!-- Floating Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-primary/10 rounded-full animate-float"></div>
+        <div class="absolute top-40 right-20 w-24 h-24 bg-secondary/10 rounded-full animate-float" style="animation-delay: -2s;"></div>
+        <div class="absolute bottom-20 left-1/4 w-40 h-40 bg-accent/10 rounded-full animate-float" style="animation-delay: -4s;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="mb-6">
+                        <span class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full text-sm font-semibold text-primary border border-primary/30">
+                            ✨ New Concept Launched
+                        </span>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-8">
+                    Where
+                    <span class="gradient-text block">Ideas</span>
+                    Become Reality
+                </h1>
+                <p class="text-xl lg:text-2xl text-gray-600 mb-12 leading-relaxed">
+                    Discover innovative products that challenge convention and inspire creativity. Every item tells a story of thoughtful design.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button class="bg-gradient-to-r from-primary to-secondary text-white px-10 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all transform hover:scale-105">
+                        Explore Concepts
+                    </button>
+                    <button class="border-2 border-gray-300 text-gray-700 px-10 py-4 rounded-xl font-semibold text-lg hover:border-primary hover:text-primary transition-all">
+                        Watch Story
+                    </button>
+                </div>
+            </div>
+
+            <!-- Creative Visual Element -->
+            <div class="relative">
+                <div class="concept-card rounded-3xl p-8 backdrop-blur-sm">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="h-24 bg-gradient-to-br from-primary to-primary/50 rounded-2xl shadow-lg transform rotate-3 hover:rotate-6 transition-transform"></div>
+                            <div class="h-16 bg-gradient-to-br from-secondary to-secondary/50 rounded-2xl shadow-lg transform -rotate-2 hover:-rotate-4 transition-transform"></div>
+                        </div>
+                        <div class="space-y-4 mt-8">
+                            <div class="h-16 bg-gradient-to-br from-accent to-accent/50 rounded-2xl shadow-lg transform rotate-2 hover:rotate-4 transition-transform"></div>
+                            <div class="h-24 bg-gradient-to-br from-concept to-concept/50 rounded-2xl shadow-lg transform -rotate-1 hover:-rotate-3 transition-transform"></div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <div class="inline-flex items-center space-x-2 text-gray-600">
+                            <div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                            <span class="text-sm font-medium">Creative Process</span>
+                            <div class="w-2 h-2 bg-secondary rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Concept Categories -->
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                Explore Our <span class="gradient-text">Concepts</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Each category represents a unique approach to design thinking and innovation
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Concept 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-2xl mb-6 transform transition-all hover:scale-105">
+                    <div class="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 p-8 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl mx-auto mb-4 flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-primary group-hover:text-secondary transition-colors">Innovation</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">Smart Technology</h4>
+                    <p class="text-gray-600 text-sm">Revolutionary tech solutions</p>
+                    <span class="text-xs text-primary font-medium">156 Products</span>
+                </div>
+            </div>
+
+            <!-- Concept 2 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-2xl mb-6 transform transition-all hover:scale-105">
+                    <div class="aspect-square bg-gradient-to-br from-secondary/20 to-secondary/5 p-8 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-secondary to-concept rounded-2xl mx-auto mb-4 flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-secondary group-hover:text-concept transition-colors">Design</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold mb-2 group-hover:text-secondary transition-colors">Creative Arts</h4>
+                    <p class="text-gray-600 text-sm">Artistic expression tools</p>
+                    <span class="text-xs text-secondary font-medium">89 Products</span>
+                </div>
+            </div>
+
+            <!-- Concept 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-2xl mb-6 transform transition-all hover:scale-105">
+                    <div class="aspect-square bg-gradient-to-br from-accent/20 to-accent/5 p-8 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-2xl mx-auto mb-4 flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-accent group-hover:text-primary transition-colors">Sustainability</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold mb-2 group-hover:text-accent transition-colors">Eco Solutions</h4>
+                    <p class="text-gray-600 text-sm">Sustainable lifestyle</p>
+                    <span class="text-xs text-accent font-medium">234 Products</span>
+                </div>
+            </div>
+
+            <!-- Concept 4 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-2xl mb-6 transform transition-all hover:scale-105">
+                    <div class="aspect-square bg-gradient-to-br from-concept/20 to-concept/5 p-8 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-concept to-secondary rounded-2xl mx-auto mb-4 flex items-center justify-center transform group-hover:rotate-12 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-concept group-hover:text-secondary transition-colors">Performance</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold mb-2 group-hover:text-concept transition-colors">High Performance</h4>
+                    <p class="text-gray-600 text-sm">Professional grade gear</p>
+                    <span class="text-xs text-concept font-medium">178 Products</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Concepts -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                Featured <span class="gradient-text">Innovations</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Handpicked concepts that represent the future of design and functionality
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Featured Product 1 -->
+            <div class="group relative overflow-hidden rounded-3xl concept-card p-8 hover:shadow-2xl transition-all">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-gradient-to-r from-primary to-secondary text-white px-3 py-1 rounded-full text-xs font-semibold">FEATURED</span>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <div class="w-32 h-32 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Smart Concept Lamp</h3>
+                        <p class="text-gray-600 text-sm mb-4">Adaptive lighting that learns your preferences and adjusts automatically.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-primary">$189</span>
+                            <span class="text-gray-500 text-sm line-through ml-2">$249</span>
+                        </div>
+                        <button class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all transform hover:scale-105">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Product 2 -->
+            <div class="group relative overflow-hidden rounded-3xl concept-card p-8 hover:shadow-2xl transition-all">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-gradient-to-r from-secondary to-concept text-white px-3 py-1 rounded-full text-xs font-semibold">NEW</span>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-secondary/10 to-concept/10 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <div class="w-32 h-32 bg-gradient-to-br from-secondary to-concept rounded-xl flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-secondary transition-colors">Modular Design Kit</h3>
+                        <p class="text-gray-600 text-sm mb-4">Creative building blocks for endless design possibilities.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-secondary">$129</span>
+                        <button class="bg-gradient-to-r from-secondary to-concept text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all transform hover:scale-105">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Product 3 -->
+            <div class="group relative overflow-hidden rounded-3xl concept-card p-8 hover:shadow-2xl transition-all">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-gradient-to-r from-accent to-primary text-white px-3 py-1 rounded-full text-xs font-semibold">ECO</span>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <div class="w-32 h-32 bg-gradient-to-br from-accent to-primary rounded-xl flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Sustainable Concept</h3>
+                        <p class="text-gray-600 text-sm mb-4">Zero-waste solution for modern living spaces.</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-2xl font-bold text-accent">$95</span>
+                        <button class="bg-gradient-to-r from-accent to-primary text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all transform hover:scale-105">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Concept Philosophy -->
+<section class="py-24 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl lg:text-6xl font-bold mb-8">
+            Our <span class="gradient-text">Design Philosophy</span>
+        </h2>
+        <p class="text-xl lg:text-2xl text-gray-600 mb-16 leading-relaxed">
+            We believe that great design starts with a concept. Every product in our collection represents a thoughtful approach to solving real-world problems through innovative thinking.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                    <span class="text-white text-3xl font-bold">01</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Think Different</h3>
+                <p class="text-gray-600">Challenge conventional wisdom and explore new possibilities in every design decision.</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-secondary to-concept rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                    <span class="text-white text-3xl font-bold">02</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Create Value</h3>
+                <p class="text-gray-600">Every concept must solve a real problem and add meaningful value to people's lives.</p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-accent to-primary rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                    <span class="text-white text-3xl font-bold">03</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Inspire Action</h3>
+                <p class="text-gray-600">Great concepts inspire people to think, feel, and act differently in their daily lives.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter with Creative Design -->
+<section class="py-24 bg-dark text-white relative overflow-hidden">
+    <div class="absolute inset-0">
+        <div class="absolute top-10 left-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-10 right-10 w-40 h-40 bg-secondary/20 rounded-full blur-2xl"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+            Join the <span class="gradient-text">Concept Community</span>
+        </h2>
+        <p class="text-xl text-gray-300 mb-12">
+            Be the first to discover new concepts and get exclusive access to innovative designs
+        </p>
+
+        <div class="flex max-w-lg mx-auto rounded-2xl overflow-hidden concept-card">
+            <input type="email" placeholder="Enter your creative email"
+                   class="flex-1 px-6 py-4 bg-transparent border-none focus:outline-none text-white placeholder-gray-400">
+            <button class="bg-gradient-to-r from-primary to-secondary px-8 py-4 font-semibold hover:shadow-lg transition-all">
+                Subscribe
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <h4 class="text-2xl font-bold mb-6">
+                    <span class="gradient-text">CONCEPT</span>
+                </h4>
+                <p class="text-gray-300 mb-6">Where innovative ideas meet exceptional design. Every product tells a story of creative thinking.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center hover:shadow-lg transition-all">
+                        <span class="text-sm font-bold">IG</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gradient-to-r from-secondary to-concept rounded-lg flex items-center justify-center hover:shadow-lg transition-all">
+                        <span class="text-sm font-bold">TW</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gradient-to-r from-accent to-primary rounded-lg flex items-center justify-center hover:shadow-lg transition-all">
+                        <span class="text-sm font-bold">FB</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-6">Concepts</h5>
+                <ul class="space-y-3 text-gray-300">
+                    <li><a href="#" class="hover:text-primary transition-colors">Smart Technology</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">Creative Arts</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">Eco Solutions</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">Performance</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-6">Support</h5>
+                <ul class="space-y-3 text-gray-300">
+                    <li><a href="#" class="hover:text-secondary transition-colors">Help Center</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Design Process</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Returns</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-6">Innovation Hub</h5>
+                <ul class="space-y-3 text-gray-300">
+                    <li><a href="#" class="hover:text-accent transition-colors">Design Lab</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors">Concept Blog</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors">Partnerships</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p class="text-gray-400">&copy; 2025 Concept Store. All rights reserved. Designed with ❤️ for innovators.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

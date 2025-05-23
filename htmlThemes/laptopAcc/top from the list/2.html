@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Tech - Clean. Simple. Perfect.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .minimal-transition {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .hover-minimal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .clean-border {
+            border: 1px solid #f1f5f9;
+        }
+
+        .minimal-button {
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .minimal-button:hover {
+            border-color: #64748b;
+            background-color: #f8fafc;
+        }
+
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.02);
+        }
+
+        .clean-link {
+            position: relative;
+            text-decoration: none;
+        }
+
+        .clean-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #64748b;
+            transition: width 0.2s ease;
+        }
+
+        .clean-link:hover::after {
+            width: 100%;
+        }
+
+        .minimal-shadow {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .clean-focus:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+<!-- Minimal Header -->
+<header class="bg-white border-b border-gray-100">
+    <!-- Clean Top Bar -->
+    <div class="bg-gray-50 text-sm py-2 border-b border-gray-100">
+        <div class="container mx-auto px-4 text-center">
+            <span class="text-gray-600">Free shipping on orders over $75 • 30-day returns</span>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex items-center justify-between">
+            <!-- Simple Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl font-light text-gray-900 tracking-wide">Minimal Tech</h1>
+            </div>
+
+            <!-- Clean Search -->
+            <div class="flex-1 max-w-lg mx-8">
+                <div class="relative">
+                    <input type="text" placeholder="Search products..."
+                           class="w-full px-4 py-3 text-sm border border-gray-200 rounded-none focus:outline-none focus:border-gray-400 clean-focus">
+                    <button class="absolute right-3 top-3 text-gray-400 hover:text-gray-600 minimal-transition">
+                        <i class="fas fa-search text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Minimal Actions -->
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-gray-600 hover:text-gray-900 minimal-transition">
+                    <i class="fas fa-user text-lg"></i>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 minimal-transition relative">
+                    <i class="fas fa-heart text-lg"></i>
+                    <span class="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">2</span>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-gray-900 minimal-transition relative">
+                    <i class="fas fa-shopping-bag text-lg"></i>
+                    <span class="absolute -top-1 -right-1 bg-gray-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clean Navigation -->
+    <nav class="border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <ul class="flex items-center justify-center space-x-12 py-4">
+                <li><a href="#" class="clean-link text-gray-700 hover:text-gray-900 text-sm font-medium">Home</a></li>
+                <li><a href="#" class="clean-link text-gray-700 hover:text-gray-900 text-sm font-medium">Audio</a></li>
+                <li><a href="#" class="clean-link text-gray-700 hover:text-gray-900 text-sm font-medium">Accessories</a></li>
+                <li><a href="#" class="clean-link text-gray-700 hover:text-gray-900 text-sm font-medium">Computing</a></li>
+                <li><a href="#" class="clean-link text-gray-700 hover:text-gray-900 text-sm font-medium">Gaming</a></li>
+                <li><a href="#" class="clean-link text-red-600 hover:text-red-700 text-sm font-medium">Sale</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Minimal Hero Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-light text-gray-900 mb-6 leading-tight">
+                Clean.<br>
+                <span class="font-normal">Simple.</span><br>
+                <span class="font-medium">Perfect.</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-12 font-light max-w-2xl mx-auto leading-relaxed">
+                Discover premium computer accessories designed with minimalist elegance and uncompromising quality.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button class="bg-gray-900 text-white px-8 py-4 text-sm font-medium tracking-wide hover:bg-gray-800 minimal-transition">
+                    EXPLORE COLLECTION
+                </button>
+                <button class="minimal-button px-8 py-4 text-sm font-medium tracking-wide text-gray-700">
+                    VIEW LOOKBOOK
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Product Grid -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h3 class="text-3xl font-light text-gray-900 mb-4">Featured Products</h3>
+            <p class="text-gray-600 font-light">Carefully curated essentials for your workspace</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product 1 -->
+            <div class="product-card bg-white minimal-shadow hover-minimal minimal-transition overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300&h=300&fit=crop"
+                         alt="Minimal Mouse" class="product-image w-full h-64 object-cover">
+                    <div class="absolute top-4 right-4 opacity-0 hover:opacity-100 minimal-transition">
+                        <button class="bg-white text-gray-600 hover:text-gray-900 w-10 h-10 rounded-full minimal-shadow flex items-center justify-center minimal-transition">
+                            <i class="fas fa-heart text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-2">Precision Mouse</h4>
+                    <p class="text-sm text-gray-600 mb-4 font-light">Wireless optical sensor</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-medium text-gray-900">$89</span>
+                        <button class="text-sm font-medium text-gray-700 hover:text-gray-900 minimal-transition tracking-wide">
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card bg-white minimal-shadow hover-minimal minimal-transition overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=300&h=300&fit=crop"
+                         alt="Minimal Keyboard" class="product-image w-full h-64 object-cover">
+                    <div class="absolute top-4 right-4 opacity-0 hover:opacity-100 minimal-transition">
+                        <button class="bg-white text-gray-600 hover:text-gray-900 w-10 h-10 rounded-full minimal-shadow flex items-center justify-center minimal-transition">
+                            <i class="fas fa-heart text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-2">Clean Keyboard</h4>
+                    <p class="text-sm text-gray-600 mb-4 font-light">Mechanical switches</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-medium text-gray-900">$149</span>
+                        <button class="text-sm font-medium text-gray-700 hover:text-gray-900 minimal-transition tracking-wide">
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card bg-white minimal-shadow hover-minimal minimal-transition overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop"
+                         alt="Minimal Headphones" class="product-image w-full h-64 object-cover">
+                    <div class="absolute top-4 right-4 opacity-0 hover:opacity-100 minimal-transition">
+                        <button class="bg-white text-gray-600 hover:text-gray-900 w-10 h-10 rounded-full minimal-shadow flex items-center justify-center minimal-transition">
+                            <i class="fas fa-heart text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-2">Pure Audio</h4>
+                    <p class="text-sm text-gray-600 mb-4 font-light">Noise cancelling</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-medium text-gray-900">$299</span>
+                        <button class="text-sm font-medium text-gray-700 hover:text-gray-900 minimal-transition tracking-wide">
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card bg-white minimal-shadow hover-minimal minimal-transition overflow-hidden">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=300&h=300&fit=crop"
+                         alt="Minimal Hub" class="product-image w-full h-64 object-cover">
+                    <div class="absolute top-4 right-4 opacity-0 hover:opacity-100 minimal-transition">
+                        <button class="bg-white text-gray-600 hover:text-gray-900 w-10 h-10 rounded-full minimal-shadow flex items-center justify-center minimal-transition">
+                            <i class="fas fa-heart text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h4 class="text-lg font-medium text-gray-900 mb-2">Connect Hub</h4>
+                    <p class="text-sm text-gray-600 mb-4 font-light">USB-C multiport</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-medium text-gray-900">$79</span>
+                        <button class="text-sm font-medium text-gray-700 hover:text-gray-900 minimal-transition tracking-wide">
+                            ADD TO CART
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Frequently Bought Together - Minimal Style -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-light text-gray-900 text-center mb-12">Frequently Bought Together</h3>
+
+            <div class="bg-gray-50 p-8 minimal-shadow">
+                <div class="grid grid-cols-1 md:grid-cols-7 gap-6 items-center">
+                    <!-- Product 1 -->
+                    <div class="md:col-span-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=150&h=150&fit=crop"
+                             alt="Mouse" class="w-24 h-24 object-cover mx-auto mb-3 minimal-shadow">
+                        <h4 class="text-sm font-medium text-gray-900 mb-1">Precision Mouse</h4>
+                        <p class="text-sm text-gray-600">$89</p>
+                    </div>
+
+                    <!-- Plus Icon -->
+                    <div class="md:col-span-1 text-center">
+                        <div class="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center mx-auto">
+                            <i class="fas fa-plus text-gray-400 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="md:col-span-2 text-center">
+                        <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=150&h=150&fit=crop"
+                             alt="Mouse Pad" class="w-24 h-24 object-cover mx-auto mb-3 minimal-shadow">
+                        <h4 class="text-sm font-medium text-gray-900 mb-1">Clean Pad</h4>
+                        <p class="text-sm text-gray-600">$29</p>
+                    </div>
+
+                    <!-- Bundle Info -->
+                    <div class="md:col-span-2 text-center">
+                        <div class="border-l border-gray-200 pl-6">
+                            <p class="text-xs text-gray-500 mb-2 uppercase tracking-wide">Bundle Price</p>
+                            <p class="text-2xl font-light text-gray-900 mb-1">$109</p>
+                            <p class="text-xs text-gray-500 line-through mb-4">$118</p>
+                            <button class="bg-gray-900 text-white px-6 py-2 text-xs font-medium tracking-wide hover:bg-gray-800 minimal-transition">
+                                ADD BUNDLE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Categories -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Category 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden minimal-shadow hover-minimal minimal-transition bg-white">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=500&fit=crop"
+                         alt="Workspace" class="w-full h-80 object-cover group-hover:scale-105 minimal-transition">
+                    <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 minimal-transition"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h4 class="text-2xl font-light text-white mb-2">Workspace</h4>
+                        <p class="text-sm text-white font-light mb-4">Essential desk accessories</p>
+                        <span class="text-xs text-white uppercase tracking-wide font-medium">SHOP NOW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 2 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden minimal-shadow hover-minimal minimal-transition bg-white">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=500&fit=crop"
+                         alt="Gaming" class="w-full h-80 object-cover group-hover:scale-105 minimal-transition">
+                    <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 minimal-transition"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h4 class="text-2xl font-light text-white mb-2">Gaming</h4>
+                        <p class="text-sm text-white font-light mb-4">Performance peripherals</p>
+                        <span class="text-xs text-white uppercase tracking-wide font-medium">SHOP NOW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden minimal-shadow hover-minimal minimal-transition bg-white">
+                    <img src="https://images.unsplash.com/photo-1493020258366-be3ead62d1db?w=400&h=500&fit=crop"
+                         alt="Audio" class="w-full h-80 object-cover group-hover:scale-105 minimal-transition">
+                    <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 minimal-transition"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h4 class="text-2xl font-light text-white mb-2">Audio</h4>
+                        <p class="text-sm text-white font-light mb-4">Pure sound experience</p>
+                        <span class="text-xs text-white uppercase tracking-wide font-medium">SHOP NOW</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Features -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div>
+                    <div class="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shipping-fast text-gray-600"></i>
+                    </div>
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">Free Shipping</h4>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed">Complimentary shipping on all orders over $75 worldwide</p>
+                </div>
+
+                <div>
+                    <div class="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-undo text-gray-600"></i>
+                    </div>
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">Easy Returns</h4>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed">30-day return policy with hassle-free exchanges</p>
+                </div>
+
+                <div>
+                    <div class="w-12 h-12 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-headset text-gray-600"></i>
+                    </div>
+                    <h4 class="text-lg font-medium text-gray-900 mb-3">Expert Support</h4>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed">Dedicated support team available to assist you</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Newsletter -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+            <h3 class="text-2xl font-light text-gray-900 mb-4">Stay Updated</h3>
+            <p class="text-gray-600 font-light mb-8">Subscribe to receive updates on new products and exclusive offers</p>
+            <div class="flex max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email address"
+                       class="flex-1 px-4 py-3 text-sm border border-gray-200 focus:outline-none focus:border-gray-400 clean-focus">
+                <button class="bg-gray-900 text-white px-8 py-3 text-sm font-medium tracking-wide hover:bg-gray-800 minimal-transition">
+                    SUBSCRIBE
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Footer -->
+<footer class="bg-white border-t border-gray-100 py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <h4 class="text-xl font-light text-gray-900 mb-6">Minimal Tech</h4>
+                <p class="text-gray-600 font-light mb-6 max-w-md leading-relaxed">
+                    Curating the finest computer accessories with minimalist design principles and uncompromising quality.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-gray-600 minimal-transition">
+                        <i class="fab fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-600 minimal-transition">
+                        <i class="fab fa-twitter text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-600 minimal-transition">
+                        <i class="fab fa-youtube text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="text-sm font-medium text-gray-900 mb-4 uppercase tracking-wide">Shop</h5>
+                <ul class="space-y-3 text-sm text-gray-600 font-light">
+                    <li><a href="#" class="clean-link hover:text-gray-900">Audio</a></li>
+                    <li><a href="#" class="clean-link hover:text-gray-900">Accessories</a></li>
+                    <li><a href="#" class="clean-link hover:text-gray-900">Computing</a></li>
+                    <li><a href="#" class="clean-link hover:text-gray-900">Gaming</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-sm font-medium text-gray-900 mb-4 uppercase tracking-wide">Support</h5>
+                <ul class="space-y-3 text-sm text-gray-600 font-light">
+                    <li><a href="#" class="clean-link hover:text-gray-900">Contact</a></li>
+                    <li><a href="#" class="clean-link hover:text-gray-900">Shipping</a></li>
+                    <li><a href="#" class="clean-link hover:text-gray-900">Returns</a></li>
+                    <li><a href="#" class="clean-link hover:text-gray-900">Size Guide</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-100 mt-12 pt-8 text-center">
+            <p class="text-sm text-gray-500 font-light">&copy; 2025 Minimal Tech. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

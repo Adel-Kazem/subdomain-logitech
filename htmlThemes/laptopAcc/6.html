@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMart - Professional Computer Accessories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+<!-- Header -->
+<header class="bg-white shadow-sm">
+    <!-- Top Bar -->
+    <div class="bg-gray-800 text-white text-sm py-2">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex space-x-6">
+                <span>Free shipping on orders $75+</span>
+                <span>|</span>
+                <span>Customer Service: 1-800-TECHMART</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-gray-300">Track Your Order</a>
+                <span>|</span>
+                <a href="#" class="hover:text-gray-300">Help & Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-3xl font-bold text-gray-900">TechMart</h1>
+                <span class="text-sm text-gray-500 ml-2">Professional</span>
+            </div>
+
+            <!-- Advanced Search -->
+            <div class="flex-1 max-w-4xl mx-8">
+                <div class="flex">
+                    <div class="relative flex-1">
+                        <input type="text" placeholder="Search thousands of computer accessories..."
+                               class="w-full px-4 py-3 border-2 border-gray-300 rounded-l-lg focus:outline-none focus:border-blue-500">
+                        <div class="absolute right-3 top-3 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                    <select class="border-2 border-l-0 border-gray-300 px-4 py-3 bg-white text-gray-700">
+                        <option>All Categories</option>
+                        <option>Mice & Trackpads</option>
+                        <option>Keyboards</option>
+                        <option>Audio & Headphones</option>
+                        <option>Storage & Memory</option>
+                        <option>Cables & Adapters</option>
+                        <option>Gaming Accessories</option>
+                    </select>
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-r-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-6">
+                <div class="text-center cursor-pointer">
+                    <i class="fas fa-user text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Sign In</div>
+                </div>
+                <div class="text-center cursor-pointer">
+                    <i class="fas fa-heart text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Lists</div>
+                </div>
+                <div class="text-center cursor-pointer relative">
+                    <i class="fas fa-shopping-cart text-xl text-gray-600"></i>
+                    <div class="text-xs text-gray-600">Cart</div>
+                    <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center">
+                <!-- All Categories Dropdown -->
+                <div class="bg-gray-700 px-4 py-3 cursor-pointer hover:bg-gray-600 transition">
+                    <i class="fas fa-bars mr-2"></i>
+                    All Categories
+                </div>
+
+                <!-- Main Navigation -->
+                <ul class="flex space-x-8 py-3 ml-8">
+                    <li><a href="#" class="hover:text-gray-300 transition">Today's Deals</a></li>
+                    <li><a href="#" class="hover:text-gray-300 transition">Best Sellers</a></li>
+                    <li><a href="#" class="hover:text-gray-300 transition">New Arrivals</a></li>
+                    <li><a href="#" class="hover:text-gray-300 transition">Gaming</a></li>
+                    <li><a href="#" class="hover:text-gray-300 transition">Professional</a></li>
+                    <li><a href="#" class="hover:text-gray-300 transition">Clearance</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Breadcrumb -->
+<div class="bg-white border-b">
+    <div class="container mx-auto px-4 py-2">
+        <nav class="text-sm text-gray-600">
+            <a href="#" class="hover:text-blue-600">Home</a>
+            <span class="mx-2">></span>
+            <span>Computer Accessories</span>
+        </nav>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container mx-auto px-4 py-6">
+    <div class="flex gap-6">
+        <!-- Sidebar Filters -->
+        <aside class="w-64 bg-white rounded-lg shadow-sm p-6 h-fit">
+            <h3 class="font-semibold text-lg mb-4">Refine Results</h3>
+
+            <!-- Category Filter -->
+            <div class="mb-6">
+                <h4 class="font-medium mb-3">Category</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Mice (234)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Keyboards (187)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Headphones (156)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Storage (98)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Cables (145)</label></li>
+                </ul>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="mb-6">
+                <h4 class="font-medium mb-3">Brand</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Logitech (89)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Razer (67)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> SteelSeries (45)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Corsair (56)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> HyperX (38)</label></li>
+                </ul>
+            </div>
+
+            <!-- Price Filter -->
+            <div class="mb-6">
+                <h4 class="font-medium mb-3">Price Range</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Under $25 (124)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> $25 - $50 (189)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> $50 - $100 (156)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> $100 - $200 (89)</label></li>
+                    <li><label class="flex items-center"><input type="checkbox" class="mr-2"> Over $200 (45)</label></li>
+                </ul>
+            </div>
+
+            <!-- Rating Filter -->
+            <div class="mb-6">
+                <h4 class="font-medium mb-3">Customer Rating</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                        </div>
+                        <span class="ml-1">(267)</span>
+                    </label></li>
+                    <li><label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="fas fa-star text-xs"></i>
+                            <i class="far fa-star text-xs"></i>
+                        </div>
+                        <span class="ml-1">& Up (523)</span>
+                    </label></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1">
+            <!-- Results Header -->
+            <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-semibold">Computer Accessories</h2>
+                        <p class="text-gray-600">1,247 results</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600">Sort by:</span>
+                        <select class="border border-gray-300 rounded px-3 py-2 text-sm">
+                            <option>Best Sellers</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Customer Rating</option>
+                            <option>Newest First</option>
+                        </select>
+                        <div class="flex border border-gray-300 rounded">
+                            <button class="p-2 bg-gray-100"><i class="fas fa-th text-sm"></i></button>
+                            <button class="p-2"><i class="fas fa-list text-sm"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Products Banner -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8 mb-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Professional Grade Accessories</h3>
+                        <p class="text-blue-100 mb-4">Upgrade your workspace with premium peripherals</p>
+                        <button class="bg-white text-blue-600 px-6 py-2 rounded font-semibold hover:bg-gray-100 transition">Shop Professional Series</button>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1541807084-5b52b6ee5e1f?w=300&h=200&fit=crop" alt="Professional Setup" class="rounded-lg">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=250&h=250&fit=crop" alt="Professional Mouse" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 text-xs rounded">Deal</div>
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">Logitech</div>
+                        <h4 class="font-medium mb-2 text-sm">MX Master 3S Wireless Mouse</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(1,847)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-lg font-bold text-red-600">$89.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-1">$99.99</span>
+                            </div>
+                            <div class="text-xs text-green-600">Save 10%</div>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=250&h=250&fit=crop" alt="Mechanical Keyboard" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">Corsair</div>
+                        <h4 class="font-medium mb-2 text-sm">K70 RGB MK.2 Mechanical Gaming Keyboard</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(923)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-lg font-bold">$149.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=250&h=250&fit=crop" alt="Wireless Headphones" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 text-xs rounded">New</div>
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">Sony</div>
+                        <h4 class="font-medium mb-2 text-sm">WH-1000XM5 Wireless Noise Canceling Headphones</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(2,156)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-lg font-bold">$329.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=250&h=250&fit=crop" alt="USB Hub" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">Anker</div>
+                        <h4 class="font-medium mb-2 text-sm">PowerExpand+ 7-in-1 USB-C Hub</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(456)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-lg font-bold text-red-600">$59.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-1">$79.99</span>
+                            </div>
+                            <div class="text-xs text-green-600">Save 25%</div>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=250&h=250&fit=crop" alt="Webcam" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">Logitech</div>
+                        <h4 class="font-medium mb-2 text-sm">C920 HD Pro Webcam</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(3,245)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-lg font-bold">$69.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=250&h=250&fit=crop" alt="External Drive" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs rounded">Choice</div>
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">Samsung</div>
+                        <h4 class="font-medium mb-2 text-sm">T7 Portable SSD 1TB</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(1,678)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-lg font-bold">$129.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1585338447937-7082f8fc763d?w=250&h=250&fit=crop" alt="Monitor Stand" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">VIVO</div>
+                        <h4 class="font-medium mb-2 text-sm">Dual Monitor Desk Mount</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(789)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-lg font-bold">$39.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=250&h=250&fit=crop" alt="Cable Management" class="w-full h-48 object-cover">
+                        <div class="absolute top-2 right-2 opacity-0 hover:opacity-100 transition">
+                            <i class="fas fa-heart text-gray-600 hover:text-red-500 cursor-pointer bg-white p-1 rounded-full shadow"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-blue-600 mb-1">J Channel</div>
+                        <h4 class="font-medium mb-2 text-sm">Cable Management Tray</h4>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-xs ml-1">(234)</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-lg font-bold">$24.99</span>
+                        </div>
+                        <div class="text-xs text-gray-600 mb-3">FREE delivery Thu, Jan 25</div>
+                        <button class="w-full bg-yellow-400 text-gray-900 py-2 rounded font-medium hover:bg-yellow-500 transition text-sm">Add to Cart</button>
+                        <button class="w-full mt-2 border border-gray-300 text-gray-700 py-2 rounded font-medium hover:bg-gray-50 transition text-sm">Quick Buy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-8">
+                <button class="bg-white border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg hover:border-gray-400 transition">
+                    Load More Products
+                </button>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Recently Viewed -->
+<section class="bg-white py-8 border-t">
+    <div class="container mx-auto px-4">
+        <h3 class="text-xl font-semibold mb-6">Recently Viewed Items</h3>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-24 object-cover rounded mb-2">
+                <div class="text-sm font-medium">$89.99</div>
+            </div>
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-24 object-cover rounded mb-2">
+                <div class="text-sm font-medium">$149.99</div>
+            </div>
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-24 object-cover rounded mb-2">
+                <div class="text-sm font-medium">$329.99</div>
+            </div>
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-24 object-cover rounded mb-2">
+                <div class="text-sm font-medium">$59.99</div>
+            </div>
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-24 object-cover rounded mb-2">
+                <div class="text-sm font-medium">$69.99</div>
+            </div>
+            <div class="text-center">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&h=120&fit=crop" alt="Recent Item" class="w-full h-24 object-cover rounded mb-2">
+                <div class="text-sm font-medium">$129.99</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Get to Know Us</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-white">About TechMart</a></li>
+                    <li><a href="#" class="hover:text-white">Careers</a></li>
+                    <li><a href="#" class="hover:text-white">Press Releases</a></li>
+                    <li><a href="#" class="hover:text-white">Investor Relations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Make Money</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-white">Sell on TechMart</a></li>
+                    <li><a href="#" class="hover:text-white">Associate Program</a></li>
+                    <li><a href="#" class="hover:text-white">Fulfillment</a></li>
+                    <li><a href="#" class="hover:text-white">Advertise</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Payment Products</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-white">Business Card</a></li>
+                    <li><a href="#" class="hover:text-white">Shop with Points</a></li>
+                    <li><a href="#" class="hover:text-white">Reload Balance</a></li>
+                    <li><a href="#" class="hover:text-white">Currency Converter</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Let Us Help</h4>
+                <ul class="space-y-2 text-sm text-gray-300">
+                    <li><a href="#" class="hover:text-white">Your Account</a></li>
+                    <li><a href="#" class="hover:text-white">Returns Center</a></li>
+                    <li><a href="#" class="hover:text-white">Shipping Rates</a></li>
+                    <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                <div class="flex space-x-4 mb-4">
+                    <i class="fab fa-facebook text-xl hover:text-blue-400 cursor-pointer"></i>
+                    <i class="fab fa-twitter text-xl hover:text-blue-400 cursor-pointer"></i>
+                    <i class="fab fa-instagram text-xl hover:text-pink-400 cursor-pointer"></i>
+                    <i class="fab fa-linkedin text-xl hover:text-blue-400 cursor-pointer"></i>
+                </div>
+                <div class="text-sm text-gray-300">
+                    <p>Customer Service:</p>
+                    <p class="font-semibold">1-800-TECHMART</p>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+            <p>&copy; 2025 TechMart Professional. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

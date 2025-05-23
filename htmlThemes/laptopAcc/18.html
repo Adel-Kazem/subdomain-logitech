@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpulseTech - Premium Computer Accessories with Purpose</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .impulse-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+        }
+        .brand-story-bg {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+            url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .impulse-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .impulse-hover:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        .social-proof-animation {
+            animation: slideInUp 0.8s ease-out;
+        }
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .brand-pulse {
+            animation: brandPulse 3s ease-in-out infinite;
+        }
+        @keyframes brandPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .story-reveal {
+            animation: fadeInScale 1s ease-out;
+        }
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .product-filter-active {
+            background: linear-gradient(45deg, #2563eb, #7c3aed);
+            color: white;
+        }
+        .stock-urgency {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            animation: pulse 2s infinite;
+        }
+        .trust-badge-glow {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<!-- Brand Story Header (Impulse Feature) -->
+<header class="bg-white shadow-lg sticky top-0 z-50">
+    <!-- Brand Mission Bar -->
+    <div class="impulse-gradient text-white text-center py-3 text-sm font-medium">
+        <div class="container mx-auto px-4 flex items-center justify-center">
+            <i class="fas fa-heart mr-2 text-pink-300"></i>
+            <span>Empowering creators and professionals with premium tech accessories | 10% of profits donated to tech education</span>
+            <button class="ml-4 text-white hover:text-gray-200 transition">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Brand Logo with Story -->
+            <div class="flex items-center">
+                <div class="impulse-gradient text-white p-3 rounded-xl mr-3 brand-pulse">
+                    <i class="fas fa-bolt text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        ImpulseTech
+                    </h1>
+                    <p class="text-xs text-gray-500">Tech with Purpose</p>
+                </div>
+            </div>
+
+            <!-- Enhanced Search with Social Proof -->
+            <div class="flex-1 max-w-2xl mx-8">
+                <div class="relative bg-white rounded-xl shadow-lg border">
+                    <div class="flex items-center">
+                        <div class="flex items-center px-4 py-3 border-r border-gray-200">
+                            <i class="fas fa-users text-blue-600 mr-2"></i>
+                            <span class="text-sm text-gray-600">2M+ customers trust us</span>
+                        </div>
+                        <input type="text" placeholder="Search trusted products..."
+                               class="flex-1 px-4 py-3 bg-transparent focus:outline-none text-gray-700">
+                        <button class="impulse-gradient text-white px-6 py-3 rounded-r-xl hover:opacity-90 transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Actions with Social Proof -->
+            <div class="flex items-center space-x-6">
+                <div class="text-center group cursor-pointer">
+                    <div class="relative">
+                        <i class="fas fa-user-circle text-2xl text-gray-600 group-hover:text-blue-600 transition"></i>
+                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <p class="text-xs text-gray-500">Account</p>
+                </div>
+                <div class="text-center relative group cursor-pointer">
+                    <i class="fas fa-heart text-2xl text-gray-600 group-hover:text-red-500 transition"></i>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">12</span>
+                    <p class="text-xs text-gray-500">Wishlist</p>
+                </div>
+                <div class="text-center relative group cursor-pointer">
+                    <i class="fas fa-shopping-cart text-2xl text-gray-600 group-hover:text-blue-600 transition"></i>
+                    <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">4</span>
+                    <p class="text-xs text-gray-500">Cart</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation with Social Proof -->
+    <nav class="border-t border-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-3">
+                <ul class="flex space-x-8">
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Our Story</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Gaming (⭐ 4.9/5)</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Professional</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Creator Tools</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Reviews (50k+)</a></li>
+                    <li><a href="#" class="text-red-600 hover:text-red-700 font-bold">🔥 Best Sellers</a></li>
+                </ul>
+                <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-400 mr-1"></i>
+                        <span>4.8/5 from 50,000+ reviews</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Brand Story Hero Section (Impulse Feature) -->
+<section class="brand-story-bg py-24 text-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center story-reveal">
+            <h2 class="text-6xl font-bold mb-6 leading-tight">
+                Technology That
+                <span class="block bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
+                        Inspires
+                    </span>
+            </h2>
+            <p class="text-2xl mb-8 opacity-90 leading-relaxed">
+                We believe technology should empower creativity, enhance productivity, and bring people together.
+                Every product we create tells a story of innovation and purpose.
+            </p>
+            <div class="flex justify-center space-x-6 mb-12">
+                <div class="text-center">
+                    <div class="text-3xl font-bold">2M+</div>
+                    <div class="text-sm opacity-80">Happy Customers</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold">50K+</div>
+                    <div class="text-sm opacity-80">5-Star Reviews</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold">$1M+</div>
+                    <div class="text-sm opacity-80">Donated to Education</div>
+                </div>
+            </div>
+            <div class="flex justify-center space-x-4">
+                <button class="bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg">
+                    Discover Our Story
+                </button>
+                <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition">
+                    Shop with Purpose
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Proof Banner (Impulse Feature) -->
+<section class="bg-white py-8 border-b">
+    <div class="container mx-auto px-4">
+        <div class="social-proof-animation">
+            <div class="flex items-center justify-center space-x-12 text-center">
+                <div class="flex items-center">
+                    <div class="flex -space-x-2 mr-3">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                             alt="Customer" class="w-8 h-8 rounded-full border-2 border-white">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=40&h=40&fit=crop&crop=face"
+                             alt="Customer" class="w-8 h-8 rounded-full border-2 border-white">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                             alt="Customer" class="w-8 h-8 rounded-full border-2 border-white">
+                    </div>
+                    <div class="text-left">
+                        <div class="text-sm font-semibold text-gray-900">2,847 people</div>
+                        <div class="text-xs text-gray-600">bought this week</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="flex items-center justify-center mb-1">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <div class="text-sm font-semibold text-gray-900">4.9/5 Rating</div>
+                    <div class="text-xs text-gray-600">from 50,000+ reviews</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-sm font-semibold text-gray-900">Free Shipping</div>
+                    <div class="text-xs text-gray-600">on orders over $50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Filtering with Social Proof (Impulse Feature) -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Customer <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Favorites</span>
+            </h2>
+            <p class="text-xl text-gray-600">Products loved by our community</p>
+        </div>
+
+        <!-- Product Filters with Social Proof -->
+        <div class="flex justify-center space-x-4 mb-12">
+            <button class="product-filter-active px-6 py-3 rounded-lg font-semibold transition">
+                Best Sellers (2.5k sold)
+            </button>
+            <button class="bg-white text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                Most Reviewed (15k reviews)
+            </button>
+            <button class="bg-white text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                Trending Now (↗ 45%)
+            </button>
+            <button class="bg-white text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                Staff Picks
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Product with Social Proof -->
+            <div class="bg-white rounded-2xl overflow-hidden impulse-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=300&fit=crop"
+                         alt="Gaming Mouse Pro" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+
+                    <!-- Social Proof Badges -->
+                    <div class="absolute top-4 left-4 flex flex-col space-y-2">
+                        <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full font-medium">#1 BESTSELLER</span>
+                        <span class="stock-urgency text-white text-xs px-3 py-1 rounded-full font-medium">ONLY 3 LEFT</span>
+                    </div>
+
+                    <!-- Customer Photos -->
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <div class="bg-white rounded-lg p-2 shadow-lg">
+                            <div class="text-xs text-gray-600 mb-1">Customer photos:</div>
+                            <div class="flex space-x-1">
+                                <img src="https://images.unsplash.com/photo-1527814050087-3793815479db?w=30&h=30&fit=crop"
+                                     alt="Customer photo" class="w-6 h-6 rounded">
+                                <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=30&h=30&fit=crop"
+                                     alt="Customer photo" class="w-6 h-6 rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- Social Proof Header -->
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400 text-sm mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">(2,847 reviews)</span>
+                        </div>
+                        <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Verified Purchase</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Pro Gaming Mouse Elite</h3>
+                    <p class="text-gray-600 text-sm mb-4">Trusted by 50,000+ gamers worldwide</p>
+
+                    <!-- Customer Quote -->
+                    <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                        <p class="text-sm text-gray-700 italic">"Game-changing precision. Best mouse I've ever used!"</p>
+                        <div class="flex items-center mt-2">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=20&h=20&fit=crop&crop=face"
+                                 alt="Customer" class="w-5 h-5 rounded-full mr-2">
+                            <span class="text-xs text-gray-600">- Alex M., Verified Buyer</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-gray-900">$149.99</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">$199.99</span>
+                        </div>
+                        <button class="impulse-gradient text-white px-6 py-2 rounded-lg hover:opacity-90 transition">
+                            Join 50k+ Users
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product with Reviews -->
+            <div class="bg-white rounded-2xl overflow-hidden impulse-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&h=300&fit=crop"
+                         alt="Mechanical Keyboard" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+
+                    <div class="absolute top-4 left-4 flex flex-col space-y-2">
+                        <span class="bg-purple-500 text-white text-xs px-3 py-1 rounded-full font-medium">MOST REVIEWED</span>
+                        <span class="bg-orange-500 text-white text-xs px-3 py-1 rounded-full font-medium">TRENDING</span>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400 text-sm mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">(15,234 reviews)</span>
+                        </div>
+                        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Editor's Choice</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Mechanical Keyboard Pro</h3>
+                    <p class="text-gray-600 text-sm mb-4">Loved by writers and developers</p>
+
+                    <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                        <p class="text-sm text-gray-700 italic">"Perfect for coding marathons. Amazing build quality!"</p>
+                        <div class="flex items-center mt-2">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=20&h=20&fit=crop&crop=face"
+                                 alt="Customer" class="w-5 h-5 rounded-full mr-2">
+                            <span class="text-xs text-gray-600">- Sarah K., Developer</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-gray-900">$229.99</span>
+                        </div>
+                        <button class="impulse-gradient text-white px-6 py-2 rounded-lg hover:opacity-90 transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product with Trust Badges -->
+            <div class="bg-white rounded-2xl overflow-hidden impulse-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop"
+                         alt="USB-C Hub" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+
+                    <div class="absolute top-4 left-4 flex flex-col space-y-2">
+                        <span class="bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-medium">STAFF PICK</span>
+                        <span class="bg-yellow-500 text-white text-xs px-3 py-1 rounded-full font-medium">AWARD WINNER</span>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            <div class="flex text-yellow-400 text-sm mr-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-sm text-gray-600">(8,956 reviews)</span>
+                        </div>
+                        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Award Winner</span>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ultimate USB-C Hub</h3>
+                    <p class="text-gray-600 text-sm mb-4">Recommended by tech experts</p>
+
+                    <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                        <p class="text-sm text-gray-700 italic">"Essential for my MacBook setup. Works flawlessly!"</p>
+                        <div class="flex items-center mt-2">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=20&h=20&fit=crop&crop=face"
+                                 alt="Customer" class="w-5 h-5 rounded-full mr-2">
+                            <span class="text-xs text-gray-600">- Mike R., Designer</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-bold text-gray-900">$119.99</span>
+                        </div>
+                        <button class="impulse-gradient text-white px-6 py-2 rounded-lg hover:opacity-90 transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Trust Badges with Social Proof (Impulse Feature) -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Why 2M+ Customers Trust Us</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center trust-badge-glow p-6 bg-white rounded-xl">
+                <div class="impulse-gradient w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-alt text-white text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-2">Secure & Trusted</h4>
+                <p class="text-sm text-gray-600">SSL encryption + verified reviews</p>
+                <div class="text-xs text-blue-600 mt-2">✓ 2M+ secure transactions</div>
+            </div>
+            <div class="text-center trust-badge-glow p-6 bg-white rounded-xl">
+                <div class="impulse-gradient w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-rocket text-white text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-2">Fast & Free Shipping</h4>
+                <p class="text-sm text-gray-600">Same-day processing</p>
+                <div class="text-xs text-blue-600 mt-2">✓ 99.8% on-time delivery</div>
+            </div>
+            <div class="text-center trust-badge-glow p-6 bg-white rounded-xl">
+                <div class="impulse-gradient w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-award text-white text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-2">Award-Winning Quality</h4>
+                <p class="text-sm text-gray-600">Industry recognition</p>
+                <div class="text-xs text-blue-600 mt-2">✓ 15+ industry awards</div>
+            </div>
+            <div class="text-center trust-badge-glow p-6 bg-white rounded-xl">
+                <div class="impulse-gradient w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-white text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-2">Purpose-Driven</h4>
+                <p class="text-sm text-gray-600">Supporting tech education</p>
+                <div class="text-xs text-blue-600 mt-2">✓ $1M+ donated to schools</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Stories Section (Impulse Feature) -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Customer Success Stories</h2>
+            <p class="text-xl text-gray-600">Real people, real results</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 impulse-hover">
+                <div class="flex items-center mb-6">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
+                         alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-bold text-gray-900">Alex Chen</h4>
+                        <p class="text-sm text-gray-600">Professional Gamer</p>
+                    </div>
+                </div>
+                <div class="flex text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="text-gray-700 italic mb-4">
+                    "ImpulseTech's gaming mouse helped me reach pro level. The precision is unmatched,
+                    and knowing they support tech education makes me proud to be a customer."
+                </p>
+                <div class="text-sm text-blue-600">✓ Verified Purchase</div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 impulse-hover">
+                <div class="flex items-center mb-6">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bb?w=60&h=60&fit=crop&crop=face"
+                         alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-bold text-gray-900">Sarah Johnson</h4>
+                        <p class="text-sm text-gray-600">Software Developer</p>
+                    </div>
+                </div>
+                <div class="flex text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="text-gray-700 italic mb-4">
+                    "The mechanical keyboard transformed my coding experience.
+                    Quality products with a mission - exactly what I was looking for."
+                </p>
+                <div class="text-sm text-blue-600">✓ Verified Purchase</div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 impulse-hover">
+                <div class="flex items-center mb-6">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face"
+                         alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <h4 class="font-bold text-gray-900">Mike Rodriguez</h4>
+                        <p class="text-sm text-gray-600">Creative Director</p>
+                    </div>
+                </div>
+                <div class="flex text-yellow-400 mb-4">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="text-gray-700 italic mb-4">
+                    "Outstanding build quality and customer service.
+                    Love that my purchase supports education initiatives."
+                </p>
+                <div class="text-sm text-blue-600">✓ Verified Purchase</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer with Brand Story (Impulse Feature) -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center mb-6">
+                    <div class="impulse-gradient text-white p-2 rounded mr-3">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">ImpulseTech</h3>
+                </div>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    Technology with purpose. Empowering creators, professionals, and gamers
+                    while supporting tech education worldwide.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="impulse-gradient w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="impulse-gradient w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="impulse-gradient w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Our Mission</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Our Story</a></li>
+                    <li><a href="#" class="hover:text-white transition">Education Initiative</a></li>
+                    <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-white transition">Community</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Customer Love</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Reviews (50k+)</a></li>
+                    <li><a href="#" class="hover:text-white transition">Success Stories</a></li>
+                    <li><a href="#" class="hover:text-white transition">Customer Support</a></li>
+                    <li><a href="#" class="hover:text-white transition">Warranty</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Join Our Community</h4>
+                <p class="text-gray-400 mb-4">Get exclusive deals and stories of impact</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email"
+                           class="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:outline-none focus:border-blue-500">
+                    <button class="impulse-gradient px-6 py-2 rounded-r-lg hover:opacity-90 transition">
+                        Join
+                    </button>
+                </div>
+                <div class="mt-4 text-sm text-gray-400">
+                    <div class="flex items-center">
+                        <i class="fas fa-heart text-red-500 mr-2"></i>
+                        <span>2M+ community members</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 ImpulseTech. Technology with Purpose. | $1M+ donated to tech education</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

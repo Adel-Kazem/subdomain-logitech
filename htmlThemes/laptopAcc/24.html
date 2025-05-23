@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Spark - Premium Multi-Purpose Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#7c3aed',
+                        accent: '#f59e0b',
+                        spark: '#ef4444',
+                        cobalt: '#1e40af',
+                        success: '#10b981',
+                        premium: '#1f2937',
+                    },
+                    animation: {
+                        'spark': 'spark 1.5s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite alternate',
+                        'slide-up': 'slide-up 0.6s ease-out',
+                        'float-gentle': 'float-gentle 4s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes spark {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 30px rgba(239, 68, 68, 0.4); }
+        }
+        @keyframes slide-up {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .spark-gradient {
+            background: linear-gradient(135deg, #ef4444, #f59e0b, #7c3aed, #2563eb);
+            background-size: 400% 400%;
+            animation: gradient-shift 8s ease infinite;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass-multi {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .premium-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .text-gradient {
+            background: linear-gradient(45deg, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+<!-- Premium Header -->
+<header class="bg-white shadow-lg sticky top-0 z-50 border-b-2 border-spark/20">
+    <!-- Top Business Bar -->
+    <div class="bg-premium text-white py-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-sm">
+            <div class="flex space-x-6">
+                    <span class="flex items-center">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2 animate-pulse"></span>
+                        ✅ FREE shipping worldwide on orders $150+
+                    </span>
+                <span>📞 24/7 Business Support: 1-800-MULTI-01</span>
+            </div>
+            <div class="hidden md:flex space-x-4">
+                <a href="#" class="hover:text-accent transition-colors">Business Portal</a>
+                <a href="#" class="hover:text-accent transition-colors">Wholesale</a>
+                <a href="#" class="hover:text-accent transition-colors">Partnership</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <!-- Professional Logo -->
+            <div class="flex-shrink-0">
+                <h1 class="text-3xl font-bold">
+                    <span class="text-gradient">MULTI</span>
+                    <span class="text-spark text-lg animate-spark">⚡</span>
+                </h1>
+                <p class="text-xs text-gray-500 -mt-1 tracking-wider">PREMIUM BUSINESS SOLUTIONS</p>
+            </div>
+
+            <!-- Advanced Search System -->
+            <div class="hidden lg:flex flex-1 max-w-2xl mx-8">
+                <div class="flex w-full border-2 border-gray-200 rounded-xl overflow-hidden focus-within:border-primary shadow-md">
+                    <select class="px-4 py-3 bg-gray-50 text-gray-700 border-r border-gray-200 focus:outline-none font-medium">
+                        <option>All Departments</option>
+                        <option>🏢 Business Solutions</option>
+                        <option>💻 Technology</option>
+                        <option>📊 Analytics Tools</option>
+                        <option>🎨 Design Services</option>
+                        <option>📱 Mobile Solutions</option>
+                        <option>☁️ Cloud Services</option>
+                    </select>
+                    <input type="text" placeholder="Search products, services, solutions..."
+                           class="flex-1 px-4 py-3 focus:outline-none text-gray-700">
+                    <button class="bg-primary text-white px-8 py-3 hover:bg-blue-700 transition-colors font-semibold">
+                        🔍 Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Professional Actions -->
+            <div class="flex items-center space-x-6">
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="text-center">
+                        <div class="text-xs text-gray-500">Compare</div>
+                        <div class="font-semibold text-primary">0 items</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xs text-gray-500">Projects</div>
+                        <div class="font-semibold text-secondary">3 active</div>
+                    </div>
+                </div>
+
+                <button class="relative p-3 text-gray-700 hover:text-primary transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    <span class="absolute -top-1 -right-1 bg-spark text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse-glow">5</span>
+                </button>
+
+                <button class="relative spark-gradient text-white p-3 rounded-xl hover:shadow-lg transition-all animate-pulse-glow">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">8</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Dynamic Navigation -->
+<nav class="bg-gradient-to-r from-primary via-secondary to-spark text-white py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <div class="relative group">
+                    <button class="flex items-center space-x-2 bg-white/20 px-6 py-3 rounded-lg hover:bg-white/30 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <span class="font-semibold">ALL SOLUTIONS</span>
+                    </button>
+                </div>
+
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="hover:text-accent transition-colors font-medium flex items-center">
+                        🏢 <span class="ml-1">Business</span>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors font-medium flex items-center">
+                        💻 <span class="ml-1">Technology</span>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors font-medium flex items-center">
+                        📊 <span class="ml-1">Analytics</span>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors font-medium flex items-center">
+                        🎨 <span class="ml-1">Design</span>
+                    </a>
+                    <a href="#" class="hover:text-accent transition-colors font-medium flex items-center">
+                        🔥 <span class="ml-1">Enterprise</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center space-x-4 text-sm">
+                <span>⚡ Lightning Fast</span>
+                <span>🛡️ Enterprise Security</span>
+                <span>📈 Growth Guaranteed</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Compelling Hero Section -->
+<section class="relative bg-gradient-to-br from-primary via-secondary to-spark text-white py-24 overflow-hidden">
+    <!-- Dynamic Background Elements -->
+    <div class="absolute inset-0">
+        <div class="absolute top-20 left-20 w-32 h-32 bg-accent/20 rounded-full blur-xl animate-float-gentle"></div>
+        <div class="absolute bottom-20 right-20 w-40 h-40 bg-spark/20 rounded-full blur-xl animate-float-gentle" style="animation-delay: -2s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="animate-slide-up">
+                <div class="mb-8">
+                        <span class="inline-flex items-center glass-multi px-6 py-3 rounded-full text-sm font-semibold">
+                            <span class="w-3 h-3 bg-accent rounded-full mr-3 animate-pulse"></span>
+                            🚀 ENTERPRISE-GRADE SOLUTION LAUNCHED
+                        </span>
+                </div>
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-8">
+                    Ignite Your
+                    <span class="text-accent block">Business</span>
+                    <span class="text-spark">Potential</span>
+                </h1>
+                <p class="text-xl lg:text-2xl mb-12 text-gray-200 leading-relaxed">
+                    Comprehensive multi-purpose solutions that scale with your ambitions. From startups to enterprises, we power your success story.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <button class="spark-gradient text-white px-10 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105 animate-pulse-glow">
+                        🚀 START YOUR JOURNEY
+                    </button>
+                    <button class="glass-multi border-2 border-white/30 text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all">
+                        📊 VIEW CASE STUDIES
+                    </button>
+                </div>
+                <div class="mt-8 flex items-center space-x-6 text-sm">
+                    <div class="flex items-center">
+                        <span class="text-accent font-bold text-2xl mr-2">98%</span>
+                        <span>Customer Satisfaction</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-spark font-bold text-2xl mr-2">500+</span>
+                        <span>Enterprise Clients</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Dashboard Preview -->
+            <div class="relative animate-slide-up" style="animation-delay: 0.3s;">
+                <div class="glass-multi rounded-3xl p-8 premium-shadow">
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-semibold">Business Analytics Dashboard</h3>
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 bg-success rounded-full animate-pulse"></div>
+                                <div class="w-3 h-3 bg-accent rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+                                <div class="w-3 h-3 bg-spark rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/20 rounded-lg p-4">
+                                <div class="text-2xl font-bold text-accent">↗️ 247%</div>
+                                <div class="text-sm text-gray-200">Revenue Growth</div>
+                            </div>
+                            <div class="bg-white/20 rounded-lg p-4">
+                                <div class="text-2xl font-bold text-success">🎯 94%</div>
+                                <div class="text-sm text-gray-200">Goal Achievement</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Project Alpha</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-24 h-2 bg-white/20 rounded-full overflow-hidden">
+                                    <div class="w-4/5 h-full bg-accent rounded-full"></div>
+                                </div>
+                                <span class="text-sm">80%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Project Beta</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-24 h-2 bg-white/20 rounded-full overflow-hidden">
+                                    <div class="w-3/5 h-full bg-spark rounded-full"></div>
+                                </div>
+                                <span class="text-sm">60%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm">Project Gamma</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-24 h-2 bg-white/20 rounded-full overflow-hidden">
+                                    <div class="w-full h-full bg-success rounded-full"></div>
+                                </div>
+                                <span class="text-sm">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Business Solutions Grid -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                Complete <span class="text-gradient">Business Ecosystem</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Everything your business needs to thrive in the digital age, integrated seamlessly into one powerful platform
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Solution 1 -->
+            <div class="group relative bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 hover:shadow-xl transition-all premium-shadow">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-primary text-white px-2 py-1 rounded-full text-xs font-bold">POPULAR</span>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="text-2xl text-white">💼</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-primary transition-colors">Business Management</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Complete CRM, project management, and team collaboration tools designed for modern businesses.
+                </p>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Advanced CRM System
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Project Analytics
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Team Collaboration
+                    </div>
+                </div>
+                <button class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                    Explore Solution
+                </button>
+            </div>
+
+            <!-- Solution 2 -->
+            <div class="group relative bg-gradient-to-br from-secondary/5 to-secondary/10 rounded-2xl p-8 hover:shadow-xl transition-all premium-shadow">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-secondary text-white px-2 py-1 rounded-full text-xs font-bold">TRENDING</span>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-secondary to-spark rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="text-2xl text-white">🚀</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-secondary transition-colors">Growth Analytics</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    AI-powered insights and predictive analytics to accelerate your business growth strategies.
+                </p>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        AI Predictions
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Real-time Dashboards
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Growth Optimization
+                    </div>
+                </div>
+                <button class="w-full bg-secondary text-white py-3 rounded-lg hover:bg-purple-700 transition-colors font-semibold">
+                    Explore Solution
+                </button>
+            </div>
+
+            <!-- Solution 3 -->
+            <div class="group relative bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl p-8 hover:shadow-xl transition-all premium-shadow">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-accent text-white px-2 py-1 rounded-full text-xs font-bold">NEW</span>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-accent to-spark rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="text-2xl text-white">⚡</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-accent transition-colors">Automation Suite</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Streamline operations with intelligent automation workflows and process optimization.
+                </p>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Smart Workflows
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Process Automation
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        ROI Tracking
+                    </div>
+                </div>
+                <button class="w-full bg-accent text-white py-3 rounded-lg hover:bg-amber-600 transition-colors font-semibold">
+                    Explore Solution
+                </button>
+            </div>
+
+            <!-- Solution 4 -->
+            <div class="group relative bg-gradient-to-br from-spark/5 to-spark/10 rounded-2xl p-8 hover:shadow-xl transition-all premium-shadow">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-spark text-white px-2 py-1 rounded-full text-xs font-bold">PREMIUM</span>
+                </div>
+                <div class="w-16 h-16 bg-gradient-to-br from-spark to-primary rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="text-2xl text-white">🛡️</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4 group-hover:text-spark transition-colors">Enterprise Security</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Military-grade security protocols with advanced threat detection and data protection.
+                </p>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Advanced Encryption
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Threat Detection
+                    </div>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <span class="w-2 h-2 bg-success rounded-full mr-2"></span>
+                        Compliance Tools
+                    </div>
+                </div>
+                <button class="w-full bg-spark text-white py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold">
+                    Explore Solution
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Performance Metrics -->
+<section class="py-20 bg-gradient-to-br from-gray-900 to-premium text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                Proven <span class="text-accent">Performance</span>
+            </h2>
+            <p class="text-xl text-gray-300">
+                Numbers that speak louder than words - real results for real businesses
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center glass-multi rounded-2xl p-8 premium-shadow">
+                <div class="text-4xl lg:text-5xl font-bold text-accent mb-2 animate-pulse">99.9%</div>
+                <div class="text-lg font-semibold mb-2">Uptime</div>
+                <div class="text-sm text-gray-300">Enterprise-grade reliability</div>
+            </div>
+
+            <div class="text-center glass-multi rounded-2xl p-8 premium-shadow">
+                <div class="text-4xl lg:text-5xl font-bold text-spark mb-2 animate-pulse">2.5x</div>
+                <div class="text-lg font-semibold mb-2">ROI Increase</div>
+                <div class="text-sm text-gray-300">Average client improvement</div>
+            </div>
+
+            <div class="text-center glass-multi rounded-2xl p-8 premium-shadow">
+                <div class="text-4xl lg:text-5xl font-bold text-success mb-2 animate-pulse">500+</div>
+                <div class="text-lg font-semibold mb-2">Enterprises</div>
+                <div class="text-sm text-gray-300">Trust our solutions</div>
+            </div>
+
+            <div class="text-center glass-multi rounded-2xl p-8 premium-shadow">
+                <div class="text-4xl lg:text-5xl font-bold text-secondary mb-2 animate-pulse">24/7</div>
+                <div class="text-lg font-semibold mb-2">Support</div>
+                <div class="text-sm text-gray-300">Expert assistance always</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Client Testimonials -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                What Industry Leaders <span class="text-gradient">Say</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-multi rounded-2xl p-8 premium-shadow border border-primary/20">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">JS</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold">John Smith</div>
+                        <div class="text-sm text-gray-600">CEO, TechCorp</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    "Multi transformed our entire business operation. The ROI was immediate and the scalability is incredible. Best investment we've made."
+                </p>
+                <div class="flex text-accent">★★★★★</div>
+            </div>
+
+            <div class="glass-multi rounded-2xl p-8 premium-shadow border border-secondary/20">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-secondary to-spark rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">MJ</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Maria Johnson</div>
+                        <div class="text-sm text-gray-600">CTO, Innovation Labs</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    "The automation features alone saved us 40 hours per week. The analytics provide insights we never had before."
+                </p>
+                <div class="flex text-accent">★★★★★</div>
+            </div>
+
+            <div class="glass-multi rounded-2xl p-8 premium-shadow border border-accent/20">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-accent to-spark rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold">RD</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Robert Davis</div>
+                        <div class="text-sm text-gray-600">Founder, StartupNext</div>
+                    </div>
+                </div>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    "From startup to enterprise in 18 months. Multi's solutions scaled perfectly with our rapid growth."
+                </p>
+                <div class="flex text-accent">★★★★★</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 spark-gradient text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl lg:text-6xl font-bold mb-8">
+            Ready to <span class="text-accent">Spark</span> Your Success?
+        </h2>
+        <p class="text-xl lg:text-2xl mb-12 text-gray-200">
+            Join 500+ enterprises that trust Multi for their business transformation
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+            <button class="bg-white text-premium px-12 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105">
+                🚀 START FREE TRIAL
+            </button>
+            <button class="glass-multi border-2 border-white/30 px-12 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition-all">
+                📞 SCHEDULE DEMO
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Footer -->
+<footer class="bg-premium text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div class="md:col-span-2">
+                <h4 class="text-3xl font-bold mb-6">
+                    <span class="text-gradient">MULTI</span>
+                    <span class="text-spark animate-spark">⚡</span>
+                </h4>
+                <p class="text-gray-300 mb-8">
+                    Empowering businesses worldwide with comprehensive multi-purpose solutions that drive growth, efficiency, and success.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <span class="text-sm font-bold">in</span>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center hover:bg-purple-700 transition-colors">
+                        <span class="text-sm font-bold">tw</span>
+                    </a>
+                    <a href="#" class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center hover:bg-amber-600 transition-colors">
+                        <span class="text-sm font-bold">fb</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-6">Solutions</h5>
+                <ul class="space-y-3 text-gray-300">
+                    <li><a href="#" class="hover:text-primary transition-colors">Business Management</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">Growth Analytics</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">Automation Suite</a></li>
+                    <li><a href="#" class="hover:text-primary transition-colors">Enterprise Security</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-6">Enterprise</h5>
+                <ul class="space-y-3 text-gray-300">
+                    <li><a href="#" class="hover:text-secondary transition-colors">Custom Solutions</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">API Documentation</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">White Label</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">Partnerships</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold mb-6">Support</h5>
+                <ul class="space-y-3 text-gray-300">
+                    <li><a href="#" class="hover:text-accent transition-colors">24/7 Support</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors">Knowledge Base</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors">Training</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors">Status Page</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p class="text-gray-400">
+                &copy; 2025 Multi by Mile High Themes. All rights reserved. Enterprise-grade solutions for ambitious businesses.
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

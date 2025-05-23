@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Tech - Where Excellence Meets Innovation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        .prestige-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .prestige-sans {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .prestige-gradient {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #111827 100%);
+        }
+
+        .gold-accent {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        }
+
+        .prestige-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prestige-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .premium-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .elegant-hover:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        .prestige-shadow {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .luxury-border {
+            border: 1px solid;
+            border-image: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706) 1;
+        }
+
+        .category-overlay {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .premium-button {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .premium-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            z-index: -1;
+        }
+
+        .premium-button:hover {
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            transform: translateY(-2px);
+        }
+
+        .prestige-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .versatile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .masonry-grid {
+            columns: 3;
+            column-gap: 2rem;
+            break-inside: avoid;
+        }
+
+        @media (max-width: 768px) {
+            .masonry-grid {
+                columns: 1;
+            }
+        }
+
+        .premium-text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .elegant-underline {
+            position: relative;
+        }
+
+        .elegant-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            transition: width 0.3s ease;
+        }
+
+        .elegant-underline:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 prestige-sans">
+<!-- Premium Header -->
+<header class="bg-white prestige-shadow relative z-50">
+    <!-- Luxury Top Bar -->
+    <div class="prestige-gradient text-white py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center text-sm">
+                <div class="flex items-center space-x-6">
+                        <span class="flex items-center">
+                            <i class="fas fa-crown mr-2 text-yellow-400"></i>
+                            Exclusive Premium Collection
+                        </span>
+                    <span class="flex items-center">
+                            <i class="fas fa-shield-alt mr-2"></i>
+                            Lifetime Warranty Available
+                        </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span>Concierge: 1-800-PRESTIGE</span>
+                    <span class="text-gray-300">|</span>
+                    <a href="#" class="elegant-underline">VIP Members</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex items-center justify-between">
+            <!-- Elegant Logo -->
+            <div class="flex items-center">
+                <div class="gold-accent w-12 h-12 rounded-lg flex items-center justify-center mr-4 prestige-shadow">
+                    <i class="fas fa-gem text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold prestige-serif text-gray-800">Prestige Tech</h1>
+                    <span class="text-sm text-gray-600 tracking-wide">Premium Electronics Curated</span>
+                </div>
+            </div>
+
+            <!-- Sophisticated Search -->
+            <div class="flex-1 max-w-2xl mx-8">
+                <div class="relative">
+                    <input type="text" placeholder="Search premium electronics and accessories..."
+                           class="w-full px-6 py-4 text-gray-700 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-yellow-400 premium-transition bg-white prestige-shadow">
+                    <button class="absolute right-3 top-3 gold-accent text-white p-2 rounded-lg premium-transition hover:scale-105">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Premium Actions -->
+            <div class="flex items-center space-x-8">
+                <div class="text-center cursor-pointer premium-transition elegant-hover">
+                    <i class="fas fa-user-crown text-2xl text-gray-700"></i>
+                    <div class="text-xs text-gray-600 mt-1">VIP Account</div>
+                </div>
+                <div class="text-center cursor-pointer premium-transition elegant-hover relative">
+                    <i class="fas fa-heart text-2xl text-gray-700"></i>
+                    <div class="text-xs text-gray-600 mt-1">Curated</div>
+                    <span class="absolute -top-1 -right-1 prestige-badge text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+                </div>
+                <div class="text-center cursor-pointer premium-transition elegant-hover relative">
+                    <i class="fas fa-shopping-bag text-2xl text-gray-700"></i>
+                    <div class="text-xs text-gray-600 mt-1">Collection</div>
+                    <span class="absolute -top-1 -right-1 prestige-gradient text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elegant Navigation -->
+    <nav class="bg-gray-50 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <ul class="flex items-center justify-center space-x-12 py-4">
+                <li><a href="#" class="elegant-underline text-gray-700 hover:text-gray-900 font-medium prestige-serif">Collections</a></li>
+                <li><a href="#" class="elegant-underline text-gray-700 hover:text-gray-900 font-medium prestige-serif">Audio Excellence</a></li>
+                <li><a href="#" class="elegant-underline text-gray-700 hover:text-gray-900 font-medium prestige-serif">Gaming Elite</a></li>
+                <li><a href="#" class="elegant-underline text-gray-700 hover:text-gray-900 font-medium prestige-serif">Professional Series</a></li>
+                <li><a href="#" class="elegant-underline text-gray-700 hover:text-gray-900 font-medium prestige-serif">Limited Edition</a></li>
+                <li><a href="#" class="elegant-underline text-yellow-600 hover:text-yellow-700 font-medium prestige-serif">Exclusive Sale</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero Section - Premium -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Premium Background -->
+    <div class="absolute inset-0 prestige-gradient">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&h=1080&fit=crop"
+             alt="Luxury Tech Setup" class="w-full h-full object-cover opacity-30">
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
+        <div class="prestige-badge text-gray-800 px-6 py-2 rounded-full text-sm font-semibold inline-block mb-8">
+            <i class="fas fa-star mr-2"></i>Premium Collection 2025
+        </div>
+        <h2 class="text-6xl md:text-8xl font-bold prestige-serif mb-8 leading-tight premium-text-shadow">
+            Where Excellence<br>
+            <span class="text-yellow-400">Meets Innovation</span>
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-200 mb-12 font-light max-w-3xl mx-auto leading-relaxed">
+            Discover our meticulously curated collection of premium computer accessories, designed for those who demand nothing but the finest.
+        </p>
+        <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-8">
+            <button class="premium-button text-white px-10 py-4 rounded-xl font-semibold text-lg premium-transition">
+                Explore Collection
+            </button>
+            <button class="border-2 border-yellow-400 text-yellow-400 px-10 py-4 rounded-xl font-semibold text-lg premium-transition hover:bg-yellow-400 hover:text-gray-800">
+                VIP Membership
+            </button>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<!-- Versatile Product Categories -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h3 class="text-4xl font-bold prestige-serif text-gray-800 mb-6">Curated Categories</h3>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto font-light">
+                Each category represents the pinnacle of design and performance, carefully selected for the discerning professional.
+            </p>
+        </div>
+
+        <!-- Versatile Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Audio Excellence -->
+            <div class="prestige-card rounded-2xl overflow-hidden group cursor-pointer">
+                <div class="relative h-80">
+                    <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=600&fit=crop"
+                         alt="Premium Audio" class="w-full h-full object-cover group-hover:scale-110 premium-transition">
+                    <div class="absolute inset-0 category-overlay group-hover:bg-opacity-60 premium-transition">
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <div class="prestige-badge text-gray-800 px-4 py-2 rounded-full text-sm font-semibold inline-block mb-4">
+                                Premium Audio
+                            </div>
+                            <h4 class="text-3xl font-bold text-white prestige-serif mb-3">Audio Excellence</h4>
+                            <p class="text-gray-200 mb-6">Immersive sound experiences from the world's finest brands</p>
+                            <div class="flex items-center text-yellow-400 font-semibold">
+                                <span>Discover Collection</span>
+                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 premium-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gaming Elite -->
+            <div class="prestige-card rounded-2xl overflow-hidden group cursor-pointer">
+                <div class="relative h-80">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&h=600&fit=crop"
+                         alt="Elite Gaming" class="w-full h-full object-cover group-hover:scale-110 premium-transition">
+                    <div class="absolute inset-0 category-overlay group-hover:bg-opacity-60 premium-transition">
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <div class="prestige-badge text-gray-800 px-4 py-2 rounded-full text-sm font-semibold inline-block mb-4">
+                                Gaming Elite
+                            </div>
+                            <h4 class="text-3xl font-bold text-white prestige-serif mb-3">Gaming Elite</h4>
+                            <p class="text-gray-200 mb-6">Professional-grade gaming peripherals for competitive excellence</p>
+                            <div class="flex items-center text-yellow-400 font-semibold">
+                                <span>Explore Arsenal</span>
+                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 premium-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Series -->
+            <div class="prestige-card rounded-2xl overflow-hidden group cursor-pointer">
+                <div class="relative h-80">
+                    <img src="https://images.unsplash.com/photo-1541807084-5b52b6ee5e1f?w=500&h=600&fit=crop"
+                         alt="Professional Setup" class="w-full h-full object-cover group-hover:scale-110 premium-transition">
+                    <div class="absolute inset-0 category-overlay group-hover:bg-opacity-60 premium-transition">
+                        <div class="absolute bottom-8 left-8 right-8">
+                            <div class="prestige-badge text-gray-800 px-4 py-2 rounded-full text-sm font-semibold inline-block mb-4">
+                                Professional
+                            </div>
+                            <h4 class="text-3xl font-bold text-white prestige-serif mb-3">Professional Series</h4>
+                            <p class="text-gray-200 mb-6">Executive-grade accessories for the modern workspace</p>
+                            <div class="flex items-center text-yellow-400 font-semibold">
+                                <span>View Series</span>
+                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 premium-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Product Showcase -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h3 class="text-4xl font-bold prestige-serif text-gray-800 mb-6">Signature Collection</h3>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto font-light">
+                Handpicked premium accessories that define excellence in their respective categories.
+            </p>
+        </div>
+
+        <!-- Versatile Product Grid -->
+        <div class="versatile-grid">
+            <!-- Featured Product 1 -->
+            <div class="prestige-card rounded-2xl overflow-hidden group">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=350&fit=crop"
+                         alt="Luxury Mouse" class="w-full h-64 object-cover group-hover:scale-105 premium-transition">
+                    <div class="absolute top-4 left-4">
+                        <span class="prestige-badge text-gray-800 px-3 py-1 text-sm rounded-full">Signature</span>
+                    </div>
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 premium-transition">
+                        <button class="bg-white text-gray-700 hover:text-red-500 w-10 h-10 rounded-full flex items-center justify-center prestige-shadow premium-transition">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-yellow-600 font-semibold">Logitech</span>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold prestige-serif text-gray-800 mb-3">MX Master 3S Signature</h4>
+                    <p class="text-gray-600 text-sm mb-4 font-light">Ultimate precision and comfort for creative professionals</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="text-2xl font-bold text-gray-800">$169</span>
+                            <span class="text-sm text-gray-500 line-through ml-2">$199</span>
+                        </div>
+                        <span class="text-sm text-green-600 font-semibold">VIP Price</span>
+                    </div>
+                    <button class="w-full premium-button text-white py-3 rounded-xl font-semibold premium-transition">
+                        Add to Collection
+                    </button>
+                </div>
+            </div>
+
+            <!-- Featured Product 2 -->
+            <div class="prestige-card rounded-2xl overflow-hidden group">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=350&fit=crop"
+                         alt="Premium Keyboard" class="w-full h-64 object-cover group-hover:scale-105 premium-transition">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 text-sm rounded-full">Limited</span>
+                    </div>
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 premium-transition">
+                        <button class="bg-white text-gray-700 hover:text-red-500 w-10 h-10 rounded-full flex items-center justify-center prestige-shadow premium-transition">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-yellow-600 font-semibold">Keychron</span>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold prestige-serif text-gray-800 mb-3">K8 Pro Wireless</h4>
+                    <p class="text-gray-600 text-sm mb-4 font-light">Artisan-crafted mechanical excellence with premium switches</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-2xl font-bold text-gray-800">$299</span>
+                        <span class="text-sm text-purple-600 font-semibold">Only 50 Left</span>
+                    </div>
+                    <button class="w-full premium-button text-white py-3 rounded-xl font-semibold premium-transition">
+                        Reserve Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Featured Product 3 -->
+            <div class="prestige-card rounded-2xl overflow-hidden group">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=350&fit=crop"
+                         alt="Premium Storage" class="w-full h-64 object-cover group-hover:scale-105 premium-transition">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-green-600 text-white px-3 py-1 text-sm rounded-full">New</span>
+                    </div>
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 premium-transition">
+                        <button class="bg-white text-gray-700 hover:text-red-500 w-10 h-10 rounded-full flex items-center justify-center prestige-shadow premium-transition">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-yellow-600 font-semibold">Samsung</span>
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-semibold prestige-serif text-gray-800 mb-3">T9 Portable SSD 4TB</h4>
+                    <p class="text-gray-600 text-sm mb-4 font-light">Enterprise-grade storage with titanium finish</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-2xl font-bold text-gray-800">$649</span>
+                        <span class="text-sm text-green-600 font-semibold">Just Arrived</span>
+                    </div>
+                    <button class="w-full premium-button text-white py-3 rounded-xl font-semibold premium-transition">
+                        Add to Collection
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Prestige Benefits -->
+<section class="py-20 prestige-gradient text-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h3 class="text-4xl font-bold prestige-serif mb-6">The Prestige Experience</h3>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto font-light">
+                Elevate your standards with exclusive benefits designed for our distinguished clientele.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="text-center group">
+                <div class="gold-accent w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 premium-transition prestige-shadow">
+                    <i class="fas fa-concierge-bell text-white text-2xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold prestige-serif mb-4">Concierge Service</h4>
+                <p class="text-gray-300 font-light leading-relaxed">
+                    Personal shopping assistance and expert recommendations tailored to your unique requirements and preferences.
+                </p>
+            </div>
+
+            <div class="text-center group">
+                <div class="gold-accent w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 premium-transition prestige-shadow">
+                    <i class="fas fa-shipping-fast text-white text-2xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold prestige-serif mb-4">White Glove Delivery</h4>
+                <p class="text-gray-300 font-light leading-relaxed">
+                    Complimentary premium delivery with professional setup and configuration by certified technicians.
+                </p>
+            </div>
+
+            <div class="text-center group">
+                <div class="gold-accent w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 premium-transition prestige-shadow">
+                    <i class="fas fa-crown text-white text-2xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold prestige-serif mb-4">VIP Membership</h4>
+                <p class="text-gray-300 font-light leading-relaxed">
+                    Exclusive access to limited editions, early releases, and member-only pricing on premium collections.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter & VIP -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-gradient-to-r from-gray-50 to-gray-100 rounded-3xl p-12 text-center prestige-shadow">
+            <h3 class="text-3xl font-bold prestige-serif text-gray-800 mb-4">Join the Inner Circle</h3>
+            <p class="text-xl text-gray-600 mb-8 font-light">
+                Receive exclusive insights, early access, and curated recommendations from our experts.
+            </p>
+            <div class="flex flex-col md:flex-row max-w-lg mx-auto gap-4">
+                <input type="email" placeholder="Enter your email address"
+                       class="flex-1 px-6 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-yellow-400 premium-transition">
+                <button class="premium-button text-white px-8 py-4 rounded-xl font-semibold premium-transition whitespace-nowrap">
+                    Join VIP
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mt-4">Exclusive benefits • Priority access • Expert curation</p>
+        </div>
+    </div>
+</section>
+
+<!-- Elegant Footer -->
+<footer class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-2">
+                <div class="flex items-center mb-6">
+                    <div class="gold-accent w-12 h-12 rounded-lg flex items-center justify-center mr-4 prestige-shadow">
+                        <i class="fas fa-gem text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold prestige-serif">Prestige Tech</h4>
+                        <span class="text-sm text-gray-400">Premium Electronics Curated</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 font-light mb-8 max-w-md leading-relaxed">
+                    Curating the world's finest computer accessories and electronics for discerning professionals who demand excellence in every detail.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-yellow-400 premium-transition">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-400 premium-transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-400 premium-transition">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-yellow-400 premium-transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-semibold prestige-serif mb-6 text-lg">Collections</h5>
+                <ul class="space-y-3 text-gray-400 font-light">
+                    <li><a href="#" class="elegant-underline hover:text-white">Audio Excellence</a></li>
+                    <li><a href="#" class="elegant-underline hover:text-white">Gaming Elite</a></li>
+                    <li><a href="#" class="elegant-underline hover:text-white">Professional Series</a></li>
+                    <li><a href="#" class="elegant-underline hover:text-white">Limited Edition</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold prestige-serif mb-6 text-lg">VIP Services</h5>
+                <ul class="space-y-3 text-gray-400 font-light">
+                    <li><a href="#" class="elegant-underline hover:text-white">Concierge Service</a></li>
+                    <li><a href="#" class="elegant-underline hover:text-white">White Glove Delivery</a></li>
+                    <li><a href="#" class="elegant-underline hover:text-white">Expert Consultation</a></li>
+                    <li><a href="#" class="elegant-underline hover:text-white">Member Benefits</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p class="text-gray-400 font-light">&copy; 2025 Prestige Tech. Where excellence meets innovation.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

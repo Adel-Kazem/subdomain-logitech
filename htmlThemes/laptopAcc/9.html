@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMotion - Premium Computer Accessories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .smooth-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .video-overlay {
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .slide-in-bottom {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-in-bottom.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .product-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+<!-- Header -->
+<header class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-bolt text-white text-sm"></i>
+                </div>
+                <h1 class="text-2xl font-bold gradient-text">TechMotion</h1>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="text-white/80 hover:text-white smooth-transition">Products</a>
+                <a href="#" class="text-white/80 hover:text-white smooth-transition">Collections</a>
+                <a href="#" class="text-white/80 hover:text-white smooth-transition">Gaming</a>
+                <a href="#" class="text-white/80 hover:text-white smooth-transition">Professional</a>
+                <a href="#" class="text-white/80 hover:text-white smooth-transition">About</a>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-6">
+                <i class="fas fa-search text-white/80 hover:text-white cursor-pointer smooth-transition"></i>
+                <i class="fas fa-user text-white/80 hover:text-white cursor-pointer smooth-transition"></i>
+                <div class="relative">
+                    <i class="fas fa-shopping-bag text-white/80 hover:text-white cursor-pointer smooth-transition"></i>
+                    <span class="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Video Section -->
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Video Background Placeholder -->
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-black">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&h=1080&fit=crop"
+             alt="Tech Setup" class="w-full h-full object-cover opacity-40">
+    </div>
+
+    <!-- Video Play Button -->
+    <div class="absolute inset-0 video-overlay flex items-center justify-center">
+        <div class="glass-effect rounded-full p-8 cursor-pointer hover-scale smooth-transition floating-animation">
+            <i class="fas fa-play text-4xl text-white"></i>
+        </div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+        <h2 class="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+            <span class="gradient-text">Experience</span><br>
+            <span class="text-white">Innovation</span>
+        </h2>
+        <p class="text-xl md:text-2xl text-white/80 mb-8 font-light">
+            Discover premium computer accessories that transform your workspace into a masterpiece
+        </p>
+        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
+            <button class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover-lift smooth-transition">
+                Explore Collection
+            </button>
+            <button class="glass-effect text-white px-8 py-4 rounded-full font-semibold hover-lift smooth-transition">
+                Watch Story
+            </button>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 floating-animation">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<!-- Product Showcase -->
+<section class="py-20 bg-gradient-to-b from-black to-gray-900">
+    <div class="container mx-auto px-4">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h3 class="text-5xl font-bold gradient-text mb-4">Featured Products</h3>
+            <p class="text-xl text-white/60 max-w-2xl mx-auto">
+                Each product is crafted with precision, designed for performance, and built to inspire
+            </p>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Product 1 - Large Featured -->
+            <div class="md:col-span-2 lg:col-span-1 lg:row-span-2">
+                <div class="product-card rounded-3xl overflow-hidden hover-lift smooth-transition h-full">
+                    <div class="relative h-80 lg:h-full">
+                        <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&h=800&fit=crop"
+                             alt="Premium Gaming Mouse" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                            <div class="absolute bottom-6 left-6 right-6">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm">Featured</span>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star text-sm"></i>
+                                        <i class="fas fa-star text-sm"></i>
+                                        <i class="fas fa-star text-sm"></i>
+                                        <i class="fas fa-star text-sm"></i>
+                                        <i class="fas fa-star text-sm"></i>
+                                    </div>
+                                </div>
+                                <h4 class="text-2xl font-bold text-white mb-2">Pro Gaming Mouse X1</h4>
+                                <p class="text-white/80 mb-4">Ultra-precision sensor with RGB lighting</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-2xl font-bold text-white">$159.99</span>
+                                    <button class="bg-white text-black px-6 py-2 rounded-full font-semibold hover-scale smooth-transition">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card rounded-3xl overflow-hidden hover-lift smooth-transition">
+                <div class="relative h-64">
+                    <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=300&fit=crop"
+                         alt="Mechanical Keyboard" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h4 class="text-xl font-bold text-white mb-1">Mechanical Pro</h4>
+                            <p class="text-white/70 text-sm mb-2">Cherry MX switches</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-white">$199.99</span>
+                                <i class="fas fa-heart text-white/60 hover:text-red-500 cursor-pointer smooth-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card rounded-3xl overflow-hidden hover-lift smooth-transition">
+                <div class="relative h-64">
+                    <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop"
+                         alt="Wireless Headphones" class="w-full h-full object-cover">
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">New</span>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h4 class="text-xl font-bold text-white mb-1">Studio Headphones</h4>
+                            <p class="text-white/70 text-sm mb-2">Noise cancelling</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-white">$349.99</span>
+                                <i class="fas fa-heart text-white/60 hover:text-red-500 cursor-pointer smooth-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card rounded-3xl overflow-hidden hover-lift smooth-transition">
+                <div class="relative h-64">
+                    <img src="https://images.unsplash.com/photo-1624823183493-ed5832f48f18?w=400&h=300&fit=crop"
+                         alt="USB Hub" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h4 class="text-xl font-bold text-white mb-1">USB-C Hub Pro</h4>
+                            <p class="text-white/70 text-sm mb-2">10-in-1 connectivity</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-white">$89.99</span>
+                                <i class="fas fa-heart text-white/60 hover:text-red-500 cursor-pointer smooth-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card rounded-3xl overflow-hidden hover-lift smooth-transition">
+                <div class="relative h-64">
+                    <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=300&fit=crop"
+                         alt="4K Webcam" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h4 class="text-xl font-bold text-white mb-1">4K Webcam</h4>
+                            <p class="text-white/70 text-sm mb-2">Ultra HD streaming</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-white">$129.99</span>
+                                <i class="fas fa-heart text-white/60 hover:text-red-500 cursor-pointer smooth-transition"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20"></div>
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h3 class="text-5xl font-bold mb-6">
+                    <span class="gradient-text">Immersive</span><br>
+                    <span class="text-white">Experience</span>
+                </h3>
+                <p class="text-xl text-white/70 mb-8 leading-relaxed">
+                    Every product is designed to enhance your digital lifestyle. From precision gaming to professional productivity, our accessories deliver unmatched performance and style.
+                </p>
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-rocket text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white">Performance Driven</h4>
+                            <p class="text-white/60">Engineered for speed and precision</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-palette text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white">Premium Design</h4>
+                            <p class="text-white/60">Aesthetics that inspire creativity</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white">Built to Last</h4>
+                            <p class="text-white/60">Quality that stands the test of time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="glass-effect rounded-3xl p-8 hover-lift smooth-transition">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop"
+                         alt="Workspace Setup" class="rounded-2xl w-full">
+                </div>
+                <!-- Floating Elements -->
+                <div class="absolute -top-4 -right-4 glass-effect rounded-2xl p-4 floating-animation">
+                    <i class="fas fa-mouse text-2xl text-white"></i>
+                </div>
+                <div class="absolute -bottom-4 -left-4 glass-effect rounded-2xl p-4 floating-animation" style="animation-delay: -2s;">
+                    <i class="fas fa-keyboard text-2xl text-white"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Collection Showcase -->
+<section class="py-20 bg-gradient-to-b from-gray-900 to-black">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h3 class="text-5xl font-bold gradient-text mb-4">Collections</h3>
+            <p class="text-xl text-white/60 max-w-2xl mx-auto">
+                Curated sets designed for specific needs and lifestyles
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Gaming Collection -->
+            <div class="relative group overflow-hidden rounded-3xl hover-lift smooth-transition">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=500&fit=crop"
+                     alt="Gaming Collection" class="w-full h-80 object-cover group-hover:scale-110 smooth-transition">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 to-transparent">
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <h4 class="text-2xl font-bold text-white mb-2">Gaming Elite</h4>
+                        <p class="text-white/80 mb-4">Professional gaming peripherals</p>
+                        <button class="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover-scale smooth-transition">
+                            Explore Gaming
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Collection -->
+            <div class="relative group overflow-hidden rounded-3xl hover-lift smooth-transition">
+                <img src="https://images.unsplash.com/photo-1541807084-5b52b6ee5e1f?w=400&h=500&fit=crop"
+                     alt="Professional Collection" class="w-full h-80 object-cover group-hover:scale-110 smooth-transition">
+                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent">
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <h4 class="text-2xl font-bold text-white mb-2">Professional</h4>
+                        <p class="text-white/80 mb-4">Productivity-focused accessories</p>
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover-scale smooth-transition">
+                            Explore Pro
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creator Collection -->
+            <div class="relative group overflow-hidden rounded-3xl hover-lift smooth-transition">
+                <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400&h=500&fit=crop"
+                     alt="Creator Collection" class="w-full h-80 object-cover group-hover:scale-110 smooth-transition">
+                <div class="absolute inset-0 bg-gradient-to-t from-pink-900/80 to-transparent">
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <h4 class="text-2xl font-bold text-white mb-2">Creator Studio</h4>
+                        <p class="text-white/80 mb-4">Content creation essentials</p>
+                        <button class="bg-pink-600 text-white px-6 py-2 rounded-full font-semibold hover-scale smooth-transition">
+                            Explore Creator
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600"></div>
+    <div class="container mx-auto px-4 relative z-10 text-center">
+        <h3 class="text-4xl font-bold text-white mb-4">Stay in Motion</h3>
+        <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+            Be the first to discover new products, exclusive launches, and behind-the-scenes content
+        </p>
+        <div class="max-w-md mx-auto flex">
+            <input type="email" placeholder="Enter your email"
+                   class="flex-1 px-6 py-4 rounded-l-full bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30">
+            <button class="bg-white text-purple-600 px-8 py-4 rounded-r-full font-semibold hover-scale smooth-transition">
+                Join
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-20 opacity-20 floating-animation">
+        <i class="fas fa-mouse text-6xl text-white"></i>
+    </div>
+    <div class="absolute bottom-20 right-20 opacity-20 floating-animation" style="animation-delay: -3s;">
+        <i class="fas fa-headphones text-6xl text-white"></i>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black py-16 border-t border-white/10">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center space-x-2 mb-6">
+                    <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-bolt text-white text-sm"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold gradient-text">TechMotion</h4>
+                </div>
+                <p class="text-white/60 mb-6 max-w-md">
+                    Redefining the future of computer accessories with innovative design and cutting-edge technology.
+                </p>
+                <div class="flex space-x-4">
+                    <i class="fab fa-instagram text-2xl text-white/60 hover:text-white cursor-pointer smooth-transition"></i>
+                    <i class="fab fa-twitter text-2xl text-white/60 hover:text-white cursor-pointer smooth-transition"></i>
+                    <i class="fab fa-youtube text-2xl text-white/60 hover:text-white cursor-pointer smooth-transition"></i>
+                    <i class="fab fa-dribbble text-2xl text-white/60 hover:text-white cursor-pointer smooth-transition"></i>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="font-semibold text-white mb-4">Products</h5>
+                <ul class="space-y-2 text-white/60">
+                    <li><a href="#" class="hover:text-white smooth-transition">Gaming</a></li>
+                    <li><a href="#" class="hover:text-white smooth-transition">Professional</a></li>
+                    <li><a href="#" class="hover:text-white smooth-transition">Creator</a></li>
+                    <li><a href="#" class="hover:text-white smooth-transition">Accessories</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="font-semibold text-white mb-4">Support</h5>
+                <ul class="space-y-2 text-white/60">
+                    <li><a href="#" class="hover:text-white smooth-transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white smooth-transition">Contact</a></li>
+                    <li><a href="#" class="hover:text-white smooth-transition">Warranty</a></li>
+                    <li><a href="#" class="hover:text-white smooth-transition">Returns</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 mt-12 pt-8 text-center text-white/40">
+            <p>&copy; 2025 TechMotion. All rights reserved. Designed with motion in mind.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

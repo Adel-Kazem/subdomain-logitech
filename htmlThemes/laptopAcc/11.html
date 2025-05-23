@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essential Tech - Minimalist Computer Accessories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .essentials-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+        }
+        .minimal-hover {
+            transition: all 0.2s ease;
+        }
+        .minimal-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .clean-animation {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .minimal-border {
+            border: 1px solid #e5e7eb;
+        }
+        .essentials-focus:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .product-image {
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+        .clean-typography {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white clean-typography">
+<!-- Clean Header (Essentials Feature) -->
+<header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <!-- Top Bar -->
+    <div class="bg-gray-50 text-sm">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex justify-between items-center text-gray-600">
+                <div class="flex space-x-6">
+                    <span>Free shipping on orders over $50</span>
+                    <span>30-day returns</span>
+                </div>
+                <div class="flex space-x-4">
+                    <select class="bg-transparent text-sm">
+                        <option>USD</option>
+                        <option>EUR</option>
+                        <option>GBP</option>
+                    </select>
+                    <select class="bg-transparent text-sm">
+                        <option>EN</option>
+                        <option>FR</option>
+                        <option>DE</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex items-center justify-between">
+            <!-- Minimal Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl font-light text-gray-900 tracking-wide">Essential Tech</h1>
+            </div>
+
+            <!-- Clean Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-700 hover:text-gray-900 font-light transition">Home</a>
+                <a href="#" class="text-gray-700 hover:text-gray-900 font-light transition">Products</a>
+                <a href="#" class="text-gray-700 hover:text-gray-900 font-light transition">Collections</a>
+                <a href="#" class="text-gray-700 hover:text-gray-900 font-light transition">About</a>
+                <a href="#" class="text-gray-700 hover:text-gray-900 font-light transition">Contact</a>
+            </nav>
+
+            <!-- Minimal Actions -->
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-600 hover:text-gray-900 transition">
+                    <i class="fas fa-search text-lg"></i>
+                </button>
+                <button class="text-gray-600 hover:text-gray-900 transition relative">
+                    <i class="fas fa-heart text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-gray-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">2</span>
+                </button>
+                <button class="text-gray-600 hover:text-gray-900 transition relative">
+                    <i class="fas fa-shopping-bag text-lg"></i>
+                    <span class="absolute -top-2 -right-2 bg-gray-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">1</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Overlay (Essentials Feature) -->
+    <div class="hidden absolute top-full left-0 right-0 bg-white border-b border-gray-100 p-6" id="search-overlay">
+        <div class="container mx-auto">
+            <div class="max-w-2xl mx-auto">
+                <input type="text" placeholder="Search for products..."
+                       class="w-full text-2xl font-light border-none outline-none bg-transparent">
+                <div class="mt-4 text-sm text-gray-500">
+                    Popular searches: wireless mouse, mechanical keyboard, usb hub
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Minimal Hero Section (Essentials Feature) -->
+<section class="essentials-gradient py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center clean-animation">
+            <h2 class="text-5xl md:text-6xl font-light text-gray-900 mb-6 tracking-tight">
+                Essential Tech
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 font-light max-w-2xl mx-auto">
+                Carefully curated computer accessories that enhance your workspace with minimal design and maximum functionality.
+            </p>
+            <button class="bg-gray-900 text-white px-8 py-3 font-light tracking-wide hover:bg-gray-800 transition">
+                Explore Collection
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Clean Product Categories (Essentials Feature) -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-light text-gray-900 mb-4">Categories</h2>
+            <p class="text-gray-600 font-light">Essential accessories for modern computing</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center minimal-hover">
+                <div class="bg-gray-50 aspect-square rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-mouse text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-light text-gray-900 mb-2">Pointing Devices</h3>
+                <p class="text-gray-600 text-sm font-light">Precision mice and trackpads</p>
+            </div>
+            <div class="text-center minimal-hover">
+                <div class="bg-gray-50 aspect-square rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-keyboard text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-light text-gray-900 mb-2">Input Devices</h3>
+                <p class="text-gray-600 text-sm font-light">Keyboards and accessories</p>
+            </div>
+            <div class="text-center minimal-hover">
+                <div class="bg-gray-50 aspect-square rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-usb text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-light text-gray-900 mb-2">Connectivity</h3>
+                <p class="text-gray-600 text-sm font-light">Hubs and adapters</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Product Grid (Essentials Feature) -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-light text-gray-900 mb-4">Featured Products</h2>
+            <p class="text-gray-600 font-light">Thoughtfully designed essentials</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Clean Product Card -->
+            <div class="bg-white minimal-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=300&fit=crop"
+                         alt="Minimal Wireless Mouse" class="product-image w-full">
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition">
+                        <button class="bg-white rounded-full p-2 shadow-sm">
+                            <i class="fas fa-heart text-gray-400 hover:text-red-500 transition"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-light text-gray-900 mb-2">Minimal Wireless Mouse</h3>
+                    <p class="text-gray-600 text-sm font-light mb-4">Precision engineered for daily use</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-light text-gray-900">$89</span>
+                        <button class="text-sm font-light text-gray-600 hover:text-gray-900 transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clean Product Card -->
+            <div class="bg-white minimal-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&h=300&fit=crop"
+                         alt="Essential Keyboard" class="product-image w-full">
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition">
+                        <button class="bg-white rounded-full p-2 shadow-sm">
+                            <i class="fas fa-heart text-gray-400 hover:text-red-500 transition"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-light text-gray-900 mb-2">Essential Keyboard</h3>
+                    <p class="text-gray-600 text-sm font-light mb-4">Tactile typing experience</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-light text-gray-900">$149</span>
+                        <button class="text-sm font-light text-gray-600 hover:text-gray-900 transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clean Product Card -->
+            <div class="bg-white minimal-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop"
+                         alt="USB-C Hub" class="product-image w-full">
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition">
+                        <button class="bg-white rounded-full p-2 shadow-sm">
+                            <i class="fas fa-heart text-gray-400 hover:text-red-500 transition"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-light text-gray-900 mb-2">USB-C Hub</h3>
+                    <p class="text-gray-600 text-sm font-light mb-4">Seamless connectivity solution</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-light text-gray-900">$79</span>
+                        <button class="text-sm font-light text-gray-600 hover:text-gray-900 transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clean Product Card -->
+            <div class="bg-white minimal-hover group">
+                <div class="relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=300&fit=crop"
+                         alt="Wireless Headphones" class="product-image w-full">
+                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition">
+                        <button class="bg-white rounded-full p-2 shadow-sm">
+                            <i class="fas fa-heart text-gray-400 hover:text-red-500 transition"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-light text-gray-900 mb-2">Wireless Headphones</h3>
+                    <p class="text-gray-600 text-sm font-light mb-4">Pure audio experience</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-lg font-light text-gray-900">$199</span>
+                        <button class="text-sm font-light text-gray-600 hover:text-gray-900 transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal Newsletter (Essentials Feature) -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl font-light text-gray-900 mb-4">Stay Essential</h2>
+            <p class="text-gray-600 font-light mb-8">
+                Subscribe to receive updates on new products and essential tech insights.
+            </p>
+            <div class="flex max-w-md mx-auto">
+                <input type="email" placeholder="Your email address"
+                       class="flex-1 px-4 py-3 minimal-border essentials-focus font-light">
+                <button class="bg-gray-900 text-white px-6 py-3 font-light hover:bg-gray-800 transition">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Clean Values Section (Essentials Feature) -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-leaf text-gray-600"></i>
+                </div>
+                <h3 class="text-lg font-light text-gray-900 mb-2">Sustainable</h3>
+                <p class="text-gray-600 font-light text-sm">
+                    Responsibly sourced materials and eco-friendly packaging
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-award text-gray-600"></i>
+                </div>
+                <h3 class="text-lg font-light text-gray-900 mb-2">Quality</h3>
+                <p class="text-gray-600 font-light text-sm">
+                    Rigorously tested products built to last
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-gray-600"></i>
+                </div>
+                <h3 class="text-lg font-light text-gray-900 mb-2">Thoughtful</h3>
+                <p class="text-gray-600 font-light text-sm">
+                    Designed with user experience at the forefront
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Minimal About Section (Essentials Feature) -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl font-light text-gray-900 mb-6">
+                    Essential by design
+                </h2>
+                <p class="text-gray-600 font-light mb-6 leading-relaxed">
+                    We believe in the power of simplicity. Every product in our collection is carefully selected
+                    for its essential function, minimal aesthetic, and lasting quality.
+                </p>
+                <p class="text-gray-600 font-light mb-8 leading-relaxed">
+                    From precision mice to elegant keyboards, each accessory is designed to enhance your
+                    computing experience without unnecessary complexity.
+                </p>
+                <button class="text-gray-900 font-light border-b border-gray-900 pb-1 hover:border-gray-600 transition">
+                    Learn more about our philosophy
+                </button>
+            </div>
+            <div class="bg-gray-100 aspect-square rounded-lg flex items-center justify-center">
+                <i class="fas fa-desktop text-6xl text-gray-400"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Clean Footer (Essentials Feature) -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-xl font-light mb-4">Essential Tech</h3>
+                <p class="text-gray-400 font-light text-sm leading-relaxed">
+                    Minimal computer accessories for the modern workspace.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-light mb-4">Products</h4>
+                <ul class="space-y-2 text-gray-400 font-light text-sm">
+                    <li><a href="#" class="hover:text-white transition">Mice</a></li>
+                    <li><a href="#" class="hover:text-white transition">Keyboards</a></li>
+                    <li><a href="#" class="hover:text-white transition">Audio</a></li>
+                    <li><a href="#" class="hover:text-white transition">Connectivity</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-light mb-4">Support</h4>
+                <ul class="space-y-2 text-gray-400 font-light text-sm">
+                    <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                    <li><a href="#" class="hover:text-white transition">FAQ</a></li>
+                    <li><a href="#" class="hover:text-white transition">Shipping</a></li>
+                    <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-light mb-4">Connect</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p class="text-gray-400 font-light text-sm">
+                © 2025 Essential Tech. All rights reserved.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Minimal Cart Drawer (Essentials Feature) -->
+<div class="fixed top-0 right-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50" id="cart-drawer">
+    <div class="p-6 border-b border-gray-100">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-light">Cart (1)</h3>
+            <button class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="p-6 flex-1">
+        <div class="space-y-6">
+            <div class="flex items-center space-x-4">
+                <img src="https://images.unsplash.com/photo-1527814050087-3793815479db?w=80&h=80&fit=crop"
+                     alt="Product" class="w-16 h-16 object-cover">
+                <div class="flex-1">
+                    <h4 class="font-light">Minimal Wireless Mouse</h4>
+                    <p class="text-sm text-gray-600 font-light">Quantity: 1</p>
+                    <p class="text-sm font-light">$89</p>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="p-6 border-t border-gray-100">
+        <div class="space-y-4">
+            <div class="flex justify-between font-light">
+                <span>Subtotal</span>
+                <span>$89</span>
+            </div>
+            <button class="w-full bg-gray-900 text-white py-3 font-light hover:bg-gray-800 transition">
+                Checkout
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
